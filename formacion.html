@@ -1,0 +1,1502 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Northcare | Consultoría y Formación Técnica</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-bg: #000000;
+            --color-bg-light: #111111;
+            --color-bg-card: #1a1a1a;
+            --color-white: #ffffff;
+            --color-gray: #888888;
+            --color-gray-light: #cccccc;
+            --color-accent: #00d4ff;
+            --color-accent-glow: rgba(0, 212, 255, 0.4);
+            --color-green: #00ff88;
+            --color-green-glow: rgba(0, 255, 136, 0.3);
+            --color-red: #ff4d4d;
+            --color-red-glow: rgba(255, 77, 77, 0.3);
+            --color-yellow: #ffcc00;
+            --color-yellow-glow: rgba(255, 204, 0, 0.3);
+            --font-main: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 17px;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background: var(--color-bg);
+            color: var(--color-white);
+            line-height: 1.7;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0,0,0,0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--color-white);
+            text-decoration: none;
+            line-height: 1;
+        }
+
+        .nav-desktop { display: flex; gap: 2rem; align-items: center; }
+        .nav-link { color: var(--color-gray-light); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.3s ease; }
+        .nav-link:hover { color: var(--color-white); }
+        .nav-cta { background: var(--color-accent); color: var(--color-bg); padding: 0.75rem 1.5rem; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: all 0.3s ease; }
+        .nav-cta:hover { box-shadow: 0 0 20px var(--color-accent-glow); }
+        .nav-mobile-controls { display: none; align-items: center; gap: 1rem; }
+        .nav-call { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; background: var(--color-green); color: var(--color-bg); text-decoration: none; font-size: 1.25rem; border-radius: 50%; }
+        .hamburger { display: flex; flex-direction: column; justify-content: center; align-items: center; width: 44px; height: 44px; background: transparent; border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; cursor: pointer; gap: 5px; }
+        .hamburger span { display: block; width: 20px; height: 2px; background: var(--color-white); transition: all 0.3s ease; }
+        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+        .mobile-menu { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(0,0,0,0.98); z-index: 999; display: flex; flex-direction: column; padding: 6rem 2rem 2rem; transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); overflow-y: auto; }
+        .mobile-menu.active { transform: translateX(0); }
+        .mobile-menu-section { margin-bottom: 2rem; }
+        .mobile-menu-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--color-accent); margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .mobile-menu-links { display: flex; flex-direction: column; gap: 0.25rem; }
+        .mobile-menu-link { display: block; padding: 1rem 0; color: var(--color-white); text-decoration: none; font-size: 1.1rem; font-weight: 500; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .mobile-menu-link span { display: block; font-size: 0.8rem; color: var(--color-gray); font-weight: 400; margin-top: 0.25rem; }
+        .mobile-menu-contacto { margin-top: auto; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); display: flex; flex-direction: column; gap: 1rem; }
+        .mobile-menu-tel { display: flex; align-items: center; gap: 1rem; padding: 1rem; background: var(--color-bg-card); border: 1px solid rgba(0, 255, 136, 0.3); border-radius: 12px; text-decoration: none; color: var(--color-white); }
+        .mobile-menu-tel-icon { display: flex; align-items: center; justify-content: center; width: 48px; height: 48px; background: var(--color-green); color: var(--color-bg); border-radius: 50%; font-size: 1.25rem; }
+        .mobile-menu-tel-info { display: flex; flex-direction: column; }
+        .mobile-menu-tel-label { font-size: 0.75rem; color: var(--color-gray); text-transform: uppercase; }
+        .mobile-menu-tel-number { font-size: 1.25rem; font-weight: 700; }
+        @media (max-width: 900px) { .nav-desktop { display: none; } .nav-mobile-controls { display: flex; } }
+        @media (min-width: 901px) { .mobile-menu { display: none !important; } }
+
+        /* Section Base */
+        section {
+            padding: 6rem 5%;
+        }
+
+        .section-label {
+            display: inline-block;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--color-accent);
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: clamp(1.75rem, 4vw, 3rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .section-title .highlight {
+            color: var(--color-accent);
+            text-shadow: 0 0 20px var(--color-accent-glow);
+        }
+
+        .section-title .highlight-green {
+            color: var(--color-green);
+            text-shadow: 0 0 20px var(--color-green-glow);
+        }
+
+        .section-title .highlight-red {
+            color: var(--color-red);
+            text-shadow: 0 0 20px var(--color-red-glow);
+        }
+
+        /* ===================== */
+        /* A. HERO */
+        /* ===================== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 8rem 5% 5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--color-accent-glow) 0%, transparent 70%);
+            pointer-events: none;
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+        }
+
+        .hero-tag {
+            display: inline-block;
+            color: var(--color-accent);
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 7vw, 4.5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.03em;
+        }
+
+        .hero h1 .highlight {
+            color: var(--color-accent);
+            text-shadow: 0 0 30px var(--color-accent-glow), 0 0 60px var(--color-accent-glow);
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--color-gray-light);
+            max-width: 650px;
+            margin: 0 auto 2.5rem;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            background: var(--color-white);
+            color: var(--color-bg);
+            padding: 1rem 2.5rem;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background: var(--color-accent);
+            color: var(--color-bg);
+            box-shadow: 0 0 30px var(--color-accent-glow);
+        }
+
+        /* ===================== */
+        /* B. PROBLEMA */
+        /* ===================== */
+        .problema {
+            background: var(--color-bg);
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .problema-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .problema-item {
+            padding: 2rem;
+            background: var(--color-bg-card);
+            border-left: 3px solid var(--color-red);
+            transition: all 0.3s ease;
+        }
+
+        .problema-item:hover {
+            background: var(--color-bg-light);
+            box-shadow: 0 0 30px rgba(255, 77, 77, 0.1);
+        }
+
+        .problema-item h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: var(--color-white);
+        }
+
+        .problema-item p {
+            font-size: 1rem;
+            color: var(--color-gray-light);
+            line-height: 1.7;
+        }
+
+        /* ===================== */
+        /* C. PARA QUIÉN */
+        /* ===================== */
+        .paraquien {
+            background: var(--color-bg-light);
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .paraquien-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .paraquien-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .paraquien-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .paraquien-card {
+            padding: 2.5rem;
+            background: var(--color-bg-card);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .paraquien-card:hover {
+            border-color: var(--color-accent);
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.1);
+        }
+
+        .paraquien-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .paraquien-card h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .paraquien-card p {
+            color: var(--color-gray);
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        /* ===================== */
+        /* D. QUÉ APRENDERÁN */
+        /* ===================== */
+        .contenido {
+            background: var(--color-bg);
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .contenido-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .contenido-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .contenido-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .contenido-bloque {
+            padding: 2.5rem;
+            background: var(--color-bg-card);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+        }
+
+        .contenido-bloque h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--color-accent);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .contenido-bloque ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .contenido-bloque li {
+            padding: 0.75rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--color-gray-light);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.95rem;
+        }
+
+        .contenido-bloque li:last-child {
+            border-bottom: none;
+        }
+
+        .contenido-bloque li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--color-accent);
+        }
+
+        /* ===================== */
+        /* E. SELLO DE CALIDAD */
+        /* ===================== */
+        .sello-section {
+            background: var(--color-bg-light);
+            border-top: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+        }
+
+        .sello-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .sello-badge {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 3rem;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sello-badge::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 3px solid var(--color-accent);
+            border-radius: 50%;
+            box-shadow: 0 0 40px var(--color-accent-glow), inset 0 0 40px rgba(0, 212, 255, 0.1);
+        }
+
+        .sello-badge::after {
+            content: '';
+            position: absolute;
+            width: 85%;
+            height: 85%;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 50%;
+        }
+
+        .sello-content {
+            text-align: center;
+            z-index: 1;
+        }
+
+        .sello-check {
+            font-size: 1.5rem;
+            color: var(--color-green);
+            margin-bottom: 0.25rem;
+        }
+
+        .sello-n {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: var(--color-white);
+            line-height: 1;
+            margin-bottom: 0.25rem;
+        }
+
+        .sello-text {
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--color-accent);
+        }
+
+        .sello-subtitle {
+            font-size: 0.6rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--color-gray);
+            margin-top: 0.25rem;
+        }
+
+        .sello-description {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .sello-description h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .sello-description p {
+            color: var(--color-gray-light);
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .sello-benefits {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-top: 2.5rem;
+        }
+
+        .sello-benefit {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--color-gray-light);
+            font-size: 0.95rem;
+        }
+
+        .sello-benefit span {
+            color: var(--color-green);
+        }
+
+        /* ===================== */
+        /* F. NIVELES DE SERVICIO */
+        /* ===================== */
+        .niveles {
+            background: var(--color-bg);
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .niveles-container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .niveles-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .niveles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .nivel-card {
+            padding: 2.5rem;
+            background: var(--color-bg-card);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+        }
+
+        .nivel-card:hover {
+            border-color: var(--color-accent);
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.1);
+        }
+
+        .nivel-card.destacado {
+            border-color: var(--color-accent);
+            position: relative;
+        }
+
+        .nivel-card.destacado::before {
+            content: 'Más completo';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--color-accent);
+            color: var(--color-bg);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.35rem 1rem;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+
+        .nivel-header {
+            text-align: center;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 1.5rem;
+        }
+
+        .nivel-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .nivel-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .nivel-price {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--color-accent);
+        }
+
+        .nivel-price span {
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: var(--color-gray);
+        }
+
+        .nivel-features {
+            flex-grow: 1;
+        }
+
+        .nivel-features ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .nivel-features li {
+            padding: 0.6rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--color-gray-light);
+            font-size: 0.9rem;
+        }
+
+        .nivel-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--color-green);
+        }
+
+        .nivel-cta {
+            margin-top: 1.5rem;
+        }
+
+        .nivel-cta a {
+            display: block;
+            text-align: center;
+            padding: 1rem;
+            border: 1px solid var(--color-accent);
+            color: var(--color-accent);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+        }
+
+        .nivel-cta a:hover {
+            background: var(--color-accent);
+            color: var(--color-bg);
+        }
+
+        .nivel-card.destacado .nivel-cta a {
+            background: var(--color-accent);
+            color: var(--color-bg);
+        }
+
+        .nivel-card.destacado .nivel-cta a:hover {
+            box-shadow: 0 0 30px var(--color-accent-glow);
+        }
+
+        /* Todos incluyen */
+        .todos-incluyen {
+            margin-top: 3rem;
+            padding: 2rem;
+            background: var(--color-bg-card);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .todos-incluyen h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--color-gray-light);
+        }
+
+        .todos-incluyen p {
+            color: var(--color-accent);
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        /* ===================== */
+        /* G. PROCESO */
+        /* ===================== */
+        .proceso {
+            background: var(--color-bg-light);
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .proceso-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .proceso-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .proceso-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .paso {
+            text-align: center;
+            position: relative;
+        }
+
+        .paso-number {
+            width: 60px;
+            height: 60px;
+            background: var(--color-accent);
+            color: var(--color-bg);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 900;
+            margin: 0 auto 1.5rem;
+        }
+
+        .paso-free {
+            position: absolute;
+            top: -10px;
+            right: calc(50% - 50px);
+            background: var(--color-green);
+            color: var(--color-bg);
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+
+        .paso h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .paso p {
+            font-size: 0.9rem;
+            color: var(--color-gray);
+        }
+
+        /* ===================== */
+        /* H. CREDENCIALES */
+        /* ===================== */
+        .credenciales {
+            background: var(--color-bg);
+            border-top: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+        }
+
+        .credenciales-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .credenciales-intro {
+            font-size: 1.1rem;
+            color: var(--color-gray-light);
+            margin-bottom: 2.5rem;
+        }
+
+        .credenciales-intro strong {
+            color: var(--color-white);
+        }
+
+        .credenciales-stats {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 3rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .credencial-stat {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .credencial-numero {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--color-accent);
+            text-shadow: 0 0 30px var(--color-accent-glow);
+            line-height: 1;
+        }
+
+        .credencial-label {
+            font-size: 0.85rem;
+            color: var(--color-gray);
+            margin-top: 0.5rem;
+        }
+
+        .credenciales-clientes {
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .credenciales-clientes p {
+            font-size: 0.85rem;
+            color: var(--color-gray);
+            margin-bottom: 1rem;
+        }
+
+        .clientes-logos {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .clientes-logos span {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--color-gray-light);
+            opacity: 0.8;
+        }
+
+        /* ===================== */
+        /* I. FORMULARIO */
+        /* ===================== */
+        .formulario-section {
+            background: var(--color-bg-light);
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .formulario-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .formulario-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .formulario-header p {
+            color: var(--color-gray);
+            margin-top: 0.5rem;
+        }
+
+        .formulario-free {
+            display: inline-block;
+            background: var(--color-green);
+            color: var(--color-bg);
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
+
+        .formulario-box {
+            background: var(--color-bg-card);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 8px;
+            padding: 2.5rem;
+        }
+
+        .formulario-grid {
+            display: grid;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .formulario-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-group label {
+            font-size: 0.85rem;
+            color: var(--color-gray-light);
+            margin-bottom: 0.75rem;
+            font-weight: 500;
+        }
+
+        .input-group input,
+        .input-group select,
+        .input-group textarea {
+            background: var(--color-bg);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: var(--color-white);
+            padding: 1rem;
+            font-size: 1rem;
+            font-family: var(--font-main);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .input-group input:focus,
+        .input-group select:focus,
+        .input-group textarea:focus {
+            outline: none;
+            border-color: var(--color-accent);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+        }
+
+        .input-group input::placeholder,
+        .input-group textarea::placeholder {
+            color: var(--color-gray);
+        }
+
+        .input-group select {
+            cursor: pointer;
+        }
+
+        .input-group select option {
+            background: var(--color-bg);
+            color: var(--color-white);
+        }
+
+        .formulario-btn {
+            display: block;
+            width: 100%;
+            background: var(--color-accent);
+            color: var(--color-bg);
+            border: none;
+            padding: 1.25rem;
+            font-size: 1rem;
+            font-weight: 700;
+            font-family: var(--font-main);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .formulario-btn:hover {
+            box-shadow: 0 0 40px var(--color-accent-glow);
+        }
+
+        /* ===================== */
+        /* J. CONTACTO ALTERNATIVO */
+        /* ===================== */
+        .contacto-alt {
+            background: var(--color-bg);
+            border-top: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+        }
+
+        .contacto-alt-header {
+            margin-bottom: 2rem;
+        }
+
+        .contacto-alt-header p {
+            color: var(--color-gray);
+            font-size: 1rem;
+        }
+
+        .contacto-options {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .contacto-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 2rem;
+            background: var(--color-bg-card);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            text-decoration: none;
+            color: inherit;
+            min-width: 200px;
+            transition: all 0.3s ease;
+        }
+
+        .contacto-option:hover {
+            border-color: var(--color-accent);
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.15);
+        }
+
+        .contacto-option-icon {
+            font-size: 2rem;
+        }
+
+        .contacto-option-label {
+            font-size: 0.8rem;
+            color: var(--color-gray);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .contacto-option-value {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--color-white);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--color-bg-light);
+            padding: 3rem 5%;
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        footer .logo {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        footer p {
+            color: var(--color-gray);
+            font-size: 0.9rem;
+        }
+
+        footer .legal {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.8rem;
+            color: var(--color-gray);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            section {
+                padding: 4rem 5%;
+            }
+
+            .hero {
+                padding-top: 6rem;
+            }
+
+            nav {
+                padding: 1rem 5%;
+            }
+
+            .logo {
+                font-size: 2rem;
+            }
+
+            .nav-cta {
+                padding: 0.5rem 1rem;
+                font-size: 0.85rem;
+            }
+
+            .formulario-row {
+                grid-template-columns: 1fr;
+            }
+
+            .contacto-options {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .contacto-option {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .credencial-numero {
+                font-size: 2.5rem;
+            }
+
+            .sello-badge {
+                width: 160px;
+                height: 160px;
+            }
+
+            .sello-n {
+                font-size: 2.5rem;
+            }
+
+            .sello-benefits {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="index.html" class="logo">N</a>
+        <div class="nav-desktop">
+            <a href="mantenimiento.html" class="nav-link">SAT</a>
+            <a href="reparaciones.html" class="nav-link">Urgencias</a>
+            <a href="energia.html" class="nav-link">Energía</a>
+            <a href="formacion.html" class="nav-link">Formación</a>
+            <a href="equipo.html" class="nav-link">Equipo</a>
+            <a href="valores.html" class="nav-link">Valores</a>
+            <a href="#formulario" class="nav-cta">Contactar</a>
+        </div>
+        <div class="nav-mobile-controls">
+            <a href="tel:644065544" class="nav-call">📞</a>
+            <button class="hamburger" onclick="toggleMenu()" aria-label="Menú"><span></span><span></span><span></span></button>
+        </div>
+    </nav>
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-section">
+            <div class="mobile-menu-label">Servicios</div>
+            <div class="mobile-menu-links">
+                <a href="mantenimiento.html" class="mobile-menu-link">SAT · Tarifa plana<span>Mantenimiento preventivo y correctivo</span></a>
+                <a href="reparaciones.html" class="mobile-menu-link">Urgencias<span>Reparaciones e instalaciones</span></a>
+                <a href="energia.html" class="mobile-menu-link">Eficiencia Energética<span>Auditorías y ahorro</span></a>
+                <a href="formacion.html" class="mobile-menu-link">Formación Técnica<span>Consultoría y capacitación</span></a>
+            </div>
+        </div>
+        <div class="mobile-menu-section">
+            <div class="mobile-menu-label">Nosotros</div>
+            <div class="mobile-menu-links">
+                <a href="equipo.html" class="mobile-menu-link">Equipo</a>
+                <a href="valores.html" class="mobile-menu-link">Valores</a>
+            </div>
+        </div>
+        <div class="mobile-menu-contacto">
+            <a href="tel:644065544" class="mobile-menu-tel"><span class="mobile-menu-tel-icon">📞</span><div class="mobile-menu-tel-info"><span class="mobile-menu-tel-label">Llamar ahora</span><span class="mobile-menu-tel-number">644 06 55 44</span></div></a>
+            <a href="https://wa.me/34644065544" class="mobile-menu-tel"><span class="mobile-menu-tel-icon">💬</span><div class="mobile-menu-tel-info"><span class="mobile-menu-tel-label">WhatsApp</span><span class="mobile-menu-tel-number">644 06 55 44</span></div></a>
+        </div>
+    </div>
+
+    <!-- ======================== -->
+    <!-- A. HERO -->
+    <!-- ======================== -->
+    <section class="hero">
+        <div class="hero-content">
+            <span class="hero-tag">Consultoría y formación técnica</span>
+            <h1>El conocimiento que hace funcionar +70 restaurantes. <span class="highlight">Ahora para tu equipo.</span></h1>
+            <p>Formación en organización y procesos técnicos para empresas de mantenimiento y equipos internos de hostelería.</p>
+            <a href="#formulario" class="btn-primary">Solicitar entrevista gratuita</a>
+        </div>
+    </section>
+
+    <!-- ======================== -->
+    <!-- B. PROBLEMA -->
+    <!-- ======================== -->
+    <section class="problema">
+        <span class="section-label">El problema</span>
+        <h2 class="section-title">¿Te suena <span class="highlight-red">esto</span>?</h2>
+        
+        <div class="problema-grid">
+            <div class="problema-item">
+                <h3>🔧 Técnicos que no diagnostican bien</h3>
+                <p>Van, miran, cambian piezas... y el problema sigue. Vuelven una y otra vez al mismo equipo.</p>
+            </div>
+            <div class="problema-item">
+                <h3>🔄 Urgencias que se repiten</h3>
+                <p>Siempre apagando fuegos. No hay tiempo para prevenir porque todo es urgente.</p>
+            </div>
+            <div class="problema-item">
+                <h3>🧠 Conocimiento en una sola cabeza</h3>
+                <p>Si esa persona no está, el equipo no sabe qué hacer. Riesgo enorme.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================== -->
+    <!-- C. PARA QUIÉN -->
+    <!-- ======================== -->
+    <section class="paraquien">
+        <div class="paraquien-container">
+            <div class="paraquien-header">
+                <span class="section-label">Para quién</span>
+                <h2 class="section-title">Esto es para <span class="highlight">ti</span> si...</h2>
+            </div>
+
+            <div class="paraquien-grid">
+                <div class="paraquien-card">
+                    <div class="paraquien-icon">🏢</div>
+                    <h3>Eres empresa de mantenimiento</h3>
+                    <p>Operas en otra zona geográfica y quieres mejorar tu operativa, tus procesos y la capacidad técnica de tu equipo. Sin competir con nosotros.</p>
+                </div>
+                <div class="paraquien-card">
+                    <div class="paraquien-icon">👥</div>
+                    <h3>Tienes equipo técnico interno</h3>
+                    <p>Tu empresa tiene técnicos propios pero no rinden como deberían. Necesitan metodología y conocimiento especializado.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================== -->
+    <!-- D. QUÉ APRENDERÁN -->
+    <!-- ======================== -->
+    <section class="contenido">
+        <div class="contenido-container">
+            <div class="contenido-header">
+                <span class="section-label">Contenido</span>
+                <h2 class="section-title">Lo que tu equipo <span class="highlight">aprenderá</span></h2>
+            </div>
+
+            <div class="contenido-grid">
+                <div class="contenido-bloque">
+                    <h3>🧭 Organizacional</h3>
+                    <ul>
+                        <li>Cómo estructurar equipos técnicos</li>
+                        <li>Planificación de preventivos eficiente</li>
+                        <li>Gestión de urgencias sin caos</li>
+                        <li>KPIs que realmente importan</li>
+                        <li>Herramientas y sistemas de trabajo</li>
+                        <li>Cómo pasar del 80% urgencias al 35%</li>
+                    </ul>
+                </div>
+                <div class="contenido-bloque">
+                    <h3>🔧 Técnico</h3>
+                    <ul>
+                        <li>Diagnóstico rápido y certero</li>
+                        <li>Equipos de cocción: Duke, Nieco</li>
+                        <li>Frío y helado: Taylor, Carpigiani</li>
+                        <li>Refrigeración y climatización</li>
+                        <li>Errores comunes y cómo evitarlos</li>
+                        <li>Mantenimiento preventivo eficaz</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================== -->
+    <!-- E. SELLO DE CALIDAD -->
+    <!-- ======================== -->
+    <section class="sello-section">
+        <div class="sello-container">
+            <div class="sello-badge">
+                <div class="sello-content">
+                    <div class="sello-check">✓</div>
+                    <div class="sello-n">N</div>
+                    <div class="sello-text">Northcare</div>
+                    <div class="sello-subtitle">Certified Quality</div>
+                </div>
+            </div>
+
+            <div class="sello-description">
+                <h3>La etiqueta de calidad Northcare</h3>
+                <p>Las empresas y equipos que completan nuestra formación obtienen la certificación Northcare. Un sello que acredita que trabajan con los estándares que utilizamos para gestionar +70 restaurantes de grandes cadenas.</p>
+            </div>
+
+            <div class="sello-benefits">
+                <div class="sello-benefit">
+                    <span>✓</span> Metodología probada
+                </div>
+                <div class="sello-benefit">
+                    <span>✓</span> Estándares de calidad
+                </div>
+                <div class="sello-benefit">
+                    <span>✓</span> Reconocimiento sectorial
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================== -->
+    <!-- F. NIVELES DE SERVICIO -->
+    <!-- ======================== -->
+    <section class="niveles">
+        <div class="niveles-container">
+            <div class="niveles-header">
+                <span class="section-label">Modalidades</span>
+                <h2 class="section-title">Elige tu <span class="highlight">nivel</span></h2>
+            </div>
+
+            <div class="niveles-grid">
+                <div class="nivel-card">
+                    <div class="nivel-header">
+                        <div class="nivel-icon">💻</div>
+                        <div class="nivel-name">Online</div>
+                        <div class="nivel-price">€ <span>/ persona</span></div>
+                    </div>
+                    <div class="nivel-features">
+                        <ul>
+                            <li>Formación en grupos grandes</li>
+                            <li>Sesiones en directo por videoconferencia</li>
+                            <li>Contenido organizacional + técnico</li>
+                            <li>Acceso a plataforma con vídeos y plantillas</li>
+                            <li>Certificación Northcare</li>
+                        </ul>
+                    </div>
+                    <div class="nivel-cta">
+                        <a href="#formulario">Solicitar información</a>
+                    </div>
+                </div>
+
+                <div class="nivel-card destacado">
+                    <div class="nivel-header">
+                        <div class="nivel-icon">👥</div>
+                        <div class="nivel-name">Presencial</div>
+                        <div class="nivel-price">€€ <span>/ grupo</span></div>
+                    </div>
+                    <div class="nivel-features">
+                        <ul>
+                            <li>Formación en grupos pequeños</li>
+                            <li>En tus instalaciones o las nuestras</li>
+                            <li>Práctica con equipos reales</li>
+                            <li>Contenido personalizado a tu caso</li>
+                            <li>Acceso a plataforma con vídeos y plantillas</li>
+                            <li>Certificación Northcare</li>
+                        </ul>
+                    </div>
+                    <div class="nivel-cta">
+                        <a href="#formulario">Solicitar información</a>
+                    </div>
+                </div>
+
+                <div class="nivel-card">
+                    <div class="nivel-header">
+                        <div class="nivel-icon">🤝</div>
+                        <div class="nivel-name">Acompañamiento</div>
+                        <div class="nivel-price">€€€ <span>+ % beneficios</span></div>
+                    </div>
+                    <div class="nivel-features">
+                        <ul>
+                            <li>Consultoría continua durante meses</li>
+                            <li>Implementación junto a tu equipo</li>
+                            <li>Transformación real de tu operativa</li>
+                            <li>Objetivos medibles y seguimiento</li>
+                            <li>Nos jugamos la piel: cobramos por resultados</li>
+                            <li>Certificación Northcare</li>
+                        </ul>
+                    </div>
+                    <div class="nivel-cta">
+                        <a href="#formulario">Solicitar información</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="todos-incluyen">
+                <h4>Todos los niveles incluyen:</h4>
+                <p>📚 Acceso a plataforma con vídeos, plantillas y documentación + 🏅 Certificación Northcare</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================== -->
+    <!-- G. PROCESO -->
+    <!-- ======================== -->
+    <section class="proceso">
+        <div class="proceso-container">
+            <div class="proceso-header">
+                <span class="section-label">Cómo empezar</span>
+                <h2 class="section-title">Así de <span class="highlight">simple</span></h2>
+            </div>
+
+            <div class="proceso-steps">
+                <div class="paso">
+                    <span class="paso-free">Gratis</span>
+                    <div class="paso-number">1</div>
+                    <h3>Entrevista</h3>
+                    <p>Hablamos contigo para entender tu situación y necesidades.</p>
+                </div>
+                <div class="paso">
+                    <div class="paso-number">2</div>
+                    <h3>Recomendación</h3>
+                    <p>Te aconsejamos la modalidad que mejor encaja con tu caso.</p>
+                </div>
+                <div class="paso">
+                    <div class="paso-number">3</div>
+                    <h3>Formación</h3>
+                    <p>Tu equipo aprende metodología y conocimiento técnico.</p>
+                </div>
+                <div class="paso">
+                    <div class="paso-number">4</div>
+                    <h3>Certificación</h3>
+                    <p>Obtienes la etiqueta de calidad Northcare.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================== -->
+    <!-- H. CREDENCIALES -->
+    <!-- ======================== -->
+    <section class="credenciales">
+        <div class="credenciales-container">
+            <p class="credenciales-intro">Este conocimiento viene de <strong>+10 años</strong> gestionando cocinas de las principales cadenas.</p>
+            
+            <div class="credenciales-stats">
+                <div class="credencial-stat">
+                    <span class="credencial-numero">+70</span>
+                    <span class="credencial-label">Restaurantes gestionados</span>
+                </div>
+                <div class="credencial-stat">
+                    <span class="credencial-numero">93%</span>
+                    <span class="credencial-label">Tasa de resolución</span>
+                </div>
+                <div class="credencial-stat">
+                    <span class="credencial-numero">-65%</span>
+                    <span class="credencial-label">Reducción de urgencias</span>
+                </div>
+            </div>
+
+            <div class="credenciales-clientes">
+                <p>Experiencia con:</p>
+                <div class="clientes-logos">
+                    <span>Burger King</span>
+                    <span>Popeyes</span>
+                    <span>Telepizza</span>
+                    <span>Welbilt</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================== -->
+    <!-- I. FORMULARIO -->
+    <!-- ======================== -->
+    <section class="formulario-section" id="formulario">
+        <div class="formulario-container">
+            <div class="formulario-header">
+                <span class="formulario-free">Entrevista gratuita</span>
+                <h2 class="section-title">Cuéntanos tu <span class="highlight">situación</span></h2>
+                <p>Hablamos contigo para entender qué necesitas y recomendarte el mejor camino.</p>
+            </div>
+
+            <div class="formulario-box">
+                <form class="formulario-grid" onsubmit="enviarFormulario(event)">
+                    <div class="formulario-row">
+                        <div class="input-group">
+                            <label>Nombre *</label>
+                            <input type="text" placeholder="Tu nombre" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Empresa *</label>
+                            <input type="text" placeholder="Nombre de tu empresa" required>
+                        </div>
+                    </div>
+                    <div class="formulario-row">
+                        <div class="input-group">
+                            <label>Email *</label>
+                            <input type="email" placeholder="tu@email.com" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Teléfono *</label>
+                            <input type="tel" placeholder="600 000 000" required>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>¿Qué tipo de empresa eres?</label>
+                        <select>
+                            <option value="">Selecciona una opción</option>
+                            <option value="mantenimiento">Empresa de mantenimiento</option>
+                            <option value="cadena">Cadena de restauración con equipo interno</option>
+                            <option value="otro">Otro</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>Cuéntanos más</label>
+                        <textarea rows="4" placeholder="¿Cuántas personas forman tu equipo? ¿Qué problemas tienes? ¿Qué te gustaría mejorar?"></textarea>
+                    </div>
+                    <button type="submit" class="formulario-btn">Solicitar entrevista gratuita</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================== -->
+    <!-- J. CONTACTO ALTERNATIVO -->
+    <!-- ======================== -->
+    <section class="contacto-alt">
+        <div class="contacto-alt-header">
+            <p>¿Prefieres contactarnos directamente?</p>
+        </div>
+        <div class="contacto-options">
+            <a href="tel:644065544" class="contacto-option">
+                <span class="contacto-option-icon">📞</span>
+                <span class="contacto-option-label">Teléfono</span>
+                <span class="contacto-option-value">644 06 55 44</span>
+            </a>
+            <a href="https://wa.me/34644065544" class="contacto-option">
+                <span class="contacto-option-icon">💬</span>
+                <span class="contacto-option-label">WhatsApp</span>
+                <span class="contacto-option-value">644 06 55 44</span>
+            </a>
+            <a href="mailto:info@northcare.es" class="contacto-option">
+                <span class="contacto-option-icon">✉️</span>
+                <span class="contacto-option-label">Email</span>
+                <span class="contacto-option-value">info@northcare.es</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <a href="#" class="logo">N</a>
+        <p>Consultoría y formación técnica para equipos de mantenimiento</p>
+        <div class="legal">
+            <p>Northcare © 2025 · Política de Privacidad · Aviso Legal</p>
+        </div>
+    </footer>
+
+    <script>
+        function enviarFormulario(e) {
+            e.preventDefault();
+            alert('¡Gracias! Te contactaremos pronto para agendar tu entrevista.');
+        }
+
+        function toggleMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const hamburger = document.querySelector('.hamburger');
+            menu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+            document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : '';
+        }
+
+        document.querySelectorAll('.mobile-menu-link').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('mobileMenu').classList.remove('active');
+                document.querySelector('.hamburger').classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+    </script>
+</body>
+</html>
