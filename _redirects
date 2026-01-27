@@ -1,0 +1,5 @@
+# Redirigir www a sin www (cuando conectes el dominio)
+https://www.northcare.es/*  https://northcare.es/:splat  301!
+
+# Página 404 personalizada (opcional - si creas 404.html)
+/*  /404.html  404
