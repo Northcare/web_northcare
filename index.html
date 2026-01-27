@@ -6,7 +6,7 @@
     <title>Northcare | Conocimiento que cuida</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Rajdhani:wght@700&display=swap" rel="stylesheet">
     <style>
         :root {
             --color-bg: #000000;
@@ -60,11 +60,15 @@
         }
 
         .logo {
-            font-size: 2.5rem;
-            font-weight: 900;
-            color: var(--color-white);
+            display: flex;
+            align-items: center;
             text-decoration: none;
             line-height: 1;
+        }
+
+        .logo img {
+            height: 40px;
+            width: auto;
         }
 
         .nav-desktop {
@@ -390,12 +394,14 @@
         }
 
         .hero-logo {
+            font-family: 'Rajdhani', sans-serif;
             font-size: 6rem;
-            font-weight: 900;
+            font-weight: 700;
             color: var(--color-white);
             margin-bottom: 1rem;
             line-height: 1;
-            letter-spacing: -0.03em;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
         }
 
         .hero-tagline {
@@ -410,6 +416,15 @@
         .hero-tagline .highlight {
             color: var(--color-accent);
             text-shadow: 0 0 40px var(--color-accent-glow);
+        }
+
+        .hero-slogan {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--color-accent);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
         }
 
         .hero-sub {
@@ -1408,18 +1423,25 @@
         }
 
         footer .logo {
-            font-size: 3rem;
             margin-bottom: 1rem;
             display: inline-block;
-            background: linear-gradient(135deg, var(--color-white) 0%, var(--color-gray) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        }
+
+        footer .logo img {
+            height: 50px;
+            width: auto;
         }
 
         footer .tagline {
-            font-size: 1.1rem;
-            color: var(--color-gray-light);
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--color-white);
+            margin-bottom: 0.5rem;
+        }
+
+        footer .subtag {
+            font-size: 1rem;
+            color: var(--color-gray);
             margin-bottom: 2rem;
         }
 
@@ -1616,7 +1638,7 @@
 
     <!-- Navigation -->
     <nav>
-        <a href="index.html" class="logo">N</a>
+        <a href="index.html" class="logo"><img src="logo.png" alt="Northcare"></a>
         <div class="nav-desktop">
             <a href="mantenimiento.html" class="nav-link">SAT</a>
             <a href="reparaciones.html" class="nav-link">Urgencias</a>
@@ -1691,6 +1713,7 @@
         <div class="hero-content">
             <div class="hero-logo">Northcare</div>
             <h1 class="hero-tagline">Que nada pare <span class="highlight">tu negocio.</span></h1>
+            <p class="hero-slogan">Parar nunca, anticiparse siempre</p>
             <p class="hero-sub">Mantenimiento de cocinas industriales con conocimiento técnico real. Menos averías, menos costes, cero sorpresas.</p>
             <div class="hero-ctas">
                 <a href="#servicios" class="btn-primary">Ver servicios</a>
@@ -1790,9 +1813,9 @@
 
             <div class="clientes-grandes">
                 <div class="cliente-logo">Burger King</div>
-                <div class="cliente-logo">Popeyes</div>
                 <div class="cliente-logo">Welbilt</div>
-                <div class="cliente-logo">Telepizza</div>
+                <div class="cliente-logo">Popeyes</div>
+                <div class="cliente-logo">Berty's Burger</div>
             </div>
 
             <div class="entrenamiento-dato">
@@ -1898,7 +1921,7 @@
         <!-- Resumen equipo -->
         <div class="personas-resumen">
             <div class="resumen-numero">
-                <span class="numero">15</span>
+                <span class="numero">18</span>
                 <span class="texto">personas</span>
             </div>
             <p class="resumen-desc">Organizados en 4 equipos con propósito. Cada uno genera valor específico para el cliente y para la organización.</p>
@@ -2065,11 +2088,11 @@
                             <span class="canal-value">603 08 17 40</span>
                         </div>
                     </a>
-                    <a href="mailto:info@northcare.es" class="canal">
+                    <a href="/cdn-cgi/l/email-protection#5d34333b321d33322f29353e3c2f3873382e" class="canal">
                         <span class="canal-icon">✉️</span>
                         <div class="canal-info">
                             <span class="canal-label">Email</span>
-                            <span class="canal-value">info@northcare.es</span>
+                            <span class="canal-value"><span class="__cf_email__" data-cfemail="aec7c0c8c1eec0c1dcdac6cdcfdccb80cbdd">[email&#160;protected]</span></span>
                         </div>
                     </a>
                 </div>
@@ -2079,8 +2102,9 @@
 
     <!-- Footer -->
     <footer>
-        <a href="#" class="logo">N</a>
-        <p class="tagline">Conocimiento que cuida · Zona Norte</p>
+        <a href="index.html" class="logo"><img src="logo.png" alt="Northcare"></a>
+        <p class="tagline">Parar nunca, anticiparse siempre</p>
+        <p class="subtag">Mantenimiento de cocinas industriales · Zona Norte</p>
         <div class="legal">
             <p>Northcare © 2025 · <a href="privacidad.html">Política de Privacidad</a> · <a href="cookies.html">Política de Cookies</a></p>
         </div>
@@ -2097,7 +2121,7 @@
         </div>
     </div>
 
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         function enviarFormulario(e) {
             e.preventDefault();
             alert('¡Gracias! Te contactaremos pronto.');
@@ -2160,12 +2184,4 @@
 
         document.addEventListener('DOMContentLoaded', function() {
             const consent = getCookieConsent();
-            if (!consent) {
-                document.getElementById('cookieBanner').classList.add('active');
-            } else if (consent === 'accepted') {
-                loadAnalytics();
-            }
-        });
-    </script>
-</body>
-</html>
+        

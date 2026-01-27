@@ -51,10 +51,14 @@
         }
 
         .logo {
-            font-size: 2.5rem;
-            font-weight: 900;
-            color: var(--color-white);
+            display: flex;
+            align-items: center;
             text-decoration: none;
+        }
+
+        .logo img {
+            height: 40px;
+            width: auto;
         }
 
         .nav-desktop {
@@ -331,6 +335,23 @@
             border-top: 1px solid rgba(255,255,255,0.05);
         }
 
+        footer .logo {
+            display: inline-flex;
+            margin-bottom: 1rem;
+        }
+
+        footer .logo img {
+            height: 50px;
+            width: auto;
+        }
+
+        footer .tagline {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--color-white);
+            margin-bottom: 0.5rem;
+        }
+
         footer p {
             color: var(--color-gray);
             font-size: 1rem;
@@ -410,7 +431,7 @@
     <!-- End Google Tag Manager (noscript) -->
     <!-- Navigation -->
     <nav>
-        <a href="index.html" class="logo">N</a>
+        <a href="index.html" class="logo"><img src="logo.png" alt="Northcare"></a>
         <div class="nav-desktop">
             <a href="mantenimiento.html" class="nav-link">SAT</a>
             <a href="reparaciones.html" class="nav-link">Urgencias</a>
@@ -541,12 +562,14 @@
 
         <h2>6. Más información</h2>
         <p>Para más información sobre cómo tratamos tus datos, consulta nuestra <a href="privacidad.html">Política de Privacidad</a>.</p>
-        <p>Si tienes dudas, contacta con nosotros en <a href="mailto:info@northcare.es">info@northcare.es</a>.</p>
+        <p>Si tienes dudas, contacta con nosotros en <a href="/cdn-cgi/l/email-protection#b0d9ded6dff0dedfc2c4d8d3d1c2d59ed5c3"><span class="__cf_email__" data-cfemail="9ef7f0f8f1def0f1eceaf6fdffecfbb0fbed">[email&#160;protected]</span></a>.</p>
     </div>
 
     <!-- Footer -->
     <footer>
-        <p>© 2024 Northcare · Mantenimiento técnico para hostelería</p>
+        <a href="index.html" class="logo"><img src="logo.png" alt="Northcare"></a>
+        <p class="tagline">Parar nunca, anticiparse siempre</p>
+        <p>© 2025 Northcare · Mantenimiento técnico para hostelería</p>
         <div class="legal">
             <a href="privacidad.html">Política de Privacidad</a>
             <a href="cookies.html">Política de Cookies</a>
@@ -564,7 +587,7 @@
         </div>
     </div>
 
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         function toggleMenu() {
             const menu = document.getElementById('mobileMenu');
             const hamburger = document.querySelector('.hamburger');
@@ -602,10 +625,4 @@
             })(window,document,'script','dataLayer','GTM-MWTDJLNC');
         }
         document.addEventListener('DOMContentLoaded', function() {
-            const consent = getCookieConsent();
-            if (!consent) { document.getElementById('cookieBanner').classList.add('active'); }
-            else if (consent === 'accepted') { loadAnalytics(); }
-        });
-    </script>
-</body>
-</html>
+            

@@ -51,10 +51,14 @@
         }
 
         .logo {
-            font-size: 2.5rem;
-            font-weight: 900;
-            color: var(--color-white);
+            display: flex;
+            align-items: center;
             text-decoration: none;
+        }
+
+        .logo img {
+            height: 40px;
+            width: auto;
         }
 
         .nav-desktop {
@@ -329,6 +333,23 @@
             border-top: 1px solid rgba(255,255,255,0.05);
         }
 
+        footer .logo {
+            display: inline-flex;
+            margin-bottom: 1rem;
+        }
+
+        footer .logo img {
+            height: 50px;
+            width: auto;
+        }
+
+        footer .tagline {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--color-white);
+            margin-bottom: 0.5rem;
+        }
+
         footer p {
             color: var(--color-gray);
             font-size: 1rem;
@@ -408,7 +429,7 @@
     <!-- End Google Tag Manager (noscript) -->
     <!-- Navigation -->
     <nav>
-        <a href="index.html" class="logo">N</a>
+        <a href="index.html" class="logo"><img src="logo.png" alt="Northcare"></a>
         <div class="nav-desktop">
             <a href="mantenimiento.html" class="nav-link">SAT</a>
             <a href="reparaciones.html" class="nav-link">Urgencias</a>
@@ -489,7 +510,7 @@
             </tr>
             <tr>
                 <th>Email</th>
-                <td><a href="mailto:info@northcare.es">info@northcare.es</a></td>
+                <td><a href="/cdn-cgi/l/email-protection#5f363139301f31302d2b373c3e2d3a713a2c"><span class="__cf_email__" data-cfemail="9af3f4fcf5daf4f5e8eef2f9fbe8ffb4ffe9">[email&#160;protected]</span></a></td>
             </tr>
             <tr>
                 <th>Teléfono</th>
@@ -547,7 +568,7 @@
             <li><strong>Limitación:</strong> Solicitar la limitación del tratamiento.</li>
             <li><strong>Portabilidad:</strong> Recibir tus datos en formato estructurado.</li>
         </ul>
-        <p>Para ejercer estos derechos, contacta con nosotros en <a href="mailto:info@northcare.es">info@northcare.es</a> indicando tu solicitud y adjuntando copia de tu DNI.</p>
+        <p>Para ejercer estos derechos, contacta con nosotros en <a href="/cdn-cgi/l/email-protection#442d2a222b042a2b36302c272536216a2137"><span class="__cf_email__" data-cfemail="2e474048416e40415c5a464d4f5c4b004b5d">[email&#160;protected]</span></a> indicando tu solicitud y adjuntando copia de tu DNI.</p>
         <p>También tienes derecho a presentar una reclamación ante la <a href="https://www.aepd.es" target="_blank" rel="noopener">Agencia Española de Protección de Datos (AEPD)</a>.</p>
 
         <h2>8. Seguridad</h2>
@@ -562,7 +583,7 @@
         <h2>11. Contacto</h2>
         <p>Para cualquier consulta relacionada con el tratamiento de tus datos personales, puedes contactar con nosotros:</p>
         <ul>
-            <li><strong>Email:</strong> <a href="mailto:info@northcare.es">info@northcare.es</a></li>
+            <li><strong>Email:</strong> <a href="/cdn-cgi/l/email-protection#31585f575e715f5e434559525043541f5442"><span class="__cf_email__" data-cfemail="4821262e270826273a3c202b293a2d662d3b">[email&#160;protected]</span></a></li>
             <li><strong>Teléfono:</strong> <a href="tel:603081740">603 08 17 40</a></li>
             <li><strong>Dirección:</strong> Barrio el Crucero 5, Bloque C, Oficina C11C, 39600 Revilla de Camargo (Cantabria)</li>
         </ul>
@@ -570,7 +591,9 @@
 
     <!-- Footer -->
     <footer>
-        <p>© 2024 Northcare · Mantenimiento técnico para hostelería</p>
+        <a href="index.html" class="logo"><img src="logo.png" alt="Northcare"></a>
+        <p class="tagline">Parar nunca, anticiparse siempre</p>
+        <p>© 2025 Northcare · Mantenimiento técnico para hostelería</p>
         <div class="legal">
             <a href="privacidad.html">Política de Privacidad</a>
             <a href="cookies.html">Política de Cookies</a>
@@ -588,7 +611,7 @@
         </div>
     </div>
 
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         function toggleMenu() {
             const menu = document.getElementById('mobileMenu');
             const hamburger = document.querySelector('.hamburger');
@@ -621,15 +644,4 @@
             // Google Tag Manager
             (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
             new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-            })(window,document,'script','dataLayer','GTM-MWTDJLNC');
-        }
-        document.addEventListener('DOMContentLoaded', function() {
-            const consent = getCookieConsent();
-            if (!consent) { document.getElementById('cookieBanner').classList.add('active'); }
-            else if (consent === 'accepted') { loadAnalytics(); }
-        });
-    </script>
-</body>
-</html>
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=tru

@@ -60,11 +60,15 @@
         }
 
         .logo {
-            font-size: 2.5rem;
-            font-weight: 900;
-            color: var(--color-white);
+            display: flex;
+            align-items: center;
             text-decoration: none;
             line-height: 1;
+        }
+
+        .logo img {
+            height: 40px;
+            width: auto;
         }
 
         .nav-desktop {
@@ -655,11 +659,27 @@
         }
 
         .especialidades-titulo {
-            font-size: 1.1rem;
-            color: var(--color-gray);
+            font-size: 1.2rem;
+            color: var(--color-accent);
             text-transform: uppercase;
             letter-spacing: 0.1em;
-            margin-bottom: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .especialidades-intro {
+            font-size: 1.1rem;
+            color: var(--color-gray-light);
+            margin-bottom: 2rem;
+        }
+
+        .especialidades-holistico {
+            font-size: 1rem;
+            color: var(--color-gray);
+            margin-top: 2rem;
+            font-style: italic;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 1.5rem;
         }
 
         .especialidades-grid {
@@ -1221,9 +1241,20 @@
         }
 
         footer .logo {
-            font-size: 2rem;
+            display: inline-flex;
             margin-bottom: 1rem;
-            display: inline-block;
+        }
+
+        footer .logo img {
+            height: 50px;
+            width: auto;
+        }
+
+        footer .tagline {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--color-white);
+            margin-bottom: 0.5rem;
         }
 
         footer p {
@@ -1377,7 +1408,7 @@
     <!-- End Google Tag Manager (noscript) -->
     <!-- Navigation -->
     <nav>
-        <a href="index.html" class="logo">N</a>
+        <a href="index.html" class="logo"><img src="logo.png" alt="Northcare"></a>
         <div class="nav-desktop">
             <a href="mantenimiento.html" class="nav-link">SAT</a>
             <a href="reparaciones.html" class="nav-link">Urgencias</a>
@@ -1543,26 +1574,33 @@
                 </div>
             </div>
 
-            <!-- Especialidades y marcas -->
+            <!-- Áreas de Expertise -->
             <div class="especialidades">
-                <p class="especialidades-titulo">Especialistas en</p>
+                <p class="especialidades-titulo">Áreas de Expertise</p>
+                <p class="especialidades-intro">Especialistas en mantenimiento integral de cocinas industriales</p>
                 <div class="especialidades-grid">
                     <div class="especialidad">
                         <span class="especialidad-icon">🔥</span>
-                        <span class="especialidad-nombre">Cocción</span>
-                        <span class="especialidad-marcas">Duke · Nieco</span>
+                        <span class="especialidad-nombre">Cocción y Asado</span>
+                        <span class="especialidad-marcas">Duke · Nieco · Merrychef · Convotherm · Frymaster · Pitco</span>
                     </div>
                     <div class="especialidad">
                         <span class="especialidad-icon">🍦</span>
                         <span class="especialidad-nombre">Frío y Helado</span>
-                        <span class="especialidad-marcas">Taylor · Carpigiani</span>
+                        <span class="especialidad-marcas">Taylor · Carpigiani · Manitowoc · Scotsman</span>
                     </div>
                     <div class="especialidad">
                         <span class="especialidad-icon">❄️</span>
-                        <span class="especialidad-nombre">Refrigeración</span>
-                        <span class="especialidad-marcas">y otros</span>
+                        <span class="especialidad-nombre">Climatización</span>
+                        <span class="especialidad-marcas">Carrier · Aire acondicionado · Ventilación</span>
+                    </div>
+                    <div class="especialidad">
+                        <span class="especialidad-icon">🔧</span>
+                        <span class="especialidad-nombre">Instalaciones</span>
+                        <span class="especialidad-marcas">Electricidad · Fontanería · Obra menor</span>
                     </div>
                 </div>
+                <p class="especialidades-holistico">Técnicos con formación holística: un solo equipo para todas las necesidades de tu cocina.</p>
             </div>
 
             <!-- Caso real -->
@@ -1762,17 +1800,18 @@
                 <span class="contacto-option-label">WhatsApp</span>
                 <span class="contacto-option-value">603 08 17 40</span>
             </a>
-            <a href="mailto:info@northcare.es" class="contacto-option">
+            <a href="/cdn-cgi/l/email-protection#177e79717857797865637f74766572397264" class="contacto-option">
                 <span class="contacto-option-icon">✉️</span>
                 <span class="contacto-option-label">Email</span>
-                <span class="contacto-option-value">info@northcare.es</span>
+                <span class="contacto-option-value"><span class="__cf_email__" data-cfemail="abc2c5cdc4ebc5c4d9dfc3c8cad9ce85ced8">[email&#160;protected]</span></span>
             </a>
         </div>
     </section>
 
     <!-- Footer -->
     <footer>
-        <a href="index.html" class="logo">N</a>
+        <a href="index.html" class="logo"><img src="logo.png" alt="Northcare"></a>
+        <p class="tagline">Parar nunca, anticiparse siempre</p>
         <p>Mantenimiento de cocinas industriales · Zona Norte</p>
         <div class="legal">
             <p>Northcare © 2025 · <a href="privacidad.html">Política de Privacidad</a> · <a href="cookies.html">Política de Cookies</a></p>
@@ -1790,7 +1829,7 @@
         </div>
     </div>
 
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         let costeAnualCalculado = 0;
 
         function calcular() {
@@ -1863,12 +1902,4 @@
 
         document.addEventListener('DOMContentLoaded', function() {
             const consent = getCookieConsent();
-            if (!consent) {
-                document.getElementById('cookieBanner').classList.add('active');
-            } else if (consent === 'accepted') {
-                loadAnalytics();
-            }
-        });
-    </script>
-</body>
-</html>
+        

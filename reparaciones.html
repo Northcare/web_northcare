@@ -60,11 +60,15 @@
         }
 
         .logo {
-            font-size: 2.5rem;
-            font-weight: 900;
-            color: var(--color-white);
+            display: flex;
+            align-items: center;
             text-decoration: none;
             line-height: 1;
+        }
+
+        .logo img {
+            height: 40px;
+            width: auto;
         }
 
         .nav-desktop {
@@ -746,9 +750,20 @@
         }
 
         footer .logo {
-            font-size: 2rem;
+            display: inline-flex;
             margin-bottom: 1rem;
-            display: inline-block;
+        }
+
+        footer .logo img {
+            height: 50px;
+            width: auto;
+        }
+
+        footer .tagline {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--color-white);
+            margin-bottom: 0.5rem;
         }
 
         footer p {
@@ -861,7 +876,7 @@
     <!-- End Google Tag Manager (noscript) -->
     <!-- Navigation -->
     <nav>
-        <a href="index.html" class="logo">N</a>
+        <a href="index.html" class="logo"><img src="logo.png" alt="Northcare"></a>
         <div class="nav-desktop">
             <a href="mantenimiento.html" class="nav-link">SAT</a>
             <a href="reparaciones.html" class="nav-link">Urgencias</a>
@@ -1126,17 +1141,18 @@
                 <span class="contacto-option-label">WhatsApp</span>
                 <span class="contacto-option-value">603 08 17 40</span>
             </a>
-            <a href="mailto:info@northcare.es" class="contacto-option">
+            <a href="/cdn-cgi/l/email-protection#95fcfbf3fad5fbfae7e1fdf6f4e7f0bbf0e6" class="contacto-option">
                 <span class="contacto-option-icon">✉️</span>
                 <span class="contacto-option-label">Email</span>
-                <span class="contacto-option-value">info@northcare.es</span>
+                <span class="contacto-option-value"><span class="__cf_email__" data-cfemail="91f8fff7fed1fffee3e5f9f2f0e3f4bff4e2">[email&#160;protected]</span></span>
             </a>
         </div>
     </section>
 
     <!-- Footer -->
     <footer>
-        <a href="index.html" class="logo">N</a>
+        <a href="index.html" class="logo"><img src="logo.png" alt="Northcare"></a>
+        <p class="tagline">Parar nunca, anticiparse siempre</p>
         <p>Reparación e instalaciones de cocinas industriales · Zona Norte</p>
         <div class="legal">
             <p>Northcare © 2025 · <a href="privacidad.html">Política de Privacidad</a> · <a href="cookies.html">Política de Cookies</a></p>
@@ -1154,7 +1170,7 @@
         </div>
     </div>
 
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         function toggleMenu() {
             const menu = document.getElementById('mobileMenu');
             const hamburger = document.querySelector('.hamburger');
@@ -1192,10 +1208,4 @@
             })(window,document,'script','dataLayer','GTM-MWTDJLNC');
         }
         document.addEventListener('DOMContentLoaded', function() {
-            const consent = getCookieConsent();
-            if (!consent) { document.getElementById('cookieBanner').classList.add('active'); }
-            else if (consent === 'accepted') { loadAnalytics(); }
-        });
-    </script>
-</body>
-</html>
+            
