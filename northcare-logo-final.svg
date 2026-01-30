@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 50">
+  <!-- Fondo negro -->
+  <rect width="400" height="50" fill="#000000"/>
+  
+  <g fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    
+    <!-- N: forma de 1 invertido -->
+    <path d="M 12 42 L 12 8"/>
+    <path d="M 12 8 L 36 25"/>
+    <path d="M 38 42 L 38 8" stroke-width="1.7"/>
+    
+    <!-- O: rombo con puntas arriba/abajo curvadas -->
+    <path d="M 63 8 Q 65 6 67 8 L 85 25 L 67 42 Q 65 44 63 42 L 45 25 Z"/>
+    
+    <!-- R: P con diagonal -->
+    <path d="M 92 42 L 92 8"/>
+    <path d="M 92 8 L 104 8 Q 114 8 114 16 Q 114 24 95 24"/>
+    <path d="M 95 24 L 117 42"/>
+    
+    <!-- T: horizontal + vertical -->
+    <path d="M 125 8 L 159 8"/>
+    <path d="M 142 10 L 142 42"/>
+    
+    <!-- H: dos verticales + horizontal -->
+    <path d="M 170 8 L 170 42"/>
+    <path d="M 170 25 L 194 25"/>
+    <path d="M 196 8 L 196 42"/>
+    
+    <!-- C: O abierta -->
+    <path d="M 232 16 L 225 8 Q 223 6 221 8 L 205 25 L 221 42 Q 223 44 225 42 L 232 34"/>
+    
+    <!-- A: lambda -->
+    <path d="M 240 42 L 259 8 Q 260 7 261 8 L 280 42"/>
+    
+    <!-- R: P con diagonal (igual que la primera) -->
+    <path d="M 292 42 L 292 8"/>
+    <path d="M 292 8 L 304 8 Q 314 8 314 16 Q 314 24 295 24"/>
+    <path d="M 295 24 L 317 42"/>
+    
+    <!-- E (Sigma): zigzag -->
+    <path d="M 355 8 L 325 8 L 340 25 L 325 42 L 355 42"/>
+    
+    <!-- Rombo decorativo -->
+    <path d="M 340 25 L 345 20 L 350 25 L 345 30 Z"/>
+    
+  </g>
+  
+</svg>
