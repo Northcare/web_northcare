@@ -2,7 +2,8 @@
   <!-- Fondo negro -->
   <rect width="400" height="50" fill="#000000"/>
   
-  <g fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Contenido desplazado 16.5px para centrar (margen original 12px, ideal 28.5px) -->
+  <g fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" transform="translate(16.5, 0)">
     
     <!-- N: forma de 1 invertido -->
     <path d="M 12 42 L 12 8"/>
