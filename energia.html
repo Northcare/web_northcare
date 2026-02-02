@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- VERSIÓN: 2024-12-24-v3 - Colores hardcodeados -->
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -23,27 +22,12 @@
             --color-red: #ff4d4d;
             --color-red-glow: rgba(255, 77, 77, 0.3);
             --color-yellow: #ffcc00;
-            --color-yellow-glow: rgba(255, 204, 0, 0.3);
             --font-main: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            font-size: 18px;
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: var(--font-main);
-            background: var(--color-bg);
-            color: var(--color-white);
-            line-height: 1.75;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { font-size: 18px; scroll-behavior: smooth; }
+        body { font-family: var(--font-main); background: var(--color-bg); color: var(--color-white); line-height: 1.75; }
 
         /* Navigation */
         nav {
@@ -60,86 +44,73 @@
             border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
-        .logo {
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-            line-height: 1;
-        }
-
-        .logo img {
-            height: 40px;
-            width: auto;
-        }
+        .logo { display: flex; align-items: center; text-decoration: none; line-height: 1; }
+        .logo img { height: 40px; width: auto; }
 
         .nav-desktop { display: flex; gap: 2rem; align-items: center; }
         .nav-link { color: var(--color-gray-light); text-decoration: none; font-size: 1.05rem; font-weight: 500; transition: color 0.3s ease; }
         .nav-link:hover { color: var(--color-white); }
         .nav-cta { background: var(--color-accent); color: var(--color-bg); padding: 0.75rem 1.5rem; text-decoration: none; font-weight: 600; font-size: 1.05rem; transition: all 0.3s ease; }
         .nav-cta:hover { box-shadow: 0 0 20px var(--color-accent-glow); }
+
         .nav-mobile-controls { display: none; align-items: center; gap: 1rem; }
         .nav-call { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; background: var(--color-green); color: var(--color-bg); text-decoration: none; font-size: 1.25rem; border-radius: 50%; }
-        .hamburger { display: flex; flex-direction: column; justify-content: center; align-items: center; width: 44px; height: 44px; background: transparent; border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; cursor: pointer; gap: 5px; }
+
+        .hamburger { display: flex; flex-direction: column; justify-content: center; align-items: center; width: 44px; height: 44px; background: transparent; border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; cursor: pointer; gap: 5px; transition: all 0.3s ease; }
         .hamburger span { display: block; width: 20px; height: 2px; background: var(--color-white); transition: all 0.3s ease; }
         .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
         .hamburger.active span:nth-child(2) { opacity: 0; }
         .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
-        .mobile-menu { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(0,0,0,0.98); z-index: 999; display: flex; flex-direction: column; padding: 6rem 2rem 2rem; transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); overflow-y: auto; }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0,0,0,0.98);
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            padding: 6rem 2rem 2rem;
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            overflow-y: auto;
+        }
         .mobile-menu.active { transform: translateX(0); }
+
         .mobile-menu-section { margin-bottom: 2rem; }
         .mobile-menu-label { font-size: 1.05rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--color-accent); margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
         .mobile-menu-links { display: flex; flex-direction: column; gap: 0.25rem; }
-        .mobile-menu-link { display: block; padding: 1rem 0; color: var(--color-white); text-decoration: none; font-size: 1.1rem; font-weight: 500; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .mobile-menu-link { display: block; padding: 1rem 0; color: var(--color-white); text-decoration: none; font-size: 1.1rem; font-weight: 500; border-bottom: 1px solid rgba(255,255,255,0.05); transition: all 0.3s ease; }
+        .mobile-menu-link:hover { color: var(--color-accent); padding-left: 0.5rem; }
         .mobile-menu-link span { display: block; font-size: 1.1rem; color: var(--color-gray); font-weight: 400; margin-top: 0.25rem; }
+
         .mobile-menu-contacto { margin-top: auto; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); display: flex; flex-direction: column; gap: 1rem; }
-        .mobile-menu-tel { display: flex; align-items: center; gap: 1rem; padding: 1rem; background: var(--color-bg-card); border: 1px solid rgba(0, 255, 136, 0.3); border-radius: 12px; text-decoration: none; color: var(--color-white); }
+        .mobile-menu-tel { display: flex; align-items: center; gap: 1rem; padding: 1rem; background: var(--color-bg-card); border: 1px solid rgba(0, 255, 136, 0.3); border-radius: 12px; text-decoration: none; color: var(--color-white); transition: all 0.3s ease; }
+        .mobile-menu-tel:hover { border-color: var(--color-green); }
         .mobile-menu-tel-icon { display: flex; align-items: center; justify-content: center; width: 48px; height: 48px; background: var(--color-green); color: var(--color-bg); border-radius: 50%; font-size: 1.25rem; }
         .mobile-menu-tel-info { display: flex; flex-direction: column; }
         .mobile-menu-tel-label { font-size: 1.05rem; color: var(--color-gray); text-transform: uppercase; }
         .mobile-menu-tel-number { font-size: 1.25rem; font-weight: 700; }
-        @media (max-width: 900px) { .nav-desktop { display: none; } .nav-mobile-controls { display: flex; } }
-        @media (min-width: 901px) { .mobile-menu { display: none !important; } }
 
-        /* Section Base */
-        section {
-            padding: 6rem 5%;
+        @media (max-width: 900px) {
+            .nav-desktop { display: none; }
+            .nav-mobile-controls { display: flex; }
+        }
+        @media (min-width: 901px) {
+            .mobile-menu { display: none !important; }
         }
 
-        .section-label {
-            display: inline-block;
-            font-size: 1.1rem;
-            font-weight: 700;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--color-accent);
-            margin-bottom: 1rem;
-        }
+        /* Sections */
+        section { padding: 6rem 5%; }
+        .section-label { display: inline-block; font-size: 1.1rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--color-accent); margin-bottom: 1rem; }
+        .section-title { font-size: clamp(1.75rem, 4vw, 3rem); font-weight: 800; margin-bottom: 1rem; letter-spacing: -0.02em; }
+        .section-title .highlight { color: var(--color-accent); }
+        .section-title .highlight-green { color: var(--color-green); }
+        .section-title .highlight-red { color: var(--color-red); }
 
-        .section-title {
-            font-size: clamp(1.75rem, 4vw, 3rem);
-            font-weight: 800;
-            margin-bottom: 1rem;
-            letter-spacing: -0.02em;
-        }
-
-        .section-title .highlight {
-            color: var(--color-accent);
-            text-shadow: 0 0 20px var(--color-accent-glow);
-        }
-
-        .section-title .highlight-green {
-            color: var(--color-green);
-            text-shadow: 0 0 20px var(--color-green-glow);
-        }
-
-        .section-title .highlight-red {
-            color: var(--color-red);
-            text-shadow: 0 0 20px var(--color-red-glow);
-        }
-
-        /* ===================== */
-        /* A. HERO */
-        /* ===================== */
+        /* HERO */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -147,570 +118,108 @@
             justify-content: center;
             text-align: center;
             padding: 8rem 5% 5rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 700px;
-            height: 700px;
-            background: radial-gradient(circle, rgba(0, 212, 255, 0.4) 0%, transparent 70%);
-            pointer-events: none;
-            opacity: 0.5;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 1;
-            max-width: 900px;
-        }
-
-        .hero-tag {
-            display: inline-block;
-            color: #00d4ff;
-            font-size: 1.05rem;
-            font-weight: 600;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            margin-bottom: 1.5rem;
-        }
-
-        .hero h1 {
-            font-size: clamp(2.5rem, 7vw, 5rem);
-            font-weight: 900;
-            line-height: 1.05;
-            margin-bottom: 1.5rem;
-            letter-spacing: -0.03em;
-        }
-
-        .hero h1 .highlight {
-            color: #00d4ff;
-            text-shadow: 0 0 30px rgba(0, 212, 255, 0.4), 0 0 60px rgba(0, 212, 255, 0.4);
-        }
-
-        .hero p {
-            font-size: 1.25rem;
-            color: var(--color-gray-light);
-            max-width: 650px;
-            margin: 0 auto 2.5rem;
-        }
-
-        .btn-primary {
-            display: inline-block;
-            background: #ffffff;
-            color: #000000;
-            padding: 1rem 2.5rem;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            border: 2px solid #ffffff;
-            cursor: pointer;
-        }
-
-        .btn-primary:hover {
-            background: var(--color-accent);
-            color: var(--color-bg);
-            box-shadow: 0 0 30px var(--color-accent-glow);
-        }
-
-        /* ===================== */
-        /* B. TRIPLE PROBLEMA */
-        /* ===================== */
-        .problema {
-            background: var(--color-bg);
-            border-top: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .problema-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin-top: 3rem;
-        }
-
-        .problema-item {
-            padding: 2rem;
-            background: var(--color-bg-card);
-            border-left: 3px solid var(--color-red);
-            transition: all 0.3s ease;
-        }
-
-        .problema-item:hover {
-            background: var(--color-bg-light);
-            box-shadow: 0 0 30px rgba(255, 77, 77, 0.1);
-        }
-
-        .problema-item h3 {
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 0.75rem;
-            color: var(--color-white);
-        }
-
-        .problema-item p {
-            font-size: 1rem;
-            color: var(--color-gray-light);
-            line-height: 1.75;
-        }
-
-        /* ===================== */
-        /* C. QUÉ OFRECEMOS */
-        /* ===================== */
-        .ofrecemos {
-            background: var(--color-bg-light);
-            border-top: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .ofrecemos-container {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .ofrecemos-header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .ofrecemos-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .ofrecemos-card {
-            text-align: center;
-            padding: 2rem 1.5rem;
-            background: var(--color-bg-card);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 8px;
-            transition: all 0.3s ease;
-        }
-
-        .ofrecemos-card:hover {
-            border-color: var(--color-accent);
-            box-shadow: 0 0 30px rgba(0, 212, 255, 0.1);
-        }
-
-        .ofrecemos-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .ofrecemos-card h4 {
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-
-        .ofrecemos-card p {
-            font-size: 1.05rem;
-            color: var(--color-gray);
-        }
-
-        /* ===================== */
-        /* D. DATOS DE AHORRO */
-        /* ===================== */
-        .ahorro-section {
-            background: var(--color-bg);
-            border-top: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .ahorro-container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .ahorro-header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .ahorro-header p {
-            color: var(--color-gray);
-            margin-top: 0.5rem;
-        }
-
-        .ahorro-tabla {
-            background: var(--color-bg-card);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 8px;
-            overflow: hidden;
-        }
-
-        .ahorro-fila {
-            display: grid;
-            grid-template-columns: auto 1fr auto;
-            gap: 1.5rem;
-            padding: 1.5rem 2rem;
-            align-items: center;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .ahorro-fila:last-child {
-            border-bottom: none;
-        }
-
-        .ahorro-fila.header {
-            background: var(--color-bg);
-            font-size: 1.1rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--color-gray);
-            padding: 1rem 2rem;
-        }
-
-        .ahorro-icon {
-            font-size: 1.5rem;
-        }
-
-        .ahorro-mejora {
-            font-weight: 600;
-        }
-
-        .ahorro-mejora span {
-            display: block;
-            font-size: 1rem;
-            font-weight: 400;
-            color: var(--color-gray);
-            margin-top: 0.25rem;
-        }
-
-        .ahorro-porcentaje {
-            font-size: 1.25rem;
-            font-weight: 800;
-            color: var(--color-green);
-            text-align: right;
-        }
-
-        .ahorro-porcentaje.proximamente {
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--color-gray);
-            background: rgba(255,255,255,0.1);
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-        }
-
-        .ahorro-total {
-            margin-top: 2rem;
-            padding: 2rem;
-            background: linear-gradient(135deg, rgba(0, 255, 136, 0.1) 0%, rgba(0, 212, 255, 0.05) 100%);
-            border: 1px solid rgba(0, 255, 136, 0.3);
-            border-radius: 8px;
-            text-align: center;
-        }
-
-        .ahorro-total-label {
-            font-size: 1.05rem;
-            color: var(--color-gray-light);
-            margin-bottom: 0.5rem;
-        }
-
-        .ahorro-total-value {
-            font-size: 3rem;
-            font-weight: 900;
-            color: var(--color-green);
-            text-shadow: 0 0 40px var(--color-green-glow);
-        }
-
-        .ahorro-total-note {
-            font-size: 1rem;
-            color: var(--color-gray);
-            margin-top: 0.5rem;
-        }
-
-        /* ===================== */
-        /* E. NORMATIVA F-GASES */
-        /* ===================== */
-        .normativa {
-            background: var(--color-bg-light);
-            border-top: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .normativa-container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .normativa-header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .normativa-box {
-            background: var(--color-bg-card);
-            border: 1px solid rgba(255, 204, 0, 0.3);
-            border-radius: 8px;
-            padding: 2.5rem;
-        }
-
-        .normativa-box h3 {
-            font-size: 1.25rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: var(--color-yellow);
-        }
-
-        .normativa-box p {
-            color: var(--color-gray-light);
-            margin-bottom: 1.5rem;
-            line-height: 1.8;
-        }
-
-        .normativa-box ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .normativa-box li {
-            padding: 0.75rem 0;
-            padding-left: 2rem;
-            position: relative;
-            color: var(--color-gray-light);
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-
-        .normativa-box li:last-child {
-            border-bottom: none;
-        }
-
-        .normativa-box li::before {
-            content: '⚠️';
-            position: absolute;
-            left: 0;
-        }
-
-        .normativa-cta {
-            margin-top: 2rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            text-align: center;
-        }
-
-        .normativa-cta p {
-            margin-bottom: 0;
-            color: var(--color-green);
-            font-weight: 600;
-        }
-
-        /* ===================== */
-        /* F. PROCESO */
-        /* ===================== */
-        .proceso {
-            background: var(--color-bg);
-            border-top: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .proceso-container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .proceso-header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .proceso-steps {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-        }
-
-        .paso {
-            text-align: center;
-            position: relative;
-        }
-
-        .paso-number {
-            width: 60px;
-            height: 60px;
-            background: var(--color-accent);
-            color: var(--color-bg);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            font-weight: 900;
-            margin: 0 auto 1.5rem;
-        }
-
-        .paso-free {
-            position: absolute;
-            top: -10px;
-            right: calc(50% - 50px);
-            background: var(--color-green);
-            color: var(--color-bg);
-            font-size: 0.7rem;
-            font-weight: 700;
-            padding: 0.25rem 0.75rem;
-            border-radius: 4px;
-            text-transform: uppercase;
-        }
-
-        .paso h3 {
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-
-        .paso p {
-            font-size: 1.05rem;
-            color: var(--color-gray);
-        }
-
-        /* ===================== */
-        /* G. CREDENCIALES */
-        /* ===================== */
-        .credenciales {
-            background: var(--color-bg-light);
-            border-top: 1px solid rgba(255,255,255,0.1);
-            text-align: center;
-        }
-
-        .credenciales-container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .credenciales-intro {
-            font-size: 1.1rem;
-            color: var(--color-gray-light);
-            margin-bottom: 2.5rem;
-        }
-
-        .credenciales-intro strong {
-            color: var(--color-white);
-        }
-
-        .credenciales-stats {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 3rem;
-            margin-bottom: 2.5rem;
-        }
-
-        .credencial-stat {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .credencial-numero {
-            font-size: 3rem;
-            font-weight: 900;
-            color: var(--color-accent);
-            text-shadow: 0 0 30px var(--color-accent-glow);
-            line-height: 1;
-        }
-
-        .credencial-label {
-            font-size: 1rem;
-            color: var(--color-gray);
-            margin-top: 0.5rem;
-        }
-
-        .credenciales-clientes {
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .credenciales-clientes p {
-            font-size: 1rem;
-            color: var(--color-gray);
-            margin-bottom: 1rem;
-        }
-
-        .clientes-logos {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 2rem;
-        }
-
-        .clientes-logos span {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--color-gray-light);
-            opacity: 0.8;
-        }
-
-        /* ===================== */
-        /* H. FORMULARIO */
-        /* ===================== */
-        .formulario-section {
-            background: var(--color-bg);
-            border-top: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .formulario-container {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .formulario-header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .formulario-header p {
-            color: var(--color-gray);
-            margin-top: 0.5rem;
-        }
-
-        .formulario-free {
-            display: inline-block;
-            background: var(--color-green);
-            color: var(--color-bg);
-            font-size: 1.1rem;
-            font-weight: 700;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            margin-bottom: 1rem;
-        }
-
-        .formulario-box {
-            background: var(--color-bg-card);
-            border: 1px solid rgba(255,255,255,0.15);
-            border-radius: 8px;
-            padding: 2.5rem;
-        }
-
-        .formulario-grid {
-            display: grid;
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .formulario-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-        }
-
-        .input-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .input-group label {
-            font-size: 1rem;
-            color: var(--color-gray-light);
-            margin-bottom: 0.75rem;
-            font-weight: 500;
-        }
-
-        .input-group input,
-        .input-group select,
-        .input-group textarea {
+            background: #000000;
+        }
+        .hero-content { max-width: 900px; }
+        .hero-logo { max-width: 700px; width: 90%; height: auto; margin: 0 auto 1.5rem; display: block; }
+        .hero-tag { display: inline-block; color: var(--color-accent); font-size: 1.05rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1.5rem; }
+        .hero h1 { font-size: clamp(2.5rem, 7vw, 5rem); font-weight: 900; line-height: 1.05; margin-bottom: 1.5rem; letter-spacing: -0.03em; }
+        .hero h1 .highlight { color: var(--color-accent); }
+        .hero p { font-size: 1.25rem; color: var(--color-gray-light); max-width: 650px; margin: 0 auto 2.5rem; }
+
+        .btn-primary { display: inline-block; background: var(--color-white); color: var(--color-bg); padding: 1rem 2.5rem; text-decoration: none; font-weight: 700; font-size: 1rem; transition: all 0.3s ease; border: none; cursor: pointer; }
+        .btn-primary:hover { background: var(--color-accent); color: var(--color-bg); box-shadow: 0 0 30px var(--color-accent-glow); }
+
+        /* PROBLEMA */
+        .problema { background: var(--color-bg); border-top: 1px solid rgba(255,255,255,0.1); }
+        .problema-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+        .problema-item { padding: 2rem; background: var(--color-bg-card); border-left: 3px solid var(--color-red); transition: all 0.3s ease; }
+        .problema-item:hover { background: var(--color-bg-light); box-shadow: 0 0 30px rgba(255, 77, 77, 0.1); }
+        .problema-item h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--color-white); }
+        .problema-item p { font-size: 1rem; color: var(--color-gray-light); line-height: 1.75; }
+
+        /* OFRECEMOS */
+        .ofrecemos { background: var(--color-bg-light); border-top: 1px solid rgba(255,255,255,0.1); }
+        .ofrecemos-container { max-width: 1000px; margin: 0 auto; }
+        .ofrecemos-header { text-align: center; margin-bottom: 3rem; }
+        .ofrecemos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
+        .ofrecemos-card { text-align: center; padding: 2rem 1.5rem; background: var(--color-bg-card); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; transition: all 0.3s ease; }
+        .ofrecemos-card:hover { border-color: var(--color-accent); box-shadow: 0 0 30px rgba(0, 212, 255, 0.1); }
+        .ofrecemos-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+        .ofrecemos-card h4 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .ofrecemos-card p { font-size: 1.05rem; color: var(--color-gray); }
+
+        /* AHORRO */
+        .ahorro-section { background: var(--color-bg); border-top: 1px solid rgba(255,255,255,0.1); }
+        .ahorro-container { max-width: 900px; margin: 0 auto; }
+        .ahorro-header { text-align: center; margin-bottom: 3rem; }
+        .ahorro-header p { color: var(--color-gray); margin-top: 0.5rem; }
+        .ahorro-tabla { background: var(--color-bg-card); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; overflow: hidden; }
+        .ahorro-fila { display: grid; grid-template-columns: auto 1fr auto; gap: 1.5rem; padding: 1.5rem 2rem; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .ahorro-fila:last-child { border-bottom: none; }
+        .ahorro-fila.header { background: var(--color-bg); font-size: 1.1rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-gray); padding: 1rem 2rem; }
+        .ahorro-icon { font-size: 1.5rem; }
+        .ahorro-mejora { font-weight: 600; }
+        .ahorro-mejora span { display: block; font-size: 1rem; font-weight: 400; color: var(--color-gray); margin-top: 0.25rem; }
+        .ahorro-porcentaje { font-size: 1.25rem; font-weight: 800; color: var(--color-green); text-align: right; }
+        .ahorro-porcentaje.proximamente { font-size: 1rem; font-weight: 600; color: var(--color-gray); background: rgba(255,255,255,0.1); padding: 0.5rem 1rem; border-radius: 4px; }
+        .ahorro-total { margin-top: 2rem; padding: 2rem; background: linear-gradient(135deg, rgba(0, 255, 136, 0.1) 0%, rgba(0, 212, 255, 0.05) 100%); border: 1px solid rgba(0, 255, 136, 0.3); border-radius: 8px; text-align: center; }
+        .ahorro-total-label { font-size: 1.05rem; color: var(--color-gray-light); margin-bottom: 0.5rem; }
+        .ahorro-total-value { font-size: 3rem; font-weight: 900; color: var(--color-green); }
+        .ahorro-total-note { font-size: 1rem; color: var(--color-gray); margin-top: 0.5rem; }
+
+        /* NORMATIVA */
+        .normativa { background: var(--color-bg-light); border-top: 1px solid rgba(255,255,255,0.1); }
+        .normativa-container { max-width: 800px; margin: 0 auto; }
+        .normativa-header { text-align: center; margin-bottom: 3rem; }
+        .normativa-box { background: var(--color-bg-card); border: 1px solid rgba(255, 204, 0, 0.3); border-radius: 8px; padding: 2.5rem; }
+        .normativa-box h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 1rem; color: var(--color-yellow); }
+        .normativa-box p { color: var(--color-gray-light); margin-bottom: 1.5rem; line-height: 1.8; }
+        .normativa-box ul { list-style: none; padding: 0; }
+        .normativa-box li { padding: 0.75rem 0; padding-left: 2rem; position: relative; color: var(--color-gray-light); border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .normativa-box li:last-child { border-bottom: none; }
+        .normativa-box li::before { content: '⚠️'; position: absolute; left: 0; }
+        .normativa-cta { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.1); text-align: center; }
+        .normativa-cta p { margin-bottom: 0; color: var(--color-green); font-weight: 600; }
+
+        /* PROCESO */
+        .proceso { background: var(--color-bg); border-top: 1px solid rgba(255,255,255,0.1); }
+        .proceso-container { max-width: 900px; margin: 0 auto; }
+        .proceso-header { text-align: center; margin-bottom: 3rem; }
+        .proceso-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; }
+        .paso { text-align: center; position: relative; }
+        .paso-number { width: 60px; height: 60px; background: var(--color-accent); color: var(--color-bg); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 900; margin: 0 auto 1.5rem; }
+        .paso-free { position: absolute; top: -10px; right: calc(50% - 50px); background: var(--color-green); color: var(--color-bg); font-size: 0.7rem; font-weight: 700; padding: 0.25rem 0.75rem; border-radius: 4px; text-transform: uppercase; }
+        .paso h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .paso p { font-size: 1.05rem; color: var(--color-gray); }
+
+        /* CREDENCIALES */
+        .credenciales { background: var(--color-bg-light); border-top: 1px solid rgba(255,255,255,0.1); text-align: center; }
+        .credenciales-container { max-width: 900px; margin: 0 auto; }
+        .credenciales-intro { font-size: 1.1rem; color: var(--color-gray-light); margin-bottom: 2.5rem; }
+        .credenciales-intro strong { color: var(--color-white); }
+        .credenciales-stats { display: flex; justify-content: center; flex-wrap: wrap; gap: 3rem; margin-bottom: 2.5rem; }
+        .credencial-stat { display: flex; flex-direction: column; align-items: center; }
+        .credencial-numero { font-size: 3rem; font-weight: 900; color: var(--color-accent); line-height: 1; }
+        .credencial-label { font-size: 1rem; color: var(--color-gray); margin-top: 0.5rem; }
+        .credenciales-clientes { padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); }
+        .credenciales-clientes p { font-size: 1rem; color: var(--color-gray); margin-bottom: 1rem; }
+        .clientes-logos { display: flex; justify-content: center; flex-wrap: wrap; gap: 2rem; }
+        .clientes-logos span { font-size: 1.1rem; font-weight: 700; color: var(--color-gray-light); opacity: 0.8; }
+
+        /* FORMULARIO */
+        .formulario-section { background: var(--color-bg); border-top: 1px solid rgba(255,255,255,0.1); }
+        .formulario-container { max-width: 600px; margin: 0 auto; }
+        .formulario-header { text-align: center; margin-bottom: 3rem; }
+        .formulario-header p { color: var(--color-gray); margin-top: 0.5rem; }
+        .formulario-free { display: inline-block; background: var(--color-green); color: var(--color-bg); font-size: 1.1rem; font-weight: 700; padding: 0.5rem 1rem; border-radius: 4px; margin-bottom: 1rem; }
+        .formulario-box { background: var(--color-bg-card); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; padding: 2.5rem; }
+        .formulario-grid { display: grid; gap: 1.5rem; margin-bottom: 2rem; }
+        .formulario-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+
+        .input-group { display: flex; flex-direction: column; }
+        .input-group label { font-size: 1rem; color: var(--color-gray-light); margin-bottom: 0.75rem; font-weight: 500; }
+        .input-group input, .input-group select, .input-group textarea {
             width: 100%;
             box-sizing: border-box;
             background: var(--color-bg);
@@ -722,243 +231,59 @@
             border-radius: 4px;
             transition: all 0.3s ease;
         }
+        .input-group input:focus, .input-group select:focus, .input-group textarea:focus { outline: none; border-color: var(--color-accent); box-shadow: 0 0 20px rgba(0, 212, 255, 0.2); }
+        .input-group input::placeholder, .input-group textarea::placeholder { color: var(--color-gray); }
+        .input-group select { cursor: pointer; }
+        .input-group select option { background: var(--color-bg); color: var(--color-white); }
 
-        .input-group input:focus,
-        .input-group select:focus,
-        .input-group textarea:focus {
-            outline: none;
-            border-color: var(--color-accent);
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
-        }
+        .formulario-btn { display: block; width: 100%; background: var(--color-accent); color: var(--color-bg); border: none; padding: 1.25rem; font-size: 1rem; font-weight: 700; font-family: var(--font-main); cursor: pointer; transition: all 0.3s ease; }
+        .formulario-btn:hover { box-shadow: 0 0 40px var(--color-accent-glow); }
 
-        .input-group input::placeholder,
-        .input-group textarea::placeholder {
-            color: var(--color-gray);
-        }
-
-        .input-group select {
-            cursor: pointer;
-        }
-
-        .input-group select option {
-            background: var(--color-bg);
-            color: var(--color-white);
-        }
-
-        .formulario-btn {
-            display: block;
-            width: 100%;
-            background: var(--color-accent);
-            color: var(--color-bg);
-            border: none;
-            padding: 1.25rem;
-            font-size: 1rem;
-            font-weight: 700;
-            font-family: var(--font-main);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .formulario-btn:hover {
-            box-shadow: 0 0 40px var(--color-accent-glow);
-        }
-
-        /* ===================== */
-        /* I. CONTACTO ALTERNATIVO */
-        /* ===================== */
-        .contacto-alt {
-            background: var(--color-bg-light);
-            border-top: 1px solid rgba(255,255,255,0.1);
-            text-align: center;
-        }
-
-        .contacto-alt-header {
-            margin-bottom: 2rem;
-        }
-
-        .contacto-alt-header p {
-            color: var(--color-gray);
-            font-size: 1rem;
-        }
-
-        .contacto-options {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .contacto-option {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 2rem;
-            background: var(--color-bg-card);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 8px;
-            text-decoration: none;
-            color: inherit;
-            min-width: 200px;
-            transition: all 0.3s ease;
-        }
-
-        .contacto-option:hover {
-            border-color: var(--color-accent);
-            box-shadow: 0 0 30px rgba(0, 212, 255, 0.15);
-        }
-
-        .contacto-option-icon {
-            font-size: 2rem;
-        }
-
-        .contacto-option-label {
-            font-size: 1.1rem;
-            color: var(--color-gray);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .contacto-option-value {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--color-white);
-        }
+        /* CONTACTO ALT */
+        .contacto-alt { background: var(--color-bg-light); border-top: 1px solid rgba(255,255,255,0.1); text-align: center; }
+        .contacto-alt-header { margin-bottom: 2rem; }
+        .contacto-alt-header p { color: var(--color-gray); font-size: 1rem; }
+        .contacto-options { display: flex; justify-content: center; flex-wrap: wrap; gap: 1.5rem; max-width: 800px; margin: 0 auto; }
+        .contacto-option { display: flex; flex-direction: column; align-items: center; gap: 0.75rem; padding: 2rem; background: var(--color-bg-card); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; text-decoration: none; color: inherit; min-width: 200px; transition: all 0.3s ease; }
+        .contacto-option:hover { border-color: var(--color-accent); box-shadow: 0 0 30px rgba(0, 212, 255, 0.15); }
+        .contacto-option-icon { font-size: 2rem; }
+        .contacto-option-label { font-size: 1.1rem; color: var(--color-gray); text-transform: uppercase; letter-spacing: 0.05em; }
+        .contacto-option-value { font-size: 1.1rem; font-weight: 700; color: var(--color-white); }
 
         /* Footer */
-        footer {
-            background: var(--color-bg);
-            padding: 3rem 5%;
-            text-align: center;
-            border-top: 1px solid rgba(255,255,255,0.1);
-        }
+        footer { background: var(--color-bg); padding: 3rem 5%; text-align: center; border-top: 1px solid rgba(255,255,255,0.1); }
+        footer .logo { display: inline-flex; margin-bottom: 1rem; }
+        footer .logo img { height: 50px; width: auto; }
+        footer .tagline { font-size: 1.1rem; font-weight: 600; color: var(--color-white); margin-bottom: 0.5rem; }
+        footer p { color: var(--color-gray); font-size: 1.05rem; }
+        footer .legal { margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); font-size: 1.1rem; color: var(--color-gray); }
+        footer .legal a { color: var(--color-gray); text-decoration: none; }
+        footer .legal a:hover { color: var(--color-accent); }
 
-        footer .logo {
-            display: inline-flex;
-            margin-bottom: 1rem;
-        }
-
-        footer .logo img {
-            height: 50px;
-            width: auto;
-        }
-
-        footer .tagline {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--color-white);
-            margin-bottom: 0.5rem;
-        }
-
-        footer p {
-            color: var(--color-gray);
-            font-size: 1.05rem;
-        }
-
-        footer .legal {
-            margin-top: 2rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            font-size: 1.1rem;
-            color: var(--color-gray);
-        }
-
-        /* Responsive - Mejoras de legibilidad móvil */
+        /* Responsive */
         @media (max-width: 768px) {
-            html {
-                font-size: 19px;
-            }
+            html { font-size: 19px; }
+            section { padding: 3.5rem 6%; }
+            .hero { padding-top: 6rem; }
+            nav { padding: 1rem 5%; }
+            .hero-logo { max-width: 420px; }
+            .btn-primary { padding: 1.15rem 2rem; font-size: 1.1rem; }
+            .input-group label { font-size: 1.1rem; margin-bottom: 0.6rem; }
+            .input-group input, .input-group textarea, .input-group select { font-size: 1.1rem; padding: 1.1rem; }
+            .formulario-btn { padding: 1.25rem; font-size: 1.15rem; }
+            .formulario-row { grid-template-columns: 1fr; }
+            .formulario-box { padding: 1.5rem; }
+            .contacto-options { flex-direction: column; align-items: center; }
+            .contacto-option { width: 100%; max-width: 300px; }
+            .credencial-numero { font-size: 2.5rem; }
+            .ahorro-fila { grid-template-columns: auto 1fr; gap: 1rem; }
+            .ahorro-fila.header { display: none; }
+            .ahorro-porcentaje { grid-column: 2; text-align: left; font-size: 1.1rem; }
+            .ahorro-total-value { font-size: 2.5rem; }
+        }
 
-            section {
-                padding: 3.5rem 6%;
-            }
-
-            .hero {
-                padding-top: 6rem;
-            }
-
-            nav {
-                padding: 1rem 5%;
-            }
-
-            .logo {
-                font-size: 2rem;
-            }
-
-            .nav-cta {
-                padding: 0.75rem 1.25rem;
-                font-size: 1.05rem;
-            }
-
-            .btn-primary, .btn-secondary {
-                padding: 1.15rem 2rem;
-                font-size: 1.1rem;
-            }
-
-            /* Formularios más grandes */
-            .input-group label {
-                font-size: 1.1rem;
-                margin-bottom: 0.6rem;
-            }
-
-            .input-group input,
-            .input-group textarea,
-            .input-group select {
-                font-size: 1.1rem;
-                padding: 1.1rem;
-            }
-
-            .formulario-btn {
-                padding: 1.25rem;
-                font-size: 1.15rem;
-            }
-
-            .formulario-row {
-                grid-template-columns: 1fr;
-            }
-
-            .formulario-box {
-                padding: 1.5rem;
-            }
-
-            .formulario-container {
-                padding: 0 1rem;
-            }
-
-            .contacto-options {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .contacto-option {
-                width: 100%;
-                max-width: 300px;
-            }
-
-            .credencial-numero {
-                font-size: 2.5rem;
-            }
-
-            .ahorro-fila {
-                grid-template-columns: auto 1fr;
-                gap: 1rem;
-            }
-
-            .ahorro-fila.header {
-                display: none;
-            }
-
-            .ahorro-porcentaje {
-                grid-column: 2;
-                text-align: left;
-                font-size: 1.1rem;
-            }
-
-            .ahorro-total-value {
-                font-size: 2.5rem;
-            }
+        @media (max-width: 400px) {
+            .hero-logo { max-width: 300px; }
         }
 
         /* Cookie Banner */
@@ -968,17 +293,19 @@
         .cookie-content p { color: #ccc; font-size: 0.95rem; margin: 0; flex: 1; min-width: 250px; }
         .cookie-content a { color: #00d4ff; text-decoration: none; }
         .cookie-buttons { display: flex; gap: 0.75rem; }
-        .cookie-btn { padding: 0.75rem 1.5rem; border: none; border-radius: 4px; font-size: 0.95rem; font-weight: 600; cursor: pointer; font-family: inherit; }
+        .cookie-btn { padding: 0.75rem 1.5rem; border: none; border-radius: 4px; font-size: 0.95rem; font-weight: 600; cursor: pointer; font-family: inherit; transition: all 0.3s ease; }
         .cookie-btn.accept { background: #00d4ff; color: #0a0a0a; }
         .cookie-btn.reject { background: transparent; color: #888; border: 1px solid #444; }
-        @media (max-width: 600px) { .cookie-content { flex-direction: column; text-align: center; } .cookie-buttons { width: 100%; justify-content: center; } }
+        @media (max-width: 600px) {
+            .cookie-content { flex-direction: column; text-align: center; }
+            .cookie-buttons { width: 100%; justify-content: center; }
+        }
     </style>
 </head>
 <body>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MWTDJLNC"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
+    <!-- GTM noscript -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MWTDJLNC" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
     <!-- Navigation -->
     <nav>
         <a href="index.html" class="logo"><img src="logo.png" alt="Northcare"></a>
@@ -993,9 +320,15 @@
         </div>
         <div class="nav-mobile-controls">
             <a href="tel:603081740" class="nav-call">📞</a>
-            <button class="hamburger" onclick="toggleMenu()" aria-label="Menú"><span></span><span></span><span></span></button>
+            <button class="hamburger" onclick="toggleMenu()" aria-label="Menú">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
     </nav>
+
+    <!-- Mobile Menu -->
     <div class="mobile-menu" id="mobileMenu">
         <div class="mobile-menu-section">
             <div class="mobile-menu-label">Servicios</div>
@@ -1014,16 +347,27 @@
             </div>
         </div>
         <div class="mobile-menu-contacto">
-            <a href="tel:603081740" class="mobile-menu-tel"><span class="mobile-menu-tel-icon">📞</span><div class="mobile-menu-tel-info"><span class="mobile-menu-tel-label">Llamar ahora</span><span class="mobile-menu-tel-number">603 08 17 40</span></div></a>
-            <a href="https://wa.me/34603081740" class="mobile-menu-tel"><span class="mobile-menu-tel-icon">💬</span><div class="mobile-menu-tel-info"><span class="mobile-menu-tel-label">WhatsApp</span><span class="mobile-menu-tel-number">603 08 17 40</span></div></a>
+            <a href="tel:603081740" class="mobile-menu-tel">
+                <span class="mobile-menu-tel-icon">📞</span>
+                <div class="mobile-menu-tel-info">
+                    <span class="mobile-menu-tel-label">Llamar ahora</span>
+                    <span class="mobile-menu-tel-number">603 08 17 40</span>
+                </div>
+            </a>
+            <a href="https://wa.me/34603081740" class="mobile-menu-tel">
+                <span class="mobile-menu-tel-icon">💬</span>
+                <div class="mobile-menu-tel-info">
+                    <span class="mobile-menu-tel-label">WhatsApp</span>
+                    <span class="mobile-menu-tel-number">603 08 17 40</span>
+                </div>
+            </a>
         </div>
     </div>
 
-    <!-- ======================== -->
-    <!-- A. HERO -->
-    <!-- ======================== -->
+    <!-- HERO -->
     <section class="hero">
         <div class="hero-content">
+            <img src="northcare-logo-final.svg" alt="Northcare" class="hero-logo">
             <span class="hero-tag">Eficiencia energética · Cocina industrial</span>
             <h1>Reduce tu factura. Cumple la normativa. <span class="highlight">Sé más sostenible.</span></h1>
             <p>Auditoría, asesoramiento e instalación de soluciones que reducen tu consumo energético y tus emisiones de CO₂.</p>
@@ -1031,9 +375,7 @@
         </div>
     </section>
 
-    <!-- ======================== -->
-    <!-- B. TRIPLE PROBLEMA -->
-    <!-- ======================== -->
+    <!-- PROBLEMA -->
     <section class="problema">
         <span class="section-label">El reto</span>
         <h2 class="section-title">Tres presiones que <span class="highlight-red">no paran de crecer</span></h2>
@@ -1054,9 +396,7 @@
         </div>
     </section>
 
-    <!-- ======================== -->
-    <!-- C. QUÉ OFRECEMOS -->
-    <!-- ======================== -->
+    <!-- OFRECEMOS -->
     <section class="ofrecemos">
         <div class="ofrecemos-container">
             <div class="ofrecemos-header">
@@ -1089,9 +429,7 @@
         </div>
     </section>
 
-    <!-- ======================== -->
-    <!-- D. DATOS DE AHORRO -->
-    <!-- ======================== -->
+    <!-- AHORRO -->
     <section class="ahorro-section">
         <div class="ahorro-container">
             <div class="ahorro-header">
@@ -1164,9 +502,7 @@
         </div>
     </section>
 
-    <!-- ======================== -->
-    <!-- E. NORMATIVA F-GASES -->
-    <!-- ======================== -->
+    <!-- NORMATIVA -->
     <section class="normativa">
         <div class="normativa-container">
             <div class="normativa-header">
@@ -1193,9 +529,7 @@
         </div>
     </section>
 
-    <!-- ======================== -->
-    <!-- F. PROCESO -->
-    <!-- ======================== -->
+    <!-- PROCESO -->
     <section class="proceso">
         <div class="proceso-container">
             <div class="proceso-header">
@@ -1229,9 +563,7 @@
         </div>
     </section>
 
-    <!-- ======================== -->
-    <!-- G. CREDENCIALES -->
-    <!-- ======================== -->
+    <!-- CREDENCIALES -->
     <section class="credenciales">
         <div class="credenciales-container">
             <p class="credenciales-intro">Conocemos tus equipos porque llevamos años <strong>manteniéndolos</strong>.</p>
@@ -1263,9 +595,7 @@
         </div>
     </section>
 
-    <!-- ======================== -->
-    <!-- H. FORMULARIO -->
-    <!-- ======================== -->
+    <!-- FORMULARIO -->
     <section class="formulario-section" id="formulario">
         <div class="formulario-container">
             <div class="formulario-header">
@@ -1317,9 +647,7 @@
         </div>
     </section>
 
-    <!-- ======================== -->
-    <!-- I. CONTACTO ALTERNATIVO -->
-    <!-- ======================== -->
+    <!-- CONTACTO ALT -->
     <section class="contacto-alt">
         <div class="contacto-alt-header">
             <p>¿Prefieres contactarnos directamente?</p>
@@ -1335,10 +663,10 @@
                 <span class="contacto-option-label">WhatsApp</span>
                 <span class="contacto-option-value">603 08 17 40</span>
             </a>
-            <a href="/cdn-cgi/l/email-protection#dcb5b2bab39cb2b3aea8b4bfbdaeb9f2b9af" class="contacto-option">
+            <a href="mailto:info@northcare.es" class="contacto-option">
                 <span class="contacto-option-icon">✉️</span>
                 <span class="contacto-option-label">Email</span>
-                <span class="contacto-option-value"><span class="__cf_email__" data-cfemail="7811161e173816170a0c101b190a1d561d0b">[email&#160;protected]</span></span>
+                <span class="contacto-option-value">info@northcare.es</span>
             </a>
         </div>
     </section>
@@ -1365,51 +693,61 @@
     </div>
 
     <script>
-        function enviarFormulario(e) {
-            e.preventDefault();
-            alert('¡Gracias! Te contactaremos en menos de 24h para coordinar tu auditoría gratuita.');
-        }
-
         function toggleMenu() {
             const menu = document.getElementById('mobileMenu');
             const hamburger = document.querySelector('.hamburger');
-            menu.classList.toggle('active');
-            hamburger.classList.toggle('active');
-            document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : '';
+            if (menu && hamburger) {
+                menu.classList.toggle('active');
+                hamburger.classList.toggle('active');
+                document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : '';
+            }
         }
 
-        document.querySelectorAll('.mobile-menu-link').forEach(link => {
-            link.addEventListener('click', () => {
-                document.getElement('mobileMenu').classList.remove('active');
-                document.querySelector('.hamburger').classList.remove('active');
-                document.body.style.overflow = '';
-            });
-        });
-
-        // Cookie Banner
         function setCookieConsent(accepted) {
             const expires = new Date();
             expires.setFullYear(expires.getFullYear() + 1);
             document.cookie = 'cookie_consent=' + (accepted ? 'accepted' : 'rejected') + ';expires=' + expires.toUTCString() + ';path=/;SameSite=Lax';
             document.getElementById('cookieBanner').classList.remove('active');
-            if (accepted) { loadAnalytics(); }
+            if (accepted) loadAnalytics();
         }
+
         function getCookieConsent() {
             const match = document.cookie.match(/cookie_consent=([^;]+)/);
             return match ? match[1] : null;
         }
+
         function loadAnalytics() {
-            // Google Tag Manager
             (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
             new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
             j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
             })(window,document,'script','dataLayer','GTM-MWTDJLNC');
         }
+
         document.addEventListener('DOMContentLoaded', function() {
             const consent = getCookieConsent();
-            if (!consent) { document.getElementById('cookieBanner').classList.add('active'); }
-            else if (consent === 'accepted') { loadAnalytics(); }
+            if (!consent) {
+                document.getElementById('cookieBanner').classList.add('active');
+            } else if (consent === 'accepted') {
+                loadAnalytics();
+            }
+
+            document.querySelectorAll('.mobile-menu-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    const menu = document.getElementById('mobileMenu');
+                    const hamburger = document.querySelector('.hamburger');
+                    if (menu) menu.classList.remove('active');
+                    if (hamburger) hamburger.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            });
+
+            const mobileMenu = document.getElementById('mobileMenu');
+            if (mobileMenu) {
+                mobileMenu.addEventListener('click', function(e) {
+                    if (e.target === this) toggleMenu();
+                });
+            }
         });
     </script>
 </body>
