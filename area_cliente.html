@@ -1,0 +1,1407 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Área Cliente: Descubre problemas en tu flujo de trabajo | Northcare</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ===== LOGIN SCREEN ===== */
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:#000;color:#fff;-webkit-font-smoothing:antialiased}
+
+.login-screen{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+  background:#000;
+  position:relative;
+  overflow:hidden;
+}
+.login-screen::before{
+  content:'';
+  position:absolute;
+  top:-50%;left:-50%;
+  width:200%;height:200%;
+  background:radial-gradient(ellipse at 30% 50%, rgba(0,212,255,0.06) 0%, transparent 50%),
+             radial-gradient(ellipse at 70% 50%, rgba(0,255,136,0.04) 0%, transparent 50%);
+  animation:pulse 8s ease-in-out infinite alternate;
+}
+@keyframes pulse{
+  0%{opacity:0.6;transform:scale(1)}
+  100%{opacity:1;transform:scale(1.05)}
+}
+
+.login-box{
+  position:relative;
+  z-index:1;
+  width:100%;
+  max-width:420px;
+  text-align:center;
+}
+
+.login-logo{
+  font-size:28px;
+  font-weight:900;
+  letter-spacing:-0.03em;
+  margin-bottom:8px;
+  background:linear-gradient(135deg,#00d4ff,#00ff88);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.login-subtitle{
+  font-size:13px;
+  color:#888;
+  letter-spacing:0.05em;
+  text-transform:uppercase;
+  font-weight:600;
+  margin-bottom:32px;
+}
+
+.login-card{
+  background:#1a1a1a;
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:16px;
+  padding:32px 28px;
+  text-align:left;
+}
+
+.login-title{
+  font-size:20px;
+  font-weight:800;
+  margin-bottom:4px;
+  letter-spacing:-0.02em;
+}
+.login-desc{
+  font-size:13px;
+  color:#888;
+  margin-bottom:24px;
+  line-height:1.5;
+}
+
+.login-field{
+  margin-bottom:16px;
+}
+.login-field label{
+  display:block;
+  font-size:12px;
+  font-weight:600;
+  color:#ccc;
+  margin-bottom:6px;
+  letter-spacing:0.02em;
+}
+.login-field input{
+  width:100%;
+  background:#111;
+  border:1px solid rgba(255,255,255,0.12);
+  color:#fff;
+  padding:14px 16px;
+  font-size:15px;
+  font-family:'Inter',sans-serif;
+  border-radius:10px;
+  transition:all 0.3s;
+  outline:none;
+}
+.login-field input:focus{
+  border-color:#00d4ff;
+  box-shadow:0 0 20px rgba(0,212,255,0.15);
+}
+.login-field input::placeholder{color:#555}
+
+.login-btn{
+  display:block;
+  width:100%;
+  padding:14px;
+  background:#00d4ff;
+  color:#000;
+  border:none;
+  border-radius:10px;
+  font-size:15px;
+  font-weight:700;
+  font-family:'Inter',sans-serif;
+  cursor:pointer;
+  transition:all 0.3s;
+  margin-top:8px;
+}
+.login-btn:hover{
+  box-shadow:0 0 40px rgba(0,212,255,0.4);
+  transform:translateY(-1px);
+}
+.login-btn:active{transform:translateY(0)}
+
+.login-error{
+  display:none;
+  margin-top:12px;
+  padding:10px 14px;
+  background:rgba(255,77,77,0.1);
+  border:1px solid rgba(255,77,77,0.25);
+  border-radius:8px;
+  font-size:13px;
+  color:#ff4d4d;
+  text-align:center;
+  font-weight:600;
+}
+.login-error.show{display:block;animation:shake 0.4s ease}
+@keyframes shake{
+  0%,100%{transform:translateX(0)}
+  25%{transform:translateX(-6px)}
+  75%{transform:translateX(6px)}
+}
+
+.login-footer{
+  margin-top:24px;
+  font-size:11px;
+  color:#555;
+}
+.login-footer a{color:#00d4ff;text-decoration:none}
+
+.login-lock-icon{
+  width:56px;
+  height:56px;
+  background:rgba(0,212,255,0.1);
+  border:1px solid rgba(0,212,255,0.2);
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:24px;
+  margin:0 auto 20px;
+}
+
+/* ===== REPORT (hidden until login) ===== */
+#report-content{display:none}
+
+/* ===== NAV BAR ===== */
+.report-nav{
+  position:sticky;
+  top:0;
+  z-index:1000;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:12px 16px;
+  background:rgba(0,0,0,0.95);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid rgba(255,255,255,0.08);
+}
+.report-nav-logo{
+  font-size:16px;
+  font-weight:900;
+  background:linear-gradient(135deg,#00d4ff,#00ff88);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.report-nav-badge{
+  font-size:10px;
+  font-weight:700;
+  padding:4px 10px;
+  background:rgba(0,212,255,0.1);
+  border:1px solid rgba(0,212,255,0.25);
+  border-radius:20px;
+  color:#00d4ff;
+  letter-spacing:0.05em;
+  text-transform:uppercase;
+}
+.logout-btn{
+  background:none;
+  border:1px solid rgba(255,255,255,0.15);
+  color:#888;
+  padding:6px 14px;
+  border-radius:8px;
+  font-size:11px;
+  font-weight:600;
+  font-family:'Inter',sans-serif;
+  cursor:pointer;
+  transition:all 0.3s;
+}
+.logout-btn:hover{border-color:rgba(255,77,77,0.4);color:#ff4d4d}
+
+/* ===== REPORT STYLES ===== */
+
+:root {
+  --bg: #000;
+  --bg-light: #111;
+  --bg-card: #1a1a1a;
+  --white: #fff;
+  --gray: #888;
+  --gray-light: #ccc;
+  --cyan: #00d4ff;
+  --cyan-glow: rgba(0,212,255,0.4);
+  --green: #00ff88;
+  --green-glow: rgba(0,255,136,0.3);
+  --red: #ff4d4d;
+  --orange: #f97316;
+  --yellow: #ffcc00;
+  --purple: #7c3aed;
+  --radius: 12px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--white);line-height:1.6;-webkit-font-smoothing:antialiased}
+.container{max-width:860px;margin:0 auto;padding:0 16px}
+
+/* HERO */
+.hero{padding:48px 16px 32px;text-align:center;background:var(--bg);border-bottom:1px solid rgba(255,255,255,0.08)}
+.hero-label{display:inline-block;font-size:11px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--red);padding:4px 12px;background:rgba(255,77,77,0.12);border:1px solid rgba(255,77,77,0.25);border-radius:20px;margin-bottom:12px}
+.hero h1{font-size:clamp(22px,5vw,32px);font-weight:900;letter-spacing:-0.03em;margin-bottom:4px}
+.hero h1 .hl{color:var(--cyan)}
+.hero .sub{font-size:14px;color:var(--gray);margin-bottom:24px}
+.hero-impact{font-size:clamp(64px,15vw,96px);font-weight:900;line-height:1;letter-spacing:-0.04em;background:linear-gradient(135deg,var(--red) 0%,var(--orange) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:4px}
+.hero-impact-sub{font-size:16px;color:var(--gray-light);font-weight:600;margin-bottom:24px}
+
+/* PIES ROW */
+.pies-row{display:flex;justify-content:center;gap:24px;flex-wrap:wrap;margin:24px 0}
+.pie-block{display:flex;flex-direction:column;align-items:center;gap:8px}
+.pie-block svg{filter:drop-shadow(0 0 20px rgba(0,212,255,0.15))}
+.pie-legend{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.pie-legend-item{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--gray-light)}
+.pie-legend-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+
+/* KPI CARDS */
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;margin:16px 0}
+.kpi{background:var(--bg-card);border:1px solid rgba(255,255,255,0.08);border-radius:var(--radius);padding:16px 12px;text-align:center}
+.kpi-num{font-size:28px;font-weight:900;line-height:1.1}
+.kpi-label{font-size:10px;color:var(--gray);text-transform:uppercase;letter-spacing:0.1em;font-weight:700;margin-top:4px}
+
+/* TABS */
+.tabs{display:flex;gap:4px;overflow-x:auto;padding:12px 0;position:sticky;top:0;background:var(--bg);z-index:100;border-bottom:1px solid rgba(255,255,255,0.06)}
+.tab{flex-shrink:0;padding:10px 16px;background:var(--bg-card);border:1px solid rgba(255,255,255,0.08);border-radius:10px;font-size:12px;font-weight:700;color:var(--gray);cursor:pointer;transition:all 0.3s;font-family:'Inter';white-space:nowrap}
+.tab.active{background:var(--cyan);color:var(--bg);border-color:var(--cyan)}
+.tab:hover:not(.active){border-color:rgba(255,255,255,0.2);color:var(--white)}
+
+/* SCREENS */
+.screen{display:none;padding:20px 0 80px}
+.screen.active{display:block}
+h2{font-size:clamp(18px,4vw,24px);font-weight:800;letter-spacing:-0.02em;margin:24px 0 12px}
+h2 .hl{color:var(--cyan)}
+h3{font-size:15px;font-weight:700;margin:20px 0 10px;color:var(--gray-light)}
+
+/* SECTION LABEL */
+.slabel{display:inline-block;font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--cyan);margin-bottom:4px}
+
+/* VS BAR */
+.vs-bar{display:flex;height:44px;border-radius:10px;overflow:hidden;margin:12px 0;font-size:13px;font-weight:700}
+.vs-rbe{background:linear-gradient(90deg,#0088aa,var(--cyan));display:flex;align-items:center;justify-content:center;gap:4px}
+.vs-nc{background:linear-gradient(90deg,var(--green),#00cc6a);display:flex;align-items:center;justify-content:center;gap:4px;color:var(--bg)}
+
+/* OT CARDS */
+.ot-row{display:flex;gap:0;margin:6px 0;background:var(--bg-card);border:1px solid rgba(255,255,255,0.06);border-radius:10px;overflow:hidden;transition:border-color 0.3s}
+.ot-row:hover{border-color:rgba(0,212,255,0.3)}
+.ot-sev{width:5px;flex-shrink:0}
+.ot-body{padding:12px 14px;flex:1;min-width:0}
+.ot-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+.ot-id{font-size:12px;font-weight:700;color:var(--white)}
+.ot-dias{font-size:14px;font-weight:900;color:var(--orange)}
+.ot-meta{font-size:11px;color:var(--gray);margin-bottom:6px}
+.ot-tag-row{display:flex;gap:6px;margin-bottom:6px;flex-wrap:wrap}
+.tag-rbe{display:inline-block;padding:2px 8px;border-radius:6px;font-size:10px;font-weight:700;background:rgba(0,212,255,0.15);color:var(--cyan)}
+.tag-nc{display:inline-block;padding:2px 8px;border-radius:6px;font-size:10px;font-weight:700;background:rgba(0,255,136,0.15);color:var(--green)}
+.tag-resp{display:inline-block;padding:2px 8px;border-radius:6px;font-size:10px;font-weight:700;color:var(--bg)}
+.ot-nota{font-size:10px;color:var(--gray);line-height:1.4;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+
+/* MINI OT LIST */
+.ot-mini{display:flex;gap:0;margin:3px 0;background:var(--bg-card);border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,0.04)}
+.ot-sev-mini{width:4px;flex-shrink:0}
+.ot-mini-body{padding:8px 10px;font-size:11px;line-height:1.4;color:var(--gray-light)}
+
+/* BAR CHART */
+.bar-row{display:flex;align-items:center;gap:8px;margin:5px 0}
+.bar-label{width:120px;font-size:11px;font-weight:600;color:var(--gray-light);text-align:right;flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bar-track{flex:1;height:22px;background:rgba(255,255,255,0.04);border-radius:6px;overflow:hidden}
+.bar-fill{height:100%;border-radius:6px;transition:width 1s ease}
+.bar-value{width:70px;font-size:11px;font-weight:700;color:var(--white);flex-shrink:0}
+.bar-sub{color:var(--gray);font-weight:400}
+
+/* HISTOGRAM */
+.hist-row{display:flex;align-items:center;gap:8px;margin:4px 0}
+.hist-label{width:50px;font-size:11px;font-weight:700;color:var(--gray-light);text-align:right;flex-shrink:0}
+.hist-track{flex:1;height:26px;display:flex;background:rgba(255,255,255,0.03);border-radius:6px;overflow:hidden}
+.hist-fill{height:100%;transition:width 1s ease}
+.hist-value{width:30px;font-size:12px;font-weight:800;color:var(--white);flex-shrink:0}
+
+/* CARDS */
+.card{background:var(--bg-card);border:1px solid rgba(255,255,255,0.08);border-radius:var(--radius);padding:16px;margin:10px 0}
+.card-accent{border-left:4px solid var(--cyan)}
+.card-green{border-left:4px solid var(--green)}
+.card-red{border-left:4px solid var(--red)}
+
+/* EXPAND */
+.expand-btn{display:block;width:100%;padding:12px;background:var(--bg-card);border:1px solid rgba(255,255,255,0.1);border-radius:10px;color:var(--cyan);font-size:13px;font-weight:700;cursor:pointer;font-family:'Inter';margin:12px 0;transition:all 0.3s}
+.expand-btn:hover{background:rgba(0,212,255,0.1);border-color:var(--cyan)}
+.expand-content{display:none;max-height:500px;overflow-y:auto}
+.expand-content.open{display:block}
+
+/* SPEED COMPARE */
+.speed-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.04)}
+.speed-label{flex:1;font-size:13px;font-weight:600}
+.speed-bar{width:120px;height:8px;background:rgba(255,255,255,0.06);border-radius:4px;overflow:hidden}
+.speed-fill{height:100%;border-radius:4px}
+.speed-val{font-size:14px;font-weight:800;width:50px;text-align:right}
+
+/* SEMÁFORO ROW */
+.sem-row{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:12px 0}
+.sem-item{text-align:center;padding:12px 8px;background:var(--bg-card);border-radius:10px;border:1px solid rgba(255,255,255,0.06)}
+.sem-dot{width:14px;height:14px;border-radius:50%;margin:0 auto 6px}
+.sem-num{font-size:22px;font-weight:900;line-height:1}
+.sem-label2{font-size:9px;color:var(--gray);text-transform:uppercase;letter-spacing:0.05em;font-weight:600}
+
+/* FICHA */
+.ficha{background:var(--bg-card);border:1px solid rgba(0,212,255,0.2);border-radius:var(--radius);padding:16px;font-size:12px;color:var(--gray);line-height:1.8;margin:16px 0}
+.ficha strong{color:var(--white)}
+
+/* RECOM CARDS */
+.recom{background:var(--bg-card);border-radius:var(--radius);padding:14px;margin:8px 0;border-left:4px solid var(--cyan)}
+.recom h4{font-size:14px;font-weight:800;margin-bottom:4px}
+.recom p{font-size:12px;color:var(--gray-light);line-height:1.5}
+.recom .r-meta{font-size:11px;color:var(--gray);margin-top:6px}
+.recom.r-high{border-color:var(--red)}
+.recom.r-med{border-color:var(--orange)}
+.recom.r-low{border-color:var(--green)}
+
+@media(max-width:480px){
+  .bar-label{width:80px;font-size:10px}
+  .kpi-grid{grid-template-columns:repeat(2,1fr)}
+  .pies-row{gap:16px}
+  .speed-bar{width:80px}
+}
+
+</style>
+</head>
+<body>
+
+<!-- ===== LOGIN SCREEN ===== -->
+<div class="login-screen" id="login-screen">
+  <div class="login-box">
+    <div class="login-logo">NORTHCARE</div>
+    <div class="login-subtitle">Conocimiento que cuida</div>
+    
+    <div class="login-card">
+      <div class="login-lock-icon">🔒</div>
+      <h2 class="login-title">Área Cliente</h2>
+      <p class="login-desc">Descubre problemas en tu flujo de trabajo. Introduce tus credenciales para acceder al informe.</p>
+      
+      <div class="login-field">
+        <label>Usuario</label>
+        <input type="text" id="login-user" placeholder="Introduce tu usuario" autocomplete="off" autocapitalize="off">
+      </div>
+      <div class="login-field">
+        <label>Contraseña</label>
+        <input type="password" id="login-pass" placeholder="Introduce tu contraseña">
+      </div>
+      
+      <button class="login-btn" onclick="doLogin()">Acceder al informe</button>
+      
+      <div class="login-error" id="login-error">
+        Usuario o contraseña incorrectos
+      </div>
+    </div>
+    
+    <div class="login-footer">
+      <p>Acceso restringido · <a href="mailto:info@northcare.es">¿Problemas?</a></p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== REPORT CONTENT ===== -->
+<div id="report-content">
+  <div class="report-nav">
+    <div style="display:flex;align-items:center;gap:10px">
+      <span class="report-nav-logo">NORTHCARE</span>
+      <span class="report-nav-badge">Área Cliente</span>
+    </div>
+    <button class="logout-btn" onclick="doLogout()">Cerrar sesión ✕</button>
+  </div>
+  
+
+<!-- HERO -->
+<div class="hero">
+  <div class="container">
+    <div class="hero-label">⚠️ INFORME EN VIVO · 9 FEB 2026</div>
+    <h1>Análisis de <span class="hl">OTs Bloqueadas</span></h1>
+    <p class="sub">Northcare · Export FRACTTAL · 442 órdenes analizadas</p>
+    <div class="hero-impact">77.8%</div>
+    <div class="hero-impact-sub">de las incidencias activas están bloqueadas</div>
+
+    <!-- MAIN PIE: Bloqueadas vs Libres -->
+    <div class="pies-row">
+      <div class="pie-block">
+        <svg viewBox="0 0 200 200" width="200" height="200" style="max-width:100%"><path d="M 100.0,15.0 A 85,85 0 1 1 16.3,85.1 L 45.8,90.4 A 55,55 0 1 0 100.0,45.0 Z" fill="#ff4d4d" opacity="0.9"><title>Bloqueadas: 77.8%</title></path><path d="M 16.3,85.1 A 85,85 0 0 1 100.0,15.0 L 100.0,45.0 A 55,55 0 0 0 45.8,90.4 Z" fill="#333" opacity="0.9"><title>Sin bloqueo: 22.2%</title></path><text x="100.0" y="92.0" text-anchor="middle" fill="white" font-size="28" font-weight="900" font-family="Inter,sans-serif">77.8%</text><text x="100.0" y="116.0" text-anchor="middle" fill="#888" font-size="11" font-weight="600" font-family="Inter,sans-serif">bloqueadas</text></svg>
+        <div class="pie-legend">
+          <div class="pie-legend-item"><div class="pie-legend-dot" style="background:var(--red)"></div>344 bloqueadas</div>
+          <div class="pie-legend-item"><div class="pie-legend-dot" style="background:#333"></div>98 sin bloqueo</div>
+        </div>
+      </div>
+      <div class="pie-block">
+        <svg viewBox="0 0 200 200" width="200" height="200" style="max-width:100%"><path d="M 100.0,15.0 A 85,85 0 1 1 50.5,169.1 L 68.0,144.7 A 55,55 0 1 0 100.0,45.0 Z" fill="#00d4ff" opacity="0.9"><title>RBE: 59.9%</title></path><path d="M 50.5,169.1 A 85,85 0 0 1 100.0,15.0 L 100.0,45.0 A 55,55 0 0 0 68.0,144.7 Z" fill="#00ff88" opacity="0.9"><title>Northcare: 40.1%</title></path><text x="100.0" y="92.0" text-anchor="middle" fill="white" font-size="28" font-weight="900" font-family="Inter,sans-serif">59.9%</text><text x="100.0" y="116.0" text-anchor="middle" fill="#888" font-size="11" font-weight="600" font-family="Inter,sans-serif">bloquea RBE</text></svg>
+        <div class="pie-legend">
+          <div class="pie-legend-item"><div class="pie-legend-dot" style="background:var(--cyan)"></div>RBE 206</div>
+          <div class="pie-legend-item"><div class="pie-legend-dot" style="background:var(--green)"></div>NC 138</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VS BAR -->
+    <div class="vs-bar" style="max-width:500px;margin:16px auto">
+      <div class="vs-rbe" style="width:59.9%">🟣 RBE 59.9%</div>
+      <div class="vs-nc" style="width:40.1%">🟢 NC 40.1%</div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- TABS -->
+<div class="tabs">
+  <button class="tab active" onclick="go(0)">📊 Impacto</button>
+  <button class="tab" onclick="go(1)">🔵 RBE</button>
+  <button class="tab" onclick="go(2)">🟢 Northcare</button>
+  <button class="tab" onclick="go(3)">💀 Zombis</button>
+  <button class="tab" onclick="go(4)">📋 Conclusiones</button>
+</div>
+
+<!-- ===== PANTALLA 1 ===== -->
+<div class="screen active" id="s0">
+
+<div class="sem-row">
+  <div class="sem-item"><div class="sem-dot" style="background:var(--red)"></div><div class="sem-num" style="color:var(--red)">54</div><div class="sem-label2">Crítico &gt;60d</div></div>
+  <div class="sem-item"><div class="sem-dot" style="background:var(--orange)"></div><div class="sem-num" style="color:var(--orange)">60</div><div class="sem-label2">Grave 31-60d</div></div>
+  <div class="sem-item"><div class="sem-dot" style="background:var(--yellow)"></div><div class="sem-num" style="color:var(--yellow)">91</div><div class="sem-label2">Riesgo 15-30d</div></div>
+  <div class="sem-item"><div class="sem-dot" style="background:var(--green)"></div><div class="sem-num" style="color:var(--green)">139</div><div class="sem-label2">Reciente &lt;15d</div></div>
+</div>
+
+<div style="text-align:center;margin:16px 0">
+  <svg viewBox="0 0 200 200" width="200" height="200" style="max-width:100%"><path d="M 100.0,15.0 A 85,85 0 0 1 170.9,53.1 L 145.9,69.7 A 55,55 0 0 0 100.0,45.0 Z" fill="#ff4d4d" opacity="0.9"><title>Crítico: 15.7%</title></path><path d="M 170.9,53.1 A 85,85 0 0 1 174.1,141.6 L 148.0,126.9 A 55,55 0 0 0 145.9,69.7 Z" fill="#f97316" opacity="0.9"><title>Grave: 17.4%</title></path><path d="M 174.1,141.6 A 85,85 0 0 1 51.8,170.0 L 68.8,145.3 A 55,55 0 0 0 148.0,126.9 Z" fill="#ffcc00" opacity="0.9"><title>En riesgo: 26.5%</title></path><path d="M 51.8,170.0 A 85,85 0 0 1 100.0,15.0 L 100.0,45.0 A 55,55 0 0 0 68.8,145.3 Z" fill="#00ff88" opacity="0.9"><title>Reciente: 40.4%</title></path><text x="100.0" y="92.0" text-anchor="middle" fill="white" font-size="28" font-weight="900" font-family="Inter,sans-serif">344</text><text x="100.0" y="116.0" text-anchor="middle" fill="#888" font-size="11" font-weight="600" font-family="Inter,sans-serif">bloqueadas</text></svg>
+</div>
+
+<h3>📊 Desglose por etiqueta</h3>
+<div class="kpi-grid">
+  <div class="kpi" style="border-top:3px solid var(--cyan)"><div class="kpi-num" style="color:var(--cyan)">161</div><div class="kpi-label">Pedido RBE</div></div>
+  <div class="kpi" style="border-top:3px solid var(--purple)"><div class="kpi-num" style="color:var(--purple)">34</div><div class="kpi-label">Derivada RBE</div></div>
+  <div class="kpi" style="border-top:3px solid var(--orange)"><div class="kpi-num" style="color:var(--orange)">11</div><div class="kpi-label">Presupuesto</div></div>
+  <div class="kpi" style="border-top:3px solid var(--green)"><div class="kpi-num" style="color:var(--green)">116</div><div class="kpi-label">Material NC</div></div>
+  <div class="kpi" style="border-top:3px solid var(--yellow)"><div class="kpi-num" style="color:var(--yellow)">22</div><div class="kpi-label">Emp. Externa</div></div>
+</div>
+
+<div class="ficha">
+📋 <strong>FICHA TÉCNICA</strong><br>
+Archivo: export__13_.xlsx · 543 filas · 44 columnas<br>
+Rango: 10/03/2025 — 08/02/2026 · Preventivos excluidos: 101<br>
+Método: Python/Pandas · 100% sin muestreo · ⚠️ REVISAR: 3
+</div>
+</div>
+
+<!-- ===== PANTALLA 2: RBE ===== -->
+<div class="screen" id="s1">
+<span class="slabel">Dependencia externa</span>
+<h2>Lo que bloquea <span class="hl">RBE</span></h2>
+
+<div class="kpi-grid" style="grid-template-columns:repeat(2,1fr)">
+  <div class="kpi"><div class="kpi-num" style="color:var(--cyan)">206</div><div class="kpi-label">OTs bloqueadas</div></div>
+  <div class="kpi"><div class="kpi-num" style="color:var(--cyan)">59.9%</div><div class="kpi-label">del total</div></div>
+  <div class="kpi"><div class="kpi-num">7,053</div><div class="kpi-label">Días acumulados</div></div>
+  <div class="kpi"><div class="kpi-num">22.5d</div><div class="kpi-label">Mediana espera</div></div>
+</div>
+
+<div style="text-align:center;margin:16px 0">
+  <svg viewBox="0 0 180 180" width="180" height="180" style="max-width:100%"><path d="M 90.0,15.0 A 75,75 0 1 1 16.5,75.2 L 41.0,80.2 A 50,50 0 1 0 90.0,40.0 Z" fill="#00d4ff" opacity="0.9"><title>Pedido RBE: 78.2%</title></path><path d="M 16.5,75.2 A 75,75 0 0 1 65.3,19.2 L 73.5,42.8 A 50,50 0 0 0 41.0,80.2 Z" fill="#7c3aed" opacity="0.9"><title>Derivada RBE: 16.5%</title></path><path d="M 65.3,19.2 A 75,75 0 0 1 90.0,15.0 L 90.0,40.0 A 50,50 0 0 0 73.5,42.8 Z" fill="#f97316" opacity="0.9"><title>Presupuesto: 5.3%</title></path><text x="90.0" y="82.0" text-anchor="middle" fill="white" font-size="28" font-weight="900" font-family="Inter,sans-serif">206</text><text x="90.0" y="106.0" text-anchor="middle" fill="#888" font-size="11" font-weight="600" font-family="Inter,sans-serif">OTs RBE</text></svg>
+  <div class="pie-legend" style="margin-top:8px">
+    <div class="pie-legend-item"><div class="pie-legend-dot" style="background:var(--cyan)"></div>Pedido 161</div>
+    <div class="pie-legend-item"><div class="pie-legend-dot" style="background:var(--purple)"></div>Derivada 34</div>
+    <div class="pie-legend-item"><div class="pie-legend-dot" style="background:var(--orange)"></div>Presup. 11</div>
+  </div>
+</div>
+
+<h3>⏱️ ¿Qué tarda más?</h3>
+<div class="card">
+  <div class="speed-row">
+    <div class="speed-label">Pedido RBE</div>
+    <div class="speed-bar"><div class="speed-fill" style="width:68%;background:var(--cyan)"></div></div>
+    <div class="speed-val" style="color:var(--cyan)">21.0d</div>
+  </div>
+  <div class="speed-row">
+    <div class="speed-label">Derivada RBE</div>
+    <div class="speed-bar"><div class="speed-fill" style="width:65%;background:var(--purple)"></div></div>
+    <div class="speed-val" style="color:var(--purple)">20.0d</div>
+  </div>
+  <div class="speed-row" style="border:none">
+    <div class="speed-label">Presupuesto</div>
+    <div class="speed-bar"><div class="speed-fill" style="width:100%;background:var(--red)"></div></div>
+    <div class="speed-val" style="color:var(--red)">31.0d</div>
+  </div>
+</div>
+
+<h3>🔝 Top 10 más antiguas — RBE</h3>
+<div class="ot-row">
+      <div class="ot-sev" style="background:#ff4d4d"></div>
+      <div class="ot-body">
+        <div class="ot-header"><span class="ot-id">OT - 333387 - BK</span><span class="ot-dias">403d</span></div>
+        <div class="ot-meta">VALLSUR · ELECTRICIDAD ENCHUFE</div>
+        <div class="ot-tag-row"><span class="tag-rbe">PRESUPUESTO</span></div>
+        <div class="ot-nota">PRESUPUESTO: Reubicación de toma trifásica realizar antes de apertura del restaurante para poder qui</div>
+      </div>
+    </div><div class="ot-row">
+      <div class="ot-sev" style="background:#ff4d4d"></div>
+      <div class="ot-body">
+        <div class="ot-header"><span class="ot-id">OT - 313919 - BK</span><span class="ot-dias">186d</span></div>
+        <div class="ot-meta">RONDA ESTE · PARED PLAY KING</div>
+        <div class="ot-tag-row"><span class="tag-rbe">PRESUPUESTO</span></div>
+        <div class="ot-nota">PRESUPUESTO: Agujeros Techo en playking traer 20 placas de techo de fibra 60x60cm para la sala y enc</div>
+      </div>
+    </div><div class="ot-row">
+      <div class="ot-sev" style="background:#ff4d4d"></div>
+      <div class="ot-body">
+        <div class="ot-header"><span class="ot-id">OT - 273715 - BK</span><span class="ot-dias">175d</span></div>
+        <div class="ot-meta">TORRELAVEGA DECATHLON · MESAS PLAYKING</div>
+        <div class="ot-tag-row"><span class="tag-rbe">DERIVADA RBE</span></div>
+        <div class="ot-nota">DERIVADA RBE: 18/08/2025 kubiko dice. recibimos presupuesto aprobado, preparamos material. No han pa</div>
+      </div>
+    </div><div class="ot-row">
+      <div class="ot-sev" style="background:#ff4d4d"></div>
+      <div class="ot-body">
+        <div class="ot-header"><span class="ot-id">OT - 278244 - BK</span><span class="ot-dias">130d</span></div>
+        <div class="ot-meta">VITORIA BREMEN · LUMINARIAS TERRAZA</div>
+        <div class="ot-tag-row"><span class="tag-rbe">PEDIDO RBE</span></div>
+        <div class="ot-nota">PEDIDO RBE: Foco Está roto, esperando que llegue ( adjunto fotos)
+Todavía no a llegado 2/10 George
+T</div>
+      </div>
+    </div><div class="ot-row">
+      <div class="ot-sev" style="background:#ff4d4d"></div>
+      <div class="ot-body">
+        <div class="ot-header"><span class="ot-id">OT - 272103 - BK</span><span class="ot-dias">112d</span></div>
+        <div class="ot-meta">DOCTOR AREILZA · LUMINARIAS SALA</div>
+        <div class="ot-tag-row"><span class="tag-rbe">DERIVADA RBE</span></div>
+        <div class="ot-nota">DERIVADA RBE: Derivar avatar
+----------
+AVATAR.Miriam.Presupuesto enviado 02/07/25: Esperando su fir</div>
+      </div>
+    </div><div class="ot-row">
+      <div class="ot-sev" style="background:#ff4d4d"></div>
+      <div class="ot-body">
+        <div class="ot-header"><span class="ot-id">OT - 304390 - BK</span><span class="ot-dias">111d</span></div>
+        <div class="ot-meta">PRADO DE LA VEGA · ARCON CONGELADOR</div>
+        <div class="ot-tag-row"><span class="tag-rbe">PEDIDO RBE</span></div>
+        <div class="ot-nota">PEDIDO RBE: Se necesita mecanismo de apertura de puerta.
+No ha llegado el repuesto 21/10/2025
+Aún no</div>
+      </div>
+    </div><div class="ot-row">
+      <div class="ot-sev" style="background:#ff4d4d"></div>
+      <div class="ot-body">
+        <div class="ot-header"><span class="ot-id">OT - 306709 - BK</span><span class="ot-dias">105d</span></div>
+        <div class="ot-meta">ARECHAVALETA · CARPINTERIA PARED / </div>
+        <div class="ot-tag-row"><span class="tag-rbe">PEDIDO RBE</span></div>
+        <div class="ot-nota">PEDIDO RBE: Pedir puertitas de cubo de basura 
+Todavía no a llegado George 27/10
+Has llegado la puer</div>
+      </div>
+    </div><div class="ot-row">
+      <div class="ot-sev" style="background:#ff4d4d"></div>
+      <div class="ot-body">
+        <div class="ot-header"><span class="ot-id">OT - 318032 - BK</span><span class="ot-dias">100d</span></div>
+        <div class="ot-meta">PARQUESOL · MAQUINA HIELO SALA</div>
+        <div class="ot-tag-row"><span class="tag-rbe">PEDIDO RBE</span></div>
+        <div class="ot-nota">PEDIDO RBE: Maquina de sala de bebidas en peligro de caerse, traer usillos y chapas para apuntalar. </div>
+      </div>
+    </div><div class="ot-row">
+      <div class="ot-sev" style="background:#ff4d4d"></div>
+      <div class="ot-body">
+        <div class="ot-header"><span class="ot-id">OT - 298971 - BK</span><span class="ot-dias">100d</span></div>
+        <div class="ot-meta">VAZQUEZ MENCHACA · SANDWICHERA 1</div>
+        <div class="ot-tag-row"><span class="tag-rbe">PEDIDO RBE</span></div>
+        <div class="ot-nota">PEDIDO RBE: Revisar ventilador de sandwichera. Adrian 1/11 el ventilador que han mandado no es el co</div>
+      </div>
+    </div><div class="ot-row">
+      <div class="ot-sev" style="background:#ff4d4d"></div>
+      <div class="ot-body">
+        <div class="ot-header"><span class="ot-id">OT - 288222 - BK</span><span class="ot-dias">100d</span></div>
+        <div class="ot-meta">VAZQUEZ MENCHACA · CONGELADOR DISPENSAD</div>
+        <div class="ot-tag-row"><span class="tag-rbe">PEDIDO RBE</span></div>
+        <div class="ot-nota">PEDIDO RBE: Revisar funcionamiento de fry ram. Adrian 1/11 cuando entra en marcha el relé del compre</div>
+      </div>
+    </div>
+
+<h3>📦 Equipos con más pedidos bloqueados</h3>
+<div class="bar-row">
+      <div class="bar-label">BROILER ELECTRICO</div>
+      <div class="bar-track"><div class="bar-fill" style="width:100.0%;background:linear-gradient(90deg,#00d4ff,#00ff88)"></div></div>
+      <div class="bar-value">17 <span class="bar-sub">(12d)</span></div>
+    </div><div class="bar-row">
+      <div class="bar-label">FREIDORA ELECTRICA (2 BAÑ</div>
+      <div class="bar-track"><div class="bar-fill" style="width:88.23529411764706%;background:linear-gradient(90deg,#00d4ff,#00ff88)"></div></div>
+      <div class="bar-value">15 <span class="bar-sub">(21d)</span></div>
+    </div><div class="bar-row">
+      <div class="bar-label">PATATERO</div>
+      <div class="bar-track"><div class="bar-fill" style="width:88.23529411764706%;background:linear-gradient(90deg,#00d4ff,#00ff88)"></div></div>
+      <div class="bar-value">15 <span class="bar-sub">(12d)</span></div>
+    </div><div class="bar-row">
+      <div class="bar-label">MAQUINA DE HELADO 1</div>
+      <div class="bar-track"><div class="bar-fill" style="width:82.35294117647058%;background:linear-gradient(90deg,#00d4ff,#00ff88)"></div></div>
+      <div class="bar-value">14 <span class="bar-sub">(18d)</span></div>
+    </div><div class="bar-row">
+      <div class="bar-label">ALBAÑILERIA BALDOSAS SUEL</div>
+      <div class="bar-track"><div class="bar-fill" style="width:82.35294117647058%;background:linear-gradient(90deg,#00d4ff,#00ff88)"></div></div>
+      <div class="bar-value">14 <span class="bar-sub">(26d)</span></div>
+    </div><div class="bar-row">
+      <div class="bar-label">PILA 3 COMPARTIMENTOS</div>
+      <div class="bar-track"><div class="bar-fill" style="width:64.70588235294117%;background:linear-gradient(90deg,#00d4ff,#00ff88)"></div></div>
+      <div class="bar-value">11 <span class="bar-sub">(18d)</span></div>
+    </div><div class="bar-row">
+      <div class="bar-label">PINTURA PARED / TECHO</div>
+      <div class="bar-track"><div class="bar-fill" style="width:58.82352941176471%;background:linear-gradient(90deg,#00d4ff,#00ff88)"></div></div>
+      <div class="bar-value">10 <span class="bar-sub">(28d)</span></div>
+    </div><div class="bar-row">
+      <div class="bar-label">PUERTA BARRA</div>
+      <div class="bar-track"><div class="bar-fill" style="width:52.94117647058824%;background:linear-gradient(90deg,#00d4ff,#00ff88)"></div></div>
+      <div class="bar-value">9 <span class="bar-sub">(28d)</span></div>
+    </div><div class="bar-row">
+      <div class="bar-label">LUMINARIAS SALA</div>
+      <div class="bar-track"><div class="bar-fill" style="width:52.94117647058824%;background:linear-gradient(90deg,#00d4ff,#00ff88)"></div></div>
+      <div class="bar-value">9 <span class="bar-sub">(7d)</span></div>
+    </div><div class="bar-row">
+      <div class="bar-label">MAQUINA HIELO SALA</div>
+      <div class="bar-track"><div class="bar-fill" style="width:47.05882352941176%;background:linear-gradient(90deg,#00d4ff,#00ff88)"></div></div>
+      <div class="bar-value">8 <span class="bar-sub">(22d)</span></div>
+    </div>
+
+<h3>🏢 Subcontratas RBE</h3>
+<div class="bar-row">
+      <div class="bar-label">AVATAR</div>
+      <div class="bar-track"><div class="bar-fill" style="width:100.0%;background:linear-gradient(90deg,#7c3aed,#a78bfa)"></div></div>
+      <div class="bar-value">14 <span class="bar-sub">(28d)</span></div>
+    </div><div class="bar-row">
+      <div class="bar-label">FRIMATEC</div>
+      <div class="bar-track"><div class="bar-fill" style="width:35.714285714285715%;background:linear-gradient(90deg,#7c3aed,#a78bfa)"></div></div>
+      <div class="bar-value">5 <span class="bar-sub">(1d)</span></div>
+    </div><div class="bar-row">
+      <div class="bar-label">KUBIKO</div>
+      <div class="bar-track"><div class="bar-fill" style="width:28.57142857142857%;background:linear-gradient(90deg,#7c3aed,#a78bfa)"></div></div>
+      <div class="bar-value">4 <span class="bar-sub">(29d)</span></div>
+    </div><div class="bar-row">
+      <div class="bar-label">ANSUL</div>
+      <div class="bar-track"><div class="bar-fill" style="width:21.428571428571427%;background:linear-gradient(90deg,#7c3aed,#a78bfa)"></div></div>
+      <div class="bar-value">3 <span class="bar-sub">(26d)</span></div>
+    </div><div class="bar-row">
+      <div class="bar-label">FAIN</div>
+      <div class="bar-track"><div class="bar-fill" style="width:14.285714285714285%;background:linear-gradient(90deg,#7c3aed,#a78bfa)"></div></div>
+      <div class="bar-value">2 <span class="bar-sub">(2d)</span></div>
+    </div><div class="bar-row">
+      <div class="bar-label">EMSERVI</div>
+      <div class="bar-track"><div class="bar-fill" style="width:7.142857142857142%;background:linear-gradient(90deg,#7c3aed,#a78bfa)"></div></div>
+      <div class="bar-value">1 <span class="bar-sub">(34d)</span></div>
+    </div><div class="bar-row">
+      <div class="bar-label">GESTIÓN 51</div>
+      <div class="bar-track"><div class="bar-fill" style="width:7.142857142857142%;background:linear-gradient(90deg,#7c3aed,#a78bfa)"></div></div>
+      <div class="bar-value">1 <span class="bar-sub">(24d)</span></div>
+    </div><div class="bar-row">
+      <div class="bar-label">KUBICO</div>
+      <div class="bar-track"><div class="bar-fill" style="width:7.142857142857142%;background:linear-gradient(90deg,#7c3aed,#a78bfa)"></div></div>
+      <div class="bar-value">1 <span class="bar-sub">(12d)</span></div>
+    </div>
+
+<button class="expand-btn" onclick="toggle('rbe-full')">📋 Ver las 206 OTs del bloque RBE</button>
+<div class="expand-content" id="rbe-full"><div class="ot-mini"><div class="ot-sev-mini" style="background:#ff4d4d"></div><div class="ot-mini-body"><strong>OT - 333387 - BK</strong> · VALLSUR · PRESUPUESTO · <b>403d</b><br><span class="ot-nota">PRESUPUESTO: Reubicación de toma trifásica realizar antes de apertura del restau</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ff4d4d"></div><div class="ot-mini-body"><strong>OT - 313919 - BK</strong> · RONDA ESTE · PRESUPUESTO · <b>186d</b><br><span class="ot-nota">PRESUPUESTO: Agujeros Techo en playking traer 20 placas de techo de fibra 60x60c</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ff4d4d"></div><div class="ot-mini-body"><strong>OT - 273715 - BK</strong> · TORRELAVEGA DECA · DERIVADA RBE · <b>175d</b><br><span class="ot-nota">DERIVADA RBE: 18/08/2025 kubiko dice. recibimos presupuesto aprobado, preparamos</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ff4d4d"></div><div class="ot-mini-body"><strong>OT - 278244 - BK</strong> · VITORIA BREMEN · PEDIDO RBE · <b>130d</b><br><span class="ot-nota">PEDIDO RBE: Foco Está roto, esperando que llegue ( adjunto fotos)
+Todavía no a l</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ff4d4d"></div><div class="ot-mini-body"><strong>OT - 272103 - BK</strong> · DOCTOR AREILZA · DERIVADA RBE · <b>112d</b><br><span class="ot-nota">DERIVADA RBE: Derivar avatar
+----------
+AVATAR.Miriam.Presupuesto enviado 02/07/</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ff4d4d"></div><div class="ot-mini-body"><strong>OT - 304390 - BK</strong> · PRADO DE LA VEGA · PEDIDO RBE · <b>111d</b><br><span class="ot-nota">PEDIDO RBE: Se necesita mecanismo de apertura de puerta.
+No ha llegado el repues</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ff4d4d"></div><div class="ot-mini-body"><strong>OT - 306709 - BK</strong> · ARECHAVALETA · PEDIDO RBE · <b>105d</b><br><span class="ot-nota">PEDIDO RBE: Pedir puertitas de cubo de basura 
+Todavía no a llegado George 27/10</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ff4d4d"></div><div class="ot-mini-body"><strong>OT - 318032 - BK</strong> · PARQUESOL · PEDIDO RBE · <b>100d</b><br><span class="ot-nota">PEDIDO RBE: Maquina de sala de bebidas en peligro de caerse, traer usillos y cha</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ff4d4d"></div><div class="ot-mini-body"><strong>OT - 298971 - BK</strong> · VAZQUEZ MENCHACA · PEDIDO RBE · <b>100d</b><br><span class="ot-nota">PEDIDO RBE: Revisar ventilador de sandwichera. Adrian 1/11 el ventilador que han</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ff4d4d"></div><div class="ot-mini-body"><strong>OT - 288222 - BK</strong> · VAZQUEZ MENCHACA · PEDIDO RBE · <b>100d</b><br><span class="ot-nota">PEDIDO RBE: Revisar funcionamiento de fry ram. Adrian 1/11 cuando entra en march</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ff4d4d"></div><div class="ot-mini-body"><strong>OT - 275905 - BK</strong> · VAZQUEZ MENCHACA · PEDIDO RBE · <b>100d</b><br><span class="ot-nota">PEDIDO RBE: Necesito respaldo de banco de terraza y base de taburete. Adjunto im</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ff4d4d"></div><div class="ot-mini-body"><strong>OT - 307585 - BK</strong> · AV. BURGOS · PEDIDO RBE · <b>99d</b><br><span class="ot-nota">PEDIDO RBE: Necesito 3 Faroles para autoking de Av Burgos. Pedido Adrian 2/11. R</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ff4d4d"></div><div class="ot-mini-body"><strong>OT - 279600 - BK</strong> · RECOLETOS · PRESUPUESTO · <b>99d</b><br><span class="ot-nota">PRESUPUESTO: Hay que revisar conductos, ventiladores y filtros. Adrian 2/11
+Zahi</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ff4d4d"></div><div class="ot-mini-body"><strong>OT - 307590 - BK</strong> · AV. BURGOS · DERIVADA RBE · <b>99d</b><br><span class="ot-nota">DERIVADA RBE: No han acudido 2/11
+necesito que venga avatar a revisar algunos ca</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ff4d4d"></div><div class="ot-mini-body"><strong>OT - 318125 - BK</strong> · ALISAL · PEDIDO RBE · <b>97d</b><br><span class="ot-nota">PEDIDO RBE: Necesito puerta para máquina de hielo manitowoc adjunto modelo y med</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ff4d4d"></div><div class="ot-mini-body"><strong>OT - 317097 - BK</strong> · CASINO SANTANDER · PEDIDO RBE · <b>95d</b><br><span class="ot-nota">PEDIDO RBE: Necesito electrovalvula para lavavajillas DIHR. 
+Adjunto modelo e im</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ff4d4d"></div><div class="ot-mini-body"><strong>OT - 322797 - BK</strong> · AV. BURGOS · PEDIDO RBE · <b>84d</b><br><span class="ot-nota">PEDIDO RBE: Después de comprobar la derivación he visto que el motor de la bomba</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ff4d4d"></div><div class="ot-mini-body"><strong>OT - 301717 - BK</strong> · GIJON · DERIVADA RBE · <b>81d</b><br><span class="ot-nota">DERIVADA RBE: Vuelven a no funcionar los neones de toda ma pantalla.
+He revisado</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ff4d4d"></div><div class="ot-mini-body"><strong>OT - 318976 - BK</strong> · VALLE REAL · PEDIDO RBE · <b>76d</b><br><span class="ot-nota">PEDIDO RBE: Necesito mesa para PLK Valle Real, adjunto medidas y datos. Pedido A</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ff4d4d"></div><div class="ot-mini-body"><strong>OT - 298373 - BK</strong> · VITORIA BOULEVAR · PEDIDO RBE · <b>74d</b><br><span class="ot-nota">PEDIDO RBE: Pedir SAI Todavía no a llegado 27/11 George
+
+No llego 9/12 Gonzalo
+N</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ff4d4d"></div><div class="ot-mini-body"><strong>OT - 324221 - BK</strong> · SESTAO · DERIVADA RBE · <b>73d</b><br><span class="ot-nota">DERIVADA RBE: Las pantallas de la parte trasera del local donde se realizan los </span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ff4d4d"></div><div class="ot-mini-body"><strong>OT - 305357 - BK</strong> · DURANGO ABADIÑO · PEDIDO RBE · <b>69d</b><br><span class="ot-nota">PEDIDO RBE: Necesitamos tapa y puerta para basurero todavía no a llegado George </span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ff4d4d"></div><div class="ot-mini-body"><strong>OT - 318157 - BK</strong> · RONDA ESTE · PEDIDO RBE · <b>68d</b><br><span class="ot-nota">PEDIDO RBE: Se deriva a UT para reclamar al seguro. Adrian 3/12.
+05/12/2025. Fra</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ff4d4d"></div><div class="ot-mini-body"><strong>OT - 327567 - BK</strong> · BARAKALDO FS · PEDIDO RBE · <b>66d</b><br><span class="ot-nota">PEDIDO RBE: Pedir los cepillos de limpieza de la carpigiani doble George 5/12
+24</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ff4d4d"></div><div class="ot-mini-body"><strong>OT - 266251 - BK</strong> · SESTAO · DERIVADA RBE · <b>66d</b><br><span class="ot-nota">DERIVADA RBE: No encontramos igual, enviar lleva mucho tiempo asi tabla 82x20 to</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ff4d4d"></div><div class="ot-mini-body"><strong>OT - 327288 - BK</strong> · VALLADOLID · PEDIDO RBE · <b>66d</b><br><span class="ot-nota">PEDIDO RBE: Se reparan 2 fugas en grifos, queda la ducha pendiente. Necesito gri</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ff4d4d"></div><div class="ot-mini-body"><strong>OT - 327283 - BK</strong> · AV. BURGOS · PEDIDO RBE · <b>65d</b><br><span class="ot-nota">PEDIDO RBE: Necesito rodillo o  tolva completa con rodillo para fry ram, adjunto</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ff4d4d"></div><div class="ot-mini-body"><strong>OT - 326596 - BK</strong> · VALSUR · PEDIDO RBE · <b>65d</b><br><span class="ot-nota">PEDIDO RBE: Necesito una mesita de inoxidable para colocar la máquina de la cerv</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ff4d4d"></div><div class="ot-mini-body"><strong>OT - 327988 - BK</strong> · RECOLETOS · PRESUPUESTO · <b>65d</b><br><span class="ot-nota">PRESUPUESTO: Traer placa de pladur, perfileria y pintura de techo, parece como p</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ff4d4d"></div><div class="ot-mini-body"><strong>OT - 327991 - BK</strong> · RECOLETOS · PEDIDO RBE · <b>65d</b><br><span class="ot-nota">PEDIDO RBE: Necesito un bloque de taquillas o varios bloques que hagan 2 metros </span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ff4d4d"></div><div class="ot-mini-body"><strong>OT - 323689 - BK</strong> · RECOLETOS · PEDIDO RBE · <b>65d</b><br><span class="ot-nota">PEDIDO RBE: Se ha reclamado hace un día Zahir 6/2
+Solicito dos electrodos de ign</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ff4d4d"></div><div class="ot-mini-body"><strong>OT - 319024 - BK</strong> · BARAKALDO LOS FU · PEDIDO RBE · <b>62d</b><br><span class="ot-nota">PEDIDO RBE: Pedir separador de patatas del retenedor de patatas caliente George </span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ff4d4d"></div><div class="ot-mini-body"><strong>OT - 328916 - BK</strong> · VITORIA BREMEN · PEDIDO RBE · <b>62d</b><br><span class="ot-nota">PEDIDO RBE: El motor del lado shake soplo la junta , a l espara del repuesto 
+9/</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ff4d4d"></div><div class="ot-mini-body"><strong>OT - 329349 - BK</strong> · PARQUESOL · PEDIDO RBE · <b>61d</b><br><span class="ot-nota">Necesito pantalla clima y ACS LG. Cesar 10/12
+Ha llegado a Parquesol recoger de </span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ff4d4d"></div><div class="ot-mini-body"><strong>OT - 329356 - BK</strong> · PARQUESOL · PEDIDO RBE · <b>61d</b><br><span class="ot-nota">PEDIDO RBE: Necesito 3 focos exteriores. Cesar 10/12
+No han llegado 15/1 Gonzalo</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ff4d4d"></div><div class="ot-mini-body"><strong>OT - 329395 - BK</strong> · PARQUESOL · PEDIDO RBE · <b>61d</b><br><span class="ot-nota">PEDIDO RBE: Equipo Multi V LG. Fallo CH26 en aire de sala, posible fallo compres</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ff4d4d"></div><div class="ot-mini-body"><strong>OT - 329323 - BK</strong> · PARQUESOL · PEDIDO RBE · <b>61d</b><br><span class="ot-nota">PEDIDO RBE: Necesito 3 tablas de mesa con logotipo Popeye. Cesar 10/12.
+Todavía </span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#f97316"></div><div class="ot-mini-body"><strong>OT - 329403 - BK</strong> · PARQUESOL · PEDIDO RBE · <b>60d</b><br><span class="ot-nota">PEDIDO RBE: Necesito burlete arcoon vertical y nevera barra true. George  11/12
+</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#f97316"></div><div class="ot-mini-body"><strong>OT - 290368 - BK</strong> · LAGUNA DE DUERO · PEDIDO RBE · <b>58d</b><br><span class="ot-nota">PEDIDO RBE: Pedir placa de dispensador de patatas George 13/12</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#f97316"></div><div class="ot-mini-body"><strong>OT - 329159 - BK</strong> · LAGUNA DE DUERO · PEDIDO RBE · <b>58d</b><br><span class="ot-nota">PEDIDO RBE: Pedir placa ATO de la freidora frymaster George 13/12
+
+Hy que probar</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#f97316"></div><div class="ot-mini-body"><strong>OT - 327663 - BK</strong> · AUTO KING PALENC · PEDIDO RBE · <b>57d</b><br><span class="ot-nota">Pedir motor y bomba de freidora frymaster de gas George 14/12
+Revisado, no hay r</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#f97316"></div><div class="ot-mini-body"><strong>OT - 330321 - BK</strong> · PRADO DE LA VEGA · PEDIDO RBE · <b>57d</b><br><span class="ot-nota">PEDIDO RBE: Necesito placa electronica ATO (con sus cables con terminales) para </span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#f97316"></div><div class="ot-mini-body"><strong>OT - 330318 - BK</strong> · OIARTZUN · PRESUPUESTO · <b>55d</b><br><span class="ot-nota">PRESUPUESTO:  para cambiar puerta.
+Pasado presupuesto 16/12. Sonia.
+Todavía no a</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#f97316"></div><div class="ot-mini-body"><strong>OT - 326581 - BK</strong> · SESTAO · PEDIDO RBE · <b>54d</b><br><span class="ot-nota">PEDIDO RBE: Pedir sensor de nivel de aceite de freidora frymaster George ya lleg</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#f97316"></div><div class="ot-mini-body"><strong>OT - 331114 - BK</strong> · RONDA ESTE · PEDIDO RBE · <b>54d</b><br><span class="ot-nota">PEDIDO: Hace falta motor de apertura de puertas patatero
+Zahir 17/12
+Reclamado Z</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#f97316"></div><div class="ot-mini-body"><strong>OT - 331456 - BK</strong> · MEGAPARK VASCO · DERIVADA RBE · <b>54d</b><br><span class="ot-nota">DERIVADA RBE:</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#f97316"></div><div class="ot-mini-body"><strong>OT - 319011 - BK</strong> · SESTAO · PEDIDO RBE · <b>54d</b><br><span class="ot-nota">PEDIDO RBE: Pedir dos globos exteriores de 25cm de diámetro George 17/12
+Todavía</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#f97316"></div><div class="ot-mini-body"><strong>OT - 332037 - BK</strong> · TORRELAVEGA DECA · PEDIDO RBE · <b>52d</b><br><span class="ot-nota">PEDIDO RBE: Miguel necesito 2 placa interface 2 transformadores de 12v y 24v y 2</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#f97316"></div><div class="ot-mini-body"><strong>OT - 332760 - BK</strong> · PARQUESOL · PEDIDO RBE · <b>50d</b><br><span class="ot-nota">PEDIDO RBE: Necesitamos pieza de la foto de lavavajillas economax  
+21/12 gonzal</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#f97316"></div><div class="ot-mini-body"><strong>OT - 317094 - BK</strong> · CASTRO URDIALES · PEDIDO RBE · <b>49d</b><br><span class="ot-nota">PEDIDO RBE: Necesito 10 embellecedores de luces de escalera, adjunto fotos de ma</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#f97316"></div><div class="ot-mini-body"><strong>OT - 332810 - BK</strong> · CASTRO URDIALES · PEDIDO RBE · <b>49d</b><br><span class="ot-nota">PEDIDO RBE: Se cambia ventilador, queda a espera de repuesto. Necesito ventilado</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#f97316"></div><div class="ot-mini-body"><strong>OT - 333385 - BK</strong> · VALLSUR · PEDIDO RBE · <b>47d</b><br><span class="ot-nota">PEDIDO RBE: Solicito tapa para tolva de maquina de helado carpigiani Zahir 24/12</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#f97316"></div><div class="ot-mini-body"><strong>OT - 332679 - BK</strong> · VITORIA ELORRIAG · PEDIDO RBE · <b>47d</b><br><span class="ot-nota">Se queda sin enfriar , me falta medir presiones 
+Hakim 24/12
+El compresor está d</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#f97316"></div><div class="ot-mini-body"><strong>OT - 334419 - BK</strong> · OIARTZUN · PEDIDO RBE · <b>42d</b><br><span class="ot-nota">PEDIDO RBE: Necesitamos bomba de agua de maquina de hielo Manitowoc, y sensor de</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#f97316"></div><div class="ot-mini-body"><strong>OT - 333905 - BK</strong> · OVIEDO EL VASCO · PEDIDO RBE · <b>42d</b><br><span class="ot-nota">PEDIDO RBE: Está pedida placa que hace falta cambiar y piezas de desagüe (tapón </span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#f97316"></div><div class="ot-mini-body"><strong>OT - 334481 - BK</strong> · CASTRO URDIALES · PEDIDO RBE · <b>41d</b><br><span class="ot-nota">PEDIDO: Necesitamos ventilador para maquina de hielo Manitowoc 
+30/12 gonzalo</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#f97316"></div><div class="ot-mini-body"><strong>OT - 333370 - BK</strong> · SOMIO · PEDIDO RBE · <b>41d</b><br><span class="ot-nota">PEDIDO RBE: Necesito bombilla 40W 250V 350 Lumens 27/21 C Ángela 30/12
+No ha lle</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#f97316"></div><div class="ot-mini-body"><strong>OT - 332675 - BK</strong> · RECOLETOS · PEDIDO RBE · <b>41d</b><br><span class="ot-nota">PEDIDO RBE: Necesito plancha (módulo) superior de sandwichera FRANKE type: CHUTE</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#f97316"></div><div class="ot-mini-body"><strong>OT - 327986 - BK</strong> · SOMIO · DERIVADA RBE · <b>41d</b><br><span class="ot-nota">DERIVADA RBE: Vino Frimatec puso una pieza pero el agua no sube. Derivar x garan</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#f97316"></div><div class="ot-mini-body"><strong>OT - 334160 - BK</strong> · MEGAPARK VASCO · PEDIDO RBE · <b>41d</b><br><span class="ot-nota">PEDIDO RBE: Necesitamos resistencia de phu 
+30/12 gonzalo</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#f97316"></div><div class="ot-mini-body"><strong>OT - 334928 - BK</strong> · PRADO DE LA VEGA · PEDIDO RBE · <b>40d</b><br><span class="ot-nota">PEDIDO RBE: Necesito tapa para filtro arcón Frankie. Ángela 31/12
+No ha llegado </span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#f97316"></div><div class="ot-mini-body"><strong>OT - 326594 - BK</strong> · OIARTZUN · PEDIDO RBE · <b>38d</b><br><span class="ot-nota">PEDIDO RBE: Necesitamos pieza FLAME ARRESTOR para broiler duke 
+Todavía no a lle</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#f97316"></div><div class="ot-mini-body"><strong>OT - 306714 - BK</strong> · OIARTZUN · PEDIDO RBE · <b>38d</b><br><span class="ot-nota">PEDIDO RBE: El banco tiene los soporte de tornillos rotos 
+Necesitamos banco nue</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#f97316"></div><div class="ot-mini-body"><strong>OT - 319790 - BK</strong> · PALENCIA II · PEDIDO RBE · <b>38d</b><br><span class="ot-nota">Se pide juego de cepillos Carpigiani 
+David 02/12/25
+Sigue sin llegar David 14/0</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#f97316"></div><div class="ot-mini-body"><strong>OT - 344326 - BK</strong> · PLAZA MAYOR DE V · DERIVADA RBE · <b>38d</b><br><span class="ot-nota">DERIVADA RBE: KUBIKO Se adjuntan imágenes de los desperfectos en el play King Za</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#f97316"></div><div class="ot-mini-body"><strong>OT - 331751 - BK</strong> · MIRANDA DE EBRO · PEDIDO RBE · <b>38d</b><br><span class="ot-nota">PEDIDO RBE:
+Necesitamos ventilador con su soporte de evaporador, y ventilador de</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#f97316"></div><div class="ot-mini-body"><strong>OT - 338104 - BK</strong> · BILBAO IBIS · PEDIDO RBE · <b>37d</b><br><span class="ot-nota">PEDIDO RBE: Queda en observación se revisan consumos y se encienden las 4 y lleg</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#f97316"></div><div class="ot-mini-body"><strong>OT - 347183 - BK</strong> · BILBAO IBIS · PEDIDO RBE · <b>37d</b><br><span class="ot-nota">PEDIDO RBE: Se pide pieza nueva, ibai 03/01
+Y se necesita equipo de soldadura pa</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#f97316"></div><div class="ot-mini-body"><strong>OT - 335499 - BK</strong> · PARQUESOL · DERIVADA RBE · <b>35d</b><br><span class="ot-nota">DERIVADA RBE: MANCIVENT DICE: LES TOCA EN FEBRERO Y HASTA EL 28-02 ESTA EN VIGOR</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#f97316"></div><div class="ot-mini-body"><strong>OT - 336301 - BK</strong> · ANDOAIN · DERIVADA RBE · <b>34d</b><br><span class="ot-nota">DERIVADA RBE: 06/01/2026. Francined: derivo a Emservi</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#f97316"></div><div class="ot-mini-body"><strong>OT - 318842 - BK</strong> · MAX OCIO · PEDIDO RBE · <b>34d</b><br><span class="ot-nota">PEDIDO RBE: Necesitamos piezas broiler 
+13/1 Gonzalo
+Necesitamos piezas de boile</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#f97316"></div><div class="ot-mini-body"><strong>OT - 336788 - BK</strong> · EIBAR ACITAIN · DERIVADA RBE · <b>33d</b><br><span class="ot-nota">DERIVADA RBE: Derivar George 7/1.
+07/01/2026.Francined: derivo Avatar
+----------</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#f97316"></div><div class="ot-mini-body"><strong>OT - 336293 - BK</strong> · BURGOS HIPERCOR · PEDIDO RBE · <b>33d</b><br><span class="ot-nota">Se revisa phu funcionando
+Se miden consumos y todas ok, lamparas ok. 
+Se detecta</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#f97316"></div><div class="ot-mini-body"><strong>OT - 333073 - BK</strong> · LAGUNA DE DUERO · PEDIDO RBE · <b>33d</b><br><span class="ot-nota">PEDIDO RBE: Necesito ventilador izquierdo (mirando desde el frente) para patater</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#f97316"></div><div class="ot-mini-body"><strong>OT - 336295 - BK</strong> · JESUS DE MONASTE · PEDIDO RBE · <b>33d</b><br><span class="ot-nota">PEDIDO RBE: Quedan 3 sillas sueltas por falta de tornillos 04/02/26 Miguel</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#f97316"></div><div class="ot-mini-body"><strong>OT - 335519 - BK</strong> · VALLE REAL · PEDIDO RBE · <b>31d</b><br><span class="ot-nota">PEDIDO RBE: Necesitamos rejilla de lavavajillas, está sin soportes ,se adjunta f</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#f97316"></div><div class="ot-mini-body"><strong>OT - 336303 - BK</strong> · VALLSUR · PEDIDO RBE · <b>31d</b><br><span class="ot-nota">PEDIDO RBE: Solicito pieza metálica del patatero donde cuelgan la espátula adjun</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#f97316"></div><div class="ot-mini-body"><strong>OT - 336315 - BK</strong> · TORRELAVEGA CARR · PEDIDO RBE · <b>31d</b><br><span class="ot-nota">PEDIDO RBE:FUNCIONANDO. Necesito piezas marcadas en despiece (eje de barril, cas</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#f97316"></div><div class="ot-mini-body"><strong>OT - 337329 - BK</strong> · OIARTZUN · PRESUPUESTO · <b>31d</b><br><span class="ot-nota">PRESUPUESTO:</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#f97316"></div><div class="ot-mini-body"><strong>OT - 336304 - BK</strong> · SESTAO · DERIVADA RBE · <b>31d</b><br><span class="ot-nota">DERIVADA RBE: Derivar a avatar tiene corriente y no enciende George 9/1
+09/01/20</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 338122 - BK</strong> · ABANDO · PEDIDO RBE · <b>28d</b><br><span class="ot-nota">PEDIDO RBE: Derivar avatar 12/1Gonzalo.
+12/01/2026: Francined: las luces exterio</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 338105 - BK</strong> · BILBAO IBIS · PEDIDO RBE · <b>28d</b><br><span class="ot-nota">PEDIDO RBE: Pedir controlador de sandwichera George 12/1</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 338143 - BK</strong> · VITORIA BETOÑO · PEDIDO RBE · <b>28d</b><br><span class="ot-nota">PEDIDO RBE: Traer está tipo de tornillos (ver foto)</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 338127 - BK</strong> · VITORIA BREMEN · PEDIDO RBE · <b>28d</b><br><span class="ot-nota">PEDIDO RBE: Necesitamos electro válvula de agua 
+12/1 Gonzalo</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 336313 - BK</strong> · CHAPITELES · PRESUPUESTO · <b>28d</b><br><span class="ot-nota">Timbre de acceso a cocina de la calle 
+Poner nuevo sistema completo timbre calle</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 338178 - BK</strong> · VALLSUR · PEDIDO RBE · <b>27d</b><br><span class="ot-nota">PEDIDO RBE: Solicito relé compacto para birdcage Zahir 13/1
+Se anula relé defect</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 337332 - BK</strong> · PRADO DE LA VEGA · PEDIDO RBE · <b>27d</b><br><span class="ot-nota">PEDIDO RBE: Se necesitan 40uds teflones dentados de embrague y 4 tensores de cad</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 339391 - BK</strong> · VITORIA ELORRIAG · PEDIDO RBE · <b>26d</b><br><span class="ot-nota"></span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 339379 - BK</strong> · OKENDO BOULEVARD · PRESUPUESTO · <b>26d</b><br><span class="ot-nota">PRESSUPUESTO: pintura toda la sala
+-Pasado presupuesto 14/01. Sonia.</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 339386 - BK</strong> · CASTRO URDIALES · PEDIDO RBE · <b>26d</b><br><span class="ot-nota"></span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 335524 - BK</strong> · AUTO KING PALENC · DERIVADA RBE · <b>26d</b><br><span class="ot-nota">Se pone en marcha el broiler pero ha saltado el sistema ansul. Adrian 14/1
+Salta</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 339923 - BK</strong> · PARQUESOL · PEDIDO RBE · <b>25d</b><br><span class="ot-nota">PEDIDO RBE: Hay que venir por la mañana para poder hacerlo. Ángela 15/01 
+Solici</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 338187 - BK</strong> · PARQUESOL · PEDIDO RBE · <b>25d</b><br><span class="ot-nota">PEDIDO RBE: Necesito pieza número 24 para broiler duke gas, adjunto modelo y des</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 339904 - BK</strong> · OIARTZUN · PEDIDO RBE · <b>25d</b><br><span class="ot-nota">PEDIDO RBE: TORNILLOS</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 333859 - BK</strong> · AV. BURGOS · PEDIDO RBE · <b>25d</b><br><span class="ot-nota">PEDIDO RBE: Esta pedido el mecanismo pero hay en almacen Parquesol. Adrian 15/1</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 339918 - BK</strong> · PALENCIA II · PEDIDO RBE · <b>25d</b><br><span class="ot-nota">Se solicita tapa lateral derecha de máquina hielo Manitowoc 
+David 15/01
+Depende</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 320357 - BK</strong> · VALLADOLID · PEDIDO RBE · <b>25d</b><br><span class="ot-nota">Se hacen muchas comprobaciones y la placa esta alimentada pero no enciende la pa</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 338912 - BK</strong> · OKENDO BOULEVARD · DERIVADA RBE · <b>24d</b><br><span class="ot-nota">DERIVADA RBE: Derivar a gestión 51 no hace el ciclo de calor bien y el lado shak</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 338910 - BK</strong> · BEHOBIA · PRESUPUESTO · <b>24d</b><br><span class="ot-nota">PRESUPUESTO: Pintar paredes y techos blancos igual mejor pedir presupuesto Jon 1</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 338907 - BK</strong> · VAZQUEZ MENCHACA · PEDIDO RBE · <b>24d</b><br><span class="ot-nota">PEDIDO RBE: Se colocaron luminarias pero faltaron más , se adjunta foto .16/1 Go</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 335514 - BK</strong> · RONDA ESTE · PEDIDO RBE · <b>24d</b><br><span class="ot-nota">PEDIDO RBE: Necesito tubo de rebosadero de pila que va conectado a valvula de de</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 340507 - BK</strong> · VAZQUEZ MENCHACA · DERIVADA RBE · <b>24d</b><br><span class="ot-nota">DERIVADA RBE: Les llega voltaje pero algunas están fundidas, tienen que pasar a </span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 328475 - BK</strong> · RONDA ESTE · PEDIDO RBE · <b>24d</b><br><span class="ot-nota">PEDIDO RBE: Necesito ventilador para máquina de hielo. Pedido, Adrian 16/1</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 293125 - BK</strong> · OKENDO BOULEVARD · PEDIDO RBE · <b>21d</b><br><span class="ot-nota">PEDIDO RBE: Pedir ventilador de arcón fagor 
+No llego el repuesto aún George 19/</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 341029 - BK</strong> · CC URBIL · PEDIDO RBE · <b>21d</b><br><span class="ot-nota">PEDIDO RBE:</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 341010 - BK</strong> · PARQUESOL · PEDIDO RBE · <b>21d</b><br><span class="ot-nota">PEDIDO RBE: Solicito placa electrónica para frymaster FPRE380C
+Zahir 19/1
+Ha lle</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 303878 - BK</strong> · OKENDO BOULEVARD · PEDIDO RBE · <b>21d</b><br><span class="ot-nota">PEDIDO RBE: La puerta no está y las bisagras está rota , se adjunta foto  todaví</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 338132 - BK</strong> · MIRANDA DE EBRO · PEDIDO RBE · <b>21d</b><br><span class="ot-nota">PEDIDO RBE: No retiene la retención 
+Creo falta el sensor
+Hakim19/01</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 338201 - BK</strong> · GIJON · PEDIDO RBE · <b>21d</b><br><span class="ot-nota">PEDIDO RBE: Necesito panel de control para frymaster Ángela 19/01
+Sin repuesto 2</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 333690 - BK</strong> · OKENDO BOULEVARD · PEDIDO RBE · <b>21d</b><br><span class="ot-nota">PEDIDO RBE: Necesitamos pieza de broiler, se adjunta foto 
+Todavía no a llegado </span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 336307 - BK</strong> · AV VITORIA · PEDIDO RBE · <b>20d</b><br><span class="ot-nota">Se necesita tubo de cristal rígido de agua para la e rrada de agua a la electrov</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 341011 - BK</strong> · AV VITORIA · PEDIDO RBE · <b>20d</b><br><span class="ot-nota">Se necesita pieza del Broiler fotos.
+David 20/01
+Sin llegar Reclamo David 29/01</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 328231 - BK</strong> · BARAKALDO LOS FU · PEDIDO RBE · <b>20d</b><br><span class="ot-nota">Todavía no an pasado George 20/1</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 313418 - BK</strong> · VITORIA ELORRIAG · DERIVADA RBE · <b>20d</b><br><span class="ot-nota">DERIVADA RBE:
+20/01/2026. Francined: derivo a KUBIKO para reparar luces del play</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 338199 - BK</strong> · SOMIO · DERIVADA RBE · <b>20d</b><br><span class="ot-nota">DERIVADA RBE: Se deriva por garantía. Arcón refrigeración Fargor. Ángela 20/01. </span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 337695 - BK</strong> · SESTAO · PEDIDO RBE · <b>20d</b><br><span class="ot-nota">PEDIDO RBE: Pedir grifo y pistola de pila tres compartimentos George se cambia p</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 338133 - BK</strong> · MIRANDA DE EBRO · PEDIDO RBE · <b>20d</b><br><span class="ot-nota">PEDIDO RBE: Necesitamos relé para broiler duke 
+20/1 Gonzalo</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 322950 - BK</strong> · ZUNZUNEGUI · PEDIDO RBE · <b>19d</b><br><span class="ot-nota">PEDIDO RBE: Pedir resistencia de ciclo de calor de la Taylor C606george todavía </span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 342455 - BK</strong> · VALSUR · PEDIDO RBE · <b>19d</b><br><span class="ot-nota">Solicito burlete para arcón de bebidas Zahir 21/1
+El burlete que ha llegado no s</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 333853 - BK</strong> · ALEJANDRO CASONA · PEDIDO RBE · <b>19d</b><br><span class="ot-nota">PEDIDO RBE: Se vuelve a proceso porque dicen que siguen sin hielo. 15-01. Gastón</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 340997 - BK</strong> · PALENCIA II · PEDIDO RBE · <b>19d</b><br><span class="ot-nota">Se detecta fuga en compresor, Maquina de hielo muy antigua, se solicita una maqu</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 341632 - BK</strong> · AUTO KING PALENC · DERIVADA RBE · <b>18d</b><br><span class="ot-nota">Se revisa barra doblada por colisiòn. El nervio está roto y no se puede desdobla</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 343332 - BK</strong> · GIJON · PEDIDO RBE · <b>18d</b><br><span class="ot-nota">PEDIDO RBE: Necesito junta de goma para arcón refrigerador. 
+Puerta de 66'5 x 60</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 343027 - BK</strong> · BERANGO · PRESUPUESTO · <b>18d</b><br><span class="ot-nota">PRESUPUESTO: Hay que enderezar el marco y volver a soldarlo 
+22/1 Gonzalo
+Se req</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 342702 - BK</strong> · PARQUE ASTUR · PEDIDO RBE · <b>18d</b><br><span class="ot-nota">PEDIDO RBE: Necesito resistencia para mesa de preparación. Ángela 22/01
+No ha ll</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 343324 - BK</strong> · GIJON · PEDIDO RBE · <b>18d</b><br><span class="ot-nota">PEDIDO RBE: Son tres desagües que pierden agua, dos de la pilade fregar y uno de</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 333930 - BK</strong> · SANTANDER S20 · PEDIDO RBE · <b>18d</b><br><span class="ot-nota">PEDIDO RBE: Necesito resistencia 29/12/25 Miguel 
+Reclamó no a llegado resistenc</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 331771 - BK</strong> · CC BALLONTI- · PEDIDO RBE · <b>18d</b><br><span class="ot-nota">PEDIDO RBE: Pedir la pieza que sujeta el aspa del lavavajillas George todavía no</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 338186 - BK</strong> · OVIEDO EL VASCO · PEDIDO RBE · <b>18d</b><br><span class="ot-nota">PEDIDO RBE: Necesito sonda TGV2 para maquina de helados carpigani. Ángela 22/01
+</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 341009 - BK</strong> · PLAZA MAYOR DE V · PEDIDO RBE · <b>17d</b><br><span class="ot-nota">PEDIDO RBE: Solicito tapa de papelera, marco incluido de mesa de maquina de bebi</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 338207 - BK</strong> · CASTRO URDIALES · PEDIDO RBE · <b>17d</b><br><span class="ot-nota">PEDIDO RBE: Necesito mesa de 105 largo por 60 de ancho 23/01 Miguel</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 343112 - BK</strong> · VITORIA BREMEN · PEDIDO RBE · <b>17d</b><br><span class="ot-nota">PEDIDO RBE: Necesito un piñón del tostador
+
+23/1 hakim</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 344119 - BK</strong> ·  · PEDIDO RBE · <b>14d</b><br><span class="ot-nota">PEDIDO RBE: Solicito filtro de condensador de maquina de hielo sala Manitowoc Za</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 343715 - BK</strong> · CC MAMUT · PEDIDO RBE · <b>14d</b><br><span class="ot-nota">PEDIDO RBE:</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 342203 - BK</strong> · ARANDA DE DUERO · PEDIDO RBE · <b>14d</b><br><span class="ot-nota">Se revisa configuración y programación . Correcta, pero no marca retención
+Posib</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 342688 - BK</strong> · VALLE REAL · PEDIDO RBE · <b>14d</b><br><span class="ot-nota">PEDIDO RBE: Necesito despiece 35 tostador 21/01/26 Miguel tostador a espera de d</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 343701 - BK</strong> · SESTAO · PRESUPUESTO · <b>14d</b><br><span class="ot-nota">PRESUPUESTO: Se debe realizar por la mañana antes de arrancar la máquina , armar</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 344301 - BK</strong> · SESTAO · DERIVADA RBE · <b>14d</b><br><span class="ot-nota">DERIVADA RBE: derivar avatar 26/1
+28/01 Derivo a Avatar para la colocacion de un</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 343107 - BK</strong> · SESTAO · PEDIDO RBE · <b>14d</b><br><span class="ot-nota">Se debe realizar el trabajo por la mañana para desmontar y montar la zona del pi</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 344201 - BK</strong> · LAGUNA DE DUERO · PEDIDO RBE · <b>13d</b><br><span class="ot-nota"></span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 344244 - BK</strong> · VALLE REAL · PEDIDO RBE · <b>13d</b><br><span class="ot-nota">PEDIDO RBE: Necesito 2 pitorros de freidora perdido por Miguel 05/02/26</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 344317 - BK</strong> · VALLE REAL · PEDIDO RBE · <b>13d</b><br><span class="ot-nota">PEDIDO RBE: Necesito urgente placa y sensor de espesor de máquina de hielo 27/01</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 344305 - BK</strong> · PARQUESOL · PEDIDO RBE · <b>13d</b><br><span class="ot-nota">PEDIDO RBE: Solicito electrodo de ignición y detector de llama superiores para b</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 344884 - BK</strong> · RONDA ESTE · PEDIDO RBE · <b>12d</b><br><span class="ot-nota">Pieza donde sujetan las espátulas en el patatero caliente rota, hay que traer so</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 344881 - BK</strong> · PARQUESOL · DERIVADA RBE · <b>12d</b><br><span class="ot-nota">DERIVADA RBE: PARA DERIVAR A KUBICO ESCALERA DE RED DE PARQUE ROTA. ADRIAN 28/1
+</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 344808 - BK</strong> · ANDOAIN · PEDIDO RBE · <b>12d</b><br><span class="ot-nota">PEDIDO RBE: Necesitamos válvula de pila.
+28/1 Gonzalo</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 344886 - BK</strong> · VALLE REAL · PEDIDO RBE · <b>12d</b><br><span class="ot-nota">PEDIDO RBE: Necesito grifo y manguera pedido por Miguel 05/02/30</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 344310 - BK</strong> · MIRANDA DE EBRO · PEDIDO RBE · <b>12d</b><br><span class="ot-nota">Tiene mucho hielo y han venido para poner cosas en la cámara, lo dejamos por otr</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 342205 - BK</strong> · ALISAL · PEDIDO RBE · <b>12d</b><br><span class="ot-nota">PEDIDO RBE: Traer ako con sonda para patatero caliente y sanear cableado. Adrian</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 339381 - BK</strong> · TORRELAVEGA DECA · DERIVADA RBE · <b>12d</b><br><span class="ot-nota">DERIVADA RBE: Traer foco y fuente de alimentación 12v 15/01/26 Miguel
+Traer fuen</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 339925 - BK</strong> · SANTANDER BAHIA · PEDIDO RBE · <b>11d</b><br><span class="ot-nota">PEDIDO RBE: Necesito 1 caja de bombilla de patatero. PEDIDO 29/01 Miguel</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 345681 - BK</strong> · AUTO KING PALENC · PEDIDO RBE · <b>11d</b><br><span class="ot-nota">Salgo el diferencial de la cámara.
+Se le Anto de nuevo y todo funcionando..revis</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 345663 - BK</strong> · CHAPITELES · DERIVADA RBE · <b>11d</b><br><span class="ot-nota">Derivar a Ansul 
+David 29/01</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 345285 - BK</strong> · MIRANDA DE EBRO · PEDIDO RBE · <b>11d</b><br><span class="ot-nota"></span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 343680 - BK</strong> · SOMIO · DERIVADA RBE · <b>11d</b><br><span class="ot-nota">DERIVADA RBE: Se deriva para que lo pase a ver Sofía. Ángela 29/01</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 346018 - BK</strong> · SOMIO · PEDIDO RBE · <b>11d</b><br><span class="ot-nota">PENDIENTE RBE: El microondas no apaga la luz ni ventilado. Necesito fusible de t</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 345302 - BK</strong> · VITORIA BOULEVAR · PEDIDO RBE · <b>11d</b><br><span class="ot-nota">PEDIDO RBE: Necesitamos rueda de broiler nueva
+29/01 ibai
+Ruedo de broiler
+Hakim</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 345295 - BK</strong> · BARAKALDO MEGAPA · PEDIDO RBE · <b>11d</b><br><span class="ot-nota">PEDIDO RBE: Necesitamos tablet para cámara de C02
+Ibai 29/01</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 329167 - BK</strong> · AV VITORIA · PEDIDO RBE · <b>11d</b><br><span class="ot-nota">Necesito soporte de carne Broiler duke
+David 15.12
+Sin llegar David 29/01</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 340881 - BK</strong> · CAMINO DE LA PLA · PEDIDO RBE · <b>11d</b><br><span class="ot-nota">Se revisan colocación de cajones Broiler campana
+Han venido los de la limpieza y</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 343700 - BK</strong> · SANTANDER S20 · DERIVADA RBE · <b>10d</b><br><span class="ot-nota">DERIVADA RBE: SE NECESITA MODULO DE GALIBO NUEVO.
+30/01/2026. Francined derivo a</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 335539 - BK</strong> · CAMINO DE LA PLA · PEDIDO RBE · <b>10d</b><br><span class="ot-nota">Soldar cajón.
+Pendiente llevarse cajón para soldadura electrodo. David 30/01</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 339380 - BK</strong> · OKENDO BOULEVARD · PEDIDO RBE · <b>10d</b><br><span class="ot-nota">PEDIDO RBE: No hay mesas y sillas de este tipo, no se como resolver.
+30/01/2026.</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 344882 - BK</strong> · SANTANDER S20 · PEDIDO RBE · <b>10d</b><br><span class="ot-nota">PEDIDO RBE: Necesito filtro fryram pedido por Miguel 30/01</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 344883 - BK</strong> · SANTANDER S20 · PEDIDO RBE · <b>10d</b><br><span class="ot-nota">PEDIDO RBE: Necesito filtros de patatero pedido por Miguel 30/01</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 346373 - BK</strong> · MEGAPARK VASCO · PEDIDO RBE · <b>7d</b><br><span class="ot-nota"></span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 346338 - BK</strong> · PALENCIA II · PEDIDO RBE · <b>7d</b><br><span class="ot-nota">Se observa que después de varias horas d euso sale demasiado denso/frío. Al limp</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 346344 - BK</strong> · AV VITORIA · PEDIDO RBE · <b>7d</b><br><span class="ot-nota"></span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 346111 - BK</strong> · VITORIA BOULEVAR · PEDIDO RBE · <b>7d</b><br><span class="ot-nota">PEDIDO RBE: Hizo un pedido de bandeja donde calla el helado de máquina helado Ca</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 347204 - BK</strong> · SANTANDER S20 · PEDIDO RBE · <b>6d</b><br><span class="ot-nota">PEDIDO RBE: 03/02/2026. Francined: derivo a Sofía Emservi.</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 346836 - BK</strong> · JESUS DE MONASTE · PEDIDO RBE · <b>6d</b><br><span class="ot-nota">PEDIDO RBE: HE PEDIDO EN SALTOKI Y NO TIENEN. ADRIAN 3/2
+Necesito un señalador p</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 345238 - BK</strong> · RECOLETOS · PEDIDO RBE · <b>5d</b><br><span class="ot-nota">PEDIDO RBE: No ha llegado Zahir 6/2
+Zahir 4/2 Solicito electrodo de ignición (en</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 347207 - BK</strong> · JESUS DE MONASTE · PEDIDO RBE · <b>5d</b><br><span class="ot-nota">PEDIDO RBE: Necesito urgente compresor de aire de la cosecha manitowoc pedido po</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 346881 - BK</strong> · VITORIA BOULEVAR · PEDIDO RBE · <b>5d</b><br><span class="ot-nota"></span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 347660 - BK</strong> · BARAKALDO LOS FU · PEDIDO RBE · <b>5d</b><br><span class="ot-nota"></span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 347557 - BK</strong> · OVIEDO EL VASCO · PEDIDO RBE · <b>5d</b><br><span class="ot-nota">No les sube bien el aceite a la tina en una de las freidoras, tienen que darle a</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 348050 - BK</strong> · PARQUE ASTUR · PEDIDO RBE · <b>4d</b><br><span class="ot-nota">PEDIDO RBE: Necesito repuesto de dos sondas de temperatura para broiler duke gas</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 347659 - BK</strong> · AV. BURGOS · PEDIDO RBE · <b>4d</b><br><span class="ot-nota"></span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 347658 - BK</strong> · PARQUE ASTUR · PEDIDO RBE · <b>4d</b><br><span class="ot-nota">PEDIDO RBE: Necesito repuesto de focos para zona playking. Hay dos fundidas. Fot</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 347666 - BK</strong> · CHAPITELES · PEDIDO RBE · <b>4d</b><br><span class="ot-nota"></span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 344334 - BK</strong> · VALSUR · PEDIDO RBE · <b>4d</b><br><span class="ot-nota">PEDIDO RBE: Solicito 4 luces de techo 60×60 Zahir 5/2</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 343028 - BK</strong> · BERANGO · PEDIDO RBE · <b>4d</b><br><span class="ot-nota">PEDIDO RBE: Necesitamos pieza de perrito para freidora 
+Todavía no llego George </span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 347662 - BK</strong> · EIBAR ACITAIN · DERIVADA RBE · <b>4d</b><br><span class="ot-nota">DERIVADA RBE: EL BROILER A RATOS NO CALIENTA Y OTROS NO GIRA, FRIMATEC POR GARAN</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 347649 - BK</strong> · BERANGO · PEDIDO RBE · <b>4d</b><br><span class="ot-nota">PEDIDO RBE: Pedir 5ruedas de cubo de basura de 9,5 cm de diámetro George 5/2</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 347179 - BK</strong> · BERANGO · PEDIDO RBE · <b>4d</b><br><span class="ot-nota">PEDIDO RBE: Pedir compresor de la Taylor C708-58george 5/2</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 347986 - BK</strong> · DURANGO ABADIÑO · PEDIDO RBE · <b>4d</b><br><span class="ot-nota">PEDIDO RBE: Pedir sonda de nivel de mezcla de carpingiani simple George 5/2</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 347665 - BK</strong> · CHAPITELES · PEDIDO RBE · <b>4d</b><br><span class="ot-nota"></span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 334031 - BK</strong> · BERANGO · PEDIDO RBE · <b>4d</b><br><span class="ot-nota">PEDIDO RBE: Pedir ventilador y resistencia de sandwichera lado izquierdo mirando</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 327294 - BK</strong> · DURANGO ABADIÑO · PEDIDO RBE · <b>4d</b><br><span class="ot-nota">PEDIDO RBE: Pedir placa freidora frymaster George todavía no a llegado 5/2</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 348354 - BK</strong> · ALEJANDRO CASONA · PEDIDO RBE · <b>3d</b><br><span class="ot-nota">Necesito correa de recambio para motor de la parte helado de la carpigani K3. Po</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 345674 - BK</strong> · VAZQUEZ MENCHACA · PEDIDO RBE · <b>3d</b><br><span class="ot-nota">PEDIDO RBE: Solicito las guías de carne izquierda y derecha broiler nieco eléctr</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 347953 - BK</strong> · ANDOAIN · DERIVADA RBE · <b>3d</b><br><span class="ot-nota">DERIVADA RBE: AVATAR</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 347951 - BK</strong> · VITORIA ELORRIAG · PEDIDO RBE · <b>3d</b><br><span class="ot-nota">Pedir bomba de lado shake completa de carpingiani doble George 6/2</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 343708 - BK</strong> · ARECHAVALETA · PEDIDO RBE · <b>3d</b><br><span class="ot-nota">PEDIDO RBE: Pedir los dos ventiladores y resistencias del retenedor de patatas G</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 348112 - BK</strong> · VAZQUEZ MENCHACA · PEDIDO RBE · <b>3d</b><br><span class="ot-nota">Error de filtrado desde el tablero da filtro ocupado, no se sigue con diagnóstic</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 346352 - BK</strong> · VAZQUEZ MENCHACA · DERIVADA RBE · <b>3d</b><br><span class="ot-nota">DERIVADA RBE: FAIN Sigue dando fallo se abre y cierra sola continuamente Zahir 6</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 348627 - BK</strong> · EIBAR ACITAIN · DERIVADA RBE · <b>1d</b><br><span class="ot-nota">8/02/2026. Francined: derivo por garantía a Frimatec.</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 348626 - BK</strong> · EIBAR ACITAIN · DERIVADA RBE · <b>1d</b><br><span class="ot-nota">8/02/2026. Francined: Derivo a Fain.</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 347178 - BK</strong> · CC URBIL · DERIVADA RBE · <b>1d</b><br><span class="ot-nota">DERIVADA RBE: A FRIMATEC POR GARANTIA.
+8/02/2026. Francined: derivo a Frimatec</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 347176 - BK</strong> · CC URBIL · DERIVADA RBE · <b>1d</b><br><span class="ot-nota">DERIVADA RBE: POR GARANTIA A FRIMATEC
+08/02/2026. Francined: Derivo a Frimatec.</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 345673 - BK</strong> · PARQUESOL · DERIVADA RBE · <b>1d</b><br><span class="ot-nota">DERIVADA RBE: AVATAR.
+08/02/2026. Francined: derivo a Avatar</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 338921 - BK</strong> · CASTRO URDIALES · DERIVADA RBE · <b>1d</b><br><span class="ot-nota">DERIVADA RBE: KUBIKO POR GARANTIA. 
+08/02/2026. Francined: Derivo a Kubiko</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 348601 - BK</strong> ·  · PEDIDO RBE · <b>0d</b><br><span class="ot-nota"></span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 348623 - BK</strong> · EIBAR ACITAIN · PEDIDO RBE · <b>0d</b><br><span class="ot-nota"></span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 348707 - BK</strong> · VALLE REAL · PEDIDO RBE · <b>0d</b><br><span class="ot-nota"></span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 348632 - BK</strong> · CC BALLONTI- · PEDIDO RBE · <b>0d</b><br><span class="ot-nota"></span></div></div></div>
+</div>
+
+<!-- ===== PANTALLA 3: NORTHCARE ===== -->
+<div class="screen" id="s2">
+<span class="slabel">Responsabilidad interna</span>
+<h2>Lo que bloquea <span class="hl" style="color:var(--green)">Northcare</span></h2>
+
+<div class="kpi-grid" style="grid-template-columns:repeat(2,1fr)">
+  <div class="kpi"><div class="kpi-num" style="color:var(--green)">138</div><div class="kpi-label">OTs bloqueadas</div></div>
+  <div class="kpi"><div class="kpi-num" style="color:var(--green)">40.1%</div><div class="kpi-label">del total</div></div>
+  <div class="kpi"><div class="kpi-num">3,692</div><div class="kpi-label">Días acumulados</div></div>
+  <div class="kpi"><div class="kpi-num">17.5d</div><div class="kpi-label">Mediana espera</div></div>
+</div>
+
+<div style="text-align:center;margin:16px 0">
+  <svg viewBox="0 0 180 180" width="180" height="180" style="max-width:100%"><path d="M 90.0,15.0 A 75,75 0 1 1 26.8,49.6 L 47.9,63.1 A 50,50 0 1 0 90.0,40.0 Z" fill="#00ff88" opacity="0.9"><title>Material: 84.1%</title></path><path d="M 26.8,49.6 A 75,75 0 0 1 90.0,15.0 L 90.0,40.0 A 50,50 0 0 0 47.9,63.1 Z" fill="#ffcc00" opacity="0.9"><title>Empresa Ext.: 15.9%</title></path><text x="90.0" y="82.0" text-anchor="middle" fill="white" font-size="28" font-weight="900" font-family="Inter,sans-serif">138</text><text x="90.0" y="106.0" text-anchor="middle" fill="#888" font-size="11" font-weight="600" font-family="Inter,sans-serif">OTs NC</text></svg>
+  <div class="pie-legend" style="margin-top:8px">
+    <div class="pie-legend-item"><div class="pie-legend-dot" style="background:var(--green)"></div>Material 116</div>
+    <div class="pie-legend-item"><div class="pie-legend-dot" style="background:var(--yellow)"></div>Emp. Ext. 22</div>
+  </div>
+</div>
+
+<h3>⏱️ ¿Qué tarda más?</h3>
+<div class="card">
+  <div class="speed-row">
+    <div class="speed-label">Material</div>
+    <div class="speed-bar"><div class="speed-fill" style="width:23%;background:var(--green)"></div></div>
+    <div class="speed-val" style="color:var(--green)">13.5d</div>
+  </div>
+  <div class="speed-row" style="border:none">
+    <div class="speed-label">Empresa Externa</div>
+    <div class="speed-bar"><div class="speed-fill" style="width:100%;background:var(--red)"></div></div>
+    <div class="speed-val" style="color:var(--red)">57.5d</div>
+  </div>
+</div>
+
+<h3>⚖️ RBE vs Northcare</h3>
+<div class="vs-bar">
+  <div class="vs-rbe" style="width:59.9%">RBE 206 OTs · 22.5d</div>
+  <div class="vs-nc" style="width:40.1%">NC 138 · 17.5d</div>
+</div>
+<div style="font-size:12px;color:var(--gray);margin:8px 0">
+RBE: más volumen y más días acumulados (7,053d vs 3,692d). Northcare resuelve más rápido pero la empresa externa (mediana 57.5d) es su punto débil.
+</div>
+
+<h3>🔝 Top 10 más antiguas — Northcare</h3>
+<div class="ot-row">
+      <div class="ot-sev" style="background:#ff4d4d"></div>
+      <div class="ot-body">
+        <div class="ot-header"><span class="ot-id">OT - 334451 - BK</span><span class="ot-dias">196d</span></div>
+        <div class="ot-meta">ANDOAIN · JARDINERAS TERRAZA</div>
+        <div class="ot-tag-row"><span class="tag-nc">MATERIAL</span></div>
+        <div class="ot-nota">MATERIA: Le falta los soportes, hay que traer  cuerpos metálicos y soldarlos se adjunta fotos
+Gonzal</div>
+      </div>
+    </div><div class="ot-row">
+      <div class="ot-sev" style="background:#ff4d4d"></div>
+      <div class="ot-body">
+        <div class="ot-header"><span class="ot-id">OT - 316203 - BK</span><span class="ot-dias">104d</span></div>
+        <div class="ot-meta">PEÑACASTILLO · ELECTRICIDAD CUADRO </div>
+        <div class="ot-tag-row"><span class="tag-nc">MATERIAL</span></div>
+        <div class="ot-nota">MATERIAL: Se necesita interruptor para extracción adjunto fotos. Adrian 28/10 el que se trajo es dif</div>
+      </div>
+    </div><div class="ot-row">
+      <div class="ot-sev" style="background:#ff4d4d"></div>
+      <div class="ot-body">
+        <div class="ot-header"><span class="ot-id">OT - 317092 - BK</span><span class="ot-dias">102d</span></div>
+        <div class="ot-meta">CASTRO URDIALES · PINTURA PARED / TECH</div>
+        <div class="ot-tag-row"><span class="tag-nc">MATERIAL</span></div>
+        <div class="ot-nota">Traer papel vinilo color gris corrunuevo Adrian 22/12
+Hay que colocar un papel de pared nuevo 
+En la</div>
+      </div>
+    </div><div class="ot-row">
+      <div class="ot-sev" style="background:#ff4d4d"></div>
+      <div class="ot-body">
+        <div class="ot-header"><span class="ot-id">OT - 292137 - BK</span><span class="ot-dias">100d</span></div>
+        <div class="ot-meta">CHAPITELES · ELECTRICIDAD CUADRO </div>
+        <div class="ot-tag-row"><span class="tag-nc">MATERIAL</span></div>
+        <div class="ot-nota">PEDIDO: Necesitamos sai 
+1/11 Gonzalom
+30/12 sin llegar David
+20/01/26 sigue sin llegar David
+Se rec</div>
+      </div>
+    </div><div class="ot-row">
+      <div class="ot-sev" style="background:#ff4d4d"></div>
+      <div class="ot-body">
+        <div class="ot-header"><span class="ot-id">OT - 250175 - BK</span><span class="ot-dias">99d</span></div>
+        <div class="ot-meta">PLAZA MAYOR DE VALLADO · ALBAÑILERIA BALDOSAS</div>
+        <div class="ot-tag-row"><span class="tag-nc">MATERIAL</span></div>
+        <div class="ot-nota">MATERIAL: Hay que sustituir todos los rodapies de la escalera, son de color negro y tienen una altur</div>
+      </div>
+    </div><div class="ot-row">
+      <div class="ot-sev" style="background:#ff4d4d"></div>
+      <div class="ot-body">
+        <div class="ot-header"><span class="ot-id">OT - 318126 - BK</span><span class="ot-dias">97d</span></div>
+        <div class="ot-meta">TORRELAVEGA DECATHLON · JARDINERAS TERRAZA</div>
+        <div class="ot-tag-row"><span class="tag-nc">EMPRESA EXTERNA</span></div>
+        <div class="ot-nota">EMPRESA EXTERNA: Necesito que acuda calderero, soldador o herrero para que haga presupuesto para rep</div>
+      </div>
+    </div><div class="ot-row">
+      <div class="ot-sev" style="background:#ff4d4d"></div>
+      <div class="ot-body">
+        <div class="ot-header"><span class="ot-id">OT - 318114 - BK</span><span class="ot-dias">96d</span></div>
+        <div class="ot-meta">MIRANDA DE EBRO · AIRE ACONDICONADO CO</div>
+        <div class="ot-tag-row"><span class="tag-nc">EMPRESA EXTERNA</span></div>
+        <div class="ot-nota">EMPRESA EXTERNA: Seguir otro día por la mañana probando los pines están abiertos y tengo que estar p</div>
+      </div>
+    </div><div class="ot-row">
+      <div class="ot-sev" style="background:#ff4d4d"></div>
+      <div class="ot-body">
+        <div class="ot-header"><span class="ot-id">OT - 321050 - BK</span><span class="ot-dias">89d</span></div>
+        <div class="ot-meta">VALLE REAL · FONTANERIA DESAGUES,</div>
+        <div class="ot-tag-row"><span class="tag-nc">MATERIAL</span></div>
+        <div class="ot-nota">En el cuarto de extracción en el techo hay una abertura que da a la calle, por las marcas que veo el</div>
+      </div>
+    </div><div class="ot-row">
+      <div class="ot-sev" style="background:#ff4d4d"></div>
+      <div class="ot-body">
+        <div class="ot-header"><span class="ot-id">OT - 312818 - BK</span><span class="ot-dias">74d</span></div>
+        <div class="ot-meta">VITORIA BOULEVARD · ALBAÑILERIA BALDOSAS</div>
+        <div class="ot-tag-row"><span class="tag-nc">EMPRESA EXTERNA</span></div>
+        <div class="ot-nota">Se adjunta foto de baldosas rota en sala y atrás de maquina de helados 
+27/11 George .he acudido al </div>
+      </div>
+    </div><div class="ot-row">
+      <div class="ot-sev" style="background:#ff4d4d"></div>
+      <div class="ot-body">
+        <div class="ot-header"><span class="ot-id">OT - 308950 - BK</span><span class="ot-dias">74d</span></div>
+        <div class="ot-meta">JESUS DE MONASTERIO · SILLAS</div>
+        <div class="ot-tag-row"><span class="tag-nc">EMPRESA EXTERNA</span></div>
+        <div class="ot-nota">EMPRESA EXTERNA: Hay que tapizar 5 bases de sillon y varias sillas, se desmontan 3 sillones para lle</div>
+      </div>
+    </div>
+
+<button class="expand-btn" onclick="toggle('nc-full')">📋 Ver las 138 OTs del bloque Northcare</button>
+<div class="expand-content" id="nc-full"><div class="ot-mini"><div class="ot-sev-mini" style="background:#ff4d4d"></div><div class="ot-mini-body"><strong>OT - 334451 - BK</strong> · ANDOAIN · MATERIAL · <b>196d</b><br><span class="ot-nota">MATERIA: Le falta los soportes, hay que traer  cuerpos metálicos y soldarlos se </span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ff4d4d"></div><div class="ot-mini-body"><strong>OT - 316203 - BK</strong> · PEÑACASTILLO · MATERIAL · <b>104d</b><br><span class="ot-nota">MATERIAL: Se necesita interruptor para extracción adjunto fotos. Adrian 28/10 el</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ff4d4d"></div><div class="ot-mini-body"><strong>OT - 317092 - BK</strong> · CASTRO URDIALES · MATERIAL · <b>102d</b><br><span class="ot-nota">Traer papel vinilo color gris corrunuevo Adrian 22/12
+Hay que colocar un papel d</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ff4d4d"></div><div class="ot-mini-body"><strong>OT - 292137 - BK</strong> · CHAPITELES · MATERIAL · <b>100d</b><br><span class="ot-nota">PEDIDO: Necesitamos sai 
+1/11 Gonzalom
+30/12 sin llegar David
+20/01/26 sigue sin</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ff4d4d"></div><div class="ot-mini-body"><strong>OT - 250175 - BK</strong> · PLAZA MAYOR DE V · MATERIAL · <b>99d</b><br><span class="ot-nota">MATERIAL: Hay que sustituir todos los rodapies de la escalera, son de color negr</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ff4d4d"></div><div class="ot-mini-body"><strong>OT - 318126 - BK</strong> · TORRELAVEGA DECA · EMPRESA EXTERNA · <b>97d</b><br><span class="ot-nota">EMPRESA EXTERNA: Necesito que acuda calderero, soldador o herrero para que haga </span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ff4d4d"></div><div class="ot-mini-body"><strong>OT - 318114 - BK</strong> · MIRANDA DE EBRO · EMPRESA EXTERNA · <b>96d</b><br><span class="ot-nota">EMPRESA EXTERNA: Seguir otro día por la mañana probando los pines están abiertos</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ff4d4d"></div><div class="ot-mini-body"><strong>OT - 321050 - BK</strong> · VALLE REAL · MATERIAL · <b>89d</b><br><span class="ot-nota">En el cuarto de extracción en el techo hay una abertura que da a la calle, por l</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ff4d4d"></div><div class="ot-mini-body"><strong>OT - 312818 - BK</strong> · VITORIA BOULEVAR · EMPRESA EXTERNA · <b>74d</b><br><span class="ot-nota">Se adjunta foto de baldosas rota en sala y atrás de maquina de helados 
+27/11 Ge</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ff4d4d"></div><div class="ot-mini-body"><strong>OT - 308950 - BK</strong> · JESUS DE MONASTE · EMPRESA EXTERNA · <b>74d</b><br><span class="ot-nota">EMPRESA EXTERNA: Hay que tapizar 5 bases de sillon y varias sillas, se desmontan</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ff4d4d"></div><div class="ot-mini-body"><strong>OT - 327644 - BK</strong> · RONDA ESTE · EMPRESA EXTERNA · <b>68d</b><br><span class="ot-nota">EMPRESA EXTERNA: Varios sillones en sala que hay que tapizar, pendiente consulta</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ff4d4d"></div><div class="ot-mini-body"><strong>OT - 276548 - BK</strong> · VALLADOLID · EMPRESA EXTERNA · <b>68d</b><br><span class="ot-nota">Acude empresa externa 3/12/2025. Sonia.
+Se revisa A/C de sala, se observa que  h</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ff4d4d"></div><div class="ot-mini-body"><strong>OT - 327278 - BK</strong> · VALLADOLID · EMPRESA EXTERNA · <b>66d</b><br><span class="ot-nota">EMPRESA EXTERNA: Necesito empresa externa para reparar puerta dd acceso a cocina</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ff4d4d"></div><div class="ot-mini-body"><strong>OT - 302426 - BK</strong> · VALSUR · MATERIAL · <b>65d</b><br><span class="ot-nota">MONTAJE: Una parte del techo de la sala, justo a la entrada del local, traer pla</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ff4d4d"></div><div class="ot-mini-body"><strong>OT - 307584 - BK</strong> · AV. BURGOS · EMPRESA EXTERNA · <b>65d</b><br><span class="ot-nota">Hay que soldar una pieza de la chimenea por la mañana Adrian 6/12
+Ya estaba ence</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ff4d4d"></div><div class="ot-mini-body"><strong>OT - 328316 - BK</strong> · PARQUESOL · MATERIAL · <b>61d</b><br><span class="ot-nota">Necesito 4 barras de luz para Birdcage. Cesar 10/12
+Hace falta traer soporte lám</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ff4d4d"></div><div class="ot-mini-body"><strong>OT - 328313 - BK</strong> · PARQUESOL · EMPRESA EXTERNA · <b>61d</b><br><span class="ot-nota">EMPRESA EXTERNA: Instalar variador de frecuencia en motor de extracción. Cesar 1</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#f97316"></div><div class="ot-mini-body"><strong>OT - 319019 - BK</strong> · RONDA ESTE · EMPRESA EXTERNA · <b>59d</b><br><span class="ot-nota">PRESUPUESTO: Hay que pintar líneas de aparcamiento en parking. Presupuesto 8 hor</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#f97316"></div><div class="ot-mini-body"><strong>OT - 329947 - BK</strong> · VALLSUR · MATERIAL · <b>59d</b><br><span class="ot-nota">MATERIAL: Traer 4baldosas grises de 60*60 y un esquinero según foto George 12/12</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#f97316"></div><div class="ot-mini-body"><strong>OT - 329402 - BK</strong> · PARQUESOL · MATERIAL · <b>59d</b><br><span class="ot-nota">MATERIAL: Están pedidas en pecomark no tienen stock George 12/12
+He ido a pecoma</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#f97316"></div><div class="ot-mini-body"><strong>OT - 262363 - BK</strong> · RONDA ESTE · EMPRESA EXTERNA · <b>59d</b><br><span class="ot-nota">PRESUPUESTO: Baldosas terraza 14 baldosas GRISES 59,8x29,8cm. Presupuesto 8 hora</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#f97316"></div><div class="ot-mini-body"><strong>OT - 329945 - BK</strong> · VALLSUR · MATERIAL · <b>59d</b><br><span class="ot-nota">Traer 3baldosas grises de 60*60 de cocina adjunto foto George 12/12</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#f97316"></div><div class="ot-mini-body"><strong>OT - 321490 - BK</strong> · LAGUNA DE DUERO · MATERIAL · <b>58d</b><br><span class="ot-nota">MATERIAL: Comprar malla antivectores para poner en las salidas del aire George 1</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#f97316"></div><div class="ot-mini-body"><strong>OT - 325338 - BK</strong> · LAGUNA DE DUERO · MATERIAL · <b>58d</b><br><span class="ot-nota">MATERIAL: Comprar alarma de hombre encerrado le llega corriente a la placa pero </span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#f97316"></div><div class="ot-mini-body"><strong>OT - 288220 - BK</strong> · LAGUNA DE DUERO · MATERIAL · <b>58d</b><br><span class="ot-nota">Hay que cambiar al menos 15 baldosas grises 65cm x 32,5cm y 5 baldosas blancas d</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#f97316"></div><div class="ot-mini-body"><strong>OT - 317902 - BK</strong> · LAGUNA DE DUERO · MATERIAL · <b>58d</b><br><span class="ot-nota">MATERIAL: Traer 5 placas metalicas 60x60 y sustituir las necesarias. George 13/1</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#f97316"></div><div class="ot-mini-body"><strong>OT - 323973 - BK</strong> · VALSUR · MATERIAL · <b>58d</b><br><span class="ot-nota">Unas 20 baldosas de cocina rotas, hay que venir por la noche. George 13/12</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#f97316"></div><div class="ot-mini-body"><strong>OT - 329158 - BK</strong> · PALENCIA II · MATERIAL · <b>57d</b><br><span class="ot-nota">Pedir pistola de pila tres compartimentos George 14/12
+David 24/12 no ha llegado</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#f97316"></div><div class="ot-mini-body"><strong>OT - 329495 - BK</strong> · AV VITORIA · EMPRESA EXTERNA · <b>56d</b><br><span class="ot-nota">Filtración en techo en cubierta en segunda planta 
+Requiere sellado y revisión p</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#f97316"></div><div class="ot-mini-body"><strong>OT - 334810 - BK</strong> · PARQUESOL · MATERIAL · <b>39d</b><br><span class="ot-nota"></span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#f97316"></div><div class="ot-mini-body"><strong>OT - 348121 - BK</strong> · MAX OCIO · MATERIAL · <b>34d</b><br><span class="ot-nota">MATERIAL: Se necesita cisterna nueva pierde por juntas
+Ibai 06/01</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#f97316"></div><div class="ot-mini-body"><strong>OT - 335536 - BK</strong> · SOMIO · EMPRESA EXTERNA · <b>33d</b><br><span class="ot-nota">EMPRESA EXTERNA: No saben cuál es la que está rota, tienen que esperar que encar</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#f97316"></div><div class="ot-mini-body"><strong>OT - 335089 - BK</strong> · VALLSUR · MATERIAL · <b>31d</b><br><span class="ot-nota">PEDIDO: He traído del almacén para cambiarlo pero les incordio, hacer antes de q</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#f97316"></div><div class="ot-mini-body"><strong>OT - 337330 - BK</strong> · CASTRO URDIALES · MATERIAL · <b>31d</b><br><span class="ot-nota"></span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 337339 - BK</strong> · ALEJANDRO CASONA · MATERIAL · <b>30d</b><br><span class="ot-nota">MATERIAL: Hace falta traer bomba de agua para aire acondicionado Hitachi cocina.</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 328318 - BK</strong> · TORRELAVEGA DECA · EMPRESA EXTERNA · <b>30d</b><br><span class="ot-nota">EMPRESA EXTERNA: Queda pendiente por retirar el sofá grande por qué no entra en </span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 338142 - BK</strong> · VITORIA BREMEN · MATERIAL · <b>28d</b><br><span class="ot-nota">MATERIAL: Traer resistencia de desescarche de 1.5 MTS 
+12/1 Gonzalo</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 313847 - BK</strong> · BILBAO IBIS · MATERIAL · <b>28d</b><br><span class="ot-nota">MATERIAL: Hay que comprar amortiguador entre bisagras  y ajustarla. George 12/1</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 337870 - BK</strong> ·  · EMPRESA EXTERNA · <b>28d</b><br><span class="ot-nota">EMPRESA EXTERNA: Acude fontanero a evaluar 12/1
+Pendiente presupuesto 13/1
+Pendi</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 338925 - BK</strong> · SANTANDER BAHIA · MATERIAL · <b>27d</b><br><span class="ot-nota"></span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 338922 - BK</strong> · JESUS DE MONASTE · MATERIAL · <b>27d</b><br><span class="ot-nota">Dos baldosas de 60×60 rotas  y una de 31 × 31 suelta   en área de cocina adjunto</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 250206 - BK</strong> · PALENCIA II · MATERIAL · <b>26d</b><br><span class="ot-nota">MATERIAL: Traer 6 focos empotrados de escalera de 42-45mm de corte luz blanca. D</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 331463 - BK</strong> · AUTO KING PALENC · EMPRESA EXTERNA · <b>26d</b><br><span class="ot-nota">Hay que traer invornales 
+Se necesita desatascar desagues de azotea. 
+Solicito e</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 339387 - BK</strong> · JESUS DE MONASTE · MATERIAL · <b>26d</b><br><span class="ot-nota">MATERIAL: Traer sensor de luces adjunto foto con modelo 02/02/26 Miguel</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 337348 - BK</strong> · PALENCIA II · MATERIAL · <b>26d</b><br><span class="ot-nota">Hay que traer pintura blanca y gris de sala imagen royal. David 14/1
+Pendiente d</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 338190 - BK</strong> · RECOLETOS · MATERIAL · <b>25d</b><br><span class="ot-nota">Traer 15 placas de yeso 60x60 y foco 60x60 de techo. Adrian 15/1</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 339933 - BK</strong> · PARQUESOL · MATERIAL · <b>25d</b><br><span class="ot-nota"></span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 339920 - BK</strong> · AV. BURGOS · MATERIAL · <b>25d</b><br><span class="ot-nota">Hace falta traer baldosa gris de 60x 60 pero cortada a 60x3 adjunto foto</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 334816 - BK</strong> · PARQUESOL · MATERIAL · <b>25d</b><br><span class="ot-nota">MATERIAL: Se necesita fabricar soportes de manguera de filtrado que se les ha de</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 329950 - BK</strong> · PEÑACASTILLO · MATERIAL · <b>25d</b><br><span class="ot-nota">MATERIAL: Traer conmutador de 20A  y traer luminaria nuevas (pines rotos)15/12/2</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 337805 - BK</strong> · RECOLETOS · MATERIAL · <b>25d</b><br><span class="ot-nota">Un cristal de caja de extintor está roto, Adrian 15/1</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 335508 - BK</strong> · CAMINO DE LA PLA · MATERIAL · <b>24d</b><br><span class="ot-nota">Se detecta problemas de tensión en la sandwichera superior está trabajando a 135</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 340434 - BK</strong> · ALISAL · MATERIAL · <b>24d</b><br><span class="ot-nota">MATERIAL: Traer ako 19/01/26 Miguel</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 285735 - BK</strong> · PLAZA MAYOR DE V · MATERIAL · <b>24d</b><br><span class="ot-nota">MONTAJE: Repuestos en restaurante. Adrian 16/1
+Hay q cambiar compresor y placa i</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 341016 - BK</strong> · PALENCIA II · MATERIAL · <b>21d</b><br><span class="ot-nota">Hay que tapar 2 agujeros de Pladur  de 25x25cm cuadrado uno, y el otro rectangul</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 339378 - BK</strong> · OKENDO BOULEVARD · MATERIAL · <b>21d</b><br><span class="ot-nota">MATERIAL: Comprar chapa de 120×240 si hay de hierro mejor para soldar y pintura </span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 339908 - BK</strong> · SESTAO · MATERIAL · <b>20d</b><br><span class="ot-nota">MATERIAL: Comprar 3 visagras y cortar las viejas George 20/1</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 341636 - BK</strong> · VALLADOLID · MATERIAL · <b>20d</b><br><span class="ot-nota"></span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 338909 - BK</strong> · AV VITORIA · MATERIAL · <b>20d</b><br><span class="ot-nota">Se necesitan dos focos led cálido de techo medidas en foto
+David 20/01
+Sin llega</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 341020 - BK</strong> · SOMIO · MATERIAL · <b>20d</b><br><span class="ot-nota">MATERIAL: Perdían dos y al colocarlos ha empezado a perder también la tercera pi</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 342163 - BK</strong> · AV VITORIA · MATERIAL · <b>20d</b><br><span class="ot-nota">Se toman medidas de tapa faltante adjunto en fotos 
+David 20/01
+Se lleva tapa nu</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 321993 - BK</strong> · SESTAO · MATERIAL · <b>20d</b><br><span class="ot-nota">Hay que traer masilla o algo para anclar el marcó de la puerta hacen falta dos p</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 340879 - BK</strong> · CHAPITELES · MATERIAL · <b>20d</b><br><span class="ot-nota">Goteras y descorchamiento causado por fuga ya corregida anterior en piso de arri</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 337336 - BK</strong> · ALEJANDRO CASONA · MATERIAL · <b>19d</b><br><span class="ot-nota">Queda instalado pero falta por cablear. No llega corriente hay que buscar por do</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 338119 - BK</strong> · ZUNZUNEGUI · MATERIAL · <b>19d</b><br><span class="ot-nota">MATERIAL: Comprar chapa de aliminio y pintura negra en spray George 21/1 an perd</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 342202 - BK</strong> · AV. BURGOS · MATERIAL · <b>19d</b><br><span class="ot-nota"></span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 343326 - BK</strong> · GIJON · MATERIAL · <b>18d</b><br><span class="ot-nota">Se necesita cambio de dos baldosas blancas de 20 x20 para la zona de la entrada </span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 342368 - BK</strong> · GASCONA · MATERIAL · <b>18d</b><br><span class="ot-nota">Hace falta poner parche gris para pared de sala. Adjunto fotos. Medidas del ante</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 338894 - BK</strong> · BERANGO · MATERIAL · <b>18d</b><br><span class="ot-nota">MATERIAL: Traer luminaria 22/1 Gonzalo
+Se traen luminarias 4000k , no válidas 
+S</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 337354 - BK</strong> · CHAPITELES · MATERIAL · <b>17d</b><br><span class="ot-nota">Se han encontrado las bisagras exactas y se hace pedido David 23/01
+Se calcula r</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 342700 - BK</strong> · BURGOS HIPERCOR · MATERIAL · <b>17d</b><br><span class="ot-nota">Se compra bombillo nuevo y cierre de seguridad de 3 dientes l, pero no es válido</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 334383 - BK</strong> · DURANGO ABADIÑO · EMPRESA EXTERNA · <b>17d</b><br><span class="ot-nota">EMPRESA EXTERNA: Hay que traer tirador de emergencia, cerradura anti pánico, y e</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#ffcc00"></div><div class="ot-mini-body"><strong>OT - 340982 - BK</strong> · EIBAR ACITAIN · MATERIAL · <b>17d</b><br><span class="ot-nota">MATERIAL: Mirar si en almacén hay planas según foto si no hay que comprarla porq</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 343526 - BK</strong> · OVIEDO EL VASCO · MATERIAL · <b>14d</b><br><span class="ot-nota">La baldosa al pisar se hunde ligeramente. Traer baldosa gris de cocina de 60x60.</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 344324 - BK</strong> ·  · MATERIAL · <b>14d</b><br><span class="ot-nota">LLEVAR FURGONETA GRANDE PARA LLEVAR MESA A ALMACEN PARQUESOL. ADRIAN 26/1
+Cuando</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 344309 - BK</strong> · PARQUESOL · MATERIAL · <b>13d</b><br><span class="ot-nota"></span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 344311 - BK</strong> · PARQUESOL · MATERIAL · <b>13d</b><br><span class="ot-nota"></span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 344323 - BK</strong> ·  · MATERIAL · <b>13d</b><br><span class="ot-nota">MATERIAL: Traer 4 tapas para desagües, 10x10cm adjunto fotos Zahir 27/1
+No las h</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 342712 - BK</strong> · BILBAO IBIS · MATERIAL · <b>13d</b><br><span class="ot-nota">MATERIAL: Se me le apretado pero pierde por juntas 27/01
+Se deja bajo revision 0</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 343522 - BK</strong> · TORRELAVEGA DECA · MATERIAL · <b>12d</b><br><span class="ot-nota">MATERIAL: Traer bombilla adjunto foto 28/01 Miguel</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 341635 - BK</strong> · TORRELAVEGA DECA · MATERIAL · <b>12d</b><br><span class="ot-nota">MATERIAL: Necesito 2 luces de arcón refrigerador de 60 cm 28/01 Miguel</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 344308 - BK</strong> · MIRANDA DE EBRO · MATERIAL · <b>12d</b><br><span class="ot-nota">MATERIAL: Ha traído una manilla de 386mm(ver foto ), pero ellos quieren uno más </span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 334452 - BK</strong> · ANDOAIN · MATERIAL · <b>12d</b><br><span class="ot-nota">Se necesita que oficio venga y ponerlo de nuevo
+Gonzalo 28/01</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 344888 - BK</strong> · CASTRO URDIALES · MATERIAL · <b>12d</b><br><span class="ot-nota">MATERIAL: RESISTENCIA 5</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 341015 - BK</strong> · TORRELAVEGA DECA · MATERIAL · <b>12d</b><br><span class="ot-nota">MATERIAL: Traer pulsador de pie adjunto foto 28/01 Miguel</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 345298 - BK</strong> · ZUNZUNEGUI · MATERIAL · <b>11d</b><br><span class="ot-nota"></span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 345245 - BK</strong> · GIJON · MATERIAL · <b>11d</b><br><span class="ot-nota">Hace falta pintar las paredes que rodean los baños de clientes en la planta de a</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 345291 - BK</strong> · VITORIA BETOÑO · MATERIAL · <b>11d</b><br><span class="ot-nota">MATERIAL: Faltan las juntas entre taza y cisterna y las tuercas de sujeción 
+Hak</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 345278 - BK</strong> · OIARTZUN · EMPRESA EXTERNA · <b>11d</b><br><span class="ot-nota">EMPRESA EXTERNA:</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 345282 - BK</strong> · OIARTZUN · MATERIAL · <b>11d</b><br><span class="ot-nota"></span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 345290 - BK</strong> · VITORIA BETOÑO · MATERIAL · <b>11d</b><br><span class="ot-nota">MATERIAL: Traer sujetador para 2 puertas del baño minusválidos (ver foto)
+Hakim </span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 345235 - BK</strong> · SANTANDER BAHIA · MATERIAL · <b>11d</b><br><span class="ot-nota">MATERIAL: RESISTENCIA 5</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 338892 - BK</strong> · SOMIO · MATERIAL · <b>11d</b><br><span class="ot-nota">Hace falta traer baldosa gris de cocina de 60x60, 4 unidades y una baldosa igual</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 345714 - BK</strong> · TORRELAVEGA DECA · MATERIAL · <b>10d</b><br><span class="ot-nota">MATERIAL: RESISTENCIA 6</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 346108 - BK</strong> · CC URBIL · MATERIAL · <b>9d</b><br><span class="ot-nota"></span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 346354 - BK</strong> · AV VITORIA · MATERIAL · <b>7d</b><br><span class="ot-nota"></span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 346335 - BK</strong> · PRADO DE LA VEGA · MATERIAL · <b>7d</b><br><span class="ot-nota">MATERIAL: Necesito repuesto de tubular de sala 93 cm de largo y 8 cm de ancho. F</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 345671 - BK</strong> · PARQUESOL · MATERIAL · <b>7d</b><br><span class="ot-nota">Enviará César tira led a almacén para su cambio Zahir 2/2</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 325743 - BK</strong> · PALENCIA II · MATERIAL · <b>7d</b><br><span class="ot-nota">Cambio 25 baldosas de noche. Necesito 10 cajas baldosas marrones cocina pequeñas</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 346370 - BK</strong> · CC URBIL · MATERIAL · <b>7d</b><br><span class="ot-nota">MATERIAL:</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 346357 - BK</strong> · PRADO DE LA VEGA · MATERIAL · <b>7d</b><br><span class="ot-nota">MATERIAL: Arcón marca mal la temperatura pero sí enfría correctamente. Necesito </span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 346115 - BK</strong> · VITORIA BOULEVAR · MATERIAL · <b>7d</b><br><span class="ot-nota">Hakim 02/02</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 346333 - BK</strong> · SANTANDER S20 · MATERIAL · <b>7d</b><br><span class="ot-nota">MATERIAL: Traer vástago de grifo del lado caliente 06/02/26 Miguel</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 338121 - BK</strong> · ABANDO · MATERIAL · <b>7d</b><br><span class="ot-nota">MATERIAL: En el preventivo traer gas y meterle George 2/2</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 337345 - BK</strong> · PARQUE ASTUR · EMPRESA EXTERNA · <b>6d</b><br><span class="ot-nota">EMPRESA EXTERNA: Solicito cerrajero para cambiar cerradura completa con barra an</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 345239 - BK</strong> · PARQUE ASTUR · MATERIAL · <b>6d</b><br><span class="ot-nota">Se necesita carretilla o varios técnicos para levantar. Ángela 03/02
+Imposibilid</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 343682 - BK</strong> · CHAPITELES · MATERIAL · <b>5d</b><br><span class="ot-nota">Tubería rrancada rota por dentro de pared.
+Hay que picar pared quitar baldosa, r</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 346349 - BK</strong> · PARQUESOL · MATERIAL · <b>5d</b><br><span class="ot-nota">MATERIAL: Quieren soportes en el techo de sala para colgar propaganda Zahir 4/2</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 346350 - BK</strong> · CHAPITELES · EMPRESA EXTERNA · <b>5d</b><br><span class="ot-nota">Exceso de consumo de agua, posiblemente diga no identificada. Derivar a fontaner</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 347171 - BK</strong> · VITORIA ELORRIAG · MATERIAL · <b>5d</b><br><span class="ot-nota"></span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 345241 - BK</strong> · PARQUESOL · MATERIAL · <b>5d</b><br><span class="ot-nota">MATERIAL: Gotera en el techo cuando llueve mucho, viendo por la zona que cae aba</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 347206 - BK</strong> · VALLE REAL · MATERIAL · <b>5d</b><br><span class="ot-nota">MATERIAL: Traer brocas para acero inoxidable 05/02/26 Miguel</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 347181 - BK</strong> · VITORIA ELORRIAG · MATERIAL · <b>5d</b><br><span class="ot-nota"></span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 344304 - BK</strong> · OVIEDO EL VASCO · MATERIAL · <b>5d</b><br><span class="ot-nota">MATERIAL: Hay que traer repuesto de tubo desagüe o su correspondiente junta de g</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 347671 - BK</strong> · BEHOBIA · MATERIAL · <b>4d</b><br><span class="ot-nota"></span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 347670 - BK</strong> · PLAZA MAYOR DE V · EMPRESA EXTERNA · <b>4d</b><br><span class="ot-nota">EMPRESA EXTERNA:</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 347668 - BK</strong> · PARQUE ASTUR · MATERIAL · <b>4d</b><br><span class="ot-nota">MATERIAL: Tenía tres equipos conectados, uno se ha podido cambiar la clavija a u</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 343029 - BK</strong> · BERANGO · MATERIAL · <b>4d</b><br><span class="ot-nota">MATERIAL: Hay que traer aproximadamente 12 plafones led de 60 x 60  para la coci</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 347165 - BK</strong> · DURANGO ABADIÑO · MATERIAL · <b>4d</b><br><span class="ot-nota">MATERIAL: Comprar 4patas nuevas el sillón parecídas George 5/2</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 347172 - BK</strong> · DURANGO ABADIÑO · MATERIAL · <b>4d</b><br><span class="ot-nota">MATERIAL: Comprar 2bisagras parecidas según foto George 5/2</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 348052 - BK</strong> · PARQUE ASTUR · MATERIAL · <b>4d</b><br><span class="ot-nota">Hay que traer dispensador de jabón para fregadero cocina. Ángela 05/02</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 348051 - BK</strong> · PARQUE ASTUR · MATERIAL · <b>4d</b><br><span class="ot-nota">MATERIAL: Hay que traer interruptor minusválidos y reparar. Después del golpe ha</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 347656 - BK</strong> · PARQUE ASTUR · MATERIAL · <b>4d</b><br><span class="ot-nota">MATERIAL: Sin bornas para conectar a placa arcón. Ángela 05/02</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 347634 - BK</strong> · BERANGO · MATERIAL · <b>4d</b><br><span class="ot-nota">MANILLA: Comprar manilla según foto George 5/2</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 347591 - BK</strong> · PARQUE ASTUR · MATERIAL · <b>4d</b><br><span class="ot-nota">Hay que traer soporte extintor. Fotos adjuntas. Ángela 05/02</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 347497 - BK</strong> · SESTAO · MATERIAL · <b>4d</b><br><span class="ot-nota">Se  a anclado el PIVOTE que estaba suelto , soldar enlaces a PIVOTE  o  escuadra</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 347667 - BK</strong> · DOCTOR AREILZA · MATERIAL · <b>4d</b><br><span class="ot-nota"></span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 327296 - BK</strong> · DURANGO ABADIÑO · EMPRESA EXTERNA · <b>4d</b><br><span class="ot-nota">EMPRESA EXTERNA: Necesitamos que acuda cristalero , se adjunta medidas 
+5/2georg</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 343103 - BK</strong> · VALLSUR · MATERIAL · <b>4d</b><br><span class="ot-nota">Pendiente próximo día, tienen que quitar estantería donde quieren que se ancle Z</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 347657 - BK</strong> · PARQUE ASTUR · MATERIAL · <b>4d</b><br><span class="ot-nota">MATERIAL: Tiene el sensor quemado, le llega corriente. Hay que traer secador nue</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 348118 - BK</strong> · BASAURI · MATERIAL · <b>3d</b><br><span class="ot-nota"></span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 348116 - BK</strong> · CAMINO DE LA PLA · MATERIAL · <b>3d</b><br><span class="ot-nota"></span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 347949 - BK</strong> · PORTUGALETE · MATERIAL · <b>3d</b><br><span class="ot-nota"></span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 348123 - BK</strong> · PARQUESOL · MATERIAL · <b>3d</b><br><span class="ot-nota">MONTAJE:</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 346346 - BK</strong> · ARANDA DE DUERO · MATERIAL · <b>3d</b><br><span class="ot-nota">Placa no funcional de unidad exterior
+Se necesita el juego de las 2 placas (verd</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 345303 - BK</strong> · ARECHAVALETA · MATERIAL · <b>3d</b><br><span class="ot-nota">Quieren pintar todas las paredes de la sala de blanco George 6/2</span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 348628 - BK</strong> · ZUBIARTE · MATERIAL · <b>0d</b><br><span class="ot-nota"></span></div></div><div class="ot-mini"><div class="ot-sev-mini" style="background:#00ff88"></div><div class="ot-mini-body"><strong>OT - 348597 - BK</strong> · CC LOS FRESNOS · MATERIAL · <b>0d</b><br><span class="ot-nota"></span></div></div></div>
+</div>
+
+<!-- ===== PANTALLA 4: ZOMBIS ===== -->
+<div class="screen" id="s3">
+<span class="slabel">Escalado urgente</span>
+<h2>💀 OTs <span class="hl" style="color:var(--red)">Zombi</span> (&gt;90 días)</h2>
+
+<div class="kpi-grid" style="grid-template-columns:repeat(3,1fr)">
+  <div class="kpi"><div class="kpi-num" style="color:var(--red)">23</div><div class="kpi-label">Zombis</div></div>
+  <div class="kpi"><div class="kpi-num">16</div><div class="kpi-label">de RBE</div></div>
+  <div class="kpi"><div class="kpi-num">7</div><div class="kpi-label">de Northcare</div></div>
+</div>
+
+<div class="ot-row">
+      <div class="ot-sev" style="background:#ff4d4d"></div>
+      <div class="ot-body">
+        <div class="ot-header"><span class="ot-id">OT - 333387 - BK</span><span class="ot-dias" style="color:#ff4d4d">403d</span></div>
+        <div class="ot-meta">VALLSUR · ELECTRICIDAD ENCHUFE</div>
+        <div class="ot-tag-row"><span class="tag-rbe">PRESUPUESTO</span><span class="tag-resp" style="background:#00d4ff">RBE</span></div>
+      </div>
+    </div><div class="ot-row">
+      <div class="ot-sev" style="background:#ff4d4d"></div>
+      <div class="ot-body">
+        <div class="ot-header"><span class="ot-id">OT - 334451 - BK</span><span class="ot-dias" style="color:#ff4d4d">196d</span></div>
+        <div class="ot-meta">ANDOAIN · JARDINERAS TERRAZA</div>
+        <div class="ot-tag-row"><span class="tag-nc">MATERIAL</span><span class="tag-resp" style="background:#00ff88">NC</span></div>
+      </div>
+    </div><div class="ot-row">
+      <div class="ot-sev" style="background:#ff4d4d"></div>
+      <div class="ot-body">
+        <div class="ot-header"><span class="ot-id">OT - 313919 - BK</span><span class="ot-dias" style="color:#ff4d4d">186d</span></div>
+        <div class="ot-meta">RONDA ESTE · PARED PLAY KING</div>
+        <div class="ot-tag-row"><span class="tag-rbe">PRESUPUESTO</span><span class="tag-resp" style="background:#00d4ff">RBE</span></div>
+      </div>
+    </div><div class="ot-row">
+      <div class="ot-sev" style="background:#ff4d4d"></div>
+      <div class="ot-body">
+        <div class="ot-header"><span class="ot-id">OT - 273715 - BK</span><span class="ot-dias" style="color:#ff4d4d">175d</span></div>
+        <div class="ot-meta">TORRELAVEGA DECATHLON · MESAS PLAYKING</div>
+        <div class="ot-tag-row"><span class="tag-rbe">DERIVADA RBE</span><span class="tag-resp" style="background:#00d4ff">RBE</span></div>
+      </div>
+    </div><div class="ot-row">
+      <div class="ot-sev" style="background:#ff4d4d"></div>
+      <div class="ot-body">
+        <div class="ot-header"><span class="ot-id">OT - 278244 - BK</span><span class="ot-dias" style="color:#ff4d4d">130d</span></div>
+        <div class="ot-meta">VITORIA BREMEN · LUMINARIAS TERRAZA</div>
+        <div class="ot-tag-row"><span class="tag-rbe">PEDIDO RBE</span><span class="tag-resp" style="background:#00d4ff">RBE</span></div>
+      </div>
+    </div><div class="ot-row">
+      <div class="ot-sev" style="background:#ff4d4d"></div>
+      <div class="ot-body">
+        <div class="ot-header"><span class="ot-id">OT - 272103 - BK</span><span class="ot-dias" style="color:#ff4d4d">112d</span></div>
+        <div class="ot-meta">DOCTOR AREILZA · LUMINARIAS SALA</div>
+        <div class="ot-tag-row"><span class="tag-rbe">DERIVADA RBE</span><span class="tag-resp" style="background:#00d4ff">RBE</span></div>
+      </div>
+    </div><div class="ot-row">
+      <div class="ot-sev" style="background:#ff4d4d"></div>
+      <div class="ot-body">
+        <div class="ot-header"><span class="ot-id">OT - 304390 - BK</span><span class="ot-dias" style="color:#ff4d4d">111d</span></div>
+        <div class="ot-meta">PRADO DE LA VEGA · ARCON CONGELADOR</div>
+        <div class="ot-tag-row"><span class="tag-rbe">PEDIDO RBE</span><span class="tag-resp" style="background:#00d4ff">RBE</span></div>
+      </div>
+    </div><div class="ot-row">
+      <div class="ot-sev" style="background:#ff4d4d"></div>
+      <div class="ot-body">
+        <div class="ot-header"><span class="ot-id">OT - 306709 - BK</span><span class="ot-dias" style="color:#ff4d4d">105d</span></div>
+        <div class="ot-meta">ARECHAVALETA · CARPINTERIA PARED / </div>
+        <div class="ot-tag-row"><span class="tag-rbe">PEDIDO RBE</span><span class="tag-resp" style="background:#00d4ff">RBE</span></div>
+      </div>
+    </div><div class="ot-row">
+      <div class="ot-sev" style="background:#ff4d4d"></div>
+      <div class="ot-body">
+        <div class="ot-header"><span class="ot-id">OT - 316203 - BK</span><span class="ot-dias" style="color:#ff4d4d">104d</span></div>
+        <div class="ot-meta">PEÑACASTILLO · ELECTRICIDAD CUADRO </div>
+        <div class="ot-tag-row"><span class="tag-nc">MATERIAL</span><span class="tag-resp" style="background:#00ff88">NC</span></div>
+      </div>
+    </div><div class="ot-row">
+      <div class="ot-sev" style="background:#ff4d4d"></div>
+      <div class="ot-body">
+        <div class="ot-header"><span class="ot-id">OT - 317092 - BK</span><span class="ot-dias" style="color:#ff4d4d">102d</span></div>
+        <div class="ot-meta">CASTRO URDIALES · PINTURA PARED / TECH</div>
+        <div class="ot-tag-row"><span class="tag-nc">MATERIAL</span><span class="tag-resp" style="background:#00ff88">NC</span></div>
+      </div>
+    </div><div class="ot-row">
+      <div class="ot-sev" style="background:#ff4d4d"></div>
+      <div class="ot-body">
+        <div class="ot-header"><span class="ot-id">OT - 275905 - BK</span><span class="ot-dias" style="color:#ff4d4d">100d</span></div>
+        <div class="ot-meta">VAZQUEZ MENCHACA · SILLAS TERRAZA</div>
+        <div class="ot-tag-row"><span class="tag-rbe">PEDIDO RBE</span><span class="tag-resp" style="background:#00d4ff">RBE</span></div>
+      </div>
+    </div><div class="ot-row">
+      <div class="ot-sev" style="background:#ff4d4d"></div>
+      <div class="ot-body">
+        <div class="ot-header"><span class="ot-id">OT - 318032 - BK</span><span class="ot-dias" style="color:#ff4d4d">100d</span></div>
+        <div class="ot-meta">PARQUESOL · MAQUINA HIELO SALA</div>
+        <div class="ot-tag-row"><span class="tag-rbe">PEDIDO RBE</span><span class="tag-resp" style="background:#00d4ff">RBE</span></div>
+      </div>
+    </div><div class="ot-row">
+      <div class="ot-sev" style="background:#ff4d4d"></div>
+      <div class="ot-body">
+        <div class="ot-header"><span class="ot-id">OT - 288222 - BK</span><span class="ot-dias" style="color:#ff4d4d">100d</span></div>
+        <div class="ot-meta">VAZQUEZ MENCHACA · CONGELADOR DISPENSAD</div>
+        <div class="ot-tag-row"><span class="tag-rbe">PEDIDO RBE</span><span class="tag-resp" style="background:#00d4ff">RBE</span></div>
+      </div>
+    </div><div class="ot-row">
+      <div class="ot-sev" style="background:#ff4d4d"></div>
+      <div class="ot-body">
+        <div class="ot-header"><span class="ot-id">OT - 298971 - BK</span><span class="ot-dias" style="color:#ff4d4d">100d</span></div>
+        <div class="ot-meta">VAZQUEZ MENCHACA · SANDWICHERA 1</div>
+        <div class="ot-tag-row"><span class="tag-rbe">PEDIDO RBE</span><span class="tag-resp" style="background:#00d4ff">RBE</span></div>
+      </div>
+    </div><div class="ot-row">
+      <div class="ot-sev" style="background:#ff4d4d"></div>
+      <div class="ot-body">
+        <div class="ot-header"><span class="ot-id">OT - 292137 - BK</span><span class="ot-dias" style="color:#ff4d4d">100d</span></div>
+        <div class="ot-meta">CHAPITELES · ELECTRICIDAD CUADRO </div>
+        <div class="ot-tag-row"><span class="tag-nc">MATERIAL</span><span class="tag-resp" style="background:#00ff88">NC</span></div>
+      </div>
+    </div><div class="ot-row">
+      <div class="ot-sev" style="background:#ff4d4d"></div>
+      <div class="ot-body">
+        <div class="ot-header"><span class="ot-id">OT - 307585 - BK</span><span class="ot-dias" style="color:#ff4d4d">99d</span></div>
+        <div class="ot-meta">AV. BURGOS · LUMINARIAS GENERAL</div>
+        <div class="ot-tag-row"><span class="tag-rbe">PEDIDO RBE</span><span class="tag-resp" style="background:#00d4ff">RBE</span></div>
+      </div>
+    </div><div class="ot-row">
+      <div class="ot-sev" style="background:#ff4d4d"></div>
+      <div class="ot-body">
+        <div class="ot-header"><span class="ot-id">OT - 307590 - BK</span><span class="ot-dias" style="color:#ff4d4d">99d</span></div>
+        <div class="ot-meta">AV. BURGOS · LUMINARIAS GENERAL</div>
+        <div class="ot-tag-row"><span class="tag-rbe">DERIVADA RBE</span><span class="tag-resp" style="background:#00d4ff">RBE</span></div>
+      </div>
+    </div><div class="ot-row">
+      <div class="ot-sev" style="background:#ff4d4d"></div>
+      <div class="ot-body">
+        <div class="ot-header"><span class="ot-id">OT - 279600 - BK</span><span class="ot-dias" style="color:#ff4d4d">99d</span></div>
+        <div class="ot-meta">RECOLETOS · AIRE ACONDICONADO CO</div>
+        <div class="ot-tag-row"><span class="tag-rbe">PRESUPUESTO</span><span class="tag-resp" style="background:#00d4ff">RBE</span></div>
+      </div>
+    </div><div class="ot-row">
+      <div class="ot-sev" style="background:#ff4d4d"></div>
+      <div class="ot-body">
+        <div class="ot-header"><span class="ot-id">OT - 250175 - BK</span><span class="ot-dias" style="color:#ff4d4d">99d</span></div>
+        <div class="ot-meta">PLAZA MAYOR DE VALLADO · ALBAÑILERIA BALDOSAS</div>
+        <div class="ot-tag-row"><span class="tag-nc">MATERIAL</span><span class="tag-resp" style="background:#00ff88">NC</span></div>
+      </div>
+    </div><div class="ot-row">
+      <div class="ot-sev" style="background:#ff4d4d"></div>
+      <div class="ot-body">
+        <div class="ot-header"><span class="ot-id">OT - 318125 - BK</span><span class="ot-dias" style="color:#ff4d4d">97d</span></div>
+        <div class="ot-meta">ALISAL · MAQUINA HIELO AUTOKI</div>
+        <div class="ot-tag-row"><span class="tag-rbe">PEDIDO RBE</span><span class="tag-resp" style="background:#00d4ff">RBE</span></div>
+      </div>
+    </div><div class="ot-row">
+      <div class="ot-sev" style="background:#ff4d4d"></div>
+      <div class="ot-body">
+        <div class="ot-header"><span class="ot-id">OT - 318126 - BK</span><span class="ot-dias" style="color:#ff4d4d">97d</span></div>
+        <div class="ot-meta">TORRELAVEGA DECATHLON · JARDINERAS TERRAZA</div>
+        <div class="ot-tag-row"><span class="tag-nc">EMPRESA EXTERNA</span><span class="tag-resp" style="background:#00ff88">NC</span></div>
+      </div>
+    </div><div class="ot-row">
+      <div class="ot-sev" style="background:#ff4d4d"></div>
+      <div class="ot-body">
+        <div class="ot-header"><span class="ot-id">OT - 318114 - BK</span><span class="ot-dias" style="color:#ff4d4d">96d</span></div>
+        <div class="ot-meta">MIRANDA DE EBRO · AIRE ACONDICONADO CO</div>
+        <div class="ot-tag-row"><span class="tag-nc">EMPRESA EXTERNA</span><span class="tag-resp" style="background:#00ff88">NC</span></div>
+      </div>
+    </div><div class="ot-row">
+      <div class="ot-sev" style="background:#ff4d4d"></div>
+      <div class="ot-body">
+        <div class="ot-header"><span class="ot-id">OT - 317097 - BK</span><span class="ot-dias" style="color:#ff4d4d">95d</span></div>
+        <div class="ot-meta">CASINO SANTANDER- · LAVAVAJILLAS</div>
+        <div class="ot-tag-row"><span class="tag-rbe">PEDIDO RBE</span><span class="tag-resp" style="background:#00d4ff">RBE</span></div>
+      </div>
+    </div>
+
+<h3>📊 Distribución de antigüedad (RBE vs NC)</h3>
+<div class="card">
+  <div class="pie-legend" style="margin-bottom:12px">
+    <div class="pie-legend-item"><div class="pie-legend-dot" style="background:var(--cyan)"></div>RBE</div>
+    <div class="pie-legend-item"><div class="pie-legend-dot" style="background:var(--green)"></div>Northcare</div>
+  </div>
+  <div class="hist-row">
+      <div class="hist-label">0-7d</div>
+      <div class="hist-track">
+        <div class="hist-fill" style="width:45.05494505494506%;background:#00d4ff" title="RBE: 41"></div>
+        <div class="hist-fill" style="width:47.25274725274725%;background:#00ff88" title="NC: 43"></div>
+      </div>
+      <div class="hist-value">84</div>
+    </div><div class="hist-row">
+      <div class="hist-label">8-14d</div>
+      <div class="hist-track">
+        <div class="hist-fill" style="width:36.26373626373626%;background:#00d4ff" title="RBE: 33"></div>
+        <div class="hist-fill" style="width:24.175824175824175%;background:#00ff88" title="NC: 22"></div>
+      </div>
+      <div class="hist-value">55</div>
+    </div><div class="hist-row">
+      <div class="hist-label">15-30d</div>
+      <div class="hist-track">
+        <div class="hist-fill" style="width:57.14285714285714%;background:#00d4ff" title="RBE: 52"></div>
+        <div class="hist-fill" style="width:42.857142857142854%;background:#00ff88" title="NC: 39"></div>
+      </div>
+      <div class="hist-value">91</div>
+    </div><div class="hist-row">
+      <div class="hist-label">31-60d</div>
+      <div class="hist-track">
+        <div class="hist-fill" style="width:47.25274725274725%;background:#00d4ff" title="RBE: 43"></div>
+        <div class="hist-fill" style="width:18.681318681318682%;background:#00ff88" title="NC: 17"></div>
+      </div>
+      <div class="hist-value">60</div>
+    </div><div class="hist-row">
+      <div class="hist-label">61-90d</div>
+      <div class="hist-track">
+        <div class="hist-fill" style="width:23.076923076923077%;background:#00d4ff" title="RBE: 21"></div>
+        <div class="hist-fill" style="width:10.989010989010989%;background:#00ff88" title="NC: 10"></div>
+      </div>
+      <div class="hist-value">31</div>
+    </div><div class="hist-row">
+      <div class="hist-label">>90d</div>
+      <div class="hist-track">
+        <div class="hist-fill" style="width:17.582417582417584%;background:#00d4ff" title="RBE: 16"></div>
+        <div class="hist-fill" style="width:7.6923076923076925%;background:#00ff88" title="NC: 7"></div>
+      </div>
+      <div class="hist-value">23</div>
+    </div>
+  <div style="font-size:11px;color:var(--gray);margin-top:12px;padding:8px;background:rgba(255,77,77,0.08);border-radius:8px">
+    ⚠️ <strong style="color:var(--red)">Muro de los 30 días:</strong> A partir de 31 días las OTs de RBE dominan. Las que pasan este umbral tienden a cronificarse.
+  </div>
+</div>
+
+<h3>🏪 Restaurantes con más bloqueos</h3>
+<div class="bar-row">
+      <div class="bar-label">PARQUESOL</div>
+      <div class="bar-track"><div class="bar-fill" style="width:76.5%;background:#f97316"></div></div>
+      <div class="bar-value">26/34 <span class="bar-sub">(76.5%)</span></div>
+    </div><div class="bar-row">
+      <div class="bar-label">SESTAO</div>
+      <div class="bar-track"><div class="bar-fill" style="width:75.0%;background:#f97316"></div></div>
+      <div class="bar-value">12/16 <span class="bar-sub">(75.0%)</span></div>
+    </div><div class="bar-row">
+      <div class="bar-label">PARQUE ASTUR</div>
+      <div class="bar-track"><div class="bar-fill" style="width:78.6%;background:#f97316"></div></div>
+      <div class="bar-value">11/14 <span class="bar-sub">(78.6%)</span></div>
+    </div><div class="bar-row">
+      <div class="bar-label">AV. BURGOS</div>
+      <div class="bar-track"><div class="bar-fill" style="width:90.0%;background:#ff4d4d"></div></div>
+      <div class="bar-value">9/10 <span class="bar-sub">(90.0%)</span></div>
+    </div><div class="bar-row">
+      <div class="bar-label">VALLE REAL</div>
+      <div class="bar-track"><div class="bar-fill" style="width:100.0%;background:#ff4d4d"></div></div>
+      <div class="bar-value">9/9 <span class="bar-sub">(100.0%)</span></div>
+    </div><div class="bar-row">
+      <div class="bar-label">RONDA ESTE</div>
+      <div class="bar-track"><div class="bar-fill" style="width:75.0%;background:#f97316"></div></div>
+      <div class="bar-value">9/12 <span class="bar-sub">(75.0%)</span></div>
+    </div><div class="bar-row">
+      <div class="bar-label">CHAPITELES</div>
+      <div class="bar-track"><div class="bar-fill" style="width:100.0%;background:#ff4d4d"></div></div>
+      <div class="bar-value">9/9 <span class="bar-sub">(100.0%)</span></div>
+    </div><div class="bar-row">
+      <div class="bar-label">TORRELAVEGA DECATHLON</div>
+      <div class="bar-track"><div class="bar-fill" style="width:81.8%;background:#ff4d4d"></div></div>
+      <div class="bar-value">9/11 <span class="bar-sub">(81.8%)</span></div>
+    </div><div class="bar-row">
+      <div class="bar-label">PALENCIA II</div>
+      <div class="bar-track"><div class="bar-fill" style="width:90.0%;background:#ff4d4d"></div></div>
+      <div class="bar-value">9/10 <span class="bar-sub">(90.0%)</span></div>
+    </div><div class="bar-row">
+      <div class="bar-label">CASTRO URDIALES</div>
+      <div class="bar-track"><div class="bar-fill" style="width:64.3%;background:#f97316"></div></div>
+      <div class="bar-value">9/14 <span class="bar-sub">(64.3%)</span></div>
+    </div><div class="bar-row">
+      <div class="bar-label">RECOLETOS</div>
+      <div class="bar-track"><div class="bar-fill" style="width:88.9%;background:#ff4d4d"></div></div>
+      <div class="bar-value">8/9 <span class="bar-sub">(88.9%)</span></div>
+    </div><div class="bar-row">
+      <div class="bar-label">AV VITORIA</div>
+      <div class="bar-track"><div class="bar-fill" style="width:66.7%;background:#f97316"></div></div>
+      <div class="bar-value">8/12 <span class="bar-sub">(66.7%)</span></div>
+    </div><div class="bar-row">
+      <div class="bar-label">VALLSUR</div>
+      <div class="bar-track"><div class="bar-fill" style="width:100.0%;background:#ff4d4d"></div></div>
+      <div class="bar-value">8/8 <span class="bar-sub">(100.0%)</span></div>
+    </div><div class="bar-row">
+      <div class="bar-label">VAZQUEZ MENCHACA</div>
+      <div class="bar-track"><div class="bar-fill" style="width:100.0%;background:#ff4d4d"></div></div>
+      <div class="bar-value">8/8 <span class="bar-sub">(100.0%)</span></div>
+    </div><div class="bar-row">
+      <div class="bar-label">OIARTZUN</div>
+      <div class="bar-track"><div class="bar-fill" style="width:88.9%;background:#ff4d4d"></div></div>
+      <div class="bar-value">8/9 <span class="bar-sub">(88.9%)</span></div>
+    </div>
+</div>
+
+<!-- ===== PANTALLA 5: CONCLUSIONES ===== -->
+<div class="screen" id="s4">
+<span class="slabel">Lectura estratégica</span>
+<h2>📋 Conclusiones y <span class="hl">acciones</span></h2>
+
+<div class="card card-accent">
+  <div style="font-size:13px;line-height:1.8">
+    <p><strong>Dependencia:</strong> <span style="color:var(--cyan)">59.9%</span> bloquea RBE · <span style="color:var(--green)">40.1%</span> bloquea Northcare</p>
+    <p><strong>Coste:</strong> RBE acumula <strong>7,053 días</strong> de espera vs <strong>3,692</strong> de NC</p>
+    <p><strong>Cuello:</strong> Pedido material RBE (161 OTs). Presupuestos son los más lentos (31.0d mediana)</p>
+    <p><strong>Locales 🔥:</strong> Valle Real, Chapiteles, Vallsur, Vázquez Menchaca → 100% bloqueados</p>
+    <p><strong>Equipos:</strong> Freidoras (15 OTs, 21d) y Helados (14 OTs, 18d) = alto volumen + espera larga</p>
+    <p><strong>Patrón:</strong> Muro de los 30 días → cronificación</p>
+    <p><strong>Interno:</strong> Empresa externa = talón de Aquiles NC (mediana 57.5d)</p>
+  </div>
+</div>
+
+<h3>🎯 Recomendaciones</h3>
+<div class="recom r-high">
+  <h4>1. Escalado inmediato de zombis</h4>
+  <p>Reunión con UT de RBE presentando las 23 OTs &gt;90 días. Desbloquear o cerrar.</p>
+  <div class="r-meta">👉 RBE + NC · Impacto: ~23 OTs · <strong style="color:var(--red)">PRIORIDAD ALTA</strong></div>
+</div>
+<div class="recom r-high">
+  <h4>2. Protocolo de seguimiento semanal — Pedidos RBE</h4>
+  <p>Reclamar automáticamente pedidos sin respuesta a los 15 días. Evitar que 42 OTs 🟡 pasen a 🟠.</p>
+  <div class="r-meta">👉 RBE · Impacto: 42 OTs preventivas · <strong style="color:var(--red)">PRIORIDAD ALTA</strong></div>
+</div>
+<div class="recom r-med">
+  <h4>3. Bolsa de proveedores para empresa externa</h4>
+  <p>2-3 alternativas por oficio (fontanero, soldador, tapicero). Reducir mediana de 58d a &lt;15d.</p>
+  <div class="r-meta">👉 NC · Impacto: 22 OTs · <strong style="color:var(--orange)">PRIORIDAD MEDIA-ALTA</strong></div>
+</div>
+<div class="recom r-med">
+  <h4>4. Dashboard presupuestos pendientes</h4>
+  <p>Alerta día 15 sin firma. Hay 6 presupuestos &gt;30d. Mediana actual: 31.0d.</p>
+  <div class="r-meta">👉 RBE + NC · <strong style="color:var(--orange)">PRIORIDAD MEDIA</strong></div>
+</div>
+<div class="recom r-low">
+  <h4>5. Intervención en locales calientes</h4>
+  <p>Visita a Valle Real, Chapiteles, Vallsur, Vázquez Menchaca (100% bloqueo = impacto en imagen).</p>
+  <div class="r-meta">👉 Ambos · <strong style="color:var(--green)">PRIORIDAD MEDIA</strong></div>
+</div>
+
+<h3>🛡️ Certificado de Integridad</h3>
+<div class="ficha" style="border-color:var(--cyan)">
+🛡️ <strong>CERTIFICADO DE INTEGRIDAD</strong><br><br>
+Filas procesadas: <strong>543</strong> · Preventivos excluidos: <strong>101</strong><br>
+OTs analizadas: <strong>442</strong> · Método: <strong>Python/Pandas 100%</strong><br>
+Clasificadas con bloqueo: <strong>344</strong> · Sin bloqueo: <strong>98</strong><br>
+⚠️ REVISAR: <strong>3</strong> · Pre-etiquetas técnico: <strong>100% respetadas</strong><br>
+Fecha: <strong>9 de febrero de 2026</strong>
+</div>
+</div>
+
+</div><!-- container -->
+
+<script>
+function go(n){
+  document.querySelectorAll('.screen').forEach((s,i)=>s.classList.toggle('active',i===n));
+  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',i===n));
+  window.scrollTo(0,0);
+}
+function toggle(id){
+  document.getElementById(id).classList.toggle('open');
+}
+</script>
+
+</div>
+
+<script>
+// Simple client-side auth gate
+var _u = 'northcare';
+var _p = 'cliope_audit';
+
+function doLogin() {
+  var u = document.getElementById('login-user').value.trim().toLowerCase();
+  var p = document.getElementById('login-pass').value.trim();
+  var err = document.getElementById('login-error');
+  
+  if (u === _u && p === _p) {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('report-content').style.display = 'block';
+    sessionStorage.setItem('nc_auth', '1');
+    err.classList.remove('show');
+  } else {
+    err.classList.remove('show');
+    void err.offsetWidth; // trigger reflow
+    err.classList.add('show');
+    document.getElementById('login-pass').value = '';
+    document.getElementById('login-pass').focus();
+  }
+}
+
+function doLogout() {
+  sessionStorage.removeItem('nc_auth');
+  document.getElementById('report-content').style.display = 'none';
+  document.getElementById('login-screen').style.display = 'flex';
+  document.getElementById('login-user').value = '';
+  document.getElementById('login-pass').value = '';
+}
+
+// Enter key support
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter' && document.getElementById('login-screen').style.display !== 'none') {
+    doLogin();
+  }
+});
+
+// Persist session during tab life
+document.addEventListener('DOMContentLoaded', function() {
+  if (sessionStorage.getItem('nc_auth') === '1') {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('report-content').style.display = 'block';
+  }
+});
+
+// Report functions
+
+function go(n){
+  document.querySelectorAll('.screen').forEach((s,i)=>s.classList.toggle('active',i===n));
+  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',i===n));
+  window.scrollTo(0,0);
+}
+function toggle(id){
+  document.getElementById(id).classList.toggle('open');
+}
+
+</script>
+</body>
+</html>
