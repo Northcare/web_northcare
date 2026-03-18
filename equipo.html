@@ -109,7 +109,7 @@
 
         .personas { background: var(--color-bg-light); border-top: 1px solid rgba(255,255,255,0.1); }
         .personas-header { text-align: center; margin-bottom: 3rem; }
-        .personas-header p { font-size: 1.1rem; color: var(--color-gray-light); max-width: 600px; margin: 0 auto; }
+        .personas-header p { font-size: 1.1rem; color: var(--color-gray-light); max-width: 650px; margin: 0 auto; }
         .personas-container { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 3rem; }
         .equipo-bloque { background: var(--color-bg-card); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; overflow: hidden; }
         .equipo-header { display: flex; align-items: center; gap: 1rem; padding: 1.5rem 2rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
@@ -275,10 +275,12 @@
     <section class="personas">
         <div class="personas-header">
             <span class="section-label">Quiénes somos</span>
-            <h2 class="section-title">Las <span class="highlight">18 personas</span> de Northcare</h2>
-            <p>Cada uno sabe algo. Cada uno aprende algo. Así crecemos.</p>
+            <h2 class="section-title">Los <span class="highlight">equipos</span> de Northcare</h2>
+            <p>Nuestra empresa está formada por diferentes equipos. Algunas personas participan en más de uno: cada uno aporta donde más valor genera.</p>
         </div>
         <div class="personas-container">
+
+            <!-- FUNDADORES -->
             <div class="equipo-bloque">
                 <div class="equipo-header fundadores"><span class="equipo-header-icon">👔</span><div class="equipo-header-info"><h3>Fundadores</h3><p>Propietarios y líderes de Northcare</p></div></div>
                 <div class="personas-grid">
@@ -286,41 +288,55 @@
                     <div class="persona-card"><div class="persona-foto">👤</div><div class="persona-data"><span class="persona-nombre">Sara Ortiz</span><span class="persona-rol">Propietaria · Resp. Administración</span><div class="persona-conocimiento"><span class="tag sabe">Gestión económica</span><span class="tag aprende">Gestión avanzada</span></div></div></div>
                 </div>
             </div>
+
+            <!-- CLIOPE -->
             <div class="equipo-bloque">
                 <div class="equipo-header cliope"><span class="equipo-header-icon">🔧</span><div class="equipo-header-info"><h3>CLIOPE</h3><p>Equipo técnico · Las cocinas funcionando día a día</p></div></div>
                 <div class="personas-grid">
+                    <div class="persona-card"><div class="persona-foto">👤</div><div class="persona-data"><span class="persona-nombre">César Melgarejo</span><span class="persona-rol">Coordinador General</span><div class="persona-conocimiento"><span class="tag sabe">Diagnóstico avanzado</span><span class="tag aprende">Delegación y sistemas</span></div></div></div>
                     <div class="persona-card"><div class="persona-foto">👤</div><div class="persona-data"><span class="persona-nombre">Adrián Setién</span><span class="persona-rol">Coordinador Área Oeste</span><div class="persona-conocimiento"><span class="tag sabe">Climatización</span><span class="tag aprende">Gestión de zona</span></div></div></div>
                     <div class="persona-card"><div class="persona-foto">👤</div><div class="persona-data"><span class="persona-nombre">Gonzalo Moutón</span><span class="persona-rol">Coordinador Área Este</span><div class="persona-conocimiento"><span class="tag sabe">Refrigeración</span><span class="tag aprende">Formación técnica</span></div></div></div>
                     <div class="persona-card"><div class="persona-foto">👤</div><div class="persona-data"><span class="persona-nombre">Rubén Ortiz</span><span class="persona-rol">Técnico de Almacén</span><div class="persona-conocimiento"><span class="tag sabe">Logística almacén</span><span class="tag aprende">Gestión de inventario</span></div></div></div>
                     <div class="persona-card"><div class="persona-foto">👤</div><div class="persona-data"><span class="persona-nombre">Marcos A. Villarroel</span><span class="persona-rol">Técnico Oficios</span><div class="persona-conocimiento"><span class="tag sabe">Oficios generales</span><span class="tag aprende">Especialización técnica</span></div></div></div>
-                    <div class="persona-card"><div class="persona-foto">👤</div><div class="persona-data"><span class="persona-nombre">Miguel E. Romero</span><span class="persona-rol">Técnico · Cantabria</span><div class="persona-conocimiento"><span class="tag sabe">Mantenimiento general</span><span class="tag aprende">Equipos de cocción</span></div></div></div>
-                    <div class="persona-card"><div class="persona-foto">👤</div><div class="persona-data"><span class="persona-nombre">Ángela Benito</span><span class="persona-rol">Técnica · Asturias</span><div class="persona-conocimiento"><span class="tag sabe">Equipos de cocción</span><span class="tag aprende">Eficiencia energética</span></div></div></div>
-                    <div class="persona-card"><div class="persona-foto">👤</div><div class="persona-data"><span class="persona-nombre">David Cuesta</span><span class="persona-rol">Técnico · Burgos y Palencia</span><div class="persona-conocimiento"><span class="tag sabe">Mantenimiento general</span><span class="tag aprende">Refrigeración industrial</span></div></div></div>
-                    <div class="persona-card"><div class="persona-foto">👤</div><div class="persona-data"><span class="persona-nombre">George S. Proca</span><span class="persona-rol">Técnico · Bizkaia</span><div class="persona-conocimiento"><span class="tag sabe">Mantenimiento general</span><span class="tag aprende">Climatización</span></div></div></div>
-                    <div class="persona-card"><div class="persona-foto">👤</div><div class="persona-data"><span class="persona-nombre">Ibai Blanco Allika</span><span class="persona-rol">Técnico · Bizkaia</span><div class="persona-conocimiento"><span class="tag sabe">Mantenimiento general</span><span class="tag aprende">Especialización técnica</span></div></div></div>
-                    <div class="persona-card"><div class="persona-foto">👤</div><div class="persona-data"><span class="persona-nombre">Hakim Agzanay</span><span class="persona-rol">Técnico · Álava</span><div class="persona-conocimiento"><span class="tag sabe">Mantenimiento general</span><span class="tag aprende">Diagnóstico avanzado</span></div></div></div>
-                    <div class="persona-card"><div class="persona-foto">👤</div><div class="persona-data"><span class="persona-nombre">Zahir Jaafir</span><span class="persona-rol">Técnico · Valladolid</span><div class="persona-conocimiento"><span class="tag sabe">Mantenimiento general</span><span class="tag aprende">Equipos Taylor</span></div></div></div>
-                    <div class="persona-card"><div class="persona-foto">👤</div><div class="persona-data"><span class="persona-nombre">Javier Sáenz Ruiz</span><span class="persona-rol">Técnico · Logroño</span><div class="persona-conocimiento"><span class="tag sabe">Mantenimiento general</span><span class="tag aprende">En formación</span></div></div></div>
-                    <div class="persona-card"><div class="persona-foto">👤</div><div class="persona-data"><span class="persona-nombre">Mikel Goñi Ibáñez</span><span class="persona-rol">Técnico · Pamplona</span><div class="persona-conocimiento"><span class="tag sabe">Mantenimiento general</span><span class="tag aprende">En formación</span></div></div></div>
-                    <div class="persona-card"><div class="persona-foto">👤</div><div class="persona-data"><span class="persona-nombre">Diego Blasco Serrano</span><span class="persona-rol">Técnico · Zaragoza</span><div class="persona-conocimiento"><span class="tag sabe">Mantenimiento general</span><span class="tag aprende">En formación</span></div></div></div>
+                    <div class="persona-card"><div class="persona-foto">👤</div><div class="persona-data"><span class="persona-nombre">Miguel E. Romero</span><span class="persona-rol">Técnico · Cantabria</span><div class="persona-conocimiento"><span class="tag sabe">Mantenimiento general</span><span class="tag sabe">Especialista en frío</span></div></div></div>
+                    <div class="persona-card"><div class="persona-foto">👤</div><div class="persona-data"><span class="persona-nombre">Ángela Benito</span><span class="persona-rol">Técnica · Asturias</span><div class="persona-conocimiento"><span class="tag sabe">Mantenimiento general</span><span class="tag sabe">Especialista en electricidad</span></div></div></div>
+                    <div class="persona-card"><div class="persona-foto">👤</div><div class="persona-data"><span class="persona-nombre">David Cuesta</span><span class="persona-rol">Técnico · Burgos y Palencia</span><div class="persona-conocimiento"><span class="tag sabe">Mantenimiento general</span></div></div></div>
+                    <div class="persona-card"><div class="persona-foto">👤</div><div class="persona-data"><span class="persona-nombre">George S. Proca</span><span class="persona-rol">Técnico · País Vasco</span><div class="persona-conocimiento"><span class="tag sabe">Mantenimiento general</span></div></div></div>
+                    <div class="persona-card"><div class="persona-foto">👤</div><div class="persona-data"><span class="persona-nombre">Ibai Blanco Allica</span><span class="persona-rol">Técnico · País Vasco</span><div class="persona-conocimiento"><span class="tag sabe">Mantenimiento general</span></div></div></div>
+                    <div class="persona-card"><div class="persona-foto">👤</div><div class="persona-data"><span class="persona-nombre">Zahir Jaafir</span><span class="persona-rol">Técnico · Valladolid</span><div class="persona-conocimiento"><span class="tag sabe">Mantenimiento general</span><span class="tag sabe">Especialista en frío</span></div></div></div>
+                    <div class="persona-card"><div class="persona-foto">👤</div><div class="persona-data"><span class="persona-nombre">Jose Enrique Loor Intriago</span><span class="persona-rol">Técnico · La Rioja y Navarra</span><div class="persona-conocimiento"><span class="tag sabe">Mantenimiento general</span><span class="tag sabe">Especialista en frío</span></div></div></div>
+                    <div class="persona-card"><div class="persona-foto">👤</div><div class="persona-data"><span class="persona-nombre">Miguel López Aguarón</span><span class="persona-rol">Técnico · Zaragoza</span><div class="persona-conocimiento"><span class="tag sabe">Mantenimiento general</span></div></div></div>
                 </div>
             </div>
+
+            <!-- RESPICE -->
             <div class="equipo-bloque">
                 <div class="equipo-header respice"><span class="equipo-header-icon">💰</span><div class="equipo-header-info"><h3>RESPICE</h3><p>Administración · Recursos, proveedores y relación con clientes</p></div></div>
                 <div class="personas-grid">
-                    <div class="persona-card"><div class="persona-foto">👤</div><div class="persona-data"><span class="persona-nombre">Sonia Abascal</span><span class="persona-rol">Técnica de Administración</span><div class="persona-conocimiento"><span class="tag sabe">Administración</span><span class="tag aprende">Análisis de datos</span></div></div></div>
+                    <div class="persona-card"><div class="persona-foto">👤</div><div class="persona-data"><span class="persona-nombre">Sara Ortiz</span><span class="persona-rol">Coordinadora · Responsable de Compras y Gestión de Clientes</span><div class="persona-conocimiento"><span class="tag sabe">Gestión económica</span><span class="tag aprende">Gestión avanzada</span></div></div></div>
+                    <div class="persona-card"><div class="persona-foto">👤</div><div class="persona-data"><span class="persona-nombre">Sonia Abascal</span><span class="persona-rol">Responsable de Administración de Recursos y Capital Humano</span><div class="persona-conocimiento"><span class="tag sabe">Administración</span><span class="tag aprende">Análisis de datos</span></div></div></div>
+                    <div class="persona-card"><div class="persona-foto">👤</div><div class="persona-data"><span class="persona-nombre">María García Bautista</span><span class="persona-rol">Técnica de Administración</span><div class="persona-conocimiento"><span class="tag sabe">Administración</span><span class="tag aprende">Gestión de recursos</span></div></div></div>
+                    <div class="persona-card"><div class="persona-foto">👤</div><div class="persona-data"><span class="persona-nombre">Mikel Raposo</span><span class="persona-rol">Asistente Técnico</span><div class="persona-conocimiento"><span class="tag sabe">Transformación organizacional</span><span class="tag aprende">Innovación tecnológica</span></div></div></div>
                 </div>
             </div>
+
+            <!-- CRESIS -->
             <div class="equipo-bloque">
                 <div class="equipo-header cresis"><span class="equipo-header-icon">🚀</span><div class="equipo-header-info"><h3>CRESIS</h3><p>Mejora continua · Optimización, innovación y aprendizaje</p></div></div>
                 <div class="personas-grid">
-                    <div class="persona-card"><div class="persona-foto">👤</div><div class="persona-data"><span class="persona-nombre">Mikel Raposo</span><span class="persona-rol">Resp. Mejora Continua</span><div class="persona-conocimiento"><span class="tag sabe">Transformación organizacional</span><span class="tag aprende">Innovación tecnológica</span></div></div></div>
+                    <div class="persona-card"><div class="persona-foto">👤</div><div class="persona-data"><span class="persona-nombre">Mikel Raposo</span><span class="persona-rol">Responsable de Mejora Continua e Innovación</span><div class="persona-conocimiento"><span class="tag sabe">Transformación organizacional</span><span class="tag aprende">Innovación tecnológica</span></div></div></div>
+                    <div class="persona-card"><div class="persona-foto">👤</div><div class="persona-data"><span class="persona-nombre">César Melgarejo</span><span class="persona-rol">Asistente en desarrollo y despliegue de soluciones</span><div class="persona-conocimiento"><span class="tag sabe">Diagnóstico avanzado</span><span class="tag aprende">Delegación y sistemas</span></div></div></div>
+                    <div class="persona-card"><div class="persona-foto">👤</div><div class="persona-data"><span class="persona-nombre">Adrián Setién</span><span class="persona-rol">Asistente en desarrollo y despliegue de soluciones</span><div class="persona-conocimiento"><span class="tag sabe">Climatización</span><span class="tag aprende">Gestión de zona</span></div></div></div>
+                    <div class="persona-card"><div class="persona-foto">👤</div><div class="persona-data"><span class="persona-nombre">Ángela Benito</span><span class="persona-rol">Asistente en desarrollo y despliegue de soluciones</span><div class="persona-conocimiento"><span class="tag sabe">Equipos de cocción</span><span class="tag aprende">Eficiencia energética</span></div></div></div>
                 </div>
             </div>
+
+            <!-- SINCRO -->
             <div class="equipo-bloque">
                 <div class="equipo-header sincro"><span class="equipo-header-icon">🔗</span><div class="equipo-header-info"><h3>SINCRO</h3><p>Coordinación estratégica · Integración de todas las miradas</p></div></div>
                 <div class="sincro-mensaje"><p>Formado por los líderes de cada equipo para mantener una <strong>visión holística</strong> de la organización.</p></div>
             </div>
+
         </div>
     </section>
 
