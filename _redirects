@@ -1,5 +1,2 @@
 # Redirigir sin www a www (Primary domain es www.northcare.es)
 https://northcare.es/*  https://www.northcare.es/:splat  301!
-
-# Página 404 personalizada
-/*  /404.html  404
