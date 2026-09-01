@@ -421,6 +421,50 @@
         @media(min-width:900px){ section{padding:8rem 2rem} .shead.left .gh{left:auto;right:0;transform:none;top:-4.5rem} }
 
         @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}.rv{opacity:1!important;transform:none!important}}
+    
+        /* ═══════════ ESCRITORIO · una columna y anchos contenidos ═══════════ */
+        @media(min-width:900px){
+          /* bloques de lectura, a una sola columna */
+          .apgrid,.oficios-layout,.gestion-layout,.fam-grid{grid-template-columns:1fr;max-width:720px;margin-left:auto;margin-right:auto;gap:2rem}
+          .shead,.sec-in,.barras{max-width:720px;margin-left:auto;margin-right:auto}
+
+          /* rejillas de 4: 2 + 2 · de 3: 3 en fila */
+          .dgrid{grid-template-columns:1fr 1fr;max-width:720px;margin-left:auto;margin-right:auto}
+          .canales{grid-template-columns:repeat(3,1fr);max-width:720px;margin-left:auto;margin-right:auto}
+
+          /* ilustraciones a tamaño natural */
+          .ap .ilu svg,.ilus svg,.ilus{max-width:440px;margin-left:auto;margin-right:auto;display:block}
+          .ap .ilu{max-width:520px;margin-left:auto;margin-right:auto}
+        }
+
+    
+        /* ═══ Ilustraciones · una sola regla para todas ═══ */
+        .plano-caja,.oficios-visual,.gestion-visual,.ap .ilu{
+            display:block!important;
+            max-width:560px;margin:1.75rem auto;padding:1.15rem;
+            border-radius:16px;overflow:visible;position:static;
+            aspect-ratio:auto;box-shadow:none;
+            background:linear-gradient(150deg,#0e0e0e,#151515);
+            border:1px solid rgba(255,255,255,.08)}
+        .ap .ilu{margin:.5rem auto 1.35rem}
+        .plano-caja svg,.oficios-visual svg,.gestion-visual svg,.ap .ilu svg,.ilus{
+            width:100%;height:auto;max-width:440px;display:block;margin:0 auto;filter:none}
+        .oficios-visual::after,.gestion-visual::after{display:none}
+        .foto-ph{display:none}
+        @media(min-width:900px){
+            .plano-caja,.oficios-visual,.gestion-visual,.ap .ilu{max-width:560px;position:static}
+            .plano-caja svg,.oficios-visual svg,.gestion-visual svg,.ap .ilu svg{max-width:440px}
+        }
+
+    
+        /* ═══ Ilustraciones · alto y ancho topados por igual ═══ */
+        .plano-caja svg,.oficios-visual svg,.gestion-visual svg,.ap .ilu svg{
+            width:auto;height:auto;max-width:440px;max-height:470px;display:block;margin:0 auto}
+        @media(min-width:900px){
+            .plano-caja svg,.oficios-visual svg,.gestion-visual svg,.ap .ilu svg{
+                max-width:440px;max-height:470px}
+        }
+
     </style>
 </head>
 <body>
@@ -585,6 +629,8 @@
   <text x="16" y="560" fill="#8b8b8b" font-family="Inter,sans-serif" font-size="13" font-weight="700">Si cae una, se nota en todas.</text>
 </svg>
   </div>
+  
+  
   <p class="plano-pie">Los puntos verdes marcan los equipos críticos: si uno cae, el servicio se resiente en minutos.</p>
 </section>
 
@@ -607,21 +653,7 @@
       <h2 class="t">No es una especialidad.<br><span class="hl">Son siete a la vez.</span></h2>
       <p class="intro">Esto es el reparto real de nuestras intervenciones de 2025 por oficio. Ninguna empresa que se dedique sólo a una de estas líneas puede enseñar esta tabla.</p>
     </div>
-
-    <div class="oficios-layout">
-        <div class="barras">
-          <div class="bar hi rv"><div class="nm">Frío y refri.</div><div class="tr"><div class="fl" style="width:100%"></div></div><div class="vl">1.705</div></div>
-          <div class="bar rv"><div class="nm">Cocción y calor</div><div class="tr"><div class="fl" style="width:69%"></div></div><div class="vl">1.168</div></div>
-          <div class="bar rv"><div class="nm">Fontanería/Agua</div><div class="tr"><div class="fl" style="width:52%"></div></div><div class="vl">888</div></div>
-          <div class="bar rv"><div class="nm">Obra/Mobiliario</div><div class="tr"><div class="fl" style="width:45%"></div></div><div class="vl">770</div></div>
-          <div class="bar rv"><div class="nm">Electricidad</div><div class="tr"><div class="fl" style="width:32%"></div></div><div class="vl">540</div></div>
-          <div class="bar hi rv"><div class="nm">Clima/Extracción</div><div class="tr"><div class="fl" style="width:17%"></div></div><div class="vl">288</div></div>
-          <div class="bar rv"><div class="nm">PCI y seguridad</div><div class="tr"><div class="fl" style="width:7%"></div></div><div class="vl">117</div></div>
-
-          <p class="barnota rv">Un mismo técnico entra por la mañana a una cámara, al mediodía a un cuadro eléctrico y por la tarde a un desagüe. <b>Esa es la verdadera dificultad del oficio, y lo que lo convierte en la mejor escuela.</b></p>
-        </div>
-
-        <div class="oficios-visual rv">
+    <div class="oficios-visual rv">
             <svg viewBox="0 0 400 500" class="ilus" role="img" aria-label="Corte de una cocina industrial con las siete especialidades señaladas">
   <defs>
     <linearGradient id="cc-g" x1="0" y1="0" x2="0" y2="1">
@@ -708,6 +740,22 @@
   </g>
 </svg>
         </div>
+    
+
+    <div class="oficios-layout">
+        <div class="barras">
+          <div class="bar hi rv"><div class="nm">Frío y refri.</div><div class="tr"><div class="fl" style="width:100%"></div></div><div class="vl">1.705</div></div>
+          <div class="bar rv"><div class="nm">Cocción y calor</div><div class="tr"><div class="fl" style="width:69%"></div></div><div class="vl">1.168</div></div>
+          <div class="bar rv"><div class="nm">Fontanería/Agua</div><div class="tr"><div class="fl" style="width:52%"></div></div><div class="vl">888</div></div>
+          <div class="bar rv"><div class="nm">Obra/Mobiliario</div><div class="tr"><div class="fl" style="width:45%"></div></div><div class="vl">770</div></div>
+          <div class="bar rv"><div class="nm">Electricidad</div><div class="tr"><div class="fl" style="width:32%"></div></div><div class="vl">540</div></div>
+          <div class="bar hi rv"><div class="nm">Clima/Extracción</div><div class="tr"><div class="fl" style="width:17%"></div></div><div class="vl">288</div></div>
+          <div class="bar rv"><div class="nm">PCI y seguridad</div><div class="tr"><div class="fl" style="width:7%"></div></div><div class="vl">117</div></div>
+
+          <p class="barnota rv">Un mismo técnico entra por la mañana a una cámara, al mediodía a un cuadro eléctrico y por la tarde a un desagüe. <b>Esa es la verdadera dificultad del oficio, y lo que lo convierte en la mejor escuela.</b></p>
+        </div>
+
+        
     </div>
   </div>
 </section>
@@ -772,37 +820,7 @@
             <h2 class="t">Arreglar la máquina es <span class="hl">la parte fácil</span></h2>
             <p class="intro">Lo difícil es sostener un servicio para decenas de locales a la vez: priorizar, planificar rutas, tener la pieza, cumplir la normativa y dejarlo escrito.</p>
           </div>
-
-          <div class="tl">
-            <div class="rv step">
-              <div class="dot">01</div>
-              <h3>Entra el aviso</h3>
-              <p>El local llama o abre parte. Lo primero no es salir corriendo: es entender si el equipo está parado, si hay género en riesgo y si el restaurante puede seguir dando servicio.</p>
-            </div>
-            <div class="rv step">
-              <div class="dot">02</div>
-              <h3>Se prioriza</h3>
-              <p>Una cámara caída a las once de la mañana no es lo mismo que una luminaria fundida. Cada aviso entra en una cola con criterio, no por orden de llegada.</p>
-            </div>
-            <div class="rv step">
-              <div class="dot">03</div>
-              <h3>Se planifica la ruta</h3>
-              <p>El criterio dominante es no desplazarse en balde: se agrupa por zona y se cierra en cada local todo lo que se pueda de una sola vez. Un viaje mal planificado se paga muy caro.</p>
-            </div>
-            <div class="rv step">
-              <div class="dot">04</div>
-              <h3>Se interviene</h3>
-              <p>Con el histórico del equipo delante. Saber qué le pasó a esa misma máquina hace ocho meses cambia por completo el tiempo de diagnóstico.</p>
-            </div>
-            <div class="rv step key">
-              <div class="dot">05</div>
-              <h3>Se cierra por escrito</h3>
-              <p>Qué falló, qué se hizo, qué pieza entró y qué quedó pendiente. Este paso es el que casi todo el sector se salta, y es exactamente el que convierte una reparación en conocimiento.</p>
-            </div>
-          </div>
-      </div>
-
-      <div class="gestion-visual rv">
+    <div class="gestion-visual rv">
           <svg viewBox="0 0 360 480" class="ilus" role="img" aria-label="Planificación diaria del mantenimiento en una tablet">
   <defs>
     <pattern id="pl-rej" width="18" height="18" patternUnits="userSpaceOnUse">
@@ -857,6 +875,38 @@
   <text x="180" y="386" text-anchor="middle" fill="#8b8b8b" font-family="Inter,sans-serif" font-size="15" font-weight="700" letter-spacing=".1em">RUTA DEL DÍA</text>
 </svg>
       </div>
+    
+
+          <div class="tl">
+            <div class="rv step">
+              <div class="dot">01</div>
+              <h3>Entra el aviso</h3>
+              <p>El local llama o abre parte. Lo primero no es salir corriendo: es entender si el equipo está parado, si hay género en riesgo y si el restaurante puede seguir dando servicio.</p>
+            </div>
+            <div class="rv step">
+              <div class="dot">02</div>
+              <h3>Se prioriza</h3>
+              <p>Una cámara caída a las once de la mañana no es lo mismo que una luminaria fundida. Cada aviso entra en una cola con criterio, no por orden de llegada.</p>
+            </div>
+            <div class="rv step">
+              <div class="dot">03</div>
+              <h3>Se planifica la ruta</h3>
+              <p>El criterio dominante es no desplazarse en balde: se agrupa por zona y se cierra en cada local todo lo que se pueda de una sola vez. Un viaje mal planificado se paga muy caro.</p>
+            </div>
+            <div class="rv step">
+              <div class="dot">04</div>
+              <h3>Se interviene</h3>
+              <p>Con el histórico del equipo delante. Saber qué le pasó a esa misma máquina hace ocho meses cambia por completo el tiempo de diagnóstico.</p>
+            </div>
+            <div class="rv step key">
+              <div class="dot">05</div>
+              <h3>Se cierra por escrito</h3>
+              <p>Qué falló, qué se hizo, qué pieza entró y qué quedó pendiente. Este paso es el que casi todo el sector se salta, y es exactamente el que convierte una reparación en conocimiento.</p>
+            </div>
+          </div>
+      </div>
+
+      
   </div>
 </section>
 
@@ -875,7 +925,10 @@
           <span class="letra">A</span>
 
           <div class="bloque">
-            <div class="ilu"><svg viewBox="0 0 340 200" role="img" aria-label="Tres visitas para cerrar una avería">
+            
+            <span class="lo">Lo que vimos</span>
+            <h3>El límite no es la máquina. Son las personas</h3>
+            <div class="ilu"><svg viewBox="0 -65 340 330" role="img" aria-label="Tres visitas para cerrar una avería">
   <g font-family="Inter,sans-serif" font-weight="800" text-anchor="middle">
     <circle cx="52" cy="60" r="26" fill="#0d0d0d" stroke="#ff4d4d" stroke-opacity=".65" stroke-width="2.6"/><text x="52" y="67" fill="#ff4d4d" font-size="17">1ª</text>
     <circle cx="140" cy="60" r="26" fill="#0d0d0d" stroke="#ff4d4d" stroke-opacity=".65" stroke-width="2.6"/><text x="140" y="67" fill="#ff4d4d" font-size="17">2ª</text>
@@ -894,13 +947,13 @@
   <text x="14" y="162" fill="#c9c9c9" font-family="Inter,sans-serif" font-size="14" font-weight="800">Tres viajes y ocho días</text>
   <text x="14" y="184" fill="#8b8b8b" font-family="Inter,sans-serif" font-size="13" font-weight="600">con el equipo a medias</text>
 </svg></div>
-            <span class="lo">Lo que vimos</span>
-            <h3>El límite no es la máquina. Son las personas</h3>
             <p>Las horas no se pierden en reparar: se van en diagnosticar a ciegas y en segundas visitas. Un técnico bien formado resuelve en una visita lo que otro en tres.</p>
           </div>
 
           <div class="bloque b2">
-            <div class="ilu"><svg viewBox="0 0 340 210" role="img" aria-label="Con la guía y la IA se cierra en una visita">
+            
+            <span class="lo-sol">Lo que pusimos en marcha</span>
+            <div class="ilu"><svg viewBox="0 -60 340 330" role="img" aria-label="Con la guía y la IA se cierra en una visita">
   <rect x="14" y="20" width="120" height="86" rx="10" fill="#111" stroke="#00d4ff" stroke-opacity=".6" stroke-width="2.2"/>
   <g fill="#0d0d0d" stroke="#00d4ff" stroke-opacity=".5" stroke-width="1.6">
     <rect x="28" y="34" width="92" height="18" rx="4"/><rect x="28" y="58" width="92" height="18" rx="4"/><rect x="28" y="82" width="58" height="14" rx="4"/>
@@ -916,9 +969,7 @@
   <path d="M14 148 H326" stroke="#ffffff" stroke-opacity=".08" stroke-width="1.4"/>
   <text x="14" y="178" fill="#00ff88" font-family="Inter,sans-serif" font-size="14" font-weight="800">Un viaje, y queda escrito</text>
   <text x="14" y="200" fill="#8b8b8b" font-family="Inter,sans-serif" font-size="13" font-weight="600">para el que venga detrás</text>
-</svg></div>
-            <span class="lo-sol">Lo que pusimos en marcha</span>
-            <p>Escribimos el procedimiento de cada avería que resolvíamos y le pusimos <b>una IA especialista por máquina</b> encima. Hoy es <b>Cardinal</b>, y el técnico lo lleva en el móvil.</p>
+</svg></div><p>Escribimos el procedimiento de cada avería que resolvíamos y le pusimos <b>una IA especialista por máquina</b> encima. Hoy es <b>Cardinal</b>, y el técnico lo lleva en el móvil.</p>
           </div>
 
           <div class="salida"><a href="formacion.html" data-linea="formacion">Certificación Northcare</a></div>
@@ -930,6 +981,9 @@
           <span class="letra">B</span>
 
           <div class="bloque">
+            
+            <span class="lo">Lo que vimos</span>
+            <h3>Casi ninguna avería empieza en la máquina</h3>
             <div class="ilu"><svg viewBox="0 0 340 330" role="img" aria-label="Las causas de la avería vienen del montaje, no de la máquina">
   <defs><marker id="or-f" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0 L7 3.5 L0 7 Z" fill="#ff8a3d"/></marker></defs>
   <rect x="118" y="128" width="104" height="82" rx="10" fill="#0d0d0d" stroke="#ff4d4d" stroke-opacity=".8" stroke-width="3"/>
@@ -949,13 +1003,13 @@
   <text x="14" y="306" fill="#c9c9c9" font-family="Inter,sans-serif" font-size="14" font-weight="800">Las cuatro se decidieron</text>
   <text x="14" y="326" fill="#8b8b8b" font-family="Inter,sans-serif" font-size="13" font-weight="600">el día del montaje</text>
 </svg></div>
-            <span class="lo">Lo que vimos</span>
-            <h3>Casi ninguna avería empieza en la máquina</h3>
             <p>Empieza el día que se montó. Un equipo sobredimensionado o un trazado forzado se pagan al tercer año. Reparar lo ajeno nos enseñó dónde se falla.</p>
           </div>
 
           <div class="bloque b2">
-            <div class="ilu"><svg viewBox="0 0 340 240" role="img" aria-label="Instalamos con las reglas que sacamos de reparar">
+            
+            <span class="lo-sol">Lo que pusimos en marcha</span>
+            <div class="ilu"><svg viewBox="0 -45 340 330" role="img" aria-label="Instalamos con las reglas que sacamos de reparar">
   <rect x="14" y="14" width="312" height="62" rx="10" fill="#0e1512" stroke="#00ff88" stroke-opacity=".6" stroke-width="2.2"/>
   <text x="170" y="40" text-anchor="middle" fill="#00ff88" font-family="Inter,sans-serif" font-size="15" font-weight="800">Instalamos nosotros</text>
   <text x="170" y="62" text-anchor="middle" fill="#8b8b8b" font-family="Inter,sans-serif" font-size="12" font-weight="600">con las reglas que salen de reparar</text>
@@ -969,9 +1023,7 @@
   </g>
   <path d="M14 216 H326" stroke="#ffffff" stroke-opacity=".08" stroke-width="1.4"/>
   <text x="14" y="238" fill="#00ff88" font-family="Inter,sans-serif" font-size="13" font-weight="800">La avería no llega a existir</text>
-</svg></div>
-            <span class="lo-sol">Lo que pusimos en marcha</span>
-            <p>Abrimos <b>línea propia de instalaciones</b> con tres reglas que nadie nos pedía: dimensionar con la carga real, dejar el equipo accesible <b>y medir el consumo antes y después</b>.</p>
+</svg></div><p>Abrimos <b>línea propia de instalaciones</b> con tres reglas que nadie nos pedía: dimensionar con la carga real, dejar el equipo accesible <b>y medir el consumo antes y después</b>.</p>
           </div>
 
           <div class="salida"><a href="instalaciones.html" data-linea="instalaciones">Instalaciones y eficiencia</a></div>
@@ -983,7 +1035,10 @@
           <span class="letra">C</span>
 
           <div class="bloque">
-            <div class="ilu"><svg viewBox="0 0 340 250" role="img" aria-label="Sin datos no se sabe qué está parado ni por qué">
+            
+            <span class="lo">Lo que vimos</span>
+            <h3>No basta con arreglar. Hay que saber qué está parado y por qué</h3>
+            <div class="ilu"><svg viewBox="0 -40 340 330" role="img" aria-label="Sin datos no se sabe qué está parado ni por qué">
   <text x="14" y="24" fill="#8b8b8b" font-family="Inter,sans-serif" font-size="13" font-weight="700">¿Qué hay abierto ahora mismo?</text>
   <g font-family="Inter,sans-serif" font-size="15" font-weight="800" text-anchor="middle">
     <rect x="14" y="42" width="96" height="52" rx="10" fill="#141414" stroke="#8b8b8b" stroke-opacity=".4" stroke-width="2" stroke-dasharray="6 5"/><text x="62" y="74" fill="#8b8b8b">?</text>
@@ -998,13 +1053,13 @@
   <path d="M14 224 H326" stroke="#ffffff" stroke-opacity=".08" stroke-width="1.4"/>
   <text x="14" y="246" fill="#c9c9c9" font-family="Inter,sans-serif" font-size="15" font-weight="800">Lo que no se mide, no se planifica</text>
 </svg></div>
-            <span class="lo">Lo que vimos</span>
-            <h3>No basta con arreglar. Hay que saber qué está parado y por qué</h3>
             <p>Con noventa locales abiertos, el problema deja de ser técnico. Sin datos no sabes cuántas órdenes tienes bloqueadas, ni por qué, ni a quién reclamar. Y planificas de memoria.</p>
           </div>
 
           <div class="bloque b2">
-            <div class="ilu"><svg viewBox="0 0 340 300" role="img" aria-label="Panel con el estado de cada local y el motivo de cada bloqueo">
+            
+            <span class="lo-sol">Lo que pusimos en marcha</span>
+            <div class="ilu"><svg viewBox="0 -15 340 330" role="img" aria-label="Panel con el estado de cada local y el motivo de cada bloqueo">
   <rect x="14" y="14" width="312" height="176" rx="12" fill="#0d0d0d" stroke="#00ff88" stroke-opacity=".45" stroke-width="2.2"/>
   <text x="28" y="42" fill="#00ff88" font-family="Inter,sans-serif" font-size="13" font-weight="900" letter-spacing=".08em">ESTADO DE LA RED</text>
 
@@ -1019,9 +1074,7 @@
   <text x="14" y="246" fill="#00ff88" font-family="Inter,sans-serif" font-size="15" font-weight="800">Cada orden, con su motivo</text>
   <text x="14" y="270" fill="#8b8b8b" font-family="Inter,sans-serif" font-size="14" font-weight="600">Se planifica la ruta con datos, no</text>
   <text x="14" y="292" fill="#8b8b8b" font-family="Inter,sans-serif" font-size="14" font-weight="600">de memoria.</text>
-</svg></div>
-            <span class="lo-sol">Lo que pusimos en marcha</span>
-            <p>Ordenamos los datos de cada intervención para saber <b>qué está parado, desde cuándo y esperando a quién</b>. Con eso se planifica la ruta y se reclama con pruebas, no con impresiones.</p>
+</svg></div><p>Ordenamos los datos de cada intervención para saber <b>qué está parado, desde cuándo y esperando a quién</b>. Con eso se planifica la ruta y se reclama con pruebas, no con impresiones.</p>
           </div>
 
           <div class="salida"><span class="prox">Gestión avanzada · En desarrollo</span></div>
