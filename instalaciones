@@ -192,10 +192,9 @@
         .d .l{font-size:.85rem;color:var(--gray);line-height:1.4}
 
         /* ============ CARRUSEL (móvil) ============ */
-        .swipe{display:flex;gap:1rem;overflow-x:auto;scroll-snap-type:x mandatory;
-            padding:0 1.1rem 1.5rem;margin:2rem -1.1rem 0;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+        .swipe{display:grid;gap:1rem;margin:2rem 0 0;padding:0}
         .swipe::-webkit-scrollbar{display:none}
-        .swipe > *{flex:0 0 85%;scroll-snap-align:center}
+        .swipe > *{flex:none}
         .hint{display:flex;align-items:center;justify-content:center;gap:.4rem;font-size:.85rem;color:var(--gray);margin-top:.5rem}
 
         /* ============ PARA QUIÉN ============ */
@@ -447,11 +446,11 @@
         
         /* Proceso con foto al lado */
         .proc-layout{max-width:1100px;margin:0 auto}
-        .proc-foto{display:none}
+        .proc-foto{display:block;margin:0 auto 1.75rem}
         @media(min-width:900px){
             .proc-layout{display:grid;grid-template-columns:1.15fr .85fr;gap:3.5rem;align-items:start}
             .proc-layout .tl{margin:0;max-width:none}
-            .proc-foto{display:block;position:sticky;top:120px}
+            .proc-foto{display:block;position:static}
         }
 
 
@@ -507,7 +506,8 @@
         .serv-grid{display:grid;gap:2rem;max-width:1150px;margin:0 auto}
         .serv{background:var(--card);border:1px solid rgba(255,255,255,.08);border-radius:20px;overflow:hidden;transition:.35s}
         .serv:hover{border-color:rgba(0,212,255,.35);transform:translateY(-5px);box-shadow:0 18px 45px rgba(0,0,0,.5)}
-        .serv .ilus-caja{border:0;border-radius:0;border-top:1px solid rgba(255,255,255,.07)}
+        .serv .ilus-caja{border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:1rem;
+            background:linear-gradient(150deg,#0e0e0e,#151515);margin:1.5rem auto;max-width:520px}
         .serv-txt{padding-bottom:1.25rem}
         .serv-txt{padding:1.75rem}
         .serv-txt .chip-o{display:inline-block;padding:.3rem .85rem;border-radius:100px;
@@ -551,7 +551,7 @@
 
 
         /* Ilustraciones técnicas */
-        .ilus{width:100%;height:100%;display:block}
+        .ilus{width:100%;height:auto;display:block;max-width:400px;margin:0 auto}
         .flujo{stroke-dasharray:7 9;animation:il-flujo 3s linear infinite}
         .flujo-inv{stroke-dasharray:7 9;animation:il-flujo 3s linear infinite reverse}
         @keyframes il-flujo{to{stroke-dashoffset:-32}}
@@ -619,6 +619,46 @@
         @media(min-width:1000px){
             .hero-art{display:block}
         }
+    
+        /* ═══════════ ESCRITORIO · una columna y anchos contenidos ═══════════ */
+        @media(min-width:900px){
+          /* bloques de lectura, a una sola columna */
+          .hero-in,.proc-layout,.serv-grid,.vs-cols,.alc-cols,.row2{grid-template-columns:1fr;max-width:720px;margin-left:auto;margin-right:auto;gap:2rem}
+          .proc-foto{position:static}
+          .shead,.sec-in,.wrap{max-width:720px;margin-left:auto;margin-right:auto}
+
+          /* rejillas de 4: 2 + 2 · de 3: 3 en fila */
+          .dgrid{grid-template-columns:1fr 1fr;max-width:720px;margin-left:auto;margin-right:auto}
+          .val-grid,.swipe{grid-template-columns:repeat(3,1fr);max-width:720px;margin-left:auto;margin-right:auto}
+
+          /* ilustraciones a tamaño natural */
+          .ilus{max-width:440px;margin:0 auto}
+          .ilus-caja{max-width:560px;margin:1.75rem auto;padding:1.15rem}
+        }
+
+    
+        /* ═══ Ilustraciones · una sola regla para todas ═══ */
+        .ilus-caja,.clima-bloque,.proc-foto{
+            max-width:560px;margin:1.75rem auto;padding:1.15rem;border-radius:16px;
+            background:linear-gradient(150deg,#0e0e0e,#151515);
+            border:1px solid rgba(255,255,255,.08);overflow:visible;position:static}
+        .ilus-caja>svg,.clima-bloque>svg,.proc-foto>svg,
+        .ilus-caja .ilus,.clima-bloque .ilus,.proc-foto .ilus,
+        .ilus-caja svg,.clima-bloque svg,.proc-foto svg{
+            width:100%;height:auto;max-width:440px;display:block;margin:0 auto}
+        @media(min-width:900px){
+            .ilus-caja,.clima-bloque,.proc-foto{max-width:560px;margin-left:auto;margin-right:auto}
+            .ilus-caja svg,.clima-bloque svg,.proc-foto svg{max-width:440px}
+        }
+
+    
+        /* ═══ Ilustraciones · alto y ancho topados por igual ═══ */
+        .ilus-caja svg,.clima-bloque svg,.proc-foto svg{
+            width:auto;height:auto;max-width:440px;max-height:470px;display:block;margin:0 auto}
+        @media(min-width:900px){
+            .ilus-caja svg,.clima-bloque svg,.proc-foto svg{max-width:440px;max-height:470px}
+        }
+
     </style>
 </head>
 <body>
@@ -720,100 +760,6 @@
     </div>
 
     <div class="hero-art">
-      <svg viewBox="0 0 560 460" class="ilus" role="img" aria-label="Local abierto y en servicio mientras el circuito de frío funciona por debajo">
-        <defs>
-          <filter id="lo-glow" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-          <linearGradient id="lo-sala" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#00d4ff" stop-opacity=".07"/><stop offset="100%" stop-color="#00d4ff" stop-opacity="0"/></linearGradient>
-          <linearGradient id="lo-cam" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#00d4ff" stop-opacity=".14"/><stop offset="100%" stop-color="#00d4ff" stop-opacity=".02"/></linearGradient>
-        </defs>
-
-        <!-- ════ EL LOCAL ════ -->
-        <path d="M40 116 H520 V286 H40 Z" fill="url(#lo-sala)" stroke="#00d4ff" stroke-opacity=".4" stroke-width="2"/>
-        <path d="M40 116 H520" stroke="#00d4ff" stroke-opacity=".6" stroke-width="2.6"/>
-
-        <!-- rótulo ABIERTO -->
-        <rect x="196" y="52" width="168" height="46" rx="23" fill="#0a0a0a" stroke="#00ff88" stroke-opacity=".85" stroke-width="2.6" filter="url(#lo-glow)"/>
-        <circle cx="230" cy="75" r="6" fill="#00ff88" class="late"/>
-        <text x="302" y="81" text-anchor="middle" fill="#00ff88" font-family="Inter,sans-serif" font-size="17" font-weight="900" letter-spacing=".12em">ABIERTO</text>
-
-        <!-- mostrador y clientes -->
-        <!-- mesa con comida -->
-        <rect x="300" y="228" width="180" height="14" rx="4" fill="#141414" stroke="#00d4ff" stroke-opacity=".35" stroke-width="1.8"/>
-        <path d="M318 242 v20M462 242 v20" stroke="#00d4ff" stroke-opacity=".25" stroke-width="1.8"/>
-        <g stroke="#ff8a3d" stroke-opacity=".7" stroke-width="1.8" fill="none">
-          <path d="M330 228 a11 6 0 0 1 22 0 Z" fill="#1a1a1a"/>
-          <path d="M330 220 h22" stroke-opacity=".5"/>
-          <path d="M428 228 a11 6 0 0 1 22 0 Z" fill="#1a1a1a"/>
-          <path d="M428 220 h22" stroke-opacity=".5"/>
-        </g>
-        <rect x="374" y="214" width="32" height="14" rx="3" fill="#1a1a1a" stroke="#00d4ff" stroke-opacity=".45" stroke-width="1.6"/>
-
-        <!-- clientes contentos -->
-        <g fill="none" stroke-width="2">
-          <circle cx="341" cy="184" r="13" stroke="#00ff88" stroke-opacity=".65"/>
-          <path d="M336 186 a6 6 0 0 0 10 0" stroke="#00ff88" stroke-opacity=".8" stroke-linecap="round"/>
-          <path d="M337 179 h.01M345 179 h.01" stroke="#00ff88" stroke-opacity=".8" stroke-linecap="round" stroke-width="2.6"/>
-          <path d="M324 214a17 17 0 0 1 34 0" stroke="#8b8b8b" stroke-opacity=".5"/>
-
-          <circle cx="440" cy="184" r="13" stroke="#00ff88" stroke-opacity=".65"/>
-          <path d="M435 186 a6 6 0 0 0 10 0" stroke="#00ff88" stroke-opacity=".8" stroke-linecap="round"/>
-          <path d="M436 179 h.01M444 179 h.01" stroke="#00ff88" stroke-opacity=".8" stroke-linecap="round" stroke-width="2.6"/>
-          <path d="M423 214a17 17 0 0 1 34 0" stroke="#8b8b8b" stroke-opacity=".5"/>
-        </g>
-        <text x="390" y="290" text-anchor="middle" fill="#8b8b8b" font-family="Inter,sans-serif" font-size="15" font-weight="700">Servicio sin cortes</text>
-
-        <!-- cocina en marcha -->
-        <rect x="72" y="196" width="86" height="66" rx="6" fill="#141414" stroke="#ff8a3d" stroke-opacity=".55" stroke-width="1.8"/>
-        <path d="M84 214h62M84 228h62" stroke="#ff8a3d" stroke-opacity=".35" stroke-width="1.6"/>
-        <g stroke="#ff8a3d" stroke-opacity=".55" stroke-width="1.8" class="humo">
-          <path d="M96 190 v-14M116 186 v-14M136 190 v-14"/>
-        </g>
-        <rect x="180" y="196" width="86" height="66" rx="6" fill="#141414" stroke="#ff8a3d" stroke-opacity=".55" stroke-width="1.8"/>
-        <circle cx="202" cy="216" r="5" fill="#ff8a3d" fill-opacity=".6"/>
-        <circle cx="244" cy="216" r="5" fill="#ff8a3d" fill-opacity=".6"/>
-        <text x="169" y="290" text-anchor="middle" fill="#8b8b8b" font-family="Inter,sans-serif" font-size="15" font-weight="700">Cocina en servicio</text>
-
-        <!-- ════ POR DEBAJO: EL FRÍO ════ -->
-        <path d="M40 306 H520" stroke="#ffffff" stroke-opacity=".08" stroke-width="1.6"/>
-
-        <rect x="52" y="330" width="150" height="98" rx="8" fill="url(#lo-cam)" stroke="#00d4ff" stroke-opacity=".7" stroke-width="2.4"/>
-        <!-- estanterías con género -->
-        <path d="M68 368 H186M68 394 H186" stroke="#00d4ff" stroke-opacity=".3" stroke-width="1.6"/>
-        <g fill="#0f1a18" stroke="#00ff88" stroke-opacity=".6" stroke-width="1.6">
-          <rect x="74" y="350" width="26" height="18" rx="3"/>
-          <rect x="108" y="350" width="26" height="18" rx="3"/>
-          <rect x="142" y="350" width="26" height="18" rx="3"/>
-          <rect x="74" y="376" width="26" height="18" rx="3"/>
-          <rect x="108" y="376" width="26" height="18" rx="3"/>
-          <rect x="142" y="376" width="26" height="18" rx="3"/>
-        </g>
-        <g stroke="#00ff88" stroke-opacity=".75" stroke-width="1.7" fill="none" stroke-linecap="round">
-          <path d="m81 359 3 3 6-7"/><path d="m115 359 3 3 6-7"/><path d="m149 359 3 3 6-7"/>
-          <path d="m81 385 3 3 6-7"/><path d="m115 385 3 3 6-7"/><path d="m149 385 3 3 6-7"/>
-        </g>
-        <text x="127" y="342" text-anchor="middle" fill="#00d4ff" font-family="Inter,sans-serif" font-size="17" font-weight="900">−18 °C</text>
-        <text x="127" y="450" text-anchor="middle" fill="#8b8b8b" font-family="Inter,sans-serif" font-size="15" font-weight="700">Género en buen estado</text>
-
-        <rect x="404" y="326" width="112" height="82" rx="8" fill="#111" stroke="#00ff88" stroke-opacity=".7" stroke-width="2.4"/>
-        <circle cx="460" cy="367" r="28" fill="none" stroke="#00ff88" stroke-opacity=".45" stroke-width="2"/>
-        <g class="gira" style="transform-origin:460px 367px">
-          <path d="M460 341a26 26 0 0 1 22 13M460 393a26 26 0 0 1-22-13" fill="none" stroke="#00ff88" stroke-opacity=".85" stroke-width="2.4"/>
-        </g>
-        <circle cx="460" cy="367" r="5" fill="#00ff88"/>
-        <path d="M398 408 H522" stroke="#8b8b8b" stroke-opacity=".45" stroke-width="2.6"/>
-        <text x="460" y="450" text-anchor="middle" fill="#8b8b8b" font-family="Inter,sans-serif" font-size="15" font-weight="700">Equipo exterior</text>
-
-        <!-- el circuito que no se detiene -->
-        <path d="M202 348 h64a20 20 0 0 0 20-20v-8a20 20 0 0 1 20-20h96" fill="none" stroke="#1a1a1a" stroke-width="9"/>
-        <path d="M202 348 h64a20 20 0 0 0 20-20v-8a20 20 0 0 1 20-20h96" fill="none" stroke="#00d4ff" stroke-width="2.6" class="flujo"/>
-        <path d="M202 396 h56a26 26 0 0 1 26 26v6a16 16 0 0 0 16 16h104" fill="none" stroke="#1a1a1a" stroke-width="9"/>
-        <path d="M202 396 h56a26 26 0 0 1 26 26v6a16 16 0 0 0 16 16h104" fill="none" stroke="#00ff88" stroke-width="2.6" class="flujo-inv"/>
-
-        <!-- vínculo entre los dos planos -->
-        <g stroke="#00d4ff" stroke-opacity=".35" stroke-width="1.5" stroke-dasharray="3 5">
-          <path d="M127 306 V326M460 306 V326"/>
-        </g>
-      </svg>
     </div>
   </div>
 </section>
@@ -954,7 +900,56 @@
     <p class="intro">Todo el sector promete porcentajes de catálogo que nadie comprueba después. Nosotros empezamos y terminamos con el mismo instrumento.</p>
   </div>
   <div class="proc-layout">
-   <div class="tl">
+   
+      <div class="proc-foto rv"><div class="ilus-caja"><svg viewBox="0 0 340 461" class="ilus" role="img" aria-label="El mismo analizador de consumo mide antes y después de la obra">
+  <defs>
+    <filter id="me-glow" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+
+  <text x="170.0" y="24.3" text-anchor="middle" fill="#c9c9c9" font-family="Inter,sans-serif" font-size="15" font-weight="800">El mismo instrumento</text>
+
+  <!-- ══ ANALIZADOR ══ -->
+  <rect x="106.9" y="42.5" width="126.3" height="91.1" rx="9.7" fill="#0d0d0d" stroke="#00d4ff" stroke-opacity=".7" stroke-width="1.6"/>
+  <rect x="119.0" y="55.9" width="102.0" height="43.7" rx="4.9" fill="#0a0f10" stroke="#00d4ff" stroke-opacity=".35" stroke-width="1.1"/>
+  <g stroke="#00d4ff" stroke-opacity=".8" stroke-width="1.6" fill="none" stroke-linecap="round">
+    <path d="M127.5 85.0 l10.9-13.4 9.7 8.5 12.1-19.4 10.9 15.8 9.7-10.9 12.1 12.1" class="late"/>
+  </g>
+  <text x="170.0" y="68.0" text-anchor="middle" fill="#00d4ff" font-family="Inter,sans-serif" font-size="13" font-weight="900" letter-spacing=".1em">kWh</text>
+  <g fill="#141414" stroke="#00d4ff" stroke-opacity=".45" stroke-width="1.1">
+    <rect x="121.4" y="109.3" width="25.5" height="14.6" rx="3.0"/>
+    <rect x="155.4" y="109.3" width="25.5" height="14.6" rx="3.0"/>
+    <rect x="189.4" y="109.3" width="25.5" height="14.6" rx="3.0"/>
+  </g>
+  <!-- pinza -->
+  <path d="M106.9 78.9 h-24.3a15.8 15.8 0.0 0.6 0.0 0.0 31.6 h3.6" fill="none" stroke="#00d4ff" stroke-opacity=".7" stroke-width="1.6"/>
+  <circle cx="82.6" cy="94.7" r="8.5" fill="none" stroke="#00d4ff" stroke-opacity=".45" stroke-width="1.2"/>
+  <circle cx="82.6" cy="94.7" r="3.0" fill="#00d4ff" fill-opacity=".7"/>
+
+  <!-- ══ ANTES ══ -->
+  <text x="31.6" y="176.1" fill="#ff8a3d" font-family="Inter,sans-serif" font-size="13" font-weight="900" letter-spacing=".12em">ANTES</text>
+  <rect x="31.6" y="187.0" width="276.9" height="68.0" rx="7.3" fill="#101010" stroke="#ff8a3d" stroke-opacity=".35" stroke-width="1.1"/>
+  <path d="M43.7 240.4 L71.6 216.1 L99.6 230.7 L127.5 206.4 L155.4 222.2 L183.4 202.8 L211.3 217.4 L239.2 200.4 L267.1 213.7 L296.3 197.9"
+        fill="none" stroke="#ff8a3d" stroke-opacity=".9" stroke-width="1.9" stroke-linejoin="round" stroke-linecap="round"/>
+  <text x="296.3" y="250.1" text-anchor="end" fill="#8b8b8b" font-family="Inter,sans-serif" font-size="12" font-weight="700">Registro de partida</text>
+
+  <!-- ══ LA OBRA ══ -->
+  <rect x="99.6" y="269.6" width="140.9" height="31.6" rx="15.8" fill="#0a0a0a" stroke="#00d4ff" stroke-opacity=".8" stroke-width="1.6" filter="url(#me-glow)"/>
+  <text x="170.0" y="289.6" text-anchor="middle" fill="#00d4ff" font-family="Inter,sans-serif" font-size="14" font-weight="900" letter-spacing=".1em">LA OBRA</text>
+  <g stroke="#00d4ff" stroke-opacity=".5" stroke-width="1.3" fill="none" stroke-dasharray="3.0 4.9" class="flujo">
+    <path d="M170.0 255.0 V267.1"/><path d="M170.0 303.6 V315.7"/>
+  </g>
+
+  <!-- ══ DESPUÉS ══ -->
+  <text x="31.6" y="337.6" fill="#00ff88" font-family="Inter,sans-serif" font-size="13" font-weight="900" letter-spacing=".12em">DESPUÉS</text>
+  <rect x="31.6" y="348.5" width="276.9" height="68.0" rx="7.3" fill="#0d1210" stroke="#00ff88" stroke-opacity=".45" stroke-width="1.1"/>
+  <path d="M43.7 398.3 L71.6 388.6 L99.6 393.4 L127.5 384.9 L155.4 389.8 L183.4 382.5 L211.3 387.4 L239.2 381.3 L267.1 384.9 L296.3 380.1"
+        fill="none" stroke="#00ff88" stroke-opacity=".95" stroke-width="1.9" stroke-linejoin="round" stroke-linecap="round"/>
+  <text x="296.3" y="411.6" text-anchor="end" fill="#8b8b8b" font-family="Inter,sans-serif" font-size="12" font-weight="700">Mismo local, mismo método</text>
+
+  <path d="M31.6 433.5 H308.4" stroke="#ffffff" stroke-opacity=".08" stroke-width="0.8"/>
+  <text x="170.0" y="452.9" text-anchor="middle" fill="#c9c9c9" font-family="Inter,sans-serif" font-size="13" font-weight="800">La diferencia la ves tú, no te la contamos</text>
+</svg></div></div>
+<div class="tl">
     <div class="rv step key">
       <div class="dot">01</div>
       <h3>Visitamos y medimos</h3>
@@ -981,56 +976,6 @@
       <p>El mismo instrumento del primer día. Ves el consumo real después de la obra, no una estimación.</p>
     </div>
    </div>
-   <div class="proc-foto rv">
-     <div class="ilus-caja"><svg viewBox="0 0 560 760" class="ilus" role="img" aria-label="El mismo analizador de consumo mide antes y después de la obra">
-  <defs>
-    <filter id="me-glow" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-  </defs>
-
-  <text x="280" y="40" text-anchor="middle" fill="#c9c9c9" font-family="Inter,sans-serif" font-size="20" font-weight="800">El mismo instrumento</text>
-
-  <!-- ══ ANALIZADOR ══ -->
-  <rect x="176" y="70" width="208" height="150" rx="16" fill="#0d0d0d" stroke="#00d4ff" stroke-opacity=".7" stroke-width="2.6"/>
-  <rect x="196" y="92" width="168" height="72" rx="8" fill="#0a0f10" stroke="#00d4ff" stroke-opacity=".35" stroke-width="1.8"/>
-  <g stroke="#00d4ff" stroke-opacity=".8" stroke-width="2.6" fill="none" stroke-linecap="round">
-    <path d="M210 140 l18-22 16 14 20-32 18 26 16-18 20 20" class="late"/>
-  </g>
-  <text x="280" y="112" text-anchor="middle" fill="#00d4ff" font-family="Inter,sans-serif" font-size="17" font-weight="900" letter-spacing=".1em">kWh</text>
-  <g fill="#141414" stroke="#00d4ff" stroke-opacity=".45" stroke-width="1.8">
-    <rect x="200" y="180" width="42" height="24" rx="5"/>
-    <rect x="256" y="180" width="42" height="24" rx="5"/>
-    <rect x="312" y="180" width="42" height="24" rx="5"/>
-  </g>
-  <!-- pinza -->
-  <path d="M176 130 h-40a26 26 0 1 0 0 52 h6" fill="none" stroke="#00d4ff" stroke-opacity=".7" stroke-width="2.6"/>
-  <circle cx="136" cy="156" r="14" fill="none" stroke="#00d4ff" stroke-opacity=".45" stroke-width="2"/>
-  <circle cx="136" cy="156" r="5" fill="#00d4ff" fill-opacity=".7"/>
-
-  <!-- ══ ANTES ══ -->
-  <text x="52" y="290" fill="#ff8a3d" font-family="Inter,sans-serif" font-size="17" font-weight="900" letter-spacing=".12em">ANTES</text>
-  <rect x="52" y="308" width="456" height="112" rx="12" fill="#101010" stroke="#ff8a3d" stroke-opacity=".35" stroke-width="1.8"/>
-  <path d="M72 396 L118 356 L164 380 L210 340 L256 366 L302 334 L348 358 L394 330 L440 352 L488 326"
-        fill="none" stroke="#ff8a3d" stroke-opacity=".9" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round"/>
-  <text x="488" y="412" text-anchor="end" fill="#8b8b8b" font-family="Inter,sans-serif" font-size="15" font-weight="700">Registro de partida</text>
-
-  <!-- ══ LA OBRA ══ -->
-  <rect x="164" y="444" width="232" height="52" rx="26" fill="#0a0a0a" stroke="#00d4ff" stroke-opacity=".8" stroke-width="2.6" filter="url(#me-glow)"/>
-  <text x="280" y="477" text-anchor="middle" fill="#00d4ff" font-family="Inter,sans-serif" font-size="18" font-weight="900" letter-spacing=".1em">LA OBRA</text>
-  <g stroke="#00d4ff" stroke-opacity=".5" stroke-width="2.2" fill="none" stroke-dasharray="5 8" class="flujo">
-    <path d="M280 420 V440"/><path d="M280 500 V520"/>
-  </g>
-
-  <!-- ══ DESPUÉS ══ -->
-  <text x="52" y="556" fill="#00ff88" font-family="Inter,sans-serif" font-size="17" font-weight="900" letter-spacing=".12em">DESPUÉS</text>
-  <rect x="52" y="574" width="456" height="112" rx="12" fill="#0d1210" stroke="#00ff88" stroke-opacity=".45" stroke-width="1.8"/>
-  <path d="M72 656 L118 640 L164 648 L210 634 L256 642 L302 630 L348 638 L394 628 L440 634 L488 626"
-        fill="none" stroke="#00ff88" stroke-opacity=".95" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round"/>
-  <text x="488" y="678" text-anchor="end" fill="#8b8b8b" font-family="Inter,sans-serif" font-size="15" font-weight="700">Mismo local, mismo método</text>
-
-  <path d="M52 714 H508" stroke="#ffffff" stroke-opacity=".08" stroke-width="1.4"/>
-  <text x="280" y="746" text-anchor="middle" fill="#c9c9c9" font-family="Inter,sans-serif" font-size="17" font-weight="800">La diferencia la ves tú, no te la contamos</text>
-</svg></div>
-   </div>
   </div>
 </section>
 
@@ -1048,12 +993,8 @@
       <div class="serv-txt">
         <span class="chip-o">Frío industrial</span>
         <h3>Cámaras y frío comercial</h3>
-        <p>Cámaras de refrigeración y congelación, arcones y mobiliario refrigerado. Montamos el circuito entero: evaporador, línea, unidad condensadora y bancada.</p>
-        <div class="crits">
-          <span>Eficiencia</span><span>Ciclo de vida</span><span>Mantenibilidad</span>
-        </div>
-      </div>
-      <div class="ilus-caja"><svg viewBox="0 0 340 620" role="img" aria-label="Ciclo frigorífico y las cuatro decisiones que deciden si un equipo dura">
+        
+        <div class="ilus-caja"><svg viewBox="0 0 340 620" role="img" aria-label="Ciclo frigorífico y las cuatro decisiones que deciden si un equipo dura">
   <defs>
     <filter id="fi-cf-b" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
     <marker id="fi-cf-c" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><path d="M0 0 L7 3.5 L0 7 Z" fill="#ff8a3d"/></marker>
@@ -1109,18 +1050,20 @@
     <tspan fill="#8b8b8b">Bien montado llega a viejo. </tspan><tspan fill="#00ff88">Mal montado no.</tspan>
   </text>
 </svg></div>
+        <p>Cámaras de refrigeración y congelación, arcones y mobiliario refrigerado. Montamos el circuito entero: evaporador, línea, unidad condensadora y bancada.</p>
+        <div class="crits">
+          <span>Eficiencia</span><span>Ciclo de vida</span><span>Mantenibilidad</span>
+        </div>
+      </div>
+      
     </article>
 
     <article class="serv rv">
       <div class="serv-txt">
         <span class="chip-o">Climatización</span>
         <h3>Clima y renovación de aire</h3>
-        <p>Climatización de sala, cocina y zonas de trabajo, con conductos y retorno. Calculamos el caudal por zona para que el aire llegue donde tiene que llegar.</p>
-        <div class="crits">
-          <span>Eficiencia</span><span>Ciclo de vida</span><span>Mantenibilidad</span>
-        </div>
-      </div>
-      <div class="ilus-caja"><svg viewBox="0 0 340 540" role="img" aria-label="Climatización por conductos: compuertas por zona, registros para el filtro y compensación de la extracción">
+        
+        <div class="ilus-caja"><svg viewBox="0 0 340 540" role="img" aria-label="Climatización por conductos: compuertas por zona, registros para el filtro y compensación de la extracción">
   <defs>
     <marker id="cm-fl" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><path d="M0 0 L7 3.5 L0 7 Z" fill="#7bd8ff"/></marker>
   </defs>
@@ -1168,6 +1111,12 @@
     <text x="40" y="539">Compensamos lo que saca la campana</text>
   </g>
 </svg></div>
+        <p>Climatización de sala, cocina y zonas de trabajo, con conductos y retorno. Calculamos el caudal por zona para que el aire llegue donde tiene que llegar.</p>
+        <div class="crits">
+          <span>Eficiencia</span><span>Ciclo de vida</span><span>Mantenibilidad</span>
+        </div>
+      </div>
+      
     </article>
   </div>
 
