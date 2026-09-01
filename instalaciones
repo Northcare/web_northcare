@@ -659,6 +659,18 @@
             .ilus-caja svg,.clima-bloque svg,.proc-foto svg{max-width:440px;max-height:470px}
         }
 
+    
+        /* ═══ Correcciones ═══ */
+        /* la clase de animación en estas ilustraciones es .flu */
+        .flu{stroke-dasharray:6 8;animation:il-flujo 3s linear infinite}
+        @media(prefers-reduced-motion:reduce){ .flu{animation:none} }
+
+        /* las cabeceras de sección usan .inner, no .shead */
+        @media(min-width:900px){
+            .inner{max-width:720px}
+            .inner.mid{max-width:720px}
+        }
+
     </style>
 </head>
 <body>
