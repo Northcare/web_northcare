@@ -2,825 +2,1229 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Northcare | Mantenimiento de cocinas industriales</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Nuestro campo | Mantenimiento integral de cocina industrial · Northcare</title>
+    <meta name="description" content="Mantenemos a diario cocinas de comida rápida que no pueden parar. Siete oficios, cientos de máquinas y miles de intervenciones al año. De ahí sale todo lo que sabemos.">
+    <meta name="theme-color" content="#000000">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --color-bg: #000000;
-            --color-bg-light: #111111;
-            --color-bg-card: #1a1a1a;
-            --color-white: #ffffff;
-            --color-gray: #888888;
-            --color-gray-light: #cccccc;
-            --color-accent: #00d4ff;
-            --color-accent-glow: rgba(0, 212, 255, 0.4);
-            --color-green: #00ff88;
-            --color-green-glow: rgba(0, 255, 136, 0.3);
-            --color-red: #ff4d4d;
-            --color-red-glow: rgba(255, 77, 77, 0.3);
-            --color-yellow: #ffcc00;
-            --font-main: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        :root{
+            --bg:#000; --bg2:#0b0b0b; --card:#181818; --card-glass: rgba(24, 24, 24, 0.6);
+            --white:#fff; --gray:#8b8b8b; --gray2:#c9c9c9;
+            --cyan:#00d4ff; --cyanGlow:rgba(0,212,255,.4);
+            --green:#00ff88; --greenGlow:rgba(0,255,136,.3);
+            --red:#ff4d4d; --yellow:#ffcc00;
+            --f:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+            --safe:env(safe-area-inset-bottom,0px);
+        }
+        *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+        html{scroll-behavior:smooth;font-size:16px;-webkit-text-size-adjust:100%}
+        body{font-family:var(--f);background:var(--bg);color:var(--white);line-height:1.65;overflow-x:hidden}
+        img{max-width:100%;display:block}
+        /* object-fit acotado a las fotos, no al logo */
+        .oficios-visual img, .gestion-visual img{object-fit:cover}
+        .i{width:1em;height:1em;flex-shrink:0;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;display:block}
+        .sprite{position:absolute;width:0;height:0;overflow:hidden}
+        .progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:1100;background:linear-gradient(90deg,var(--cyan),var(--green));transition:width .1s linear; box-shadow: 0 0 10px var(--cyanGlow);}
+
+        /* NAV */
+        nav{position:fixed;top:0;width:100%;padding:1rem 5%;display:flex;justify-content:space-between;align-items:center;
+            background:rgba(0,0,0,.7);backdrop-filter:blur(15px);-webkit-backdrop-filter:blur(15px);z-index:1000;border-bottom:1px solid rgba(255,255,255,.05);transition:all .3s ease}
+        .logo{display:flex;align-items:center;text-decoration:none;line-height:1}
+        .logo img{height:40px;width:auto}
+        .nav-desktop{display:flex;gap:2rem;align-items:center}
+        .nav-link{color:var(--gray2);text-decoration:none;font-size:1.05rem;font-weight:500;transition:color .3s ease}
+        .nav-link:hover{color:var(--white)}
+        .nav-link.active{color:var(--cyan);font-weight:700}
+        .nav-cta{background:var(--cyan);color:#000;padding:.75rem 1.5rem;text-decoration:none;font-weight:600;font-size:1.05rem;border-radius:8px;transition:all .3s ease}
+        .nav-cta:hover{box-shadow:0 0 20px var(--cyanGlow)}
+        .nav-mobile-controls{display:none;align-items:center;gap:1rem}
+        .nav-call{display:flex;align-items:center;justify-content:center;width:44px;height:44px;background:var(--green);
+            color:#000;text-decoration:none;font-size:1.25rem;border-radius:50%;transition:all .3s ease}
+        .nav-call:hover{box-shadow:0 0 20px var(--greenGlow);transform:scale(1.05)}
+        .hamburger{display:flex;flex-direction:column;justify-content:center;align-items:center;width:44px;height:44px;
+            background:transparent;border:1px solid rgba(255,255,255,.2);border-radius:8px;cursor:pointer;gap:5px;transition:all .3s ease}
+        .hamburger span{display:block;width:20px;height:2px;background:var(--white);transition:all .3s ease}
+        .hamburger.active span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+        .hamburger.active span:nth-child(2){opacity:0}
+        .hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+
+        /* MOBILE MENU */
+        .mobile-menu{position:fixed;top:0;left:0;width:100%;height:100vh;background:rgba(0,0,0,.98);z-index:999;
+            display:flex;flex-direction:column;padding:6rem 2rem 2rem;transform:translateX(100%);
+            transition:transform .4s cubic-bezier(.16,1,.3,1);overflow-y:auto}
+        .mobile-menu.active{transform:translateX(0)}
+        .mobile-menu-section{margin-bottom:2rem}
+        .mobile-menu-label{font-size:1.05rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--cyan);
+            margin-bottom:1rem;padding-bottom:.5rem;border-bottom:1px solid rgba(255,255,255,.1)}
+        .mobile-menu-links{display:flex;flex-direction:column;gap:.25rem}
+        .mobile-menu-link{display:block;padding:1rem 0;color:var(--white);text-decoration:none;font-size:1.1rem;font-weight:500;
+            border-bottom:1px solid rgba(255,255,255,.05);transition:all .3s ease}
+        .mobile-menu-link:hover{color:var(--cyan);padding-left:.5rem}
+        .mobile-menu-link span{display:block;font-size:1.1rem;color:var(--gray);font-weight:400;margin-top:.25rem}
+        .mobile-menu-contacto{margin-top:auto;padding-top:2rem;border-top:1px solid rgba(255,255,255,.1);display:flex;flex-direction:column;gap:1rem}
+        .mobile-menu-tel{display:flex;align-items:center;gap:1rem;padding:1rem;background:var(--card);
+            border:1px solid rgba(0,255,136,.3);border-radius:12px;text-decoration:none;color:var(--white);transition:all .3s ease}
+        .mobile-menu-tel:hover{border-color:var(--green)}
+        .mobile-menu-tel-icon{display:flex;align-items:center;justify-content:center;width:48px;height:48px;background:var(--green);color:#000;border-radius:50%;font-size:1.25rem}
+        .mobile-menu-tel-info{display:flex;flex-direction:column}
+        .mobile-menu-tel-label{font-size:1.05rem;color:var(--gray);text-transform:uppercase;letter-spacing:.05em}
+        .mobile-menu-tel-number{font-size:1.25rem;font-weight:700}
+        @media(max-width:900px){.nav-desktop{display:none}.nav-mobile-controls{display:flex}}
+        @media(min-width:901px){.mobile-menu{display:none!important}}
+
+        /* LAYOUT & TYPOGRAPHY */
+        section{padding:5rem 1.25rem;position:relative}
+        .inner{max-width:1200px;margin:0 auto}
+        .shead{max-width:760px;margin:0 auto 3rem;text-align:center}
+        .shead.left{text-align: left; margin: 0 0 2.5rem 0;}
+        .snum{display:inline-flex;align-items:center;gap:.6rem;font-size:.75rem;font-weight:900;letter-spacing:.16em;
+            text-transform:uppercase;color:var(--cyan);margin-bottom:1rem}
+        .snum b{display:flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;
+            border:1.5px solid rgba(0,212,255,.4);font-size:.75rem;color:var(--cyan)}
+        h2.t{font-size:2rem;font-weight:900;letter-spacing:-.025em;line-height:1.15;margin-bottom:1.25rem}
+        h2.t .hl{color:var(--cyan); background: linear-gradient(135deg, var(--cyan), var(--white)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;}
+        .intro{font-size:1.1rem;color:var(--gray2);line-height:1.8;max-width:660px;margin:0 auto}
+        .shead.left .intro{margin: 0;}
+
+        .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;width:100%;min-height:56px;
+            padding:1rem 1.75rem;border-radius:10px;font-weight:800;font-size:1.05rem;text-decoration:none;border:none;cursor:pointer;font-family:var(--f);transition:.3s}
+        .btn.solid{background:var(--cyan);color:#000;box-shadow:0 8px 30px rgba(0,212,255,.3)}
+        .btn.solid:hover{transform: translateY(-2px); box-shadow:0 12px 40px rgba(0,212,255,.4)}
+        .btn.line{background:rgba(255,255,255,.05);backdrop-filter:blur(5px);color:var(--white);border:1px solid rgba(255,255,255,.2)}
+        .btn.line:hover{background:rgba(255,255,255,.1);border-color:var(--white)}
+
+        /* HERO VISUAL */
+        .hero{padding:10rem 1.25rem 5rem;overflow:hidden;text-align:center; min-height: 90vh; display: flex; align-items: center;
+            background:#000;}
+        /* El parallax se desactiva en móvil: en iOS Safari amplía la imagen y va a tirones */
+        @media(max-width:900px){ .hero{background-attachment: scroll;} }
+        .hero-in{position:relative;z-index:2;max-width:900px;margin:0 auto}
+        .pill{display:inline-flex;align-items:center;gap:.45rem;padding:.5rem 1.2rem;margin-bottom:1.5rem;
+            background:rgba(0,0,0,.5);backdrop-filter:blur(10px);border:1px solid rgba(0,212,255,.4);border-radius:100px;font-size:.85rem;font-weight:700;color:var(--cyan)}
+        .pill .blink{width:8px;height:8px;border-radius:50%;background:var(--cyan);box-shadow:0 0 12px var(--cyan); animation: pulse 2s infinite;}
+        @keyframes pulse { 0% {opacity: 1;} 50% {opacity: 0.4;} 100% {opacity: 1;} }
+        .hero h1{font-size:2.4rem;font-weight:900;line-height:1.1;letter-spacing:-.035em;margin-bottom:1.5rem; text-shadow: 0 4px 20px rgba(0,0,0,0.8);}
+        .hero h1 .hl{color:var(--cyan);-webkit-text-fill-color:var(--cyan);background:none;text-shadow:0 2px 24px rgba(0,212,255,.35), 0 4px 20px rgba(0,0,0,.9)}
+        .hero .sub{font-size:1.15rem;color:var(--gray2);line-height:1.75;margin:0 auto 2.5rem;max-width:700px; text-shadow: 0 2px 10px rgba(0,0,0,0.8);}
+        .hero-btns{display:flex;flex-direction:column;gap:1rem;max-width:440px;margin:0 auto}
+
+        /* AVISO DE CAPACIDAD */
+        .capacidad{max-width:760px;margin:3rem auto 0;padding:1.5rem;text-align:left;
+            background:rgba(20, 20, 20, 0.7); backdrop-filter:blur(10px); border:1px solid rgba(255,255,255,.1);border-left:4px solid var(--yellow);border-radius:0 12px 12px 0; box-shadow: 0 10px 30px rgba(0,0,0,0.5);}
+        .capacidad p{font-size:1rem;color:var(--gray2);line-height:1.7}
+        .capacidad b{color:var(--white)}
+
+        /* DATOS */
+        .datos{background:var(--bg); padding:2rem 1.25rem 4rem; position: relative; z-index: 10; margin-top: -3rem;}
+        .dgrid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;max-width:1100px;margin:0 auto}
+        .d{background:var(--card);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:2rem 1.5rem;text-align:center;position:relative;overflow:hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.4); transition: transform 0.3s;}
+        .d:hover{transform: translateY(-5px); border-color: rgba(0,212,255,.3);}
+        .d::after{content:'';position:absolute;inset:0 auto auto 0;height:3px;width:100%;background:linear-gradient(90deg,var(--cyan),transparent);opacity:.8}
+        .d .ic-d{color:var(--cyan);opacity:.8;font-size:1.5rem;margin:0 auto 1rem; filter: drop-shadow(0 0 8px var(--cyanGlow));}
+        .d .n{font-size:2.5rem;font-weight:900;line-height:1;margin-bottom:.5rem;
+            background:linear-gradient(135deg,#fff,var(--cyan));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+        .d .l{font-size:.9rem;color:var(--gray);line-height:1.4}
+
+        /* OFICIOS */
+        .oficios{background:var(--bg2); border-top: 1px solid rgba(255,255,255,.05);}
+        .oficios-layout{display: grid; gap: 3rem; align-items: center; max-width: 1200px; margin: 0 auto;}
+        .barras{width:100%}
+        @media(max-width:700px){
+          .bar{grid-template-columns:1fr auto;gap:.4rem .75rem;margin-bottom:1.1rem}
+          .bar .nm{grid-column:1;grid-row:1;font-size:.92rem}
+          .bar .vl{grid-column:2;grid-row:1;font-size:.95rem}
+          .bar .tr{grid-column:1 / -1;grid-row:2;height:20px}
+        }
+        .bar{display:grid;grid-template-columns:140px 1fr 60px;align-items:center;gap:1rem;margin-bottom:1rem}
+        .bar .nm{font-size:.95rem;font-weight:700;color:var(--gray2);line-height:1.3}
+        .bar .tr{background:var(--card);border:1px solid rgba(255,255,255,.05);border-radius:20px;height:28px;overflow:hidden; box-shadow: inset 0 2px 5px rgba(0,0,0,0.5);}
+        .bar .fl{height:100%;border-radius:20px;background:linear-gradient(90deg,rgba(0,212,255,.3),rgba(0,212,255,.7)); position: relative; overflow: hidden;}
+        .bar .fl::after {content:''; position: absolute; top:0; left:0; right:0; bottom:0; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent); transform: translateX(-100%); animation: shimmer 3s infinite;}
+        @keyframes shimmer { 100% { transform: translateX(100%); } }
+        .bar .vl{font-size:1rem;font-weight:800;color:var(--gray);text-align:right}
+        .bar.hi .nm{color:var(--white)}
+        .bar.hi .fl{background:linear-gradient(90deg,var(--cyan),var(--green))}
+        .bar.hi .vl{color:var(--cyan); text-shadow: 0 0 10px rgba(0,212,255,.3);}
+        .barnota{margin:2rem 0 0;padding:1.5rem;background:rgba(255,255,255,.02);border-left: 2px solid var(--cyan);
+            border-radius:0 12px 12px 0;font-size:1rem;color:var(--gray2);line-height:1.7;}
+        .barnota b{color:var(--white)}
+
+        .oficios-visual{position: relative; border-radius: 20px; overflow: hidden; display: none; aspect-ratio: 4/5;}
+        .oficios-visual img{width: 100%; height: 100%; filter: brightness(0.8) contrast(1.1);}
+        .oficios-visual::after{content:''; position:absolute; inset:0; border: 1px solid rgba(0,212,255,.18); border-radius: 20px; pointer-events: none;}
+
+        /* MÁQUINAS */
+        .maquinas{background:var(--bg);border-top:1px solid rgba(255,255,255,.05)}
+        .fam-grid{display:grid;gap:1.5rem;max-width:1200px;margin:0 auto}
+        .fam{background:var(--card);border:1px solid rgba(255,255,255,.05);border-radius:20px;padding:2rem;transition:.4s; position: relative; overflow: hidden;}
+        .fam::before {content:''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(0,212,255,0.03) 0%, transparent 60%); opacity: 0; transition: opacity .4s;}
+        .fam:hover::before {opacity: 1;}
+        .fam:hover{border-color:rgba(0,212,255,.3); transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,0.5);}
+        .fam-h{display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid rgba(255,255,255,.05); position:relative; z-index:2;}
+        .fam-h .ic{flex:0 0 48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;
+            background:rgba(0,212,255,.08);border:1px solid rgba(0,212,255,.2);color:var(--cyan); box-shadow: inset 0 0 10px rgba(0,212,255,.1);}
+        .fam-h .ic .i{width:1.5rem;height:1.5rem}
+        .fam-h h3{font-size:1.2rem;font-weight:800}
+        .fam-h .cnt{margin-left:auto;font-size:.8rem;font-weight:800;color:var(--cyan);padding:.3rem .8rem;background:rgba(0,212,255,.1);border-radius:100px;white-space:nowrap}
+        .eq{display:flex;flex-wrap:wrap;gap:.6rem; position:relative; z-index:2;}
+        .eq span{padding:.5rem 1rem;background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.08);border-radius:8px;font-size:.9rem;font-weight:500;color:var(--gray2); transition: .3s;}
+        .eq span:hover {border-color: var(--cyan); color: var(--white); background: rgba(0,212,255,.05);}
+        .eq span b{color:var(--white);font-weight:700}
+        .eq span.mas{border-style:dashed;color:var(--gray);font-style:italic}
+        .destacado{max-width:1200px;margin:2.5rem auto 0;display:flex;align-items: flex-start; gap:1rem; padding:1.5rem;
+            background:linear-gradient(to right, rgba(0,255,136,.08), rgba(0,255,136,.02));border:1px solid rgba(0,255,136,.2);border-radius:16px;}
+        .destacado .i{width:1.5rem;height:1.5rem;color:var(--green);margin-top:.1rem;flex-shrink:0; filter: drop-shadow(0 0 5px var(--greenGlow));}
+        .destacado p{font-size:1rem;color:var(--gray2);line-height:1.7}
+        .destacado b{color:var(--white)}
+
+        /* GESTIÓN INTEGRAL */
+        .gestion{background:var(--bg2);border-top:1px solid rgba(255,255,255,.05)}
+        .gestion-layout{max-width:1200px; margin:0 auto;}
+        .tl{position:relative;padding-left:3rem; padding-bottom: 2rem;}
+        .tl::before{content:'';position:absolute;left:21px;top:15px;bottom:15px;width:3px; border-radius:3px;
+            background:linear-gradient(180deg,var(--card) 0%, rgba(255,255,255,.05) 100%);}
+        .tl::after{content:'';position:absolute;left:21px;top:15px;width:3px;height:var(--fill,0%); border-radius:3px;
+            background:linear-gradient(180deg, var(--cyan), var(--green));box-shadow:0 0 15px var(--greenGlow);transition:height .2s ease-out}
+        .step{position:relative;margin-bottom:2.5rem}
+        .step:last-child{margin-bottom:0}
+        /* Atenuado de pasos inactivos: hay que superar la especificidad de .rv.on */
+        .tl .step.on:not(.active){opacity:.5;transition:opacity .35s ease}
+        .tl .step.on.active{opacity:1}
+        .step .dot{position:absolute;left:-3rem;top:0;width:46px;height:46px;border-radius:50%;background:var(--bg);
+            border:2px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:1rem;font-weight:900;color:var(--gray); transition: .4s; z-index: 2;}
+        .step.active .dot{border-color:var(--cyan);color:var(--cyan);box-shadow:0 0 15px rgba(0,212,255,.2); background: rgba(0,212,255,.05);}
+        .step.key.active .dot{border-color:var(--green);color:var(--green);background:rgba(0,255,136,.1);box-shadow:0 0 20px rgba(0,255,136,.3)}
+        .step h3{font-size:1.2rem;font-weight:800;margin-bottom:.5rem;padding-top:.5rem;line-height:1.3; color: var(--white);}
+        .step p{font-size:1rem;color:var(--gray2);line-height:1.7}
+        .gestion-visual{display: none;}
+
+        /* APRENDIZAJES */
+        .aprend{background:var(--bg);border-top:1px solid rgba(255,255,255,.05); position: relative;}
+        .aprend::before{content:''; position:absolute; top: 10%; left: 50%; transform: translateX(-50%); width: 80%; height: 500px; background: radial-gradient(ellipse, rgba(0,212,255,0.05), transparent 70%); pointer-events: none;}
+        .apgrid{display:grid;gap:2rem;max-width:1200px;margin:0 auto; position: relative; z-index: 2;}
+        .ap{position:relative;background:var(--card);border:1px solid rgba(255,255,255,.05);
+            border-radius:20px;overflow:hidden;transition:.4s;display:flex;flex-direction:column; box-shadow: 0 10px 30px rgba(0,0,0,0.3);}
+        .ap:hover{transform:translateY(-8px);border-color:rgba(0,212,255,.3);box-shadow:0 20px 50px rgba(0,0,0,0.6), 0 0 20px rgba(0,212,255,.1)}
+        
+        /* ── Lectura en móvil ── */
+        @media(max-width:700px){
+          .ap-content{padding:1.35rem}
+          .ap .bloque p{font-size:1rem;line-height:1.8}
+          .ap h3{font-size:1.2rem;line-height:1.3}
+          .ap .letra{font-size:3rem;top:-4px;right:12px}
+          .ap .ilu{margin-left:-.35rem;margin-right:-.35rem;padding:.75rem}
+          .shead .t{font-size:clamp(1.55rem,6.5vw,2rem);line-height:1.18}
+          .shead .intro{font-size:1rem;line-height:1.8}
+          section{padding:3.25rem 1.15rem}
+          .apgrid{gap:1.5rem}
+          .lo,.lo-sol{font-size:.74rem;letter-spacing:.12em}
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { font-size: 18px; scroll-behavior: smooth; }
-        body { font-family: var(--font-main); background: var(--color-bg); color: var(--color-white); line-height: 1.75; }
+        .ap .bloque{margin-bottom:1.75rem}
+        .ap .bloque:last-of-type{margin-bottom:0}
+        .ap .bloque.b2{padding-top:1.75rem;border-top:1px solid rgba(255,255,255,.07)}
+        .ap .ilu{margin:0 -.5rem 1.25rem;padding:1rem;border-radius:14px;
+          background:linear-gradient(150deg,#0d0d0d,#151515);border:1px solid rgba(255,255,255,.06)}
+        .ap .ilu svg{width:100%;max-width:340px;height:auto;display:block;margin:0 auto}
+        .ap .bloque p{font-size:.98rem;color:var(--gray);line-height:1.75}
+        .ap .bloque b{color:var(--white)}
+        .lo-sol{display:inline-block;font-size:.8rem;font-weight:800;letter-spacing:.1em;
+          text-transform:uppercase;color:var(--green);margin-bottom:.8rem;position:relative;z-index:2}
+        
+        
+        
+        .ap-content{padding: 2rem; display: flex; flex-direction: column; flex-grow: 1; position: relative;}
+        .ap .letra{position:absolute;top:-10px;right:20px;font-size:4rem;font-weight:900;color:rgba(255,255,255,.03);line-height:1; z-index: 1;}
+        .ap h3{font-size:1.25rem;font-weight:800;margin-bottom:1rem;line-height:1.3; position: relative; z-index: 2;}
+        .ap .lo{display:inline-block; font-size:.8rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--cyan);margin-bottom:.8rem; position: relative; z-index: 2;}
+        .ap p{font-size:1rem;color:var(--gray2);line-height:1.7;margin-bottom:1.5rem; position: relative; z-index: 2;}
+        .ap .ap .sol{margin-top:1.25rem;padding:1.1rem 1.15rem;border-radius:12px;
+          background:rgba(0,255,136,.055);border:1px solid rgba(0,255,136,.24);
+          border-left:3px solid var(--green);position:relative;z-index:2}
+        .ap .sol .lo2{display:block;font-size:.75rem;font-weight:900;letter-spacing:.1em;
+          text-transform:uppercase;color:var(--green);margin-bottom:.5rem}
+        .ap .sol p{font-size:.95rem;color:var(--gray2);line-height:1.7;margin:0}
+        .ap .sol b{color:var(--white)}
+        .salida{margin-top:auto;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,.05); position: relative; z-index: 2;}
+        .ap .salida a{display:inline-flex;align-items:center;gap:.5rem;color:var(--cyan);font-weight:700;font-size:1rem;text-decoration:none}
+        .ap .salida a::after{content:'→';transition:transform .3s}
+        .ap .salida a:hover::after{transform:translateX(5px)}
+        .ap .salida .prox{font-size:.9rem;font-weight:700;color:var(--yellow); background: rgba(255,204,0,.1); padding: .4rem .8rem; border-radius: 6px;}
 
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 1rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(0,0,0,0.95);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+        /* CIERRE */
+        .cierre{background:var(--bg2);border-top:1px solid rgba(255,255,255,.05); padding-bottom: 6rem;}
+        .cclaim{max-width:900px;margin:0 auto 3rem;text-align:center;padding:3rem 2rem;border-radius:24px;
+            background:linear-gradient(135deg,rgba(0,212,255,.08) 0%, rgba(0,255,136,.03) 100%);border:1px solid rgba(0,212,255,.2); box-shadow: 0 10px 40px rgba(0,0,0,0.3);}
+        .cclaim p{font-size:1.6rem;font-weight:900;line-height:1.4}
+        .cclaim strong{color:var(--green); text-shadow: 0 0 15px rgba(0,255,136,.3);}
+        .canales{display:grid;gap:1rem;max-width:950px;margin:0 auto}
+        .canal{display:flex;align-items:center;gap:1.25rem;padding:1.25rem 1.5rem;background:var(--card);
+            border:1px solid rgba(255,255,255,.05);border-radius:16px;text-decoration:none;color:inherit;transition:all .3s; box-shadow: 0 5px 15px rgba(0,0,0,0.2);}
+        .canal:hover{border-color:var(--cyan);transform:translateY(-3px); box-shadow: 0 10px 25px rgba(0,212,255,.15);}
+        .canal .ci{flex:0 0 50px;height:50px;border-radius:14px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.05);}
+        .canal .ci .i{width:1.5rem;height:1.5rem;color:var(--cyan)}
+        .canal .cl{display:block;font-size:.8rem;color:var(--gray);text-transform:uppercase;letter-spacing:.1em; margin-bottom: 2px;}
+        .canal .cv{display:block;font-size:1.15rem;font-weight:800}
+
+        /* FOOTER + COOKIES */
+        footer{background:#000;padding:5rem 5% 3rem;text-align:center;border-top:1px solid rgba(255,255,255,.05)}
+        footer .logo{margin-bottom:1.5rem;display:inline-block}
+        footer .logo img{height:45px;width:auto; opacity: 0.8; filter: grayscale(100%); transition: .3s;}
+        footer .logo:hover img{opacity: 1; filter: grayscale(0%);}
+        footer .tagline{font-size:1.2rem;font-weight:600;color:var(--white);margin-bottom:.5rem}
+        footer .subtag{font-size:1rem;color:var(--gray);margin-bottom:2.5rem;line-height:1.6}
+        footer .legal{margin-top:2.5rem;padding-top:2.5rem;border-top:1px solid rgba(255,255,255,.05);font-size:.95rem;color:var(--gray)}
+        footer .legal a{color:var(--gray);text-decoration:none;transition:color .3s ease}
+        footer .legal a:hover{color:var(--cyan)}
+
+        .cookie-banner{position:fixed;bottom:0;left:0;right:0;background:rgba(10,10,10,.98);backdrop-filter:blur(10px);
+            padding:1.25rem 5%;z-index:10000;border-top:1px solid rgba(255,255,255,.1);display:none}
+        .cookie-banner.active{display:block}
+        .cookie-content{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:2rem;flex-wrap:wrap}
+        .cookie-content p{color:var(--gray2);font-size:.95rem;margin:0;flex:1;min-width:250px}
+        .cookie-content a{color:var(--cyan);text-decoration:none}
+        .cookie-buttons{display:flex;gap:.75rem}
+        .cookie-btn{padding:.75rem 1.5rem;border:none;border-radius:6px;font-size:.95rem;font-weight:700;cursor:pointer;transition:all .3s ease;font-family:inherit}
+        .cookie-btn.accept{background:var(--cyan);color:#000}
+        .cookie-btn.reject{background:transparent;color:var(--gray);border:1px solid rgba(255,255,255,.2)}
+        @media(max-width:600px){.cookie-content{flex-direction:column;text-align:center}.cookie-buttons{width:100%;justify-content:center} .bar{grid-template-columns:100px 1fr 40px;gap:.5rem} .hero h1{font-size: 1.9rem;} h2.t{font-size: 1.7rem;}}
+
+        .rv{opacity:0;transform:translateY(25px);transition:opacity .7s cubic-bezier(0.16, 1, 0.3, 1), transform .7s cubic-bezier(0.16, 1, 0.3, 1)}
+        .rv.on{opacity:1;transform:none}
+
+        @media(min-width:900px){
+            html{font-size:17px}
+            section{padding:7rem 2rem}
+            .shead{margin:0 auto 4rem;}
+            .shead.left{margin: 0 0 3rem 0;}
+            .hero-btns{flex-direction:row;max-width:none;justify-content:center}
+            .hero-btns .btn{width:auto;padding:1rem 2.5rem}
+            .dgrid{grid-template-columns:repeat(4,1fr)}
+            .oficios-layout{grid-template-columns: 1fr 1fr; align-items: start;}
+            .oficios-visual{display: block;}
+            .fam-grid{grid-template-columns:1fr 1fr}
+            .gestion-layout{display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 4rem;}
+            .tl{padding-left:3.5rem}
+            .tl::before,.tl::after{left:24px}
+            .step .dot{left:-3.5rem;width:50px;height:50px}
+            .gestion-visual{display: block; position: sticky; top: 120px; border-radius: 20px; overflow: hidden; aspect-ratio: 3/4; box-shadow: 0 20px 40px rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.05);}
+            .gestion-visual img{width: 100%; height: 100%; filter: brightness(0.7) contrast(1.1);}
+            .gestion-visual::after{content:''; position:absolute; inset:0; border:1px solid rgba(0,212,255,.18); border-radius:20px; pointer-events:none;}
+            .apgrid{grid-template-columns:repeat(3,1fr)}
+            .canales{grid-template-columns:repeat(3,1fr)}
+        }
+        
+        /* ═══════ CAPA DE ACABADO (común a todo el sitio) ═══════ */
+
+        /* Grano de película */
+        body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.04;
+            background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+        /* Numeral fantasma detrás de los encabezados */
+        .gh{position:absolute!important;z-index:0!important;top:-3.5rem;left:50%;transform:translateX(-50%);
+            font-size:clamp(6rem,18vw,11rem);font-weight:900;line-height:1;letter-spacing:-.06em;
+            color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.055);pointer-events:none;user-select:none}
+
+        /* Indicador de scroll */
+        .cue{display:flex;flex-direction:column;align-items:center;gap:.5rem;margin-top:3rem;
+            font-size:.7rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--gray)}
+        .cue i{display:block;width:1px;height:46px;background:linear-gradient(180deg,var(--cyan),transparent);
+            animation:baja 2.2s ease-in-out infinite}
+        @keyframes baja{0%,100%{opacity:.25;transform:scaleY(.6);transform-origin:top}50%{opacity:1;transform:scaleY(1)}}
+
+        /* Tipografía editorial */
+        h2.t{letter-spacing:-.035em}
+
+        
+        /* Logo reducido en heros de páginas interiores */
+        .hero-logo-mini{max-width:240px;width:60%;height:auto;margin:0 auto 1.75rem;display:block;opacity:.95;filter:drop-shadow(0 2px 12px rgba(0,0,0,.8))}
+        @media(max-width:700px){ .hero-logo-mini{max-width:190px} }
+
+        
+        /* Huecos dentro de los visuales existentes */
+        .oficios-visual,.gestion-visual{background:linear-gradient(135deg,#141414,#1c1c1c)}
+        .oficios-visual .foto-ph,.gestion-visual .foto-ph{z-index:0}
+
+
+        /* Encaje de las ilustraciones en los contenedores existentes */
+        .oficios-visual,.gestion-visual{background:linear-gradient(150deg,#0e0e0e,#151515)}
+        .oficios-visual .ilus,.gestion-visual .ilus{padding:.5rem}
+        
+        
+        
+
+        /* Sección del plano */
+        .plano-sec{background:var(--bg2);border-top:1px solid rgba(255,255,255,.06)}
+        .plano-caja{max-width:1150px;margin:0 auto;padding:1.25rem;border-radius:20px;
+            background:linear-gradient(150deg,#0d0d0d,#151515);border:1px solid rgba(0,212,255,.2);
+            box-shadow:0 20px 50px rgba(0,0,0,.5)}
+        .plano-full{width:100%;height:auto;display:block;filter:drop-shadow(0 0 10px rgba(0,212,255,.18))}
+        .plano-pie{max-width:1150px;margin:1.25rem auto 0;text-align:center;font-size:.95rem;color:var(--gray);line-height:1.7}
+        @media(min-width:900px){ .plano-caja{padding:2rem} }
+
+        /* Ilustraciones técnicas */
+        .ilus{width:100%;height:100%;display:block;filter:drop-shadow(0 0 8px rgba(0,212,255,.3))}
+        .oficios-visual .ilus,.gestion-visual .ilus{filter:drop-shadow(0 0 10px rgba(0,212,255,.22))}
+        .flujo{stroke-dasharray:7 9;animation:il-flujo 3s linear infinite}
+        .flujo-inv{stroke-dasharray:7 9;animation:il-flujo 3s linear infinite reverse}
+        @keyframes il-flujo{to{stroke-dashoffset:-32}}
+        .gira{animation:il-gira 6s linear infinite}
+        @keyframes il-gira{to{transform:rotate(360deg)}}
+        .late{animation:il-late 2.4s ease-in-out infinite}
+        @keyframes il-late{0%,100%{opacity:.35}50%{opacity:1}}
+        .sube{animation:il-sube 2.8s ease-in-out infinite}
+        @keyframes il-sube{0%,100%{opacity:.25;transform:translateY(3px)}50%{opacity:.9;transform:translateY(-3px)}}
+        .baja{animation:il-baja 2.8s ease-in-out infinite}
+        @keyframes il-baja{0%,100%{opacity:.25;transform:translateY(-3px)}50%{opacity:.9;transform:translateY(3px)}}
+        .viaja{animation:il-viaja 5s ease-in-out infinite}
+        @keyframes il-viaja{0%,100%{transform:translateX(-60px);opacity:.3}50%{transform:translateX(60px);opacity:1}}
+        .hero-in{position:relative;z-index:2}
+        @media(prefers-reduced-motion:reduce){
+            .flujo,.flujo-inv,.gira,.late,.sube,.baja,.viaja{animation:none}
         }
 
-        .logo { display: flex; align-items: center; text-decoration: none; line-height: 1; }
-        .logo img { height: 40px; width: auto; }
+        /* Marcos de foto */
+        .foto{position:relative;border-radius:18px;overflow:hidden;
+            background:linear-gradient(135deg,#141414,#1c1c1c);border:1px solid rgba(255,255,255,.08)}
+        .foto img{width:100%;height:100%;object-fit:cover;display:block;position:relative;z-index:1}
+        .foto::after{content:'';position:absolute;inset:0;pointer-events:none;z-index:2;border-radius:inherit;
+            box-shadow:inset 0 0 70px rgba(0,0,0,.65);border:1px solid rgba(255,255,255,.06)}
+        .foto-ph{position:absolute;inset:0;z-index:0;display:flex;flex-direction:column;align-items:center;
+            justify-content:center;gap:.45rem;color:#3d3d3d;text-align:center;padding:1rem}
+        .foto-ph svg{width:2.2rem;height:2.2rem;stroke:currentColor;fill:none;stroke-width:1.2}
+        .foto-ph b{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;font-weight:800}
+        .foto-ph span{font-size:.72rem;color:#4d4d4d;font-family:monospace}
+        .foto.h43{aspect-ratio:4/3}
+        .foto.h32{aspect-ratio:3/2}
+        .foto.h169{aspect-ratio:16/9}
+        .foto.v45{aspect-ratio:4/5}
+        .foto.v34{aspect-ratio:3/4}
 
-        .nav-desktop { display: flex; gap: 2rem; align-items: center; }
-        .nav-link { color: var(--color-gray-light); text-decoration: none; font-size: 1.05rem; font-weight: 500; transition: color 0.3s ease; }
-        .nav-link:hover { color: var(--color-white); }
-        .nav-cta { background: var(--color-accent); color: var(--color-bg); padding: 0.75rem 1.5rem; text-decoration: none; font-weight: 600; font-size: 1.05rem; transition: all 0.3s ease; }
-        .nav-cta:hover { box-shadow: 0 0 20px var(--color-accent-glow); }
+        @media(prefers-reduced-motion:reduce){ body::after{display:none} .cue i{animation:none} }
 
-        .nav-mobile-controls { display: none; align-items: center; gap: 1rem; }
-        .nav-call { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; background: var(--color-green); color: var(--color-bg); text-decoration: none; font-size: 1.25rem; border-radius: 50%; }
+        /* Foco que sigue al cursor */
+        .ap,.fam,.pqc{--mx:50%;--my:0%}
+        .ap::after,.fam::after,.pqc::after{content:'';position:absolute;inset:0;pointer-events:none;opacity:0;
+            transition:opacity .4s;border-radius:inherit;
+            background:radial-gradient(420px circle at var(--mx) var(--my),rgba(255,255,255,.055),transparent 42%)}
+        .ap:hover::after,.fam:hover::after,.pqc:hover::after{opacity:1}
 
-        .hamburger { display: flex; flex-direction: column; justify-content: center; align-items: center; width: 44px; height: 44px; background: transparent; border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; cursor: pointer; gap: 5px; transition: all 0.3s ease; }
-        .hamburger span { display: block; width: 20px; height: 2px; background: var(--color-white); transition: all 0.3s ease; }
-        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
-        .hamburger.active span:nth-child(2) { opacity: 0; }
-        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+        .hero h1{font-size:clamp(2.2rem,7.5vw,4.6rem);line-height:1;letter-spacing:-.045em;font-weight:300}
+        .hero h1 .hl{font-weight:900;letter-spacing:-.05em}
+        .hero .sub{max-width:640px}
+        .shead{position:relative}
+        .shead>*{position:relative;z-index:1}
+        .ap,.fam,.pqc{position:relative}
+        @media(min-width:900px){ section{padding:8rem 2rem} .shead.left .gh{left:auto;right:0;transform:none;top:-4.5rem} }
 
-        .mobile-menu {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            background: rgba(0,0,0,0.98);
-            z-index: 999;
-            display: flex;
-            flex-direction: column;
-            padding: 6rem 2rem 2rem;
-            transform: translateX(100%);
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            overflow-y: auto;
-        }
-        .mobile-menu.active { transform: translateX(0); }
-
-        .mobile-menu-section { margin-bottom: 2rem; }
-        .mobile-menu-label { font-size: 1.05rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--color-accent); margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
-        .mobile-menu-links { display: flex; flex-direction: column; gap: 0.25rem; }
-        .mobile-menu-link { display: block; padding: 1rem 0; color: var(--color-white); text-decoration: none; font-size: 1.1rem; font-weight: 500; border-bottom: 1px solid rgba(255,255,255,0.05); transition: all 0.3s ease; }
-        .mobile-menu-link:hover { color: var(--color-accent); padding-left: 0.5rem; }
-        .mobile-menu-link span { display: block; font-size: 1.1rem; color: var(--color-gray); font-weight: 400; margin-top: 0.25rem; }
-
-        .mobile-menu-contacto { margin-top: auto; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); display: flex; flex-direction: column; gap: 1rem; }
-        .mobile-menu-tel { display: flex; align-items: center; gap: 1rem; padding: 1rem; background: var(--color-bg-card); border: 1px solid rgba(0, 255, 136, 0.3); border-radius: 12px; text-decoration: none; color: var(--color-white); transition: all 0.3s ease; }
-        .mobile-menu-tel:hover { border-color: var(--color-green); }
-        .mobile-menu-tel-icon { display: flex; align-items: center; justify-content: center; width: 48px; height: 48px; background: var(--color-green); color: var(--color-bg); border-radius: 50%; font-size: 1.25rem; }
-        .mobile-menu-tel-info { display: flex; flex-direction: column; }
-        .mobile-menu-tel-label { font-size: 1.05rem; color: var(--color-gray); text-transform: uppercase; }
-        .mobile-menu-tel-number { font-size: 1.25rem; font-weight: 700; }
-
-        @media (max-width: 900px) {
-            .nav-desktop { display: none; }
-            .nav-mobile-controls { display: flex; }
-        }
-        @media (min-width: 901px) {
-            .mobile-menu { display: none !important; }
-        }
-
-        /* Sections */
-        section { padding: 6rem 5%; }
-        .section-label { display: inline-block; font-size: 1.1rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--color-accent); margin-bottom: 1rem; }
-        .section-title { font-size: clamp(1.75rem, 4vw, 3rem); font-weight: 800; margin-bottom: 1rem; letter-spacing: -0.02em; }
-        .section-title .highlight { color: var(--color-accent); }
-        .section-title .highlight-green { color: var(--color-green); }
-        .section-title .highlight-red { color: var(--color-red); }
-
-        /* HERO */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 8rem 5% 5rem;
-            background: #000000;
-        }
-        .hero-content { max-width: 900px; }
-        .hero-logo { max-width: 700px; width: 90%; height: auto; margin: 0 auto 1.5rem; display: block; }
-        .hero-tag { display: inline-block; color: var(--color-accent); font-size: 1.05rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1.5rem; }
-        .hero h1 { font-size: clamp(2.5rem, 7vw, 5rem); font-weight: 900; line-height: 1.05; margin-bottom: 1.5rem; letter-spacing: -0.03em; }
-        .hero h1 .highlight { color: var(--color-accent); }
-        .hero p { font-size: 1.25rem; color: var(--color-gray-light); max-width: 600px; margin: 0 auto 2.5rem; }
-
-        .btn-primary { display: inline-block; background: var(--color-white); color: var(--color-bg); padding: 1rem 2.5rem; text-decoration: none; font-weight: 700; font-size: 1rem; transition: all 0.3s ease; border: none; cursor: pointer; }
-        .btn-primary:hover { background: var(--color-accent); color: var(--color-bg); box-shadow: 0 0 30px var(--color-accent-glow); }
-
-        /* PROBLEMA */
-        .problema { background: var(--color-bg); border-top: 1px solid rgba(255,255,255,0.1); }
-        .problema-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
-        .problema-item { padding: 2rem; background: var(--color-bg-card); border-left: 3px solid var(--color-red); transition: all 0.3s ease; }
-        .problema-item:hover { background: var(--color-bg-light); box-shadow: 0 0 30px rgba(255, 77, 77, 0.1); }
-        .problema-item p { font-size: 1.1rem; color: var(--color-gray-light); line-height: 1.75; }
-
-        /* CALCULADORA */
-        .calculadora-section { background: var(--color-bg-light); border-top: 1px solid rgba(255,255,255,0.1); }
-        .calculadora-container { max-width: 900px; margin: 0 auto; }
-        .calculadora-header { text-align: center; margin-bottom: 3rem; }
-        .calculadora-header p { color: var(--color-gray); margin-top: 0.5rem; }
-        .calculadora-box { background: var(--color-bg-card); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; overflow: hidden; }
-        .calculadora-form { padding: 2.5rem; }
-        .calculadora-inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 2rem; }
-
-        .input-group { display: flex; flex-direction: column; }
-        .input-group label { font-size: 1rem; color: var(--color-gray-light); margin-bottom: 0.75rem; font-weight: 500; }
-        .input-group input, .input-group select, .input-group textarea {
-            width: 100%;
-            box-sizing: border-box;
-            background: var(--color-bg);
-            border: 1px solid rgba(255,255,255,0.2);
-            color: var(--color-white);
-            padding: 1rem;
-            font-size: 1rem;
-            font-family: var(--font-main);
-            border-radius: 4px;
-            transition: all 0.3s ease;
-        }
-        .input-group input[type="number"] { font-size: 1.25rem; font-weight: 700; text-align: center; }
-        .input-group input:focus, .input-group select:focus, .input-group textarea:focus { outline: none; border-color: var(--color-accent); box-shadow: 0 0 20px rgba(0, 212, 255, 0.2); }
-        .input-group input::placeholder, .input-group textarea::placeholder { color: var(--color-gray); font-weight: 400; }
-        .input-group select { cursor: pointer; }
-        .input-group select option { background: var(--color-bg); color: var(--color-white); }
-        .input-help { display: block; font-size: 0.9rem; color: var(--color-gray); margin-top: 0.5rem; font-style: italic; }
-        .input-hint { font-size: 1.05rem; color: var(--color-gray); margin-top: 0.5rem; }
-
-        .calculadora-btn { display: block; width: 100%; background: var(--color-red); color: var(--color-white); border: none; padding: 1.25rem; font-size: 1rem; font-weight: 700; font-family: var(--font-main); cursor: pointer; transition: all 0.3s ease; }
-        .calculadora-btn:hover { box-shadow: 0 0 40px var(--color-red-glow); }
-
-        .calculadora-result { background: var(--color-bg); padding: 2.5rem; display: none; text-align: center; }
-        .calculadora-result.active { display: block; }
-        .result-total { margin: 1rem 0; }
-        .result-total-label { font-size: 1.05rem; color: var(--color-gray); margin-bottom: 0.5rem; }
-        .result-total-value { font-size: 3.5rem; font-weight: 900; color: var(--color-red); line-height: 1; }
-        .result-total-periodo { font-size: 1rem; color: var(--color-gray); margin-top: 0.5rem; }
-
-        /* SOLUCIÓN */
-        .solucion-section { background: var(--color-bg); border-top: 1px solid rgba(255,255,255,0.1); }
-        .solucion-container { max-width: 1000px; margin: 0 auto; }
-        .solucion-header { text-align: center; margin-bottom: 1rem; }
-        .solucion-claim { text-align: center; margin-bottom: 3rem; }
-        .solucion-claim p { font-size: 1.35rem; color: var(--color-accent); font-weight: 600; }
-
-        .pilares { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-bottom: 4rem; }
-        .pilar { text-align: center; padding: 2rem 1.5rem; background: var(--color-bg-card); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; transition: all 0.3s ease; }
-        .pilar:hover { border-color: var(--color-accent); box-shadow: 0 0 30px rgba(0, 212, 255, 0.1); }
-        .pilar-icon { font-size: 2.5rem; margin-bottom: 1rem; }
-        .pilar h4 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; }
-        .pilar p { font-size: 1.05rem; color: var(--color-gray); }
-        .pilar.destacado { border-color: var(--color-yellow); background: linear-gradient(135deg, rgba(255, 204, 0, 0.1) 0%, var(--color-bg-card) 100%); }
-        .pilar.destacado h4 { font-size: 1.2rem; color: var(--color-yellow); }
-        .pilar.destacado p { color: var(--color-gray-light); font-size: 1.1rem; }
-
-        .especialidades { text-align: center; padding: 2rem; margin-bottom: 3rem; background: var(--color-bg-card); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; }
-        .especialidades-titulo { font-size: 1.2rem; color: var(--color-accent); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem; font-weight: 700; }
-        .especialidades-intro { font-size: 1.1rem; color: var(--color-gray-light); margin-bottom: 2rem; }
-        .especialidades-holistico { font-size: 1rem; color: var(--color-gray); margin-top: 2rem; font-style: italic; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem; }
-        .especialidades-grid { display: flex; justify-content: center; flex-wrap: wrap; gap: 2rem; }
-        .especialidad { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; min-width: 150px; }
-        .especialidad-icon { font-size: 1.75rem; }
-        .especialidad-nombre { font-size: 1.1rem; font-weight: 700; color: var(--color-white); }
-        .especialidad-marcas { font-size: 1.05rem; color: var(--color-accent); font-weight: 500; }
-
-        .caso-header { text-align: center; margin-bottom: 2rem; }
-        .caso-badge { display: inline-block; background: rgba(0, 255, 136, 0.15); border: 1px solid rgba(0, 255, 136, 0.3); color: var(--color-green); padding: 0.75rem 1.5rem; font-size: 1.1rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1rem; }
-        .caso-header h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem; }
-        .caso-header p { color: var(--color-gray); font-size: 1.1rem; }
-
-        .metrica-hero { text-align: center; padding: 3rem; background: linear-gradient(135deg, rgba(0, 255, 136, 0.1) 0%, rgba(0, 212, 255, 0.05) 100%); border: 1px solid rgba(0, 255, 136, 0.3); border-radius: 8px; margin-bottom: 2rem; }
-        .metrica-hero-label { font-size: 1rem; color: var(--color-gray-light); margin-bottom: 0.5rem; }
-        .metrica-hero-value { font-size: 6rem; font-weight: 900; color: var(--color-green); line-height: 1; }
-        .metrica-hero-detail { font-size: 1.25rem; color: var(--color-green); margin-top: 0.5rem; font-weight: 600; }
-
-        .metricas-secundarias { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
-        .metrica-secundaria { background: var(--color-bg-card); border: 1px solid rgba(255,255,255,0.1); padding: 1.5rem; text-align: center; border-radius: 6px; }
-        .metrica-secundaria-label { font-size: 1.05rem; color: var(--color-gray); margin-bottom: 0.5rem; }
-        .metrica-secundaria-before { font-size: 1rem; color: var(--color-red); text-decoration: line-through; opacity: 0.7; }
-        .metrica-secundaria-after { font-size: 1.5rem; font-weight: 800; color: var(--color-green); }
-
-        .caso-nota { text-align: center; padding: 1.25rem; background: rgba(0, 255, 136, 0.05); border: 1px dashed rgba(0, 255, 136, 0.3); border-radius: 4px; }
-        .caso-nota p { font-size: 1rem; color: var(--color-green); font-weight: 500; }
-
-        /* AHORRO */
-        .ahorro-section { background: var(--color-bg-light); border-top: 1px solid rgba(255,255,255,0.1); }
-        .ahorro-container { max-width: 800px; margin: 0 auto; text-align: center; }
-        .ahorro-box { background: var(--color-bg-card); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; padding: 3rem; margin-top: 3rem; }
-        .ahorro-intro { font-size: 1.1rem; color: var(--color-gray-light); margin-bottom: 2rem; }
-        .ahorro-intro strong { color: var(--color-green); }
-        .ahorro-calculo { background: var(--color-bg); padding: 2rem; border-radius: 6px; margin-bottom: 2rem; }
-        .ahorro-formula { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem; }
-        .ahorro-formula-item { text-align: center; }
-        .ahorro-formula-label { font-size: 0.7rem; color: var(--color-gray); text-transform: uppercase; letter-spacing: 0.05em; }
-        .ahorro-formula-value { font-size: 1.5rem; font-weight: 800; }
-        .ahorro-formula-value.red { color: var(--color-red); }
-        .ahorro-formula-value.green { color: var(--color-green); }
-        .ahorro-formula-signo { font-size: 1.5rem; color: var(--color-gray); }
-        .ahorro-resultado { padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.1); }
-        .ahorro-resultado-label { font-size: 1rem; color: var(--color-gray); margin-bottom: 0.5rem; }
-        .ahorro-resultado-value { font-size: 3rem; font-weight: 900; color: var(--color-green); line-height: 1; }
-        .ahorro-resultado-detail { font-size: 1.05rem; color: var(--color-gray); margin-top: 0.5rem; }
-        .ahorro-placeholder { padding: 2rem; background: rgba(255,255,255,0.03); border-radius: 6px; margin-bottom: 2rem; }
-        .ahorro-placeholder p { color: var(--color-gray); margin-bottom: 1rem; }
-        .ahorro-placeholder a { color: var(--color-accent); text-decoration: none; font-weight: 600; }
-        .ahorro-placeholder a:hover { text-decoration: underline; }
-        .ahorro-cta { margin-top: 2rem; }
-        .ahorro-cta a { display: inline-block; background: var(--color-green); color: var(--color-bg); padding: 1rem 2.5rem; text-decoration: none; font-weight: 700; font-size: 1rem; transition: all 0.3s ease; }
-        .ahorro-cta a:hover { box-shadow: 0 0 40px var(--color-green-glow); }
-
-        /* CREDENCIALES */
-        .credenciales { background: var(--color-bg); border-top: 1px solid rgba(255,255,255,0.1); text-align: center; }
-        .credenciales-container { max-width: 900px; margin: 0 auto; }
-        .credenciales-intro { font-size: 1.1rem; color: var(--color-gray-light); margin-bottom: 2.5rem; }
-        .credenciales-intro strong { color: var(--color-white); }
-        .credenciales-stats { display: flex; justify-content: center; flex-wrap: wrap; gap: 3rem; margin-bottom: 2.5rem; }
-        .credencial-stat { display: flex; flex-direction: column; align-items: center; }
-        .credencial-numero { font-size: 3rem; font-weight: 900; color: var(--color-accent); line-height: 1; }
-        .credencial-label { font-size: 1rem; color: var(--color-gray); margin-top: 0.5rem; }
-        .credenciales-clientes { padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); }
-        .credenciales-clientes p { font-size: 1rem; color: var(--color-gray); margin-bottom: 1rem; }
-        .clientes-logos { display: flex; justify-content: center; flex-wrap: wrap; gap: 2rem; }
-        .clientes-logos span { font-size: 1.1rem; font-weight: 700; color: var(--color-gray-light); opacity: 0.8; }
-
-        /* FORMULARIO */
-        .formulario-section { background: var(--color-bg-light); border-top: 1px solid rgba(255,255,255,0.1); }
-        .formulario-container { max-width: 600px; margin: 0 auto; }
-        .formulario-header { text-align: center; margin-bottom: 3rem; }
-        .formulario-header p { color: var(--color-gray); margin-top: 0.5rem; }
-        .formulario-box { background: var(--color-bg-card); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; padding: 2.5rem; }
-        .formulario-grid { display: grid; gap: 1.5rem; margin-bottom: 2rem; }
-        .formulario-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
-        .formulario-btn { display: block; width: 100%; background: var(--color-accent); color: var(--color-bg); border: none; padding: 1.25rem; font-size: 1rem; font-weight: 700; font-family: var(--font-main); cursor: pointer; transition: all 0.3s ease; }
-        .formulario-btn:hover { box-shadow: 0 0 40px var(--color-accent-glow); }
-
-        /* CONTACTO ALT */
-        .contacto-alt { background: var(--color-bg); border-top: 1px solid rgba(255,255,255,0.1); text-align: center; }
-        .contacto-alt-header { margin-bottom: 2rem; }
-        .contacto-alt-header p { color: var(--color-gray); font-size: 1rem; }
-        .contacto-options { display: flex; justify-content: center; flex-wrap: wrap; gap: 1.5rem; max-width: 800px; margin: 0 auto; }
-        .contacto-option { display: flex; flex-direction: column; align-items: center; gap: 0.75rem; padding: 2rem; background: var(--color-bg-card); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; text-decoration: none; color: inherit; min-width: 200px; transition: all 0.3s ease; }
-        .contacto-option:hover { border-color: var(--color-accent); box-shadow: 0 0 30px rgba(0, 212, 255, 0.15); }
-        .contacto-option-icon { font-size: 2rem; }
-        .contacto-option-label { font-size: 1.1rem; color: var(--color-gray); text-transform: uppercase; letter-spacing: 0.05em; }
-        .contacto-option-value { font-size: 1.1rem; font-weight: 700; color: var(--color-white); }
-
-        /* Footer */
-        footer { background: var(--color-bg-light); padding: 3rem 5%; text-align: center; border-top: 1px solid rgba(255,255,255,0.1); }
-        footer .logo { display: inline-flex; margin-bottom: 1rem; }
-        footer .logo img { height: 50px; width: auto; }
-        footer .tagline { font-size: 1.1rem; font-weight: 600; color: var(--color-white); margin-bottom: 0.5rem; }
-        footer p { color: var(--color-gray); font-size: 1.05rem; }
-        footer .legal { margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); font-size: 1.1rem; color: var(--color-gray); }
-        footer .legal a { color: var(--color-gray); text-decoration: none; }
-        footer .legal a:hover { color: var(--color-accent); }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            html { font-size: 19px; }
-            section { padding: 3.5rem 6%; }
-            .hero { padding-top: 6rem; }
-            nav { padding: 1rem 5%; }
-            .hero-logo { max-width: 420px; }
-            .btn-primary { padding: 1.15rem 2rem; font-size: 1.1rem; }
-            .input-group label { font-size: 1.1rem; margin-bottom: 0.6rem; }
-            .input-group input, .input-group textarea, .input-group select { font-size: 1.1rem; padding: 1.1rem; }
-            .formulario-btn { padding: 1.25rem; font-size: 1.15rem; }
-            .formulario-row { grid-template-columns: 1fr; }
-            .formulario-box { padding: 1.5rem; }
-            .contacto-options { flex-direction: column; align-items: center; }
-            .contacto-option { width: 100%; max-width: 300px; }
-            .result-total-value { font-size: 2.5rem; }
-            .metrica-hero-value { font-size: 4rem; }
-            .ahorro-formula { flex-direction: column; }
-            .ahorro-resultado-value { font-size: 2.5rem; }
-        }
-
-        @media (max-width: 400px) {
-            .hero-logo { max-width: 300px; }
-        }
-
-        /* Cookie Banner */
-        .cookie-banner { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(20, 20, 20, 0.98); padding: 1.25rem 5%; z-index: 10000; border-top: 1px solid rgba(255,255,255,0.1); display: none; }
-        .cookie-banner.active { display: block; }
-        .cookie-content { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 2rem; flex-wrap: wrap; }
-        .cookie-content p { color: #ccc; font-size: 0.95rem; margin: 0; flex: 1; min-width: 250px; }
-        .cookie-content a { color: #00d4ff; text-decoration: none; }
-        .cookie-buttons { display: flex; gap: 0.75rem; }
-        .cookie-btn { padding: 0.75rem 1.5rem; border: none; border-radius: 4px; font-size: 0.95rem; font-weight: 600; cursor: pointer; font-family: inherit; transition: all 0.3s ease; }
-        .cookie-btn.accept { background: #00d4ff; color: #0a0a0a; }
-        .cookie-btn.reject { background: transparent; color: #888; border: 1px solid #444; }
-        @media (max-width: 600px) {
-            .cookie-content { flex-direction: column; text-align: center; }
-            .cookie-buttons { width: 100%; justify-content: center; }
-        }
+        @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}.rv{opacity:1!important;transform:none!important}}
     </style>
 </head>
 <body>
-    <!-- GTM noscript -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MWTDJLNC" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<div class="progress" id="prog"></div>
 
-    <!-- Navigation -->
-    <nav>
-        <a href="index.html" class="logo"><img src="logo.png" alt="Northcare"></a>
-        <div class="nav-desktop">
-            <a href="mantenimiento.html" class="nav-link">SAT</a>
-            <a href="reparaciones.html" class="nav-link">Urgencias</a>
-            <a href="energia.html" class="nav-link">Energía</a>
-            <a href="formacion.html" class="nav-link">Formación</a>
-            <a href="equipo.html" class="nav-link">Equipo</a>
-            <a href="valores.html" class="nav-link">Valores</a>
-            <a href="#formulario" class="nav-cta">Contactar</a>
-        </div>
-        <div class="nav-mobile-controls">
-            <a href="tel:603081740" class="nav-call">📞</a>
-            <button class="hamburger" onclick="toggleMenu()" aria-label="Menú">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </div>
-    </nav>
+<svg class="sprite" aria-hidden="true"><defs>
+<symbol id="ic-tel" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></symbol>
+<symbol id="ic-chat" viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.5 8.5 0 0 1-3.9-.9L3 20.5l1.4-4.9A8.4 8.4 0 0 1 12 3.1a8.4 8.4 0 0 1 9 8.4Z"/></symbol>
+<symbol id="ic-mail" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></symbol>
+<symbol id="ic-tool" viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0 5.3 5.2l-8 8a2.8 2.8 0 0 1-4-4l8-8Z"/><path d="M14.7 6.3 17 4"/></symbol>
+<symbol id="ic-doc" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Zm0 0v6h6M9 13h6M9 17h6"/></symbol>
+<symbol id="ic-snow" viewBox="0 0 24 24"><path d="M12 2v20M4.5 6.5l15 11M19.5 6.5l-15 11M12 6l-2.5-2.5M12 6l2.5-2.5M12 18l-2.5 2.5M12 18l2.5 2.5"/></symbol>
+<symbol id="ic-shop" viewBox="0 0 24 24"><path d="M3 9h18l-1.2-4.2A1 1 0 0 0 18.8 4H5.2a1 1 0 0 0-1 .8L3 9Zm1 0v10a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9M9 20v-6h6v6"/></symbol>
+<symbol id="ic-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5.5l3.5 2"/></symbol>
+<symbol id="ic-fire" viewBox="0 0 24 24"><path d="M12 2.5s5.5 4.5 5.5 10a5.5 5.5 0 0 1-11 0c0-2 1-3.5 1-3.5s.5 2 2 2c0-4 2.5-6 2.5-8.5Z"/></symbol>
+<symbol id="ic-cone" viewBox="0 0 24 24"><path d="M7.5 9h9l-4.5 12Z"/><path d="M7.8 9a4.2 4.2 0 0 1 8.4 0"/><path d="M8.6 6.2a3.6 3.6 0 0 1 6.8 0"/></symbol>
+<symbol id="ic-box" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="2.5"/><path d="M14 3.5v17M17.4 10.5v3"/></symbol>
+<symbol id="ic-plate" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/></symbol>
+<symbol id="ic-people" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.4"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16.5 5.2a3.4 3.4 0 0 1 0 6.6M17.5 14.2A6.5 6.5 0 0 1 21.5 20"/></symbol>
+<symbol id="ic-leaf" viewBox="0 0 24 24"><path d="M4 20s0-8 5-12 11-4 11-4 0 8-4 12-12 4-12 4Z"/><path d="M9 15c2-3 5-5 8-6"/></symbol>
+<symbol id="ic-ai" viewBox="0 0 24 24"><rect x="5" y="7" width="14" height="12" rx="3"/><path d="M12 7V3.5M8.5 2.5h7M9.5 12v1.5M14.5 12v1.5M2.5 12H5M19 12h2.5"/></symbol>
+<symbol id="ic-check" viewBox="0 0 24 24"><path d="m4 12.5 5.2 5.2L20 7"/></symbol>
+</defs></svg>
 
-    <!-- Mobile Menu -->
-    <div class="mobile-menu" id="mobileMenu">
-        <div class="mobile-menu-section">
-            <div class="mobile-menu-label">Servicios</div>
-            <div class="mobile-menu-links">
-                <a href="mantenimiento.html" class="mobile-menu-link">SAT · Tarifa plana<span>Mantenimiento preventivo y correctivo</span></a>
-                <a href="reparaciones.html" class="mobile-menu-link">Urgencias<span>Reparaciones e instalaciones</span></a>
-                <a href="energia.html" class="mobile-menu-link">Eficiencia Energética<span>Auditorías y ahorro</span></a>
-                <a href="formacion.html" class="mobile-menu-link">Formación Técnica<span>Consultoría y capacitación</span></a>
-            </div>
-        </div>
-        <div class="mobile-menu-section">
-            <div class="mobile-menu-label">Nosotros</div>
-            <div class="mobile-menu-links">
-                <a href="equipo.html" class="mobile-menu-link">Equipo</a>
-                <a href="valores.html" class="mobile-menu-link">Valores</a>
-            </div>
-        </div>
-        <div class="mobile-menu-contacto">
-            <a href="tel:603081740" class="mobile-menu-tel">
-                <span class="mobile-menu-tel-icon">📞</span>
-                <div class="mobile-menu-tel-info">
-                    <span class="mobile-menu-tel-label">Llamar ahora</span>
-                    <span class="mobile-menu-tel-number">603 08 17 40</span>
-                </div>
-            </a>
-            <a href="https://wa.me/34603081740" class="mobile-menu-tel">
-                <span class="mobile-menu-tel-icon">💬</span>
-                <div class="mobile-menu-tel-info">
-                    <span class="mobile-menu-tel-label">WhatsApp</span>
-                    <span class="mobile-menu-tel-number">603 08 17 40</span>
-                </div>
-            </a>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MWTDJLNC" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<!-- Navigation -->
+<nav>
+    <a href="index.html" class="logo"><img src="logo.png" alt="Northcare"></a>
+    <div class="nav-desktop">
+        <a href="instalaciones.html" class="nav-link">Instalaciones</a>
+        <a href="mantenimiento.html" class="nav-link active">Mantenimiento</a>
+            <a href="formacion.html" class="nav-link">Cardinal</a>
+        <a href="#contacto" class="nav-cta">Contactar</a>
+    </div>
+    <div class="nav-mobile-controls">
+        <a href="tel:603081740" class="nav-call" aria-label="Llamar" data-canal="telefono-nav">📞</a>
+        <button class="hamburger" onclick="toggleMenu()" aria-label="Menú">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu-section">
+        <div class="mobile-menu-label">Servicios</div>
+        <div class="mobile-menu-links">
+            <a href="instalaciones.html" class="mobile-menu-link">Montajes e Instalaciones<span>Frío industrial y climatización</span></a>
+            <a href="formacion.html" class="mobile-menu-link">Cardinal<span>Guía técnica, IA y certificación</span></a>
+            <a href="mantenimiento.html" class="mobile-menu-link">Mantenimiento<span>Nuestro campo: dónde aprendemos todo</span></a>
         </div>
     </div>
-
-    <!-- HERO -->
-    <section class="hero">
-        <div class="hero-content">
-            <img src="northcare-logo-final.svg" alt="Northcare" class="hero-logo">
-            <span class="hero-tag">Cocina industrial · Zona Norte</span>
-            <h1>Menos urgencias. <span class="highlight">Tarifa plana.</span></h1>
-            <p>Mantenimiento preventivo que reduce paradas y protege tu facturación.</p>
-            <a href="#calculadora" class="btn-primary">Calcular lo que pierdo</a>
-        </div>
-    </section>
-
-    <!-- PROBLEMA -->
-    <section class="problema">
-        <span class="section-label">El problema</span>
-        <h2 class="section-title">Sabemos lo que <span class="highlight-red">te juegas</span></h2>
-        <div class="problema-grid">
-            <div class="problema-item">
-                <p>Una avería en servicio es dinero perdido y clientes que no vuelven.</p>
+    <div class="mobile-menu-contacto">
+        <a href="tel:603081740" class="mobile-menu-tel" data-canal="telefono-menu">
+            <span class="mobile-menu-tel-icon">📞</span>
+            <div class="mobile-menu-tel-info">
+                <span class="mobile-menu-tel-label">Llamar ahora</span>
+                <span class="mobile-menu-tel-number">603 08 17 40</span>
             </div>
-            <div class="problema-item">
-                <p>Depender de llamadas de urgencia es caro e impredecible.</p>
+        </a>
+        <a href="https://wa.me/34603081740" class="mobile-menu-tel" data-canal="whatsapp-menu">
+            <span class="mobile-menu-tel-icon">💬</span>
+            <div class="mobile-menu-tel-info">
+                <span class="mobile-menu-tel-label">WhatsApp</span>
+                <span class="mobile-menu-tel-number">603 08 17 40</span>
             </div>
-            <div class="problema-item">
-                <p>No saber cuándo va a fallar un equipo te quita el sueño.</p>
-            </div>
-        </div>
-    </section>
+        </a>
+    </div>
+</div>
 
-    <!-- CALCULADORA -->
-    <section class="calculadora-section" id="calculadora">
-        <div class="calculadora-container">
-            <div class="calculadora-header">
-                <span class="section-label">Cuantifica el problema</span>
-                <h2 class="section-title">¿Cuánto pierdes en <span class="highlight-red">incidencias</span>?</h2>
-                <p>Cada urgencia es dinero que dejas de facturar.</p>
-            </div>
+<!-- ═══════════ 1 · HERO ═══════════ -->
+<!-- Sin clase .rv en .hero-in: si el JS fallara, el hero quedaría invisible -->
+<section class="hero">
+  <div class="hero-in">
+    <img src="northcare-logo-final.svg" alt="Northcare" class="hero-logo-mini">
+    <span class="pill"><span class="blink"></span> Nuestro campo de aprendizaje</span>
+    <h1>Mantenemos cocinas que no pueden parar.<br><span class="hl">Ahí aprendemos todo lo demás.</span></h1>
+    <p class="sub">Cada día entramos en cocinas de comida rápida donde conviven siete oficios y más de un centenar de máquinas distintas. No es un servicio más de nuestro catálogo: es el sitio donde se genera todo lo que sabemos.</p>
+    <div class="hero-btns">
+      <a href="#oficios" class="btn line">Ver qué hay dentro de una cocina</a>
+      <a href="#aprendizajes" class="btn solid">Qué hemos aprendido de esto</a>
+    </div>
+    <div class="cue" aria-hidden="true"><i></i>Sigue bajando</div>
 
-            <div class="calculadora-box">
-                <div class="calculadora-form">
-                    <div class="calculadora-inputs">
-                        <div class="input-group">
-                            <label>Incidencias en equipos al año</label>
-                            <input type="number" id="urgenciasAno" placeholder="Ej: 60" min="0" max="500">
-                            <span class="input-help">Paradas, averías, fallos, ajustes urgentes...</span>
-                            <span class="input-hint">Todas: frío, cocina, clima...</span>
-                        </div>
-                        <div class="input-group">
-                            <label>Coste medio por incidencia (€)</label>
-                            <input type="number" id="costeParada" placeholder="Ej: 500" min="0" max="10000">
-                            <span class="input-help">Incluye: reparación, producto perdido, ventas, tiempo...</span>
-                            <span class="input-hint">Ventas perdidas mientras no funciona</span>
-                        </div>
-                    </div>
-                    <button class="calculadora-btn" onclick="calcular()">Calcular mi pérdida anual</button>
-                </div>
+    <div class="capacidad rv">
+      <p><b>Un aviso, para no hacerte perder el tiempo.</b> Nuestra capacidad de campo está comprometida con la red que ya atendemos y no abrimos contratos de mantenimiento nuevos. Esta página no vende nada: explica de dónde sale nuestro conocimiento.</p>
+    </div>
+  </div>
+</section>
 
-                <div class="calculadora-result" id="resultado">
-                    <div class="result-total">
-                        <p class="result-total-label">Lo que pierdes en incidencias</p>
-                        <p class="result-total-value" id="costeAnual">-30.000 €</p>
-                        <p class="result-total-periodo">al año</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- SOLUCIÓN -->
-    <section class="solucion-section">
-        <div class="solucion-container">
-            <div class="solucion-header">
-                <span class="section-label">Nuestra solución</span>
-                <h2 class="section-title">Mantenimiento preventivo. <span class="highlight">Tarifa plana.</span></h2>
-            </div>
+<!-- ═══════════ EL PLANO ═══════════ -->
+<section class="plano-sec">
+  <div class="shead">
+    <span class="snum"><b>00</b> El terreno</span>
+    <h2 class="t">Así es una cocina de comida rápida <span class="hl">por dentro</span></h2>
+    <p class="intro">Siete zonas, decenas de máquinas y una sola red que las une. Cuando algo falla en un punto, casi nunca es ahí donde está la causa.</p>
+  </div>
+  <div class="plano-caja rv">
+    <svg viewBox="0 0 340 570" role="img" aria-label="Las siete zonas de una cocina de comida rápida: lavado, front line, reparto, preparación, broiler, fritos y auto">
+  <text x="16" y="26" fill="#c9c9c9" font-family="Inter,sans-serif" font-size="16" font-weight="800">Más de cincuenta metros cuadrados</text>
+  <text x="16" y="46" fill="#8b8b8b" font-family="Inter,sans-serif" font-size="13" font-weight="600">repartidos en siete zonas encadenadas</text>
 
-            <div class="solucion-claim">
-                <p>Un servicio integral que cuida tus equipos y tu bolsillo.</p>
-            </div>
+  <rect x="14" y="62" width="312" height="286" rx="10" fill="#0a0a0a" stroke="#8b8b8b" stroke-opacity=".3" stroke-width="2.4"/>
 
-            <div class="pilares">
-                <div class="pilar">
-                    <div class="pilar-icon">🔧</div>
-                    <h4>Preventivo</h4>
-                    <p>Revisamos antes de que falle</p>
-                </div>
-                <div class="pilar">
-                    <div class="pilar-icon">⚡</div>
-                    <h4>Correctivo</h4>
-                    <p>Si falla, respondemos rápido</p>
-                </div>
-                <div class="pilar">
-                    <div class="pilar-icon">📊</div>
-                    <h4>Datos</h4>
-                    <p>Sabes qué pasa en tus cocinas</p>
-                </div>
-                <div class="pilar destacado">
-                    <div class="pilar-icon">💡</div>
-                    <h4>Asesoramiento</h4>
-                    <p>Tips de ahorro energético y uso óptimo de tus equipos</p>
-                </div>
-            </div>
+  <!-- fila 1 · lavado y front line -->
+  <rect x="24" y="72" width="158" height="70" rx="8" fill="#c39bff" fill-opacity=".07" stroke="#c39bff" stroke-opacity=".6" stroke-width="2"/>
+  <text x="34" y="92" fill="#c39bff" font-family="Inter,sans-serif" font-size="12" font-weight="900" letter-spacing=".05em">LAVADO</text>
+  <g fill="#141414" stroke="#c39bff" stroke-opacity=".55" stroke-width="1.8">
+    <rect x="34" y="100" width="66" height="30" rx="4"/><rect x="106" y="100" width="66" height="30" rx="4"/>
+  </g>
 
-            <div class="especialidades">
-                <p class="especialidades-titulo">Áreas de Expertise</p>
-                <p class="especialidades-intro">Especialistas en mantenimiento integral de cocinas industriales</p>
-                <div class="especialidades-grid">
-                    <div class="especialidad">
-                        <span class="especialidad-icon">🔥</span>
-                        <span class="especialidad-nombre">Cocción y Asado</span>
-                        <span class="especialidad-marcas">Duke · Nieco · Merrychef · Convotherm · Frymaster · Pitco</span>
-                    </div>
-                    <div class="especialidad">
-                        <span class="especialidad-icon">🍦</span>
-                        <span class="especialidad-nombre">Frío y Helado</span>
-                        <span class="especialidad-marcas">Taylor · Carpigiani · Manitowoc · Scotsman</span>
-                    </div>
-                    <div class="especialidad">
-                        <span class="especialidad-icon">❄️</span>
-                        <span class="especialidad-nombre">Climatización</span>
-                        <span class="especialidad-marcas">Carrier · Aire acondicionado · Ventilación</span>
-                    </div>
-                    <div class="especialidad">
-                        <span class="especialidad-icon">🔧</span>
-                        <span class="especialidad-nombre">Instalaciones</span>
-                        <span class="especialidad-marcas">Electricidad · Fontanería · Obra menor</span>
-                    </div>
-                </div>
-                <p class="especialidades-holistico">Técnicos con formación holística: un solo equipo para todas las necesidades de tu cocina.</p>
-            </div>
+  <rect x="192" y="72" width="124" height="70" rx="8" fill="#00ff88" fill-opacity=".06" stroke="#00ff88" stroke-opacity=".55" stroke-width="2"/>
+  <text x="202" y="92" fill="#00ff88" font-family="Inter,sans-serif" font-size="12" font-weight="900" letter-spacing=".05em">FRONT LINE</text>
+  <g fill="#141414" stroke="#00ff88" stroke-opacity=".5" stroke-width="1.8">
+    <rect x="202" y="100" width="104" height="14" rx="4"/><rect x="202" y="118" width="104" height="12" rx="4"/>
+  </g>
 
-            <div class="caso-header">
-                <span class="caso-badge">✓ Caso real · Datos anonimizados</span>
-                <h3>Esto es lo que conseguimos</h3>
-                <p>Zona Norte, 2024. Resultados verificables.</p>
-            </div>
+  <!-- fila 2 · reparto y preparación -->
+  <rect x="24" y="152" width="88" height="78" rx="8" fill="#00d4ff" fill-opacity=".06" stroke="#00d4ff" stroke-opacity=".55" stroke-width="2"/>
+  <text x="34" y="172" fill="#00d4ff" font-family="Inter,sans-serif" font-size="12" font-weight="900" letter-spacing=".05em">REPARTO</text>
+  <g fill="#141414" stroke="#00d4ff" stroke-opacity=".5" stroke-width="1.8">
+    <rect x="34" y="180" width="68" height="18" rx="4"/><rect x="34" y="204" width="68" height="18" rx="4"/>
+  </g>
 
-            <div class="metrica-hero">
-                <p class="metrica-hero-label">Urgencias evitadas</p>
-                <p class="metrica-hero-value">-65%</p>
-                <p class="metrica-hero-detail">de 23 a 8 urgencias/mes</p>
-            </div>
+  <rect x="122" y="152" width="194" height="78" rx="8" fill="#8b8b8b" fill-opacity=".07" stroke="#8b8b8b" stroke-opacity=".5" stroke-width="2"/>
+  <text x="132" y="172" fill="#c9c9c9" font-family="Inter,sans-serif" font-size="12" font-weight="900" letter-spacing=".05em">PREPARACIÓN</text>
+  <g fill="#141414" stroke="#8b8b8b" stroke-opacity=".45" stroke-width="1.8">
+    <rect x="132" y="180" width="174" height="18" rx="4"/><rect x="132" y="204" width="112" height="18" rx="4"/><rect x="250" y="204" width="56" height="18" rx="4"/>
+  </g>
 
-            <div class="metricas-secundarias">
-                <div class="metrica-secundaria">
-                    <p class="metrica-secundaria-label">Tasa resolución</p>
-                    <p class="metrica-secundaria-before">54%</p>
-                    <p class="metrica-secundaria-after">93%</p>
-                </div>
-                <div class="metrica-secundaria">
-                    <p class="metrica-secundaria-label">Reincidencia</p>
-                    <p class="metrica-secundaria-before">18%</p>
-                    <p class="metrica-secundaria-after">3%</p>
-                </div>
-                <div class="metrica-secundaria">
-                    <p class="metrica-secundaria-label">Locales críticos</p>
-                    <p class="metrica-secundaria-before">7</p>
-                    <p class="metrica-secundaria-after">0</p>
-                </div>
-                <div class="metrica-secundaria">
-                    <p class="metrica-secundaria-label">Tiempo</p>
-                    <p class="metrica-secundaria-before">&nbsp;</p>
-                    <p class="metrica-secundaria-after">6 meses</p>
-                </div>
-            </div>
+  <!-- fila 3 · cocción y auto -->
+  <rect x="24" y="240" width="92" height="96" rx="8" fill="#ff4d4d" fill-opacity=".06" stroke="#ff4d4d" stroke-opacity=".6" stroke-width="2"/>
+  <text x="34" y="260" fill="#ff4d4d" font-family="Inter,sans-serif" font-size="12" font-weight="900" letter-spacing=".05em">BROILER</text>
+  <g fill="#141414" stroke="#ff4d4d" stroke-opacity=".55" stroke-width="1.8">
+    <rect x="34" y="268" width="72" height="58" rx="4"/>
+  </g>
 
-            <div class="caso-nota">
-                <p>📋 Datos reales de operaciones gestionadas por Northcare. Anonimizados por confidencialidad del cliente.</p>
-            </div>
-        </div>
-    </section>
+  <rect x="126" y="240" width="92" height="96" rx="8" fill="#ff8a3d" fill-opacity=".06" stroke="#ff8a3d" stroke-opacity=".6" stroke-width="2"/>
+  <text x="136" y="260" fill="#ff8a3d" font-family="Inter,sans-serif" font-size="12" font-weight="900" letter-spacing=".05em">FRITOS</text>
+  <g fill="#141414" stroke="#ff8a3d" stroke-opacity=".55" stroke-width="1.8">
+    <rect x="136" y="268" width="34" height="58" rx="4"/><rect x="174" y="268" width="34" height="58" rx="4"/>
+  </g>
 
-    <!-- AHORRO -->
-    <section class="ahorro-section">
-        <div class="ahorro-container">
-            <span class="section-label">Tu ahorro</span>
-            <h2 class="section-title">Si hacemos lo mismo <span class="highlight-green">contigo</span></h2>
+  <rect x="228" y="240" width="88" height="96" rx="8" fill="#ffcc00" fill-opacity=".06" stroke="#ffcc00" stroke-opacity=".55" stroke-width="2"/>
+  <text x="238" y="260" fill="#ffcc00" font-family="Inter,sans-serif" font-size="12" font-weight="900" letter-spacing=".05em">AUTO</text>
+  <g fill="#141414" stroke="#ffcc00" stroke-opacity=".5" stroke-width="1.8">
+    <rect x="238" y="268" width="68" height="26" rx="4"/><rect x="238" y="300" width="68" height="26" rx="4"/>
+  </g>
 
-            <div class="ahorro-box">
-                <p class="ahorro-intro">Reducimos las incidencias un <strong>65%</strong>. Menos problemas = menos pérdidas.</p>
+  <path d="M14 380 H326" stroke="#ffffff" stroke-opacity=".08" stroke-width="1.4"/>
+  <text x="16" y="410" fill="#c9c9c9" font-family="Inter,sans-serif" font-size="14" font-weight="800">Cada zona, sus máquinas y su oficio</text>
 
-                <div class="ahorro-calculo" id="ahorroCalculo" style="display: none;">
-                    <div class="ahorro-formula">
-                        <div class="ahorro-formula-item">
-                            <p class="ahorro-formula-label">Tus pérdidas actuales</p>
-                            <p class="ahorro-formula-value red" id="ahorroCosteActual">30.000€</p>
-                        </div>
-                        <span class="ahorro-formula-signo">×</span>
-                        <div class="ahorro-formula-item">
-                            <p class="ahorro-formula-label">Reducción</p>
-                            <p class="ahorro-formula-value green">65%</p>
-                        </div>
-                        <span class="ahorro-formula-signo">=</span>
-                    </div>
-                    <div class="ahorro-resultado">
-                        <p class="ahorro-resultado-label">Lo que te ahorrarías</p>
-                        <p class="ahorro-resultado-value" id="ahorroValor">+19.500 €</p>
-                        <p class="ahorro-resultado-detail">al año</p>
-                    </div>
-                </div>
+  <g font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#8b8b8b">
+    <circle cx="24" cy="436" r="5" fill="#ff4d4d"/><text x="40" y="441">Broiler y fritos · gas y cocción</text>
+    <circle cx="24" cy="464" r="5" fill="#c39bff"/><text x="40" y="469">Lavado · agua, desagüe y vapor</text>
+    <circle cx="24" cy="492" r="5" fill="#00d4ff"/><text x="40" y="497">Reparto y preparación · frío</text>
+    <circle cx="24" cy="520" r="5" fill="#00ff88"/><text x="40" y="525">Front line y auto · electricidad</text>
+  </g>
 
-                <div class="ahorro-placeholder" id="ahorroPlaceholder">
-                    <p>Introduce tus datos arriba para ver tu ahorro estimado</p>
-                    <a href="#calculadora">↑ Ir a la calculadora</a>
-                </div>
+  <text x="16" y="560" fill="#8b8b8b" font-family="Inter,sans-serif" font-size="13" font-weight="700">Si cae una, se nota en todas.</text>
+</svg>
+  </div>
+  <p class="plano-pie">Los puntos verdes marcan los equipos críticos: si uno cae, el servicio se resiente en minutos.</p>
+</section>
 
-                <div class="ahorro-cta">
-                    <a href="#formulario">Quiero ese ahorro</a>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- ═══════════ 2 · DATOS ═══════════ -->
+<section class="datos">
+  <div class="dgrid">
+    <div class="rv d"><svg class="i ic-d"><use href="#ic-tool"/></svg><div class="n">8.034</div><div class="l">intervenciones en 2025</div></div>
+    <div class="rv d"><svg class="i ic-d"><use href="#ic-doc"/></svg><div class="n">156</div><div class="l">tipos de equipo distintos</div></div>
+    <div class="rv d"><svg class="i ic-d"><use href="#ic-shop"/></svg><div class="n">~90</div><div class="l">cocinas atendidas a diario</div></div>
+    <div class="rv d"><svg class="i ic-d"><use href="#ic-clock"/></svg><div class="n">2023</div><div class="l">desde entonces, sin parar</div></div>
+  </div>
+</section>
 
-    <!-- CREDENCIALES -->
-    <section class="credenciales">
-        <div class="credenciales-container">
-            <p class="credenciales-intro">Acostumbrados a trabajar con <strong>ritmos altos</strong> y <strong>máxima exigencia</strong>.</p>
-            
-            <div class="credenciales-stats">
-                <div class="credencial-stat">
-                    <span class="credencial-numero">+80</span>
-                    <span class="credencial-label">Restaurantes</span>
-                </div>
-                <div class="credencial-stat">
-                    <span class="credencial-numero">93%</span>
-                    <span class="credencial-label">Tasa de resolución</span>
-                </div>
-                <div class="credencial-stat">
-                    <span class="credencial-numero">+10</span>
-                    <span class="credencial-label">Años de experiencia</span>
-                </div>
-            </div>
-
-            <div class="credenciales-clientes">
-                <p>Hemos trabajado para:</p>
-                <div class="clientes-logos">
-                    <span>Burger King</span>
-                    <span>Popeyes</span>
-                    <span>Telepizza</span>
-                    <span>Welbilt</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FORMULARIO -->
-    <section class="formulario-section" id="formulario">
-        <div class="formulario-container">
-            <div class="formulario-header">
-                <span class="section-label">Contacto</span>
-                <h2 class="section-title">Cuéntanos qué <span class="highlight">necesitas</span></h2>
-                <p>Te respondemos en menos de 24h.</p>
-            </div>
-
-            <div class="formulario-box">
-                <form class="formulario-grid" name="contacto-mantenimiento" method="POST" data-netlify="true">
-                    <input type="hidden" name="form-name" value="contacto-mantenimiento">
-                    <div class="formulario-row">
-                        <div class="input-group">
-                            <label>Nombre *</label>
-                            <input type="text" name="nombre" placeholder="Tu nombre" required>
-                        </div>
-                        <div class="input-group">
-                            <label>Empresa</label>
-                            <input type="text" name="empresa" placeholder="Nombre de tu empresa">
-                        </div>
-                    </div>
-                    <div class="formulario-row">
-                        <div class="input-group">
-                            <label>Email *</label>
-                            <input type="email" name="email" placeholder="tu@email.com" required>
-                        </div>
-                        <div class="input-group">
-                            <label>Teléfono *</label>
-                            <input type="tel" name="telefono" placeholder="600 000 000" required>
-                        </div>
-                    </div>
-                    <div class="input-group">
-                        <label>¿Qué necesitas?</label>
-                        <select name="necesidad">
-                            <option value="">Selecciona una opción</option>
-                            <option value="presupuesto">Quiero presupuesto de Tarifa Plana</option>
-                            <option value="diagnostico">Diagnosticar mi servicio actual</option>
-                            <option value="consultoria">Consultoría: mejorar mis preventivos</option>
-                            <option value="otro">Otra consulta</option>
-                        </select>
-                    </div>
-                    <div class="input-group">
-                        <label>Mensaje</label>
-                        <textarea name="mensaje" rows="4" placeholder="Cuéntanos más sobre tu situación..."></textarea>
-                    </div>
-                    <button type="submit" class="formulario-btn">Enviar mensaje</button>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <!-- CONTACTO ALT -->
-    <section class="contacto-alt">
-        <div class="contacto-alt-header">
-            <p>¿Prefieres contactarnos directamente?</p>
-        </div>
-        <div class="contacto-options">
-            <a href="tel:603081740" class="contacto-option">
-                <span class="contacto-option-icon">📞</span>
-                <span class="contacto-option-label">Teléfono</span>
-                <span class="contacto-option-value">603 08 17 40</span>
-            </a>
-            <a href="https://wa.me/34603081740" class="contacto-option">
-                <span class="contacto-option-icon">💬</span>
-                <span class="contacto-option-label">WhatsApp</span>
-                <span class="contacto-option-value">603 08 17 40</span>
-            </a>
-            <a href="mailto:info@northcare.es" class="contacto-option">
-                <span class="contacto-option-icon">✉️</span>
-                <span class="contacto-option-label">Email</span>
-                <span class="contacto-option-value">info@northcare.es</span>
-            </a>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <a href="index.html" class="logo"><img src="logo.png" alt="Northcare"></a>
-        <p class="tagline">Parar nunca, anticiparse siempre</p>
-        <p>Mantenimiento de cocinas industriales · Zona Norte</p>
-        <div class="legal">
-            <p>Northcare © 2025 · <a href="privacidad.html">Política de Privacidad</a> · <a href="cookies.html">Política de Cookies</a></p>
-        </div>
-    </footer>
-
-    <!-- Cookie Banner -->
-    <div class="cookie-banner" id="cookieBanner">
-        <div class="cookie-content">
-            <p>Utilizamos cookies propias y de terceros para analizar el uso de la web. <a href="cookies.html">Más información</a></p>
-            <div class="cookie-buttons">
-                <button class="cookie-btn reject" onclick="setCookieConsent(false)">Rechazar</button>
-                <button class="cookie-btn accept" onclick="setCookieConsent(true)">Aceptar</button>
-            </div>
-        </div>
+<!-- ═══════════ 3 · LOS OFICIOS ═══════════ -->
+<section class="oficios" id="oficios">
+  <div class="inner">
+    <div class="shead">
+      <span class="gh" aria-hidden="true">01</span>
+    <span class="snum"><b>01</b> La diversidad</span>
+      <h2 class="t">No es una especialidad.<br><span class="hl">Son siete a la vez.</span></h2>
+      <p class="intro">Esto es el reparto real de nuestras intervenciones de 2025 por oficio. Ninguna empresa que se dedique sólo a una de estas líneas puede enseñar esta tabla.</p>
     </div>
 
-    <script>
-        let costeAnualCalculado = 0;
+    <div class="oficios-layout">
+        <div class="barras">
+          <div class="bar hi rv"><div class="nm">Frío y refri.</div><div class="tr"><div class="fl" style="width:100%"></div></div><div class="vl">1.705</div></div>
+          <div class="bar rv"><div class="nm">Cocción y calor</div><div class="tr"><div class="fl" style="width:69%"></div></div><div class="vl">1.168</div></div>
+          <div class="bar rv"><div class="nm">Fontanería/Agua</div><div class="tr"><div class="fl" style="width:52%"></div></div><div class="vl">888</div></div>
+          <div class="bar rv"><div class="nm">Obra/Mobiliario</div><div class="tr"><div class="fl" style="width:45%"></div></div><div class="vl">770</div></div>
+          <div class="bar rv"><div class="nm">Electricidad</div><div class="tr"><div class="fl" style="width:32%"></div></div><div class="vl">540</div></div>
+          <div class="bar hi rv"><div class="nm">Clima/Extracción</div><div class="tr"><div class="fl" style="width:17%"></div></div><div class="vl">288</div></div>
+          <div class="bar rv"><div class="nm">PCI y seguridad</div><div class="tr"><div class="fl" style="width:7%"></div></div><div class="vl">117</div></div>
 
-        function calcular() {
-            const urgencias = parseFloat(document.getElementById('urgenciasAno').value) || 0;
-            const costeParada = parseFloat(document.getElementById('costeParada').value) || 0;
+          <p class="barnota rv">Un mismo técnico entra por la mañana a una cámara, al mediodía a un cuadro eléctrico y por la tarde a un desagüe. <b>Esa es la verdadera dificultad del oficio, y lo que lo convierte en la mejor escuela.</b></p>
+        </div>
 
-            if (urgencias === 0 || costeParada === 0) {
-                alert('Por favor, rellena todos los campos');
-                return;
-            }
+        <div class="oficios-visual rv">
+            <svg viewBox="0 0 400 500" class="ilus" role="img" aria-label="Corte de una cocina industrial con las siete especialidades señaladas">
+  <defs>
+    <linearGradient id="cc-g" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#00d4ff" stop-opacity=".10"/>
+      <stop offset="100%" stop-color="#00d4ff" stop-opacity="0"/>
+    </linearGradient>
+    <pattern id="cc-rej" width="20" height="20" patternUnits="userSpaceOnUse">
+      <path d="M20 0H0v20" fill="none" stroke="#ffffff" stroke-opacity="0.32" stroke-width="1"/>
+    </pattern>
+  </defs>
 
-            costeAnualCalculado = urgencias * costeParada;
-            document.getElementById('costeAnual').textContent = '-' + costeAnualCalculado.toLocaleString('es-ES') + ' €';
-            document.getElementById('resultado').classList.add('active');
+  <rect width="400" height="500" fill="url(#cc-rej)"/>
 
-            const ahorro = costeAnualCalculado * 0.65;
-            document.getElementById('ahorroCosteActual').textContent = costeAnualCalculado.toLocaleString('es-ES') + '€';
-            document.getElementById('ahorroValor').textContent = '+' + ahorro.toLocaleString('es-ES') + ' €';
-            
-            document.getElementById('ahorroCalculo').style.display = 'block';
-            document.getElementById('ahorroPlaceholder').style.display = 'none';
-            document.getElementById('resultado').scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
+  <!-- envolvente del local -->
+  <path d="M30 60 H370 V450 H30 Z" fill="url(#cc-g)" stroke="#00d4ff" stroke-opacity="1.0" stroke-width="2.6"/>
+  <path d="M30 60 H370" stroke="#00d4ff" stroke-opacity="1.0" stroke-width="2.5"/>
 
-        function toggleMenu() {
-            const menu = document.getElementById('mobileMenu');
-            const hamburger = document.querySelector('.hamburger');
-            if (menu && hamburger) {
-                menu.classList.toggle('active');
-                hamburger.classList.toggle('active');
-                document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : '';
-            }
-        }
+  <!-- EXTRACCIÓN (campana) -->
+  <path d="M90 78 h150 l-18 40 H108 Z" fill="#111" stroke="#00d4ff" stroke-opacity="1.0" stroke-width="2.4"/>
+  <path d="M160 78 v-18 h34 v18" fill="none" stroke="#00d4ff" stroke-opacity="1.0" stroke-width="2.4"/>
+  <g stroke="#00d4ff" stroke-opacity="1.0" stroke-width="2.6" class="sube">
+    <path d="M150 108 v-16M175 112 v-16M200 108 v-16"/>
+  </g>
 
-        function setCookieConsent(accepted) {
-            const expires = new Date();
-            expires.setFullYear(expires.getFullYear() + 1);
-            document.cookie = 'cookie_consent=' + (accepted ? 'accepted' : 'rejected') + ';expires=' + expires.toUTCString() + ';path=/;SameSite=Lax';
-            document.getElementById('cookieBanner').classList.remove('active');
-            if (accepted) loadAnalytics();
-        }
+  <!-- COCCIÓN (bloque de equipos) -->
+  <rect x="100" y="140" width="70" height="52" rx="4" fill="#141414" stroke="#ff8a3d" stroke-opacity="1.0" stroke-width="2.4"/>
+  <path d="M108 152h54M108 162h54M108 172h54" stroke="#ff8a3d" stroke-opacity="0.96" stroke-width="1"/>
+  <rect x="182" y="140" width="58" height="52" rx="4" fill="#141414" stroke="#ff8a3d" stroke-opacity="1.0" stroke-width="2.4"/>
+  <circle cx="196" cy="154" r="3" fill="#ff8a3d" fill-opacity="1.0"/>
+  <circle cx="226" cy="154" r="3" fill="#ff8a3d" fill-opacity="1.0"/>
+  <path d="M190 170h44v14h-44z" fill="none" stroke="#ff8a3d" stroke-opacity="1.0" stroke-width="1"/>
 
-        function getCookieConsent() {
-            const match = document.cookie.match(/cookie_consent=([^;]+)/);
-            return match ? match[1] : null;
-        }
+  <!-- ELECTRICIDAD (cuadro) -->
+  <rect x="300" y="130" width="52" height="66" rx="4" fill="#141414" stroke="#ffcc00" stroke-opacity="1.0" stroke-width="2.4"/>
+  <g stroke="#ffcc00" stroke-opacity="1.0" stroke-width="2.6">
+    <path d="M308 144h36M308 156h36M308 168h36M308 180h36"/>
+  </g>
+  <path d="M300 163 h-46" stroke="#ffcc00" stroke-opacity="1.0" stroke-width="2.6" stroke-dasharray="4 4" class="flujo"/>
 
-        function loadAnalytics() {
-            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-            })(window,document,'script','dataLayer','GTM-MWTDJLNC');
-        }
+  <!-- FRÍO (cámara) -->
+  <rect x="52" y="240" width="120" height="150" rx="6" fill="#0e1417" stroke="#00d4ff" stroke-opacity="1.0" stroke-width="2.6"/>
+  <path d="M112 240 v150" stroke="#00d4ff" stroke-opacity="0.96" stroke-width="2.6"/>
+  <circle cx="106" cy="318" r="3" fill="#00d4ff"/>
+  <text x="112" y="228" text-anchor="middle" fill="#00d4ff" font-family="Inter,sans-serif" font-size="18" font-weight="800">−18 °C</text>
+  <rect x="66" y="252" width="44" height="18" rx="3" fill="none" stroke="#00d4ff" stroke-opacity="1.0" stroke-width="2.6"/>
+  <path d="M70 258h36M70 264h36" stroke="#00d4ff" stroke-opacity="0.96" stroke-width="1"/>
 
-        document.addEventListener('DOMContentLoaded', function() {
-            const consent = getCookieConsent();
-            if (!consent) {
-                document.getElementById('cookieBanner').classList.add('active');
-            } else if (consent === 'accepted') {
-                loadAnalytics();
-            }
+  <!-- CLIMA (split + conducto) -->
+  <rect x="272" y="240" width="80" height="26" rx="4" fill="#141414" stroke="#7bd8ff" stroke-opacity="1.0" stroke-width="2.4"/>
+  <path d="M280 252h64" stroke="#7bd8ff" stroke-opacity="1.0" stroke-width="1"/>
+  <g stroke="#7bd8ff" stroke-opacity="1.0" stroke-width="2.6" class="baja">
+    <path d="M292 270 v18M312 274 v18M332 270 v18"/>
+  </g>
 
-            document.querySelectorAll('.mobile-menu-link').forEach(link => {
-                link.addEventListener('click', () => {
-                    const menu = document.getElementById('mobileMenu');
-                    const hamburger = document.querySelector('.hamburger');
-                    if (menu) menu.classList.remove('active');
-                    if (hamburger) hamburger.classList.remove('active');
-                    document.body.style.overflow = '';
-                });
-            });
+  <!-- ELECTROMECÁNICA (motor / compresor) -->
+  <circle cx="312" cy="336" r="26" fill="#141414" stroke="#c39bff" stroke-opacity="1.0" stroke-width="2.4"/>
+  <circle cx="312" cy="336" r="9" fill="none" stroke="#c39bff" stroke-opacity="1.0" stroke-width="2.6"/>
+  <g class="gira" style="transform-origin:312px 336px">
+    <path d="M312 314 v10M312 348 v10M290 336 h10M324 336 h10" stroke="#c39bff" stroke-opacity="1.0" stroke-width="2.6"/>
+  </g>
+  <path d="M172 320 h114" stroke="#00d4ff" stroke-opacity="1.0" stroke-width="2.6" stroke-dasharray="6 8" class="flujo"/>
 
-            const mobileMenu = document.getElementById('mobileMenu');
-            if (mobileMenu) {
-                mobileMenu.addEventListener('click', function(e) {
-                    if (e.target === this) toggleMenu();
-                });
-            }
+  <!-- FONTANERÍA (fregadero + bajante) -->
+  <rect x="196" y="392" width="76" height="30" rx="4" fill="#141414" stroke="#4fd1c5" stroke-opacity="1.0" stroke-width="2.4"/>
+  <path d="M212 392 v-16a10 10 0 0 1 20 0" fill="none" stroke="#4fd1c5" stroke-opacity="1.0" stroke-width="2.4"/>
+  <path d="M234 422 v22 h56" fill="none" stroke="#4fd1c5" stroke-opacity="1.0" stroke-width="2.4" stroke-dasharray="5 6" class="flujo"/>
+
+  <!-- PCI (boquilla) -->
+  <path d="M258 122 v14" stroke="#ff4d4d" stroke-opacity="1.0" stroke-width="2.6"/>
+  <circle cx="258" cy="140" r="5" fill="none" stroke="#ff4d4d" stroke-opacity="1.0" stroke-width="2.4" class="late"/>
+
+  <!-- suelo -->
+  <path d="M30 450 H370" stroke="#00d4ff" stroke-opacity="1.0" stroke-width="2.5"/>
+
+  <!-- leyenda -->
+  <g font-family="Inter,sans-serif" font-size="15" font-weight="800" letter-spacing=".04em">
+    <circle cx="36" cy="470" r="5" fill="#00d4ff"/><text x="48" y="475" fill="#c9c9c9">Frío</text>
+    <circle cx="112" cy="470" r="5" fill="#ff8a3d"/><text x="124" y="475" fill="#c9c9c9">Cocción</text>
+    <circle cx="228" cy="470" r="5" fill="#ffcc00"/><text x="240" y="475" fill="#c9c9c9">Electricidad</text>
+    <circle cx="36" cy="494" r="5" fill="#4fd1c5"/><text x="48" y="499" fill="#c9c9c9">Fontanería</text>
+    <circle cx="160" cy="494" r="5" fill="#7bd8ff"/><text x="172" y="499" fill="#c9c9c9">Clima</text>
+    <circle cx="232" cy="494" r="5" fill="#c39bff"/><text x="244" y="499" fill="#c9c9c9">Mecánica</text>
+    <circle cx="348" cy="494" r="5" fill="#ff4d4d"/><text x="360" y="499" fill="#c9c9c9">PCI</text>
+  </g>
+</svg>
+        </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 4 · LAS MÁQUINAS ═══════════ -->
+<section class="maquinas">
+  <div class="shead">
+    <span class="gh" aria-hidden="true">02</span>
+    <span class="snum"><b>02</b> La complejidad</span>
+    <h2 class="t">Una docena de fabricantes <span class="hl">en veinte metros cuadrados</span></h2>
+    <p class="intro">Cada marca tiene su lógica, sus averías típicas y su manual, casi siempre en inglés. Nadie enseña a moverse entre todas ellas: se aprende avería a avería.</p>
+  </div>
+
+  <div class="fam-grid">
+    <div class="fam rv">
+      <div class="fam-h"><div class="ic"><svg class="i"><use href="#ic-fire"/></svg></div><h3>Cocción</h3><span class="cnt">16 documentados</span></div>
+      <div class="eq">
+        <span>Broiler <b>Duke</b></span><span>Broiler <b>Nieco</b></span>
+        <span>Freidora <b>Frymaster</b></span><span>Freidora <b>Pitco</b></span>
+        <span>Retenedores <b>Duke</b></span><span>Tostador <b>Antunes</b></span>
+        <span>Patatero <b>Franke</b></span><span>Sandwichera <b>HK</b></span>
+        <span class="mas">y 8 más</span>
+      </div>
+    </div>
+    <div class="fam rv">
+      <div class="fam-h"><div class="ic"><svg class="i"><use href="#ic-cone"/></svg></div><h3>Helado y hielo</h3><span class="cnt">4 equipos</span></div>
+      <div class="eq">
+        <span>Helados <b>Carpigiani</b></span><span>Helados <b>Taylor</b></span>
+        <span>Hielo <b>Manitowoc</b></span><span>Hielo <b>Scotsman</b></span>
+      </div>
+    </div>
+    <div class="fam rv">
+      <div class="fam-h"><div class="ic"><svg class="i"><use href="#ic-box"/></svg></div><h3>Refrigeración</h3><span class="cnt">4 familias</span></div>
+      <div class="eq">
+        <span>Cámara CO₂ <b>Frimatec</b></span><span>Arcones congeladores</span>
+        <span>Neveras y armarios</span><span>Mobiliario refrigerado</span>
+      </div>
+    </div>
+    <div class="fam rv">
+      <div class="fam-h"><div class="ic"><svg class="i"><use href="#ic-plate"/></svg></div><h3>Lavado y auxiliares</h3><span class="cnt">6 equipos</span></div>
+      <div class="eq">
+        <span>Microondas <b>ACP</b></span><span>Mesa caliente</span>
+        <span>Lavavajillas <b>Hobart</b></span><span>Lavavajillas <b>Winterhalter</b></span>
+        <span>Lavavajillas <b>DIHR</b></span><span>Extracción y PCI</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="destacado rv">
+    <svg class="i"><use href="#ic-snow"/></svg>
+    <p><b>Incluida la refrigeración con CO₂.</b> Es el refrigerante hacia el que va todo el sector por normativa, y hoy hay muy pocos técnicos que sepan trabajar con él. Nosotros ya mantenemos instalaciones de CO₂ a diario.</p>
+  </div>
+</section>
+
+<!-- ═══════════ 5 · GESTIÓN INTEGRAL ═══════════ -->
+<section class="gestion">
+  <div class="inner gestion-layout">
+      <div class="gestion-content">
+          <div class="shead left rv">
+            <span class="gh" aria-hidden="true">03</span>
+    <span class="snum"><b>03</b> La gestión integral</span>
+            <h2 class="t">Arreglar la máquina es <span class="hl">la parte fácil</span></h2>
+            <p class="intro">Lo difícil es sostener un servicio para decenas de locales a la vez: priorizar, planificar rutas, tener la pieza, cumplir la normativa y dejarlo escrito.</p>
+          </div>
+
+          <div class="tl">
+            <div class="rv step">
+              <div class="dot">01</div>
+              <h3>Entra el aviso</h3>
+              <p>El local llama o abre parte. Lo primero no es salir corriendo: es entender si el equipo está parado, si hay género en riesgo y si el restaurante puede seguir dando servicio.</p>
+            </div>
+            <div class="rv step">
+              <div class="dot">02</div>
+              <h3>Se prioriza</h3>
+              <p>Una cámara caída a las once de la mañana no es lo mismo que una luminaria fundida. Cada aviso entra en una cola con criterio, no por orden de llegada.</p>
+            </div>
+            <div class="rv step">
+              <div class="dot">03</div>
+              <h3>Se planifica la ruta</h3>
+              <p>El criterio dominante es no desplazarse en balde: se agrupa por zona y se cierra en cada local todo lo que se pueda de una sola vez. Un viaje mal planificado se paga muy caro.</p>
+            </div>
+            <div class="rv step">
+              <div class="dot">04</div>
+              <h3>Se interviene</h3>
+              <p>Con el histórico del equipo delante. Saber qué le pasó a esa misma máquina hace ocho meses cambia por completo el tiempo de diagnóstico.</p>
+            </div>
+            <div class="rv step key">
+              <div class="dot">05</div>
+              <h3>Se cierra por escrito</h3>
+              <p>Qué falló, qué se hizo, qué pieza entró y qué quedó pendiente. Este paso es el que casi todo el sector se salta, y es exactamente el que convierte una reparación en conocimiento.</p>
+            </div>
+          </div>
+      </div>
+
+      <div class="gestion-visual rv">
+          <svg viewBox="0 0 360 480" class="ilus" role="img" aria-label="Planificación diaria del mantenimiento en una tablet">
+  <defs>
+    <pattern id="pl-rej" width="18" height="18" patternUnits="userSpaceOnUse">
+      <path d="M18 0H0v18" fill="none" stroke="#ffffff" stroke-opacity="0.31" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="360" height="480" fill="url(#pl-rej)"/>
+
+  <!-- tablet -->
+  <rect x="40" y="40" width="280" height="380" rx="18" fill="#0d0d0d" stroke="#00d4ff" stroke-opacity="1.0" stroke-width="2.8"/>
+  <rect x="56" y="62" width="248" height="336" rx="8" fill="#111"/>
+
+  <!-- cabecera -->
+  <rect x="68" y="76" width="98" height="12" rx="3" fill="#00d4ff" fill-opacity="1.0"/>
+  <rect x="240" y="74" width="52" height="16" rx="8" fill="none" stroke="#00ff88" stroke-opacity="1.0" stroke-width="2.6"/>
+  <circle cx="252" cy="82" r="3" fill="#00ff88" class="late"/>
+
+  <!-- filas de ruta -->
+  <g>
+    <rect x="68" y="104" width="224" height="46" rx="7" fill="#161616" stroke="#00ff88" stroke-opacity="1.0" stroke-width="2.6"/>
+    <circle cx="86" cy="127" r="7" fill="none" stroke="#00ff88" stroke-opacity="1.0" stroke-width="2.5"/>
+    <path d="m83 127 3 3 5-6" stroke="#00ff88" stroke-width="2.6" fill="none"/>
+    <rect x="104" y="116" width="96" height="7" rx="3" fill="#c9c9c9" fill-opacity="1.0"/>
+    <rect x="104" y="130" width="60" height="6" rx="3" fill="#8b8b8b" fill-opacity="1.0"/>
+    <rect x="258" y="120" width="24" height="12" rx="6" fill="#00ff88" fill-opacity="0.63"/>
+  </g>
+  <g>
+    <rect x="68" y="160" width="224" height="46" rx="7" fill="#161616" stroke="#00d4ff" stroke-opacity="1.0" stroke-width="2.6"/>
+    <circle cx="86" cy="183" r="7" fill="none" stroke="#00d4ff" stroke-opacity="1.0" stroke-width="2.5" class="late"/>
+    <rect x="104" y="172" width="110" height="7" rx="3" fill="#ffffff" fill-opacity="1.0"/>
+    <rect x="104" y="186" width="72" height="6" rx="3" fill="#8b8b8b" fill-opacity="1.0"/>
+    <rect x="258" y="176" width="24" height="12" rx="6" fill="#00d4ff" fill-opacity="0.8"/>
+  </g>
+  <g opacity=".6">
+    <rect x="68" y="216" width="224" height="46" rx="7" fill="#161616" stroke="#ffffff" stroke-opacity="0.43" stroke-width="2.6"/>
+    <circle cx="86" cy="239" r="7" fill="none" stroke="#8b8b8b" stroke-opacity="1.0" stroke-width="2.4"/>
+    <rect x="104" y="228" width="88" height="7" rx="3" fill="#8b8b8b" fill-opacity="1.0"/>
+    <rect x="104" y="242" width="54" height="6" rx="3" fill="#8b8b8b" fill-opacity="0.8"/>
+  </g>
+  <g opacity=".45">
+    <rect x="68" y="272" width="224" height="46" rx="7" fill="#161616" stroke="#ffffff" stroke-opacity="0.4" stroke-width="2.6"/>
+    <circle cx="86" cy="295" r="7" fill="none" stroke="#8b8b8b" stroke-opacity="1.0" stroke-width="2.4"/>
+    <rect x="104" y="284" width="100" height="7" rx="3" fill="#8b8b8b" fill-opacity="0.9"/>
+    <rect x="104" y="298" width="46" height="6" rx="3" fill="#8b8b8b" fill-opacity="0.67"/>
+  </g>
+
+  <!-- ruta al pie -->
+  <path d="M76 356 C120 336, 150 384, 196 358 S268 336, 288 352" fill="none" stroke="#00d4ff" stroke-opacity="1.0" stroke-width="2.6" stroke-dasharray="5 7" class="flujo"/>
+  <circle cx="76" cy="356" r="4" fill="#00ff88"/>
+  <circle cx="196" cy="358" r="3.4" fill="#00d4ff"/>
+  <circle cx="288" cy="352" r="3.4" fill="#00d4ff" fill-opacity="1.0"/>
+  <text x="180" y="386" text-anchor="middle" fill="#8b8b8b" font-family="Inter,sans-serif" font-size="15" font-weight="700" letter-spacing=".1em">RUTA DEL DÍA</text>
+</svg>
+      </div>
+  </div>
+</section>
+
+<!-- ═══════════ 6 · LOS APRENDIZAJES ═══════════ -->
+<section class="aprend" id="aprendizajes">
+  <div class="shead">
+    <span class="gh" aria-hidden="true">04</span>
+    <span class="snum"><b>04</b> Lo que hemos aprendido</span>
+    <h2 class="t">Miles de incidencias <span class="hl">enseñan tres cosas</span></h2>
+    <p class="intro">Cuando llevas años entrando en las mismas cocinas, dejas de ver averías sueltas y empiezas a ver el patrón. Tres cosas nos quedaron claras, <b style="color:var(--white)">y de cada una salió algo que hoy está en marcha</b>.</p>
+  </div>
+
+  <div class="apgrid">
+    <div class="ap rv">
+      <div class="ap-content">
+          <span class="letra">A</span>
+
+          <div class="bloque">
+            <div class="ilu"><svg viewBox="0 0 340 200" role="img" aria-label="Tres visitas para cerrar una avería">
+  <g font-family="Inter,sans-serif" font-weight="800" text-anchor="middle">
+    <circle cx="52" cy="60" r="26" fill="#0d0d0d" stroke="#ff4d4d" stroke-opacity=".65" stroke-width="2.6"/><text x="52" y="67" fill="#ff4d4d" font-size="17">1ª</text>
+    <circle cx="140" cy="60" r="26" fill="#0d0d0d" stroke="#ff4d4d" stroke-opacity=".65" stroke-width="2.6"/><text x="140" y="67" fill="#ff4d4d" font-size="17">2ª</text>
+    <circle cx="228" cy="60" r="26" fill="#0d0d0d" stroke="#ff8a3d" stroke-opacity=".7" stroke-width="2.6"/><text x="228" y="67" fill="#ff8a3d" font-size="17">3ª</text>
+  </g>
+  <g stroke="#ff4d4d" stroke-opacity=".5" stroke-width="2.4" fill="none" stroke-dasharray="4 6" class="flu">
+    <path d="M80 60 H110"/><path d="M168 60 H198"/>
+  </g>
+  <path d="M256 60 h20" stroke="#ff8a3d" stroke-opacity=".6" stroke-width="2.4" stroke-dasharray="4 6" class="flu" fill="none"/>
+  <circle cx="302" cy="60" r="17" fill="#0a0a0a" stroke="#ff8a3d" stroke-opacity=".75" stroke-width="2.4"/>
+  <path d="m295 60 5 5 11-12" fill="none" stroke="#ff8a3d" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <g font-family="Inter,sans-serif" font-size="12" font-weight="600" fill="#8b8b8b" text-anchor="middle">
+    <text x="52" y="104">mira</text><text x="140" y="104">prueba</text><text x="228" y="104">acierta</text>
+  </g>
+  <path d="M14 132 H326" stroke="#ffffff" stroke-opacity=".08" stroke-width="1.4"/>
+  <text x="14" y="162" fill="#c9c9c9" font-family="Inter,sans-serif" font-size="14" font-weight="800">Tres viajes y ocho días</text>
+  <text x="14" y="184" fill="#8b8b8b" font-family="Inter,sans-serif" font-size="13" font-weight="600">con el equipo a medias</text>
+</svg></div>
+            <span class="lo">Lo que vimos</span>
+            <h3>El límite no es la máquina. Son las personas</h3>
+            <p>Las horas no se pierden en reparar: se van en diagnosticar a ciegas y en segundas visitas. Un técnico bien formado resuelve en una visita lo que otro en tres.</p>
+          </div>
+
+          <div class="bloque b2">
+            <div class="ilu"><svg viewBox="0 0 340 210" role="img" aria-label="Con la guía y la IA se cierra en una visita">
+  <rect x="14" y="20" width="120" height="86" rx="10" fill="#111" stroke="#00d4ff" stroke-opacity=".6" stroke-width="2.2"/>
+  <g fill="#0d0d0d" stroke="#00d4ff" stroke-opacity=".5" stroke-width="1.6">
+    <rect x="28" y="34" width="92" height="18" rx="4"/><rect x="28" y="58" width="92" height="18" rx="4"/><rect x="28" y="82" width="58" height="14" rx="4"/>
+  </g>
+  <text x="74" y="126" text-anchor="middle" fill="#00d4ff" font-family="Inter,sans-serif" font-size="13" font-weight="800">Guía + IA</text>
+  <path d="M142 62 H174" stroke="#00ff88" stroke-opacity=".7" stroke-width="2.4" stroke-dasharray="5 7" class="flu" fill="none"/>
+  <circle cx="216" cy="62" r="27" fill="#0d0d0d" stroke="#00ff88" stroke-opacity=".85" stroke-width="2.8"/>
+  <text x="216" y="70" text-anchor="middle" fill="#00ff88" font-family="Inter,sans-serif" font-size="18" font-weight="900">1ª</text>
+  <path d="M248 62 h20" stroke="#00ff88" stroke-opacity=".7" stroke-width="2.4" stroke-dasharray="5 7" class="flu" fill="none"/>
+  <circle cx="302" cy="62" r="18" fill="#0e1512" stroke="#00ff88" stroke-opacity=".9" stroke-width="2.8"/>
+  <path d="m294 62 5 5 12-13" fill="none" stroke="#00ff88" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="216" y="126" text-anchor="middle" fill="#8b8b8b" font-family="Inter,sans-serif" font-size="12" font-weight="600">una visita</text>
+  <path d="M14 148 H326" stroke="#ffffff" stroke-opacity=".08" stroke-width="1.4"/>
+  <text x="14" y="178" fill="#00ff88" font-family="Inter,sans-serif" font-size="14" font-weight="800">Un viaje, y queda escrito</text>
+  <text x="14" y="200" fill="#8b8b8b" font-family="Inter,sans-serif" font-size="13" font-weight="600">para el que venga detrás</text>
+</svg></div>
+            <span class="lo-sol">Lo que pusimos en marcha</span>
+            <p>Escribimos el procedimiento de cada avería que resolvíamos y le pusimos <b>una IA especialista por máquina</b> encima. Hoy es <b>Cardinal</b>, y el técnico lo lleva en el móvil.</p>
+          </div>
+
+          <div class="salida"><a href="formacion.html" data-linea="formacion">Certificación Northcare</a></div>
+      </div>
+    </div>
+
+    <div class="ap rv">
+      <div class="ap-content">
+          <span class="letra">B</span>
+
+          <div class="bloque">
+            <div class="ilu"><svg viewBox="0 0 340 330" role="img" aria-label="Las causas de la avería vienen del montaje, no de la máquina">
+  <defs><marker id="or-f" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0 L7 3.5 L0 7 Z" fill="#ff8a3d"/></marker></defs>
+  <rect x="118" y="128" width="104" height="82" rx="10" fill="#0d0d0d" stroke="#ff4d4d" stroke-opacity=".8" stroke-width="3"/>
+  <circle cx="170" cy="162" r="14" fill="none" stroke="#ff4d4d" stroke-opacity=".8" stroke-width="2.4"/>
+  <path d="M170 156 v8M170 170 v.5" stroke="#ff4d4d" stroke-width="2.6" stroke-linecap="round"/>
+  <text x="170" y="198" text-anchor="middle" fill="#ff4d4d" font-family="Inter,sans-serif" font-size="13" font-weight="800">Avería</text>
+  <g font-family="Inter,sans-serif" font-size="12" font-weight="800" text-anchor="middle">
+    <rect x="18" y="38" width="126" height="30" rx="8" fill="#141414" stroke="#ff8a3d" stroke-opacity=".6" stroke-width="2"/><text x="81" y="58" fill="#ff8a3d">Sobredimensionado</text>
+    <rect x="196" y="38" width="126" height="30" rx="8" fill="#141414" stroke="#ff8a3d" stroke-opacity=".6" stroke-width="2"/><text x="259" y="58" fill="#ff8a3d">Trazado forzado</text>
+    <rect x="18" y="242" width="126" height="30" rx="8" fill="#141414" stroke="#ff8a3d" stroke-opacity=".6" stroke-width="2"/><text x="81" y="262" fill="#ff8a3d">Sin acceso al filtro</text>
+    <rect x="196" y="242" width="126" height="30" rx="8" fill="#141414" stroke="#ff8a3d" stroke-opacity=".6" stroke-width="2"/><text x="259" y="262" fill="#ff8a3d">Sin válvula de corte</text>
+  </g>
+  <g fill="none" stroke="#ff8a3d" stroke-opacity=".6" stroke-width="2.4" stroke-dasharray="5 7" class="flu" marker-end="url(#or-f)">
+    <path d="M81 72 C90 94 108 110 126 126"/><path d="M259 72 C250 94 232 110 214 126"/>
+    <path d="M81 240 C90 230 108 222 126 212"/><path d="M259 240 C250 230 232 222 214 212"/>
+  </g>
+  <text x="14" y="306" fill="#c9c9c9" font-family="Inter,sans-serif" font-size="14" font-weight="800">Las cuatro se decidieron</text>
+  <text x="14" y="326" fill="#8b8b8b" font-family="Inter,sans-serif" font-size="13" font-weight="600">el día del montaje</text>
+</svg></div>
+            <span class="lo">Lo que vimos</span>
+            <h3>Casi ninguna avería empieza en la máquina</h3>
+            <p>Empieza el día que se montó. Un equipo sobredimensionado o un trazado forzado se pagan al tercer año. Reparar lo ajeno nos enseñó dónde se falla.</p>
+          </div>
+
+          <div class="bloque b2">
+            <div class="ilu"><svg viewBox="0 0 340 240" role="img" aria-label="Instalamos con las reglas que sacamos de reparar">
+  <rect x="14" y="14" width="312" height="62" rx="10" fill="#0e1512" stroke="#00ff88" stroke-opacity=".6" stroke-width="2.2"/>
+  <text x="170" y="40" text-anchor="middle" fill="#00ff88" font-family="Inter,sans-serif" font-size="15" font-weight="800">Instalamos nosotros</text>
+  <text x="170" y="62" text-anchor="middle" fill="#8b8b8b" font-family="Inter,sans-serif" font-size="12" font-weight="600">con las reglas que salen de reparar</text>
+  <g font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#c9c9c9">
+    <circle cx="24" cy="112" r="8" fill="none" stroke="#00ff88" stroke-width="2.2"/><path d="m20 112 3.5 4 7-8" fill="none" stroke="#00ff88" stroke-width="2.2" stroke-linecap="round"/>
+    <text x="42" y="117">Dimensionado con la carga real</text>
+    <circle cx="24" cy="150" r="8" fill="none" stroke="#00ff88" stroke-width="2.2"/><path d="m20 150 3.5 4 7-8" fill="none" stroke="#00ff88" stroke-width="2.2" stroke-linecap="round"/>
+    <text x="42" y="155">Accesible y con válvulas de corte</text>
+    <circle cx="24" cy="188" r="8" fill="none" stroke="#00ff88" stroke-width="2.2"/><path d="m20 188 3.5 4 7-8" fill="none" stroke="#00ff88" stroke-width="2.2" stroke-linecap="round"/>
+    <text x="42" y="193">Consumo medido antes y después</text>
+  </g>
+  <path d="M14 216 H326" stroke="#ffffff" stroke-opacity=".08" stroke-width="1.4"/>
+  <text x="14" y="238" fill="#00ff88" font-family="Inter,sans-serif" font-size="13" font-weight="800">La avería no llega a existir</text>
+</svg></div>
+            <span class="lo-sol">Lo que pusimos en marcha</span>
+            <p>Abrimos <b>línea propia de instalaciones</b> con tres reglas que nadie nos pedía: dimensionar con la carga real, dejar el equipo accesible <b>y medir el consumo antes y después</b>.</p>
+          </div>
+
+          <div class="salida"><a href="instalaciones.html" data-linea="instalaciones">Instalaciones y eficiencia</a></div>
+      </div>
+    </div>
+
+    <div class="ap rv">
+      <div class="ap-content">
+          <span class="letra">C</span>
+
+          <div class="bloque">
+            <div class="ilu"><svg viewBox="0 0 340 250" role="img" aria-label="Sin datos no se sabe qué está parado ni por qué">
+  <text x="14" y="24" fill="#8b8b8b" font-family="Inter,sans-serif" font-size="13" font-weight="700">¿Qué hay abierto ahora mismo?</text>
+  <g font-family="Inter,sans-serif" font-size="15" font-weight="800" text-anchor="middle">
+    <rect x="14" y="42" width="96" height="52" rx="10" fill="#141414" stroke="#8b8b8b" stroke-opacity=".4" stroke-width="2" stroke-dasharray="6 5"/><text x="62" y="74" fill="#8b8b8b">?</text>
+    <rect x="122" y="42" width="96" height="52" rx="10" fill="#141414" stroke="#8b8b8b" stroke-opacity=".4" stroke-width="2" stroke-dasharray="6 5"/><text x="170" y="74" fill="#8b8b8b">?</text>
+    <rect x="230" y="42" width="96" height="52" rx="10" fill="#141414" stroke="#8b8b8b" stroke-opacity=".4" stroke-width="2" stroke-dasharray="6 5"/><text x="278" y="74" fill="#8b8b8b">?</text>
+    <rect x="14" y="106" width="96" height="52" rx="10" fill="#141414" stroke="#8b8b8b" stroke-opacity=".4" stroke-width="2" stroke-dasharray="6 5"/><text x="62" y="138" fill="#8b8b8b">?</text>
+    <rect x="122" y="106" width="96" height="52" rx="10" fill="#141414" stroke="#8b8b8b" stroke-opacity=".4" stroke-width="2" stroke-dasharray="6 5"/><text x="170" y="138" fill="#8b8b8b">?</text>
+    <rect x="230" y="106" width="96" height="52" rx="10" fill="#141414" stroke="#8b8b8b" stroke-opacity=".4" stroke-width="2" stroke-dasharray="6 5"/><text x="278" y="138" fill="#8b8b8b">?</text>
+  </g>
+  <text x="14" y="182" fill="#8b8b8b" font-family="Inter,sans-serif" font-size="14" font-weight="700">Noventa locales y una llamada</text>
+  <text x="14" y="204" fill="#8b8b8b" font-family="Inter,sans-serif" font-size="14" font-weight="700">para saber cómo va cada uno.</text>
+  <path d="M14 224 H326" stroke="#ffffff" stroke-opacity=".08" stroke-width="1.4"/>
+  <text x="14" y="246" fill="#c9c9c9" font-family="Inter,sans-serif" font-size="15" font-weight="800">Lo que no se mide, no se planifica</text>
+</svg></div>
+            <span class="lo">Lo que vimos</span>
+            <h3>No basta con arreglar. Hay que saber qué está parado y por qué</h3>
+            <p>Con noventa locales abiertos, el problema deja de ser técnico. Sin datos no sabes cuántas órdenes tienes bloqueadas, ni por qué, ni a quién reclamar. Y planificas de memoria.</p>
+          </div>
+
+          <div class="bloque b2">
+            <div class="ilu"><svg viewBox="0 0 340 300" role="img" aria-label="Panel con el estado de cada local y el motivo de cada bloqueo">
+  <rect x="14" y="14" width="312" height="176" rx="12" fill="#0d0d0d" stroke="#00ff88" stroke-opacity=".45" stroke-width="2.2"/>
+  <text x="28" y="42" fill="#00ff88" font-family="Inter,sans-serif" font-size="13" font-weight="900" letter-spacing=".08em">ESTADO DE LA RED</text>
+
+  <g font-family="Inter,sans-serif" font-size="13" font-weight="700">
+    <circle cx="34" cy="70" r="6" fill="#00ff88"/><text x="50" y="75" fill="#c9c9c9">Resueltas</text><text x="312" y="75" text-anchor="end" fill="#00ff88" font-weight="900">53 %</text>
+    <circle cx="34" cy="104" r="6" fill="#ffcc00"/><text x="50" y="109" fill="#c9c9c9">Esperando material</text><text x="312" y="109" text-anchor="end" fill="#ffcc00" font-weight="900">30 %</text>
+    <circle cx="34" cy="138" r="6" fill="#ff8a3d"/><text x="50" y="143" fill="#c9c9c9">Garantía o tercero</text><text x="312" y="143" text-anchor="end" fill="#ff8a3d" font-weight="900">11 %</text>
+    <circle cx="34" cy="170" r="6" fill="#c39bff"/><text x="50" y="175" fill="#c9c9c9">Pendiente de aprobar</text><text x="312" y="175" text-anchor="end" fill="#c39bff" font-weight="900">6 %</text>
+  </g>
+
+  <path d="M14 216 H326" stroke="#ffffff" stroke-opacity=".08" stroke-width="1.4"/>
+  <text x="14" y="246" fill="#00ff88" font-family="Inter,sans-serif" font-size="15" font-weight="800">Cada orden, con su motivo</text>
+  <text x="14" y="270" fill="#8b8b8b" font-family="Inter,sans-serif" font-size="14" font-weight="600">Se planifica la ruta con datos, no</text>
+  <text x="14" y="292" fill="#8b8b8b" font-family="Inter,sans-serif" font-size="14" font-weight="600">de memoria.</text>
+</svg></div>
+            <span class="lo-sol">Lo que pusimos en marcha</span>
+            <p>Ordenamos los datos de cada intervención para saber <b>qué está parado, desde cuándo y esperando a quién</b>. Con eso se planifica la ruta y se reclama con pruebas, no con impresiones.</p>
+          </div>
+
+          <div class="salida"><span class="prox">Gestión avanzada · En desarrollo</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 7 · CIERRE ═══════════ -->
+<section class="cierre" id="contacto">
+  <div class="cclaim rv">
+    <p>El mantenimiento no es nuestro techo.<br><strong>Es nuestro laboratorio.</strong></p>
+  </div>
+
+  <div class="shead" style="margin-bottom:2rem">
+    <p class="intro">Si quieres hablar de instalaciones, de formación o preguntar cómo hacemos algo de lo que has leído aquí, escríbenos.</p>
+  </div>
+
+  <div class="canales rv">
+    <a href="tel:603081740" class="canal" data-canal="telefono"><span class="ci"><svg class="i"><use href="#ic-tel"/></svg></span><span><span class="cl">Teléfono</span><span class="cv">603 08 17 40</span></span></a>
+    <a href="https://wa.me/34603081740" class="canal" data-canal="whatsapp"><span class="ci"><svg class="i"><use href="#ic-chat"/></svg></span><span><span class="cl">WhatsApp</span><span class="cv">603 08 17 40</span></span></a>
+    <a href="mailto:info@northcare.es" class="canal" data-canal="email"><span class="ci"><svg class="i"><use href="#ic-mail"/></svg></span><span><span class="cl">Email</span><span class="cv">info@northcare.es</span></span></a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <a href="index.html" class="logo"><img src="logo.png" alt="Northcare"></a>
+    <p class="tagline">Conocimiento que cuida</p>
+    <p class="subtag">Mantenimiento integral de cocina industrial<br>Cantabria · País Vasco · Asturias · Navarra · La Rioja · Castilla y León</p>
+    <div class="legal">
+        <p>Northcare © 2026 · <a href="index.html">Inicio</a> · <a href="privacidad.html">Política de Privacidad</a> · <a href="cookies.html">Política de Cookies</a></p>
+    </div>
+</footer>
+
+<!-- Cookie Banner -->
+<div class="cookie-banner" id="cookieBanner">
+    <div class="cookie-content">
+        <p>Utilizamos cookies propias y de terceros para analizar el uso de la web. <a href="cookies.html">Más información</a></p>
+        <div class="cookie-buttons">
+            <button class="cookie-btn reject" onclick="setCookieConsent(false)">Rechazar</button>
+            <button class="cookie-btn accept" onclick="setCookieConsent(true)">Aceptar</button>
+        </div>
+    </div>
+</div>
+
+<script>
+  function toggleMenu() {
+      const menu = document.getElementById('mobileMenu');
+      const hamburger = document.querySelector('.hamburger');
+      if (menu && hamburger) {
+          menu.classList.toggle('active');
+          hamburger.classList.toggle('active');
+          document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : '';
+      }
+  }
+
+  window.addEventListener('scroll', function() {
+      const nav = document.querySelector('nav');
+      if (window.scrollY > 50) {
+          nav.style.background = 'rgba(0,0,0,0.9)';
+          nav.style.borderBottomColor = 'rgba(0, 212, 255, 0.15)';
+      } else {
+          nav.style.background = 'rgba(0,0,0,0.7)';
+          nav.style.borderBottomColor = 'rgba(255,255,255,0.05)';
+      }
+  });
+
+
+  // Foco que sigue al cursor (sólo con ratón)
+  if (window.matchMedia('(hover:hover)').matches) {
+    document.querySelectorAll('.ap, .fam, .pqc').forEach(function(c){
+      c.addEventListener('mousemove', function(ev){
+        var r = c.getBoundingClientRect();
+        c.style.setProperty('--mx', (ev.clientX - r.left) + 'px');
+        c.style.setProperty('--my', (ev.clientY - r.top) + 'px');
+      });
+    });
+  }
+
+  // Revelado y activación de pasos
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(e,i){ if(e.isIntersecting){ setTimeout(function(){e.target.classList.add('on')}, (i%5)*100); io.unobserve(e.target);} });
+    }, {threshold:.12, rootMargin:'0px 0px -40px 0px'});
+    document.querySelectorAll('.rv').forEach(function(el){ io.observe(el); });
+
+    var ioSteps = new IntersectionObserver(function(es){
+        es.forEach(function(e){
+            if(e.isIntersecting) { e.target.classList.add('active'); }
+            else { e.target.classList.remove('active'); }
         });
-    </script>
+    }, {rootMargin:'-30% 0px -30% 0px'});
+    document.querySelectorAll('.step').forEach(function(el){ ioSteps.observe(el); });
+  } else {
+    document.querySelectorAll('.rv').forEach(function(el){ el.classList.add('on'); });
+    document.querySelectorAll('.step').forEach(function(el){ el.classList.add('active'); });
+  }
+
+  // Barra de progreso y relleno de la línea de tiempo
+  var prog = document.getElementById('prog'), tl = document.querySelector('.tl');
+  function onScroll(){
+    var d = document.documentElement;
+    if (prog) prog.style.width = (d.scrollTop / (d.scrollHeight - d.clientHeight) * 100) + '%';
+    if (tl) {
+      var r = tl.getBoundingClientRect();
+      var f = Math.min(100, Math.max(0, ((window.innerHeight*0.6 - r.top) / r.height) * 100));
+      tl.style.setProperty('--fill', f + '%');
+    }
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+
+  // Contador numérico
+  document.querySelectorAll('.d .n').forEach(function(el){
+    var raw = el.textContent, num = parseFloat(raw.replace(/[^\d,.]/g,'').replace('.',''));
+    if (!num || !('IntersectionObserver' in window)) return;
+    var pre = raw.startsWith('~') ? '~' : '', done = false;
+    new IntersectionObserver(function(es,ob){
+      if (!es[0].isIntersecting || done) return;
+      done = true; ob.disconnect();
+      var t0 = null;
+      function tick(ts){
+        if (!t0) t0 = ts;
+        var p = Math.min(1,(ts-t0)/1200), v = Math.round(num*(1-Math.pow(1-p,3)));
+        el.textContent = pre + v.toLocaleString('es-ES');
+        if (p<1) requestAnimationFrame(tick); else el.textContent = raw;
+      }
+      requestAnimationFrame(tick);
+    }, {threshold:.5}).observe(el);
+  });
+
+  // Cookies & Analytics
+  function setCookieConsent(accepted) {
+      const expires = new Date();
+      expires.setFullYear(expires.getFullYear() + 1);
+      document.cookie = 'cookie_consent=' + (accepted ? 'accepted' : 'rejected') + ';expires=' + expires.toUTCString() + ';path=/;SameSite=Lax';
+      document.getElementById('cookieBanner').classList.remove('active');
+      if (accepted) loadAnalytics();
+  }
+  function getCookieConsent() {
+      const match = document.cookie.match(/cookie_consent=([^;]+)/);
+      return match ? match[1] : null;
+  }
+  function loadAnalytics() {
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-MWTDJLNC');
+  }
+
+  // ═══ Seguimiento (dataLayer para GTM) ═══
+  window.dataLayer = window.dataLayer || [];
+
+  document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('.mobile-menu-link').forEach(link => {
+          link.addEventListener('click', () => {
+              const menu = document.getElementById('mobileMenu');
+              const hamburger = document.querySelector('.hamburger');
+              if (menu) menu.classList.remove('active');
+              if (hamburger) hamburger.classList.remove('active');
+              document.body.style.overflow = '';
+          });
+      });
+      const mobileMenu = document.getElementById('mobileMenu');
+      if (mobileMenu) {
+          mobileMenu.addEventListener('click', function(e) {
+              if (e.target === this) toggleMenu();
+          });
+      }
+
+      const consent = getCookieConsent();
+      if (!consent) {
+          document.getElementById('cookieBanner').classList.add('active');
+      } else if (consent === 'accepted') {
+          loadAnalytics();
+      }
+
+      document.querySelectorAll('[data-canal]').forEach(function(a) {
+          a.addEventListener('click', function() {
+              window.dataLayer.push({ event: 'contacto_click', canal: a.getAttribute('data-canal'), pagina: 'mantenimiento' });
+          });
+      });
+
+      document.querySelectorAll('[data-linea]').forEach(function(a) {
+          a.addEventListener('click', function() {
+              window.dataLayer.push({ event: 'salida_linea', linea: a.getAttribute('data-linea'), pagina: 'mantenimiento' });
+          });
+      });
+
+      var hitos = [25, 50, 75, 100], vistos = [];
+      window.addEventListener('scroll', function() {
+          var d = document.documentElement;
+          var pc = Math.round(d.scrollTop / (d.scrollHeight - d.clientHeight) * 100);
+          hitos.forEach(function(x) {
+              if (pc >= x && vistos.indexOf(x) === -1) {
+                  vistos.push(x);
+                  window.dataLayer.push({ event: 'scroll_depth', porcentaje: x, pagina: 'mantenimiento' });
+              }
+          });
+      }, { passive: true });
+  });
+</script>
 </body>
 </html>
