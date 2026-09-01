@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Cardinal · Un estándar técnico para la red de mantenimiento</title>
+<meta name="description" content="Documento de trabajo. Propuesta de estándar técnico certificado para la red de mantenimiento.">
+<meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex">
+<meta name="referrer" content="no-referrer">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#000; --bg2:#0b0b0b; --card:#181818; --card2:#141414;
+  --white:#fff; --gray:#8b8b8b; --gray2:#c9c9c9;
+  --cyan:#00d4ff; --green:#00ff88; --red:#ff4d4d; --yellow:#ffcc00; --purple:#c39bff; --orange:#ff8a3d;
+  --f:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--white);font-family:var(--f);line-height:1.6}
+
+section{padding:4rem 1.5rem;position:relative}
+.in{max-width:760px;margin:0 auto}
+@media(min-width:900px){ section{padding:6rem 2rem} }
+
+.gh{position:absolute;top:1.5rem;right:1.5rem;font-size:4rem;font-weight:900;
+    color:rgba(255,255,255,.035);letter-spacing:-.05em;line-height:1;pointer-events:none}
+.eyebrow{display:block;font-size:.72rem;font-weight:900;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--cyan);margin-bottom:1rem}
+h2{font-size:clamp(1.7rem,5vw,2.3rem);font-weight:900;letter-spacing:-.03em;
+    line-height:1.15;margin-bottom:1rem}
+h2 .hl{color:var(--cyan)} h2 .hlv{color:var(--green)}
+.intro{font-size:1.08rem;color:var(--gray2);line-height:1.8;margin-bottom:2rem}
+.intro b{color:var(--white)}
+p{font-size:1.02rem;color:var(--gray);line-height:1.8}
+p b{color:var(--white)}
+.sep{height:1px;background:rgba(255,255,255,.07);margin:0 1.5rem}
+
+/* portada */
+.hero{min-height:92svh;display:flex;flex-direction:column;justify-content:center;
+    background:radial-gradient(120% 70% at 50% 0%,rgba(0,212,255,.09),transparent 60%)}
+.marca{display:flex;align-items:center;gap:.8rem;margin-bottom:2.5rem}
+.marca svg{width:44px;height:44px;flex-shrink:0}
+.marca b{display:block;font-size:1.4rem;font-weight:900;letter-spacing:.02em;line-height:1.1}
+.marca span{display:block;font-size:.7rem;font-weight:700;letter-spacing:.13em;
+    text-transform:uppercase;color:var(--gray);margin-top:.15rem}
+.hero h1{font-size:clamp(2rem,6.5vw,3rem);font-weight:900;letter-spacing:-.035em;
+    line-height:1.12;margin-bottom:1.4rem}
+.hero h1 em{font-style:normal;color:var(--cyan)}
+.hero .sub{font-size:1.12rem;color:var(--gray2);line-height:1.8;margin-bottom:2rem}
+.hero .sub b{color:var(--white)}
+.para{padding:1rem 1.2rem;border-radius:14px;background:rgba(0,212,255,.07);
+    border:1px solid rgba(0,212,255,.28);font-size:.95rem;color:var(--cyan);font-weight:700}
+
+
+.hero-gan{display:grid;gap:.7rem;margin:1.75rem 0 2rem}
+.hg{display:flex;gap:.85rem;align-items:flex-start;padding:1.05rem 1.15rem;border-radius:14px;
+    background:rgba(0,255,136,.055);border:1px solid rgba(0,255,136,.26)}
+.hg i{font-style:normal;font-size:1.15rem;font-weight:900;color:var(--green);line-height:1.3;flex-shrink:0}
+.hg b{display:block;font-size:1.02rem;font-weight:800;color:var(--white);line-height:1.4}
+.hg span{display:block;font-size:.93rem;color:var(--gray);line-height:1.6;margin-top:.2rem}
+@media(min-width:700px){ .hero-gan{grid-template-columns:1fr 1fr} }
+
+/* tarjetas */
+.vlist{display:flex;flex-direction:column;gap:1rem}
+.vc{padding:1.6rem;background:var(--card);border:1px solid rgba(255,255,255,.08);border-radius:18px}
+.vc .n{display:flex;align-items:center;gap:.7rem;margin-bottom:.85rem}
+.vc .n i{font-style:normal;display:inline-flex;align-items:center;justify-content:center;
+    min-width:34px;height:34px;padding:0 .45rem;border-radius:10px;
+    font-size:.95rem;font-weight:900;letter-spacing:-.01em;
+    background:rgba(0,212,255,.12);border:1px solid rgba(0,212,255,.34);color:var(--cyan)}
+.vc .n b{font-size:.92rem;font-weight:900;letter-spacing:.13em;text-transform:uppercase;color:var(--cyan)}
+.vc.g .n i{background:rgba(0,255,136,.12);border-color:rgba(0,255,136,.34);color:var(--green)}
+.vc.g .n b{color:var(--green)}
+.vc.r .n i{background:rgba(255,77,77,.12);border-color:rgba(255,77,77,.34);color:var(--red)}
+.vc.r .n b{color:var(--red)}
+.vc.p .n i{background:rgba(195,155,255,.12);border-color:rgba(195,155,255,.34);color:var(--purple)}
+.vc.p .n b{color:var(--purple)}
+.vc h3{font-size:1.3rem;font-weight:900;line-height:1.28;margin-bottom:.85rem;letter-spacing:-.01em}
+.vc p{font-size:.99rem}
+.vc p+p{margin-top:.65rem}
+.vc.g{border-top:3px solid var(--green)} .vc.g .n{color:var(--green)}
+.vc.c{border-top:3px solid var(--cyan)}
+.vc.p{border-top:3px solid var(--purple)} .vc.p .n{color:var(--purple)}
+.vc.r{border-top:3px solid var(--red)} .vc.r .n{color:var(--red)}
+
+/* cifras */
+.cifras{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin:1.75rem 0}
+.cf{padding:1.3rem 1rem;background:var(--card2);border:1px solid rgba(255,255,255,.09);border-radius:14px;text-align:center}
+.cf .n{display:block;font-size:1.9rem;font-weight:900;letter-spacing:-.03em;line-height:1;
+    background:linear-gradient(135deg,var(--cyan),var(--green));-webkit-background-clip:text;
+    background-clip:text;-webkit-text-fill-color:transparent}
+.cf .l{display:block;font-size:.88rem;color:var(--gray);line-height:1.45;margin-top:.5rem}
+@media(min-width:700px){ .cifras{grid-template-columns:repeat(4,1fr)} }
+
+/* pedimos / no pedimos */
+.pide{display:flex;gap:1rem;padding:1.4rem;border-radius:16px;align-items:flex-start;
+    background:rgba(0,255,136,.05);border:1px solid rgba(0,255,136,.25);border-left:3px solid var(--green)}
+.pide i{font-style:normal;display:inline-flex;align-items:center;justify-content:center;
+    min-width:38px;height:38px;border-radius:11px;font-size:1rem;font-weight:900;flex-shrink:0;
+    background:rgba(0,255,136,.12);border:1px solid rgba(0,255,136,.34);color:var(--green)}
+.pide h4{font-size:1.18rem;font-weight:900;margin-bottom:.5rem;line-height:1.32}
+.pide p{font-size:.97rem}
+.nopide{display:flex;gap:1rem;padding:1.3rem;border-radius:16px;align-items:flex-start;
+    background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.09);border-left:3px solid var(--gray)}
+.nopide i{font-style:normal;font-size:1.25rem;font-weight:900;color:var(--gray);line-height:1.1;flex-shrink:0}
+.nopide h4{font-size:1.12rem;font-weight:900;margin-bottom:.4rem;color:var(--white);line-height:1.32}
+.nopide p{font-size:.95rem}
+
+/* fases */
+.fase{display:flex;gap:1.1rem;padding:1.4rem;background:var(--card);
+    border:1px solid rgba(255,255,255,.08);border-radius:16px}
+.fase .num{width:40px;height:40px;border-radius:11px;flex-shrink:0;display:flex;
+    align-items:center;justify-content:center;font-size:1rem;font-weight:900;
+    background:rgba(0,212,255,.12);border:1px solid rgba(0,212,255,.34);color:var(--cyan)}
+.fase h4{font-size:1.14rem;font-weight:900;margin-bottom:.4rem;line-height:1.32}
+.fase .cuando{display:inline-block;margin-left:.5rem;padding:.2rem .65rem;border-radius:100px;
+    font-size:.78rem;font-weight:800;background:rgba(255,255,255,.07);color:var(--gray2);vertical-align:middle}
+.fase p{font-size:.96rem}
+
+/* aviso */
+.aviso{margin-top:1.5rem;padding:1.5rem;border-radius:16px;background:rgba(255,204,0,.05);
+    border:1px solid rgba(255,204,0,.28);border-left:3px solid var(--yellow)}
+.aviso b{display:block;font-size:1.05rem;margin-bottom:.55rem;color:var(--yellow)}
+.aviso p{font-size:.98rem;color:var(--gray2)}
+.aviso p+p{margin-top:.6rem}
+
+.cierre{padding:2rem 1.5rem;border-radius:20px;text-align:center;
+    background:linear-gradient(150deg,rgba(0,212,255,.1),rgba(0,255,136,.03));
+    border:1px solid rgba(0,212,255,.3);margin-top:2rem}
+.cierre p{font-size:1.25rem;font-weight:900;line-height:1.4;color:var(--white)}
+.cierre p em{font-style:normal;color:var(--cyan)}
+.cierre .d{font-size:1rem;font-weight:500;color:var(--gray2);margin-top:.8rem;line-height:1.7}
+
+
+@media(max-width:700px){
+  section{padding:3.25rem 1.15rem}
+  h2{font-size:clamp(1.55rem,6.5vw,2rem);line-height:1.18}
+  .intro{font-size:1.02rem;line-height:1.85}
+  p{font-size:1rem;line-height:1.85}
+  .vc{padding:1.35rem}
+  .vc h3{font-size:1.16rem;line-height:1.32}
+  .vc p{font-size:1rem;line-height:1.85}
+  .vc .n b{font-size:.88rem;letter-spacing:.12em}
+  .vc .n i{min-width:32px;height:32px;font-size:.9rem}
+  .vc h3{font-size:1.22rem}
+  .vc .ilu{margin-left:-.3rem;margin-right:-.3rem;padding:.75rem}
+  .gh{font-size:3rem;top:1.1rem;right:1.1rem}
+  .eyebrow{font-size:.7rem;letter-spacing:.15em}
+  .hero h1{font-size:clamp(1.95rem,8.5vw,2.6rem)}
+  .hero .sub{font-size:1.05rem;line-height:1.85}
+  .hg{padding:.95rem 1rem}
+  .hg b{font-size:1rem} .hg span{font-size:.94rem;line-height:1.65}
+  .cifras{gap:.65rem}
+  .cf{padding:1.1rem .75rem}
+  .cf .n{font-size:1.7rem} .cf .l{font-size:.86rem}
+  .pide,.nopide,.fase{padding:1.2rem}
+  .pide p,.nopide p,.fase p{font-size:.99rem;line-height:1.8}
+  .aviso{padding:1.25rem} .aviso p{font-size:1rem;line-height:1.8}
+  .cierre{padding:1.75rem 1.25rem}
+  .cierre p{font-size:1.14rem} .cierre .d{font-size:.99rem}
+  .vlist{gap:1.15rem}
+  .si{padding:1.25rem 1.15rem}
+  .si p{font-size:1.04rem;line-height:1.82}
+  .si i{font-size:.72rem;letter-spacing:.14em}
+  .acuerdo{padding:1.35rem 1.2rem}
+  .acuerdo h3{font-size:1.2rem;line-height:1.35}
+  .acuerdo li{font-size:1.02rem;line-height:1.8;padding:.7rem 0}
+  .acuerdo .fin{font-size:.99rem;line-height:1.8}
+  .sint{gap:.85rem}
+}
+
+
+/* síntesis y siguiente paso */
+.sint{display:flex;flex-direction:column;gap:1rem;margin:1.75rem 0 2rem}
+.si{padding:1.4rem 1.35rem;border-radius:16px;background:var(--card2);
+    border:1px solid rgba(255,255,255,.09);border-left:3px solid var(--cyan)}
+.si.v{border-left-color:var(--green)}
+.si i{display:block;font-style:normal;font-size:.74rem;font-weight:900;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--cyan);margin-bottom:.6rem}
+.si.v i{color:var(--green)}
+.si p{font-size:1.06rem;line-height:1.8;margin:0;color:var(--gray2)}
+.si b{color:var(--white)}
+.acuerdo{padding:1.6rem 1.4rem;border-radius:18px;margin-top:1.5rem;
+    background:linear-gradient(150deg,rgba(0,255,136,.09),transparent);
+    border:1px solid rgba(0,255,136,.32);border-left:4px solid var(--green)}
+.acuerdo .lb{display:block;font-size:.75rem;font-weight:900;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--green);margin-bottom:.75rem}
+.acuerdo h3{font-size:1.32rem;font-weight:900;line-height:1.35;margin-bottom:.9rem}
+.acuerdo ol{list-style:none;counter-reset:a;margin-top:1rem}
+.acuerdo li{counter-increment:a;display:flex;gap:.9rem;padding:.75rem 0;font-size:1.04rem;
+    color:var(--gray2);line-height:1.8}
+.acuerdo li::before{content:counter(a);flex-shrink:0;width:24px;height:24px;border-radius:8px;
+    display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:900;
+    background:rgba(0,255,136,.12);color:var(--green);margin-top:.15rem}
+.acuerdo .fin{margin-top:1.1rem;padding-top:1rem;border-top:1px solid rgba(255,255,255,.1);
+    font-size:.98rem;color:var(--gray);line-height:1.7}
+
+footer{padding:2.5rem 1.5rem;border-top:1px solid rgba(255,255,255,.08);
+    text-align:center;font-size:.92rem;color:var(--gray);line-height:1.8}
+
+.ilus{margin:1.75rem auto;padding:1.2rem;border-radius:18px;
+    background:linear-gradient(150deg,#0e0e0e,#151515);border:1px solid rgba(255,255,255,.08)}
+.ilus svg{width:100%;max-width:420px;height:auto;display:block;margin:0 auto}
+.vc .ilu{margin:.35rem -.4rem 1.25rem;padding:1rem;border-radius:14px;
+    background:linear-gradient(150deg,#0d0d0d,#151515);border:1px solid rgba(255,255,255,.06)}
+.vc .ilu svg{width:100%;max-width:360px;height:auto;display:block;margin:0 auto}
+
+        /* ═══════════ ESCRITORIO · una columna y anchos contenidos ═══════════ */
+        @media(min-width:900px){
+          /* bloques de lectura, a una sola columna */
+          .in{max-width:720px}
+
+          /* rejillas de 4: 2 + 2 · de 3: 3 en fila */
+          .cifras{grid-template-columns:1fr 1fr}
+          .hero-gan{grid-template-columns:1fr 1fr}
+
+          /* ilustraciones a tamaño natural */
+          .ilus svg{max-width:440px;margin:0 auto}
+          .vc .ilu svg{max-width:440px;margin:0 auto;display:block}
+        }
+
+    
+        /* ═══ Ilustraciones · una sola regla para todas ═══ */
+        .ilus{max-width:560px;margin:1.75rem auto;padding:1.15rem;border-radius:16px;
+            background:linear-gradient(150deg,#0e0e0e,#151515);border:1px solid rgba(255,255,255,.08)}
+        .vc .ilu{max-width:100%;margin:.5rem 0 1.35rem;padding:1.15rem;border-radius:16px;
+            background:linear-gradient(150deg,#0d0d0d,#151515);border:1px solid rgba(255,255,255,.07)}
+        .ilus svg,.vc .ilu svg{width:100%;height:auto;max-width:440px;display:block;margin:0 auto}
+        .marca svg{width:44px;height:44px;max-width:44px;flex-shrink:0;margin:0}
+        @media(min-width:900px){
+            .ilus{max-width:560px}
+            .ilus svg,.vc .ilu svg{max-width:440px}
+        }
+
+    
+        /* ═══ Ilustraciones · alto y ancho topados por igual ═══ */
+        .ilus svg,.vc .ilu svg{
+            width:auto;height:auto;max-width:440px;max-height:470px;display:block;margin:0 auto}
+        @media(min-width:900px){
+            .ilus svg,.vc .ilu svg{max-width:440px;max-height:470px}
+        }
+
+    </style>
+</head>
+<body>
+
+<!-- ═══════════ PORTADA ═══════════ -->
+<section class="hero">
+  <div class="in">
+    <div class="marca">
+      <svg viewBox="0 0 100 100" role="img" aria-label="Cardinal">
+        <defs><linearGradient id="cd-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#00d4ff"/><stop offset="100%" stop-color="#00ff88"/></linearGradient></defs>
+        <circle cx="50" cy="50" r="42" fill="none" stroke="#00d4ff" stroke-opacity=".28" stroke-width="2"/>
+        <g stroke="#00d4ff" stroke-opacity=".45" stroke-width="2.6" stroke-linecap="round"><path d="M50 4 V14M50 86 V96M4 50 H14M86 50 H96"/></g>
+        <path d="M50 8 C56 36 64 44 92 50 C64 56 56 64 50 92 C44 64 36 56 8 50 C36 44 44 36 50 8 Z" fill="url(#cd-g)"/>
+        <circle cx="50" cy="50" r="5.5" fill="#000"/>
+      </svg>
+      <div><b>CARDINAL</b><span>Oficio certificado</span></div>
+    </div>
+
+    <h1>Menos averías.<br>Y las que haya,<br><em>resueltas antes.</em></h1>
+
+    <p class="sub">Un estándar técnico para toda la red de mantenimiento: una <b>guía de procedimientos con IA especialista por máquina</b> y un <b>certificado que se puede comprobar</b>, construido sobre el histórico real de intervenciones en vuestras cocinas.</p>
+
+    <div class="hero-gan">
+      <div class="hg"><i>↓</i><div><b>Menos averías</b><span>Muchas empiezan en el mantenimiento o en el montaje, no en la máquina</span></div></div>
+      <div class="hg"><i>↓</i><div><b>Menos tiempo por avería</b><span>El técnico llega sabiendo qué comprobar y en qué orden</span></div></div>
+      <div class="hg"><i>↓</i><div><b>Menos segundas visitas</b><span>Se diagnostica bien a la primera y se pide la pieza correcta</span></div></div>
+      <div class="hg"><i>↑</i><div><b>Más horas de cocina produciendo</b><span>Que es lo único que se nota en la caja del local</span></div></div>
+    </div>
+
+    <p class="para">Documento de trabajo · Presentación a RBE · 2026</p>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- ═══════════ 01 · EL PROBLEMA ═══════════ -->
+<section>
+  <span class="gh">01</span>
+  <div class="in">
+    <span class="eyebrow">Los problemas del ecosistema</span>
+    <h2>Tres problemas que <span class="hl">nadie ha resuelto todavía</span></h2>
+    <p class="intro">Vuestras cocinas son <b>prácticamente la misma cocina</b> repetida decenas de veces: el mismo broiler, la misma freidora, la misma máquina de hielo. Y sin embargo cada proveedor, y dentro de cada proveedor cada técnico, <b>aprende esa cocina desde cero</b>. De ahí salen los tres.</p>
+
+<div class="vlist">
+      <div class="vc r">
+        <span class="n"><i>01</i><b>Productividad</b></span>
+        <h3>La misma avería se aprende una y otra vez</h3>
+        <div class="ilu"><svg viewBox="0 0 360 300" role="img" aria-label="Cada proveedor recorre su propia curva de aprendizaje">
+  <text x="14" y="22" fill="#ff4d4d" font-family="Inter,sans-serif" font-size="13" font-weight="900" letter-spacing=".12em">HOY · CADA UNO DESDE CERO</text>
+  <path d="M24 140 H344" stroke="#8b8b8b" stroke-opacity=".3" stroke-width="1.8"/>
+  <path d="M24 40 V140" stroke="#8b8b8b" stroke-opacity=".3" stroke-width="1.8"/>
+  <g fill="none" stroke="#ff4d4d" stroke-width="2.4" stroke-linecap="round">
+    <path d="M24 140 C80 138 132 104 186 58" stroke-opacity=".65"/>
+    <path d="M24 140 C88 139 150 116 212 76" stroke-opacity=".5"/>
+    <path d="M24 140 C96 140 166 124 238 90" stroke-opacity=".4"/>
+    <path d="M24 140 C104 140 182 130 260 104" stroke-opacity=".32"/>
+    <path d="M24 140 C112 140 194 134 278 116" stroke-opacity=".25"/>
+  </g>
+  <text x="14" y="168" fill="#8b8b8b" font-family="Inter,sans-serif" font-size="13" font-weight="700">Cinco proveedores, cinco curvas</text>
+  <text x="14" y="186" fill="#8b8b8b" font-family="Inter,sans-serif" font-size="13" font-weight="700">y los mismos errores en cada una</text>
+
+  <path d="M14 208 H346" stroke="#ffffff" stroke-opacity=".08" stroke-width="1.4"/>
+  <text x="14" y="236" fill="#00ff88" font-family="Inter,sans-serif" font-size="13" font-weight="900" letter-spacing=".12em">CON UN ESTÁNDAR COMÚN</text>
+  <path d="M24 288 H344" stroke="#8b8b8b" stroke-opacity=".3" stroke-width="1.8"/>
+  <path d="M24 280 C64 278 104 264 148 256 C204 248 276 250 340 252" fill="none" stroke="#00ff88" stroke-opacity=".9" stroke-width="3" stroke-linecap="round"/>
+  <g fill="#00ff88"><circle cx="148" cy="256" r="4.5"/><circle cx="230" cy="250" r="4.5"/><circle cx="300" cy="251" r="4.5"/></g>
+</svg></div>
+        <p>Un broiler que no enciende se ha resuelto ya cientos de veces en vuestra red. Pero cada vez que le toca a un técnico nuevo, <b>vuelve a empezar por el principio</b>: probando, llamando y volviendo.</p>
+        <p>Eso, multiplicado por los proveedores que tenéis y por la rotación de cada uno, es la escala trabajando en contra. Y para el encargado del local significa que <b>no sabe cuándo volverá a producir</b>.</p>
+      </div>
+
+      <div class="vc r">
+        <span class="n"><i>02</i><b>Selección</b></span>
+        <h3>No hay forma de saber qué empresas tienen el conocimiento</h3>
+        <div class="ilu"><svg viewBox="0 0 360 260" role="img" aria-label="No hay forma de saber qué empresas tienen el conocimiento">
+  <text x="14" y="22" fill="#ff4d4d" font-family="Inter,sans-serif" font-size="12" font-weight="900" letter-spacing=".12em">TRES PRESUPUESTOS IGUALES</text>
+  <g font-family="Inter,sans-serif" text-anchor="middle">
+    <rect x="14" y="42" width="102" height="112" rx="10" fill="#141414" stroke="#8b8b8b" stroke-opacity=".45" stroke-width="2.2" stroke-dasharray="6 5"/>
+    <rect x="129" y="42" width="102" height="112" rx="10" fill="#141414" stroke="#8b8b8b" stroke-opacity=".45" stroke-width="2.2" stroke-dasharray="6 5"/>
+    <rect x="244" y="42" width="102" height="112" rx="10" fill="#141414" stroke="#8b8b8b" stroke-opacity=".45" stroke-width="2.2" stroke-dasharray="6 5"/>
+    <text x="65" y="80" fill="#c9c9c9" font-size="13" font-weight="800">Proveedor A</text>
+    <text x="180" y="80" fill="#c9c9c9" font-size="13" font-weight="800">Proveedor B</text>
+    <text x="295" y="80" fill="#c9c9c9" font-size="13" font-weight="800">Proveedor C</text>
+    <text x="65" y="122" fill="#8b8b8b" font-size="26" font-weight="900">?</text>
+    <text x="180" y="122" fill="#8b8b8b" font-size="26" font-weight="900">?</text>
+    <text x="295" y="122" fill="#8b8b8b" font-size="26" font-weight="900">?</text>
+  </g>
+  <text x="14" y="184" fill="#8b8b8b" font-family="Inter,sans-serif" font-size="13" font-weight="700">Los tres dicen tener buenos técnicos.</text>
+  <text x="14" y="204" fill="#8b8b8b" font-family="Inter,sans-serif" font-size="13" font-weight="700">Ninguno puede demostrarlo.</text>
+  <path d="M14 226 H346" stroke="#ffffff" stroke-opacity=".08" stroke-width="1.4"/>
+  <text x="14" y="252" fill="#c9c9c9" font-family="Inter,sans-serif" font-size="14" font-weight="800">Se elige por precio. El nivel, después</text>
+</svg></div>
+        <p>Todos los proveedores afirman tener buenos técnicos. Ninguno puede acreditarlo, y vosotros no tenéis manera de comprobarlo <b>antes de que entre por la puerta del local</b>.</p>
+        <p>Se contrata por precio y por referencias, y el nivel real se descubre con las facturas y los locales parados. Cada cambio de proveedor <b>vuelve a empezar la cuenta</b>.</p>
+      </div>
+
+      <div class="vc r">
+        <span class="n"><i>03</i><b>Patrimonio</b></span>
+        <h3>Todo lo que se aprende acaba saliendo de vuestra red</h3>
+        <div class="ilu"><svg viewBox="0 0 360 280" role="img" aria-label="El conocimiento sale de la red cuando el técnico se va">
+  <text x="14" y="22" fill="#ff4d4d" font-family="Inter,sans-serif" font-size="12" font-weight="900" letter-spacing=".12em">LO QUE SE VA CON ÉL</text>
+
+  <circle cx="70" cy="96" r="26" fill="#0d0d0d" stroke="#8b8b8b" stroke-opacity=".55" stroke-width="2.6"/>
+  <path d="M34 152 a36 36 0 0 1 72 0" fill="#0d0d0d" stroke="#8b8b8b" stroke-opacity=".55" stroke-width="2.6"/>
+  <text x="70" y="176" text-anchor="middle" fill="#8b8b8b" font-family="Inter,sans-serif" font-size="12" font-weight="700">15 años</text>
+
+  <g fill="#141414" stroke="#ff8a3d" stroke-opacity=".5" stroke-width="2" stroke-dasharray="5 4">
+    <rect x="140" y="52" width="66" height="30" rx="6"/><rect x="220" y="66" width="66" height="30" rx="6"/>
+    <rect x="152" y="102" width="66" height="30" rx="6"/><rect x="238" y="118" width="66" height="30" rx="6"/>
+    <rect x="146" y="152" width="66" height="30" rx="6"/>
+  </g>
+  <g stroke="#ff8a3d" stroke-opacity=".35" stroke-width="2" stroke-dasharray="4 6" fill="none">
+    <path d="M206 66 H300"/><path d="M286 80 H322"/><path d="M218 116 H310"/><path d="M304 132 H336"/><path d="M212 166 H316"/>
+  </g>
+  <path d="M330 60 l14 -14M330 74 l22 -22" stroke="#ff8a3d" stroke-opacity=".4" stroke-width="2" stroke-linecap="round"/>
+
+  <path d="M14 208 H346" stroke="#ffffff" stroke-opacity=".08" stroke-width="1.4"/>
+  <text x="14" y="236" fill="#c9c9c9" font-family="Inter,sans-serif" font-size="14" font-weight="800">Nada de eso estaba escrito</text>
+  <text x="14" y="262" fill="#8b8b8b" font-family="Inter,sans-serif" font-size="13" font-weight="600">y era conocimiento sobre vuestras cocinas</text>
+</svg></div>
+        <p>Lo que sabe un veterano no está escrito en ninguna parte: está en su cabeza. El día que se jubila o cambia de empresa, ese conocimiento se va con él y no vuelve.</p>
+        <p>Y lo que se pierde no es de una empresa: es <b>know-how sobre vuestro equipamiento, acumulado en vuestros locales</b>, pagado en vuestras facturas.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- ═══════════ 02 · LO QUE CUESTA ═══════════ -->
+<section>
+  <span class="gh">02</span>
+  <div class="in">
+    <span class="eyebrow">Lo que cuesta</span>
+    <h2>Lo que se paga hoy <span class="hl">sin que aparezca en factura</span></h2>
+    <p class="intro">Estas cifras salen del histórico real de intervenciones en vuestras cocinas, aportado por uno de los proveedores de la red. <b>No son una estimación de mercado.</b></p>
+
+    <div class="cifras">
+      <div class="cf"><span class="n">9.363</span><span class="l">órdenes registradas desde 2022</span></div>
+      <div class="cf"><span class="n">7.677</span><span class="l">incidencias correctivas</span></div>
+      <div class="cf"><span class="n"><i>91</i></span><span class="l">incidencias por local y año</span></div>
+      <div class="cf"><span class="n">156</span><span class="l">tipos de equipo distintos</span></div>
+    </div>
+
+    <div class="ilus">
+      <svg viewBox="0 0 360 300" role="img" aria-label="El trece coma seis por ciento de las incidencias vuelven al mismo equipo en menos de siete días">
+  <text x="14" y="24" fill="#ffcc00" font-family="Inter,sans-serif" font-size="13" font-weight="900" letter-spacing=".12em">LO QUE SE VA EN VOLVER</text>
+  <text x="14" y="80" fill="#ffffff" font-family="Inter,sans-serif" font-size="32" font-weight="900">13,6 %</text>
+  <text x="132" y="70" fill="#c9c9c9" font-family="Inter,sans-serif" font-size="15" font-weight="700">vuelven al mismo</text>
+  <text x="132" y="92" fill="#c9c9c9" font-family="Inter,sans-serif" font-size="15" font-weight="700">equipo en 7 días</text>
+  <text x="14" y="150" fill="#ffffff" font-family="Inter,sans-serif" font-size="32" font-weight="900">19,4 %</text>
+  <text x="132" y="155" fill="#c9c9c9" font-family="Inter,sans-serif" font-size="15" font-weight="700">lo hacen en 15 días</text>
+  <rect x="14" y="182" width="332" height="24" rx="6" fill="#ffffff" fill-opacity=".07"/>
+  <rect x="14" y="182" width="45" height="24" rx="6" fill="#ffcc00" fill-opacity=".65"/>
+  <text x="14" y="232" fill="#ffcc00" font-family="Inter,sans-serif" font-size="14" font-weight="800">Cada vuelta alarga el local a medias</text>
+  <path d="M14 252 H346" stroke="#ffffff" stroke-opacity=".08" stroke-width="1.4"/>
+  <text x="14" y="278" fill="#8b8b8b" font-family="Inter,sans-serif" font-size="13" font-weight="600">Sobre 7.677 incidencias entre 2022 y 2026.</text>
+  <text x="14" y="296" fill="#8b8b8b" font-family="Inter,sans-serif" font-size="13" font-weight="600">Incluye esperas de material.</text>
+</svg>
+    </div>
+
+    <p>Ese porcentaje es el nuestro y lo publicamos tal cual. <b>No sabemos cuál es el del resto de la red</b>, y ese es exactamente el problema: hoy nadie lo mide, así que nadie puede mejorarlo.</p>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- ═══════════ 03 · QUÉ ES ═══════════ -->
+<section>
+  <span class="gh">03</span>
+  <div class="in">
+    <span class="eyebrow">Qué es</span>
+    <h2>Tres piezas, <span class="hl">y una lleva a la otra</span></h2>
+
+    <div class="vlist">
+      <div class="vc c">
+        <span class="n"><i>01</i><b>La guía</b></span>
+        <h3>El procedimiento que funciona, escrito una vez</h3>
+        <div class="ilu"><svg viewBox="0 0 360 280" role="img" aria-label="La guía: causas ordenadas por frecuencia real, con procedimiento y despiece">
+  <rect x="14" y="14" width="332" height="52" rx="10" fill="#0a0a0a" stroke="#00d4ff" stroke-opacity=".45" stroke-width="2.2"/>
+  <circle cx="42" cy="40" r="9" fill="none" stroke="#00d4ff" stroke-opacity=".7" stroke-width="2.4"/>
+  <path d="M49 47 l7 7" stroke="#00d4ff" stroke-opacity=".7" stroke-width="2.4" stroke-linecap="round"/>
+  <text x="68" y="46" fill="#c9c9c9" font-family="Inter,sans-serif" font-size="15" font-weight="700">broiler no enciende</text>
+
+  <g font-family="Inter,sans-serif" font-size="14" font-weight="700">
+    <rect x="14" y="82" width="332" height="34" rx="7" fill="#141414" stroke="#00d4ff" stroke-opacity=".3" stroke-width="1.8"/>
+    <text x="30" y="104" fill="#00d4ff" font-weight="900">41 %</text><text x="86" y="104" fill="#c9c9c9">Electrodo sucio o mal puesto</text>
+    <rect x="14" y="124" width="332" height="34" rx="7" fill="#141414" stroke="#00d4ff" stroke-opacity=".22" stroke-width="1.8"/>
+    <text x="30" y="146" fill="#00d4ff" font-weight="900">23 %</text><text x="86" y="146" fill="#c9c9c9">Termopar fuera de rango</text>
+    <rect x="14" y="166" width="332" height="34" rx="7" fill="#141414" stroke="#00d4ff" stroke-opacity=".18" stroke-width="1.8"/>
+    <text x="30" y="188" fill="#00d4ff" font-weight="900">18 %</text><text x="86" y="188" fill="#c9c9c9">Válvula de gas sin señal</text>
+  </g>
+
+  <g font-family="Inter,sans-serif" font-size="13" font-weight="800" text-anchor="middle">
+    <rect x="14" y="212" width="108" height="30" rx="15" fill="rgba(0,212,255,.1)" stroke="#00d4ff" stroke-opacity=".35" stroke-width="1.6"/><text x="68" y="232" fill="#00d4ff">Procedimiento</text>
+    <rect x="130" y="212" width="84" height="30" rx="15" fill="rgba(0,212,255,.1)" stroke="#00d4ff" stroke-opacity=".35" stroke-width="1.6"/><text x="172" y="232" fill="#00d4ff">Despiece</text>
+    <rect x="222" y="212" width="70" height="30" rx="15" fill="rgba(0,212,255,.1)" stroke="#00d4ff" stroke-opacity=".35" stroke-width="1.6"/><text x="257" y="232" fill="#00d4ff">Vídeo</text>
+  </g>
+  <text x="14" y="270" fill="#8b8b8b" font-family="Inter,sans-serif" font-size="13" font-weight="600">Ordenado por frecuencia real, no por manual</text>
+</svg></div>
+        <p>No es un archivo de manuales: es la forma contrastada de resolver cada avería, paso a paso, con despieces y esquemas. Organizada por máquina y por síntoma. Se consulta desde el móvil con el equipo abierto delante.</p>
+      </div>
+      <div class="vc p">
+        <span class="n"><i>02</i><b>La IA</b></span>
+        <h3>Una asistente especialista por máquina</h3>
+        <div class="ilu"><svg viewBox="0 0 360 326" role="img" aria-label="La IA responde según el manual técnico del equipo y cita la fuente">
+  <rect x="110" y="14" width="236" height="46" rx="12" fill="#1e1e1e" stroke="#ffffff" stroke-opacity=".1" stroke-width="1.8"/>
+  <text x="124" y="34" fill="#c9c9c9" font-family="Inter,sans-serif" font-size="14" font-weight="600">El broiler no enciende y</text>
+  <text x="124" y="52" fill="#c9c9c9" font-family="Inter,sans-serif" font-size="14" font-weight="600">el piloto parpadea 2 veces</text>
+
+  <rect x="14" y="76" width="310" height="152" rx="12" fill="rgba(0,255,136,.06)" stroke="#00ff88" stroke-opacity=".3" stroke-width="2"/>
+  <text x="30" y="102" fill="#00ff88" font-family="Inter,sans-serif" font-size="14" font-weight="900">Dos parpadeos = fallo de ignición.</text>
+  <g font-family="Inter,sans-serif" font-size="14" font-weight="600" fill="#c9c9c9">
+    <text x="30" y="128">Comprueba en este orden:</text>
+    <text x="30" y="154">1 · Electrodo: 3–4 mm, sin carbonilla</text>
+    <text x="30" y="176">2 · Termopar: 20 mV con llama estable</text>
+    <text x="30" y="198">3 · Presostato: continuidad con el</text>
+    <text x="42" y="218">ventilador en marcha</text>
+  </g>
+
+  <path d="M14 250 H346" stroke="#ffffff" stroke-opacity=".08" stroke-width="1.4"/>
+  <text x="14" y="276" fill="#8b8b8b" font-family="Inter,sans-serif" font-size="13" font-weight="600">Manual del fabricante · 23 casos</text><text x="14" y="294" fill="#8b8b8b" font-family="Inter,sans-serif" font-size="13" font-weight="600">en el histórico</text>
+  <text x="14" y="316" fill="#00ff88" font-family="Inter,sans-serif" font-size="13" font-weight="800">Responde con la fuente, no de memoria</text>
+</svg></div>
+        <p>El técnico pregunta en lenguaje normal y responde según el manual técnico de ese equipo concreto, citando la fuente. Es como tener al especialista del fabricante al lado, disponible siempre.</p>
+      </div>
+      <div class="vc g">
+        <span class="n"><i>03</i><b>El certificado</b></span>
+        <h3>Un examen que acredita el oficio, y que caduca</h3>
+        <div class="ilu"><svg viewBox="0 0 320 320" role="img" aria-label="Sello de certificación Cardinal">
+            <defs>
+              <linearGradient id="rb-sl-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#00d4ff"/><stop offset="100%" stop-color="#00ff88"/></linearGradient>
+              <filter id="rb-sl-b" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            </defs>
+            <circle cx="160" cy="160" r="134" fill="#0a0a0a" stroke="url(#rb-sl-g)" stroke-width="4" filter="url(#rb-sl-b)"/>
+            <circle cx="160" cy="160" r="118" fill="none" stroke="#ffffff" stroke-opacity=".12" stroke-width="1.6"/>
+            <circle cx="160" cy="160" r="112" fill="none" stroke="#00ff88" stroke-opacity=".22" stroke-width="1.4" stroke-dasharray="4 8"/>
+
+            <g stroke="#00d4ff" stroke-opacity=".45" stroke-width="3" stroke-linecap="round">
+              <path d="M160 32 V46M160 274 V288M32 160 H46M274 160 H288"/>
+            </g>
+
+            <path d="M160 72 C168 126 180 142 234 160 C180 178 168 194 160 248 C152 194 140 178 86 160 C140 142 152 126 160 72 Z"
+                  fill="url(#rb-sl-g)" opacity=".9"/>
+            <circle cx="160" cy="160" r="34" fill="#0a0a0a"/>
+            <text x="160" y="156" text-anchor="middle" fill="#ffffff" font-family="Inter,sans-serif" font-size="15" font-weight="900" letter-spacing=".1em">TÉCNICO</text>
+            <text x="160" y="176" text-anchor="middle" fill="#00ff88" font-family="Inter,sans-serif" font-size="11" font-weight="800" letter-spacing=".1em">CERTIFICADO</text>
+
+            <path id="rb-arcoArr" d="M160 54 a106 106 0 0 1 0 212 a106 106 0 0 1 0 -212" fill="none"/>
+            <text fill="#00d4ff" font-family="Inter,sans-serif" font-size="15" font-weight="900" letter-spacing=".26em">
+              <textPath href="#rb-arcoArr" startOffset="6%">CARDINAL</textPath>
+            </text>
+            <text fill="#8b8b8b" font-family="Inter,sans-serif" font-size="12" font-weight="700" letter-spacing=".2em">
+              <textPath href="#rb-arcoArr" startOffset="57%">RENOVADO 2026</textPath>
+            </text>
+          </svg></div>
+        <p>Acredita que el técnico conoce las máquinas y los procedimientos críticos. Se renueva cada año e incorpora lo que el sector va dando por exigible: gases fluorados, eficiencia energética, seguridad.</p>
+        <p><b>El certificado es de la empresa</b>, no de la persona: si el técnico se marcha, la acreditación se queda.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- ═══════════ 04 · QUÉ GANA RBE ═══════════ -->
+<section>
+  <span class="gh">04</span>
+  <div class="in">
+    <span class="eyebrow">Qué ganáis</span>
+    <h2>Los tres problemas, <span class="hlv">del otro lado</span></h2>
+    <p class="intro">Cada uno de los tres tiene su reverso. Y hay un cuarto que aparece solo, <b>por el hecho de poder medirlo</b>.</p>
+
+    <div class="vlist">
+      <div class="vc g">
+        <span class="n"><i>01</i><b>Productividad</b></span>
+        <h3>Vuestras cocinas paran menos</h3>
+        <div class="ilu"><svg viewBox="0 0 360 260" role="img" aria-label="Menos horas de cocina parada al año">
+  <text x="14" y="24" fill="#8b8b8b" font-family="Inter,sans-serif" font-size="13" font-weight="700">Horas de equipo parado al año</text>
+  <text x="14" y="66" fill="#ff4d4d" font-family="Inter,sans-serif" font-size="13" font-weight="900" letter-spacing=".1em">HOY</text>
+  <rect x="14" y="80" width="332" height="34" rx="8" fill="#ff4d4d" fill-opacity=".2" stroke="#ff4d4d" stroke-opacity=".55" stroke-width="2"/>
+  <text x="14" y="150" fill="#00ff88" font-family="Inter,sans-serif" font-size="13" font-weight="900" letter-spacing=".1em">CON UN ESTÁNDAR COMÚN</text>
+  <rect x="14" y="164" width="332" height="34" rx="8" fill="#ffffff" fill-opacity=".05"/>
+  <rect x="14" y="164" width="222" height="34" rx="8" fill="#00ff88" fill-opacity=".28" stroke="#00ff88" stroke-opacity=".7" stroke-width="2"/>
+  <path d="M248 181 H340" stroke="#00ff88" stroke-opacity=".5" stroke-width="2" stroke-dasharray="4 5"/>
+  <text x="14" y="234" fill="#c9c9c9" font-family="Inter,sans-serif" font-size="14" font-weight="800">Menos vueltas y diagnósticos más cortos</text>
+  <text x="14" y="254" fill="#8b8b8b" font-family="Inter,sans-serif" font-size="13" font-weight="600">entre por donde entre el técnico</text>
+</svg></div>
+        <p>Cuando todos los proveedores aplican el mismo procedimiento contrastado, las averías se resuelven antes y hay que volver menos veces. Menos horas de equipo parado y menos género en riesgo, <b>entre por donde entre el técnico</b>.</p>
+      </div>
+
+      <div class="vc g">
+        <span class="n"><i>02</i><b>Selección</b></span>
+        <h3>Dejáis de fiaros y empezáis a comprobar</h3>
+        <div class="ilu"><svg viewBox="0 0 360 270" role="img" aria-label="Panel con el nivel acreditado de cada proveedor">
+  <rect x="14" y="14" width="332" height="182" rx="12" fill="#0d0d0d" stroke="#00ff88" stroke-opacity=".4" stroke-width="2.2"/>
+  <text x="30" y="44" fill="#00ff88" font-family="Inter,sans-serif" font-size="13" font-weight="900" letter-spacing=".08em">NIVEL ACREDITADO</text>
+  <g font-family="Inter,sans-serif" font-size="14" font-weight="700">
+    <text x="30" y="82" fill="#c9c9c9">Proveedor A</text>
+    <circle cx="250" cy="77" r="8" fill="none" stroke="#00ff88" stroke-width="2.2"/><path d="m246 77 3 3.5 6-7" fill="none" stroke="#00ff88" stroke-width="2.2" stroke-linecap="round"/>
+    <text x="332" y="82" text-anchor="end" fill="#00ff88" font-weight="900">6 / 7</text>
+    <text x="30" y="124" fill="#c9c9c9">Proveedor B</text>
+    <circle cx="250" cy="119" r="8" fill="none" stroke="#00ff88" stroke-width="2.2"/><path d="m246 119 3 3.5 6-7" fill="none" stroke="#00ff88" stroke-width="2.2" stroke-linecap="round"/>
+    <text x="332" y="124" text-anchor="end" fill="#00ff88" font-weight="900">4 / 7</text>
+    <text x="30" y="166" fill="#8b8b8b">Proveedor C</text>
+    <circle cx="250" cy="161" r="8" fill="none" stroke="#8b8b8b" stroke-width="2.2" stroke-dasharray="4 3"/>
+    <text x="332" y="166" text-anchor="end" fill="#8b8b8b" font-weight="900">0 / 7</text>
+  </g>
+  <text x="14" y="228" fill="#c9c9c9" font-family="Inter,sans-serif" font-size="14" font-weight="800">Se compara por lo que se acredita,</text>
+  <text x="14" y="250" fill="#c9c9c9" font-family="Inter,sans-serif" font-size="14" font-weight="800">no por lo que se dice</text>
+</svg></div>
+        <p>Por primera vez podéis comparar proveedores por algo que no sea su palabra o su precio: quién está certificado, en qué especialidades y desde cuándo.</p>
+        <p>Y el que no lo esté <b>sabe exactamente qué le falta</b>, porque el temario y los criterios son públicos.</p>
+      </div>
+
+      <div class="vc g">
+        <span class="n"><i>03</i><b>Patrimonio</b></span>
+        <h3>El conocimiento se queda en vuestra red</h3>
+        <div class="ilu"><svg viewBox="0 0 360 260" role="img" aria-label="El conocimiento se queda escrito en la red aunque el técnico se marche">
+  <circle cx="56" cy="76" r="24" fill="#0d0d0d" stroke="#8b8b8b" stroke-opacity=".5" stroke-width="2.4"/>
+  <path d="M24 128 a32 32 0 0 1 64 0" fill="#0d0d0d" stroke="#8b8b8b" stroke-opacity=".5" stroke-width="2.4"/>
+  <path d="M96 100 H140" stroke="#00ff88" stroke-opacity=".7" stroke-width="2.4" stroke-dasharray="5 6" fill="none"/>
+  <path d="M132 93 l8 7 -8 7" fill="none" stroke="#00ff88" stroke-opacity=".8" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="152" y="34" width="194" height="132" rx="12" fill="none" stroke="#00ff88" stroke-opacity=".5" stroke-width="2.2"/>
+  <g fill="#0e1512" stroke="#00ff88" stroke-opacity=".75" stroke-width="2">
+    <rect x="166" y="50" width="76" height="34" rx="6"/><rect x="254" y="50" width="76" height="34" rx="6"/>
+    <rect x="166" y="94" width="76" height="34" rx="6"/><rect x="254" y="94" width="76" height="34" rx="6"/>
+  </g>
+  <g stroke="#00ff88" stroke-opacity=".45" stroke-width="2" stroke-linecap="round">
+    <path d="M178 62 h44M178 72 h28M266 62 h44M266 72 h28M178 106 h44M178 116 h28M266 106 h44M266 116 h28"/>
+  </g>
+  <text x="249" y="152" text-anchor="middle" fill="#00ff88" font-family="Inter,sans-serif" font-size="12" font-weight="800">y sigue creciendo</text>
+  <text x="14" y="212" fill="#c9c9c9" font-family="Inter,sans-serif" font-size="14" font-weight="800">Se marcha la persona,</text>
+  <text x="14" y="234" fill="#00ff88" font-family="Inter,sans-serif" font-size="14" font-weight="800">no el conocimiento</text>
+  <text x="14" y="256" fill="#8b8b8b" font-family="Inter,sans-serif" font-size="13" font-weight="600">Queda escrito y sigue en vuestra red</text>
+</svg></div>
+        <p>Cada avería que se resuelve bien se escribe una vez y queda disponible para el siguiente que se la encuentre, sea de la empresa que sea.</p>
+        <p>El técnico se puede marchar. <b>El procedimiento se queda</b>, y sigue creciendo cada semana.</p>
+      </div>
+
+      <div class="vc g">
+        <span class="n"><i>04</i><b>Gobierno</b></span>
+        <h3>Y aparece una métrica que hoy no existe</h3>
+        <div class="ilu"><svg viewBox="0 0 360 240" role="img" aria-label="Un indicador de red certificada que se puede enseñar">
+  <rect x="14" y="14" width="332" height="140" rx="12" fill="#0d0d0d" stroke="#00d4ff" stroke-opacity=".4" stroke-width="2.2"/>
+  <text x="30" y="44" fill="#00d4ff" font-family="Inter,sans-serif" font-size="12" font-weight="900" letter-spacing=".1em">RED BAJO ESTÁNDAR CERTIFICADO</text>
+  <text x="30" y="98" fill="#ffffff" font-family="Inter,sans-serif" font-size="38" font-weight="900">78 %</text>
+  <text x="146" y="98" fill="#8b8b8b" font-family="Inter,sans-serif" font-size="14" font-weight="700">de los locales atendidos</text>
+  <text x="146" y="118" fill="#8b8b8b" font-family="Inter,sans-serif" font-size="14" font-weight="700">por técnicos acreditados</text>
+  <rect x="30" y="122" width="300" height="14" rx="7" fill="#ffffff" fill-opacity=".07"/>
+  <rect x="30" y="122" width="234" height="14" rx="7" fill="#00d4ff" fill-opacity=".6"/>
+  <text x="14" y="188" fill="#c9c9c9" font-family="Inter,sans-serif" font-size="14" font-weight="800">Una cifra auditable sobre cómo se</text>
+  <text x="14" y="210" fill="#c9c9c9" font-family="Inter,sans-serif" font-size="14" font-weight="800">mantiene la red</text>
+  <text x="14" y="234" fill="#8b8b8b" font-family="Inter,sans-serif" font-size="13" font-weight="600">Hoy esa afirmación no se puede hacer</text>
+</svg></div>
+        <p>Poder acreditar qué parte de la red opera bajo un estándar certificado y auditable es un activo <b>en cualquier proceso de revisión externa</b>.</p>
+        <p>No es un beneficio operativo: es poder responder con una cifra a una pregunta que hoy sólo se puede responder con impresiones.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- ═══════════ 05 · QUÉ PEDIMOS ═══════════ -->
+<section>
+  <span class="gh">05</span>
+  <div class="in">
+    <span class="eyebrow">Condiciones para que funcione</span>
+    <h2>Un estándar sólo existe <span class="hl">si la cadena lo respalda</span></h2>
+    <p class="intro">Sin el respaldo del propietario de la red, esto no es un estándar: es un producto más que cada proveedor adopta o ignora. Hacen falta <b>dos condiciones</b>, y ninguna cuesta dinero.</p>
+
+    <div class="ilus">
+      <svg viewBox="0 0 360 320" role="img" aria-label="Sin el respaldo de la cadena el estándar no se sostiene; con él, todos los proveedores se apoyan en el mismo">
+        <defs>
+          <linearGradient id="ap-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#00d4ff"/><stop offset="100%" stop-color="#00ff88"/></linearGradient>
+        </defs>
+
+        <text x="14" y="24" fill="#00ff88" font-family="Inter,sans-serif" font-size="13" font-weight="900" letter-spacing=".12em">EL RESPALDO DE LA CADENA</text>
+
+        <!-- la cadena, arriba, sosteniendo -->
+        <rect x="96" y="46" width="168" height="52" rx="14" fill="#0a0a0a" stroke="url(#ap-g)" stroke-width="3"/>
+        <text x="180" y="72" text-anchor="middle" fill="#ffffff" font-family="Inter,sans-serif" font-size="15" font-weight="900" letter-spacing=".06em">LA CADENA</text>
+        <text x="180" y="90" text-anchor="middle" fill="#8b8b8b" font-family="Inter,sans-serif" font-size="12" font-weight="600">define y valida el estándar</text>
+
+        <path d="M180 100 V128" stroke="#00ff88" stroke-opacity=".7" stroke-width="2.6" stroke-dasharray="5 6" fill="none"/>
+
+        <!-- el sello -->
+        <circle cx="180" cy="168" r="38" fill="#0a0a0a" stroke="url(#ap-g)" stroke-width="3"/>
+        <path d="M180 140 C185 160 189 163 207 168 C189 173 185 176 180 196 C175 176 171 173 153 168 C171 163 175 160 180 140 Z" fill="url(#ap-g)" opacity=".85"/>
+        <circle cx="180" cy="168" r="13" fill="#0a0a0a"/>
+        <path d="m174 168 4 4 8-9" fill="none" stroke="#00ff88" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+
+        <!-- los proveedores, apoyándose en él -->
+        <g stroke="#00ff88" stroke-opacity=".45" stroke-width="2.2" stroke-dasharray="4 6" fill="none">
+          <path d="M156 194 C130 214 106 224 76 238"/>
+          <path d="M180 208 V238"/>
+          <path d="M204 194 C230 214 254 224 284 238"/>
+        </g>
+
+        <g font-family="Inter,sans-serif" font-size="12" font-weight="800" text-anchor="middle">
+          <rect x="24" y="240" width="104" height="40" rx="10" fill="#141414" stroke="#00d4ff" stroke-opacity=".55" stroke-width="2"/><text x="76" y="265" fill="#00d4ff">Proveedor A</text>
+          <rect x="128" y="240" width="104" height="40" rx="10" fill="#141414" stroke="#00d4ff" stroke-opacity=".55" stroke-width="2"/><text x="180" y="265" fill="#00d4ff">Proveedor B</text>
+          <rect x="232" y="240" width="104" height="40" rx="10" fill="#141414" stroke="#00d4ff" stroke-opacity=".55" stroke-width="2"/><text x="284" y="265" fill="#00d4ff">Proveedor C</text>
+        </g>
+
+        <text x="14" y="308" fill="#c9c9c9" font-family="Inter,sans-serif" font-size="14" font-weight="800">Sin el de arriba, abajo no hay estándar</text>
+      </svg>
+    </div>
+
+    <div class="vlist">
+      <div class="pide">
+        <i>01</i>
+        <div>
+          <h4>Que la cadena respalde que el estándar existe</h4>
+          <p>Que se reconozca que el mantenimiento de vuestras cocinas debe apoyarse en conocimiento técnico acreditado, y que RBE participe en definir qué entra en ese estándar. <b>Un asiento en el comité técnico</b>, y con él la capacidad de decir qué se considera correcto.</p>
+        </div>
+      </div>
+      <div class="pide">
+        <i>02</i>
+        <div>
+          <h4>Que se haga exigible, y por fases</h4>
+          <p>Que a partir de una fecha acordada, quien mantenga vuestras cocinas deba acreditar el nivel de sus técnicos <b>con una certificación reconocida</b>. No se trata de exigir Cardinal por su nombre, sino de exigir un estándar. Hoy Cardinal es la única implementación disponible para este equipamiento, y si mañana aparece otra equivalente, mejor para todos.</p>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- ═══════════ 06 · QUÉ NO PEDIMOS ═══════════ -->
+<section>
+  <span class="gh">06</span>
+  <div class="in">
+    <span class="eyebrow">Lo que no entra</span>
+    <h2>Y esto es lo que <span class="hl">queda fuera</span></h2>
+    <p class="intro">Lo dejamos por escrito para que no haya que preguntarlo en la reunión.</p>
+
+    <div class="vlist">
+      <div class="nopide"><i>✕</i><div><h4>Ni un euro</h4><p>RBE no paga por Cardinal, ni ahora ni después. El acceso para vuestra estructura es gratuito y permanente.</p></div></div>
+      <div class="nopide"><i>✕</i><div><h4>Vuestros datos</h4><p>El dato bruto de Fracttal es vuestro y no sale de ahí. Lo que Cardinal publica son procedimientos anonimizados, sin códigos de local ni de activo.</p></div></div>
+      <div class="nopide"><i>✕</i><div><h4>Modificar la tarifa de mantenimiento</h4><p>Esta conversación no toca el contrato de servicio. Son dos cosas distintas y las mantenemos separadas.</p></div></div>
+      <div class="nopide"><i>✕</i><div><h4>Que echéis a nadie</h4><p>El estándar no es una lista de homologados ni una herramienta para desplazar proveedores. Es un listón, y se llega a él certificándose.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- ═══════════ 07 · GARANTÍAS ═══════════ -->
+<section>
+  <span class="gh">07</span>
+  <div class="in">
+    <span class="eyebrow">Las garantías</span>
+    <h2>Un estándar sólo vale <span class="hl">si es independiente</span></h2>
+    <p class="intro">Cardinal es una entidad propia, separada de cualquier empresa de mantenimiento. Estas son las cuatro reglas con las que se gobierna, <b>y aceptamos que se auditen</b>.</p>
+
+    <div class="ilus">
+      <svg viewBox="0 0 360 340" role="img" aria-label="Independencia, transparencia y corrección a ciegas: las tres garantías del estándar">
+        <text x="14" y="24" fill="#00d4ff" font-family="Inter,sans-serif" font-size="13" font-weight="900" letter-spacing=".12em">CÓMO SE SOSTIENE</text>
+
+        <!-- balanza -->
+        <path d="M180 60 V196" stroke="#00d4ff" stroke-opacity=".7" stroke-width="3" stroke-linecap="round"/>
+        <path d="M132 208 H228" stroke="#00d4ff" stroke-opacity=".7" stroke-width="3.4" stroke-linecap="round"/>
+        <path d="M154 196 H206" stroke="#00d4ff" stroke-opacity=".5" stroke-width="2.4" stroke-linecap="round"/>
+        <circle cx="180" cy="60" r="7" fill="#0a0a0a" stroke="#00d4ff" stroke-opacity=".85" stroke-width="2.6"/>
+
+        <path d="M72 66 H288" stroke="#00d4ff" stroke-opacity=".75" stroke-width="3.4" stroke-linecap="round"/>
+        <path d="M72 66 V90" stroke="#00d4ff" stroke-opacity=".45" stroke-width="2" stroke-dasharray="4 4"/>
+        <path d="M288 66 V90" stroke="#00d4ff" stroke-opacity=".45" stroke-width="2" stroke-dasharray="4 4"/>
+
+        <path d="M40 92 H104 L72 132 Z" fill="#0d0d0d" stroke="#00ff88" stroke-opacity=".75" stroke-width="2.6" stroke-linejoin="round"/>
+        <path d="M256 92 H320 L288 132 Z" fill="#0d0d0d" stroke="#00ff88" stroke-opacity=".75" stroke-width="2.6" stroke-linejoin="round"/>
+        <g fill="#00ff88"><circle cx="72" cy="108" r="5"/><circle cx="288" cy="108" r="5"/></g>
+
+        <text x="72" y="158" text-anchor="middle" fill="#8b8b8b" font-family="Inter,sans-serif" font-size="13" font-weight="700">Un proveedor</text>
+        <text x="288" y="158" text-anchor="middle" fill="#8b8b8b" font-family="Inter,sans-serif" font-size="13" font-weight="700">Cualquier otro</text>
+        <text x="180" y="240" text-anchor="middle" fill="#00d4ff" font-family="Inter,sans-serif" font-size="14" font-weight="900" letter-spacing=".06em">MISMO LISTÓN</text>
+
+        <path d="M14 268 H346" stroke="#ffffff" stroke-opacity=".08" stroke-width="1.4"/>
+
+        <g font-family="Inter,sans-serif" font-size="13" font-weight="800" text-anchor="middle">
+          <text x="62" y="298" fill="#00ff88">Independiente</text>
+          <text x="180" y="298" fill="#00ff88">Público</text>
+          <text x="290" y="298" fill="#00ff88">Anónimo</text>
+        </g>
+        <g font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#8b8b8b" text-anchor="middle">
+          <text x="62" y="318">no repara</text>
+          <text x="180" y="318">temario y criterios</text>
+          <text x="290" y="318">al corregir</text>
+        </g>
+        <text x="180" y="338" text-anchor="middle" fill="#8b8b8b" font-family="Inter,sans-serif" font-size="12" font-weight="600">y todo ello, auditable</text>
+      </svg>
+    </div>
+
+    <div class="vlist">
+      <div class="vc c">
+        <span class="n"><i>01</i></span>
+        <h3>No presta servicio de mantenimiento</h3>
+        <p>Cardinal no repara, no instala y no compite con ningún proveedor de la red. Su única actividad es mantener el estándar, la guía y el examen.</p>
+      </div>
+      <div class="vc c">
+        <span class="n"><i>02</i></span>
+        <h3>El temario y los criterios son públicos</h3>
+        <p>Qué entra en el examen y qué hace falta para aprobar está escrito y disponible antes de que nadie se presente. Sin letra pequeña y sin criterios que cambien sobre la marcha.</p>
+      </div>
+      <div class="vc c">
+        <span class="n"><i>03</i></span>
+        <h3>Se corrige sin saber de quién es</h3>
+        <p>Quien corrige no sabe a qué empresa pertenece el técnico. Es la única forma de que el resultado no dependa de con quién trabaje.</p>
+      </div>
+      <div class="vc c">
+        <span class="n"><i>04</i></span>
+        <h3>Mismas condiciones para todos</h3>
+        <p>El mismo temario, el mismo examen y el mismo precio para cualquier empresa que se presente, <b>sin excepciones ni tarifas por volumen</b>. El comité técnico, con participación de la cadena, vela por que siga siendo así.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- ═══════════ 08 · CÓMO EMPEZARÍA ═══════════ -->
+<section>
+  <span class="gh">08</span>
+  <div class="in">
+    <span class="eyebrow">Cómo empezaría</span>
+    <h2>Por fases, <span class="hlv">y midiendo</span></h2>
+    <p class="intro">Nada de esto necesita una decisión definitiva hoy. Empieza acotado y se decide con datos.</p>
+
+    <div class="vlist">
+      <div class="fase"><span class="num">01</span><div><h4>Piloto acotado<span class="cuando">3 meses</span></h4><p>Un grupo reducido de locales y dos o tres proveedores voluntarios. Acceso gratuito a la guía y a las IA. Se mide el tiempo de resolución y el porcentaje de segundas visitas antes y después.</p></div></div>
+      <div class="fase"><span class="num">02</span><div><h4>Comité técnico<span class="cuando">en paralelo</span></h4><p>RBE participa en definir qué entra en el estándar y qué se considera correcto. Sin esa participación, el estándar no representa vuestra operación.</p></div></div>
+      <div class="fase"><span class="num">03</span><div><h4>Recomendado<span class="cuando">primer año</span></h4><p>Se comunica a la red como recomendación, con el itinerario y el examen abiertos a todos en las mismas condiciones.</p></div></div>
+      <div class="fase"><span class="num">04</span><div><h4>Exigible<span class="cuando">segundo año</span></h4><p>A partir de la fecha acordada, quien mantenga vuestras cocinas acredita el nivel de sus técnicos con una certificación reconocida.</p></div></div>
+    </div>
+
+    <div class="aviso">
+      <b>Qué se mide en el piloto</b>
+      <p>Tiempo medio hasta la resolución · porcentaje de incidencias que requieren segunda visita · horas de equipo fuera de servicio · consultas resueltas sin desplazamiento.</p>
+      <p>Si esos cuatro indicadores no se mueven, <b style="color:var(--white)">el piloto no se convierte en nada</b> y aquí termina la conversación.</p>
+    </div>
+
+    <div class="cierre">
+      <p>El mantenimiento de vuestras cocinas <em>se puede medir.</em></p>
+      <p class="d">Hoy no se mide. Esta es una propuesta para empezar a hacerlo, sin coste para RBE y sin cerrarle la puerta a nadie.</p>
+    </div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- ═══════════ 09 · SÍNTESIS Y SIGUIENTE PASO ═══════════ -->
+<section>
+  <span class="gh">09</span>
+  <div class="in">
+    <span class="eyebrow">En una página</span>
+    <h2>Lo que hay sobre la mesa</h2>
+
+    <div class="sint">
+      <div class="si"><i>Hoy · el problema</i><p>Vuestra red repite la misma cocina decenas de veces, pero <b>cada proveedor y cada técnico la aprende desde cero</b>. Nadie puede acreditar su nivel antes de entrar, y lo que se aprende se pierde cuando alguien se va.</p></div>
+      <div class="si"><i>Lo que cuesta hoy</i><p>Segundas visitas, diagnósticos largos y locales a medias. En nuestro histórico, <b>el 13,6 % de las incidencias vuelven al mismo equipo en menos de siete días</b>.</p></div>
+      <div class="si v"><i>La propuesta</i><p>Una guía de procedimientos con IA especialista por máquina, y <b>un certificado que caduca y se renueva</b>. Abierto a cualquier proveedor en las mismas condiciones.</p></div>
+      <div class="si v"><i>Lo que ganáis</i><p>Menos horas de cocina parada, criterio para comparar proveedores, el conocimiento retenido en la red <b>y una cifra auditable sobre cómo se mantiene</b>.</p></div>
+      <div class="si v"><i>Lo que os cuesta</i><p><b>Cero para RBE</b>, ahora y después. Sin tocar la tarifa de mantenimiento y sin que vuestros datos salgan de vuestros sistemas.</p></div>
+    </div>
+
+    <div class="acuerdo">
+      <span class="lb">Lo que proponemos decidir hoy</span>
+      <h3>Abrir un piloto de tres meses en un grupo reducido de locales</h3>
+      <p>No hace falta comprometerse con el estándar, ni comunicar nada a la red, ni firmar. Sólo acordar que se prueba y que se mide.</p>
+      <ol>
+        <li>RBE señala <b>entre cinco y diez locales</b> y los proveedores que los atienden</li>
+        <li>Se acuerdan <b>los cuatro indicadores</b> y cómo se toman los datos de partida</li>
+        <li>Acceso gratuito a la guía y a las IA durante el piloto, para todos los proveedores implicados</li>
+        <li>A los tres meses, <b>una reunión con los números delante</b> y una decisión: sigue o se para</li>
+      </ol>
+      <p class="fin">Si los indicadores no se mueven, aquí termina la conversación y RBE no habrá invertido nada más que el tiempo de esta reunión.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <b style="color:var(--white)">CARDINAL</b> · Oficio certificado<br>
+  Entidad independiente de certificación técnica<br>
+  <span style="opacity:.8">Datos de partida cedidos por proveedores de la red</span><br>
+  <span style="opacity:.6">Documento de trabajo · No difundir · 2026</span>
+</footer>
+
+</body>
+</html>

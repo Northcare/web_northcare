@@ -2,1189 +2,1308 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Northcare | Conocimiento que cuida</title>
+    <meta name="description" content="Empresa de conocimiento en cocina industrial. Instalaciones de frío y climatización, certificación técnica y mantenimiento integral en la Zona Norte.">
+    <meta name="theme-color" content="#000000">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --color-bg: #000000;
-            --color-bg-light: #111111;
-            --color-bg-card: #1a1a1a;
-            --color-white: #ffffff;
-            --color-gray: #888888;
-            --color-gray-light: #cccccc;
-            --color-accent: #00d4ff;
-            --color-accent-glow: rgba(0, 212, 255, 0.4);
-            --color-green: #00ff88;
-            --color-green-glow: rgba(0, 255, 136, 0.3);
-            --color-red: #ff4d4d;
-            --color-yellow: #ffcc00;
-            --font-main: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        :root{
+            --bg:#000; --bg2:#0b0b0b; --card:#181818;
+            --white:#fff; --gray:#8b8b8b; --gray2:#c9c9c9;
+            --cyan:#00d4ff; --cyanGlow:rgba(0,212,255,.4);
+            --green:#00ff88; --greenGlow:rgba(0,255,136,.3);
+            --red:#ff4d4d; --yellow:#ffcc00;
+            --f:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+            --safe:env(safe-area-inset-bottom,0px);
         }
+        *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+        html{scroll-behavior:smooth;font-size:16px;-webkit-text-size-adjust:100%}
+        body{font-family:var(--f);background:var(--bg);color:var(--white);line-height:1.65;overflow-x:hidden}
+        img{max-width:100%;display:block}
+        .i{width:1em;height:1em;flex-shrink:0;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;display:block}
+        .sprite{position:absolute;width:0;height:0;overflow:hidden}
+        .progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:1100;background:linear-gradient(90deg,var(--cyan),var(--green));transition:width .1s linear;box-shadow:0 0 10px var(--cyanGlow)}
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        /* NAV */
+        nav{position:fixed;top:0;width:100%;padding:1rem 5%;display:flex;justify-content:space-between;align-items:center;
+            background:rgba(0,0,0,.85);backdrop-filter:blur(15px);-webkit-backdrop-filter:blur(15px);z-index:1000;
+            border-bottom:1px solid rgba(255,255,255,.06);transition:all .3s ease}
+        .logo{display:flex;align-items:center;text-decoration:none;line-height:1}
+        .logo img{height:40px;width:auto}
+        .nav-desktop{display:flex;gap:2rem;align-items:center}
+        .nav-link{color:var(--gray2);text-decoration:none;font-size:1.05rem;font-weight:500;transition:color .3s ease}
+        .nav-link:hover{color:var(--white)}
+        .nav-link.active{color:var(--cyan);font-weight:700}
+        .nav-cta{background:var(--cyan);color:#000;padding:.75rem 1.5rem;text-decoration:none;font-weight:600;font-size:1.05rem;border-radius:8px;transition:all .3s ease}
+        .nav-cta:hover{box-shadow:0 0 20px var(--cyanGlow)}
+        .nav-mobile-controls{display:none;align-items:center;gap:1rem}
+        .nav-call{display:flex;align-items:center;justify-content:center;width:44px;height:44px;background:var(--green);
+            color:#000;text-decoration:none;font-size:1.25rem;border-radius:50%;transition:all .3s ease}
+        .nav-call:hover{box-shadow:0 0 20px var(--greenGlow);transform:scale(1.05)}
+        .hamburger{display:flex;flex-direction:column;justify-content:center;align-items:center;width:44px;height:44px;
+            background:transparent;border:1px solid rgba(255,255,255,.2);border-radius:8px;cursor:pointer;gap:5px;transition:all .3s ease}
+        .hamburger span{display:block;width:20px;height:2px;background:var(--white);transition:all .3s ease}
+        .hamburger.active span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+        .hamburger.active span:nth-child(2){opacity:0}
+        .hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
 
-        html { scroll-behavior: smooth; font-size: 18px; }
+        .mobile-menu{position:fixed;top:0;left:0;width:100%;height:100vh;background:rgba(0,0,0,.98);z-index:999;
+            display:flex;flex-direction:column;padding:6rem 2rem 2rem;transform:translateX(100%);
+            transition:transform .4s cubic-bezier(.16,1,.3,1);overflow-y:auto}
+        .mobile-menu.active{transform:translateX(0)}
+        .mobile-menu-section{margin-bottom:2rem}
+        .mobile-menu-label{font-size:1.05rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--cyan);
+            margin-bottom:1rem;padding-bottom:.5rem;border-bottom:1px solid rgba(255,255,255,.1)}
+        .mobile-menu-links{display:flex;flex-direction:column;gap:.25rem}
+        .mobile-menu-link{display:block;padding:1rem 0;color:var(--white);text-decoration:none;font-size:1.1rem;font-weight:500;
+            border-bottom:1px solid rgba(255,255,255,.05);transition:all .3s ease}
+        .mobile-menu-link:hover{color:var(--cyan);padding-left:.5rem}
+        .mobile-menu-link span{display:block;font-size:1.1rem;color:var(--gray);font-weight:400;margin-top:.25rem}
+        .mobile-menu-contacto{margin-top:auto;padding-top:2rem;border-top:1px solid rgba(255,255,255,.1);display:flex;flex-direction:column;gap:1rem}
+        .mobile-menu-tel{display:flex;align-items:center;gap:1rem;padding:1rem;background:var(--card);
+            border:1px solid rgba(0,255,136,.3);border-radius:12px;text-decoration:none;color:var(--white);transition:all .3s ease}
+        .mobile-menu-tel:hover{border-color:var(--green)}
+        .mobile-menu-tel-icon{display:flex;align-items:center;justify-content:center;width:48px;height:48px;background:var(--green);color:#000;border-radius:50%;font-size:1.25rem}
+        .mobile-menu-tel-info{display:flex;flex-direction:column}
+        .mobile-menu-tel-label{font-size:1.05rem;color:var(--gray);text-transform:uppercase;letter-spacing:.05em}
+        .mobile-menu-tel-number{font-size:1.25rem;font-weight:700}
+        @media(max-width:900px){.nav-desktop{display:none}.nav-mobile-controls{display:flex}}
+        @media(min-width:901px){.mobile-menu{display:none!important}}
 
-        body {
-            font-family: var(--font-main);
-            background: #000000;
-            color: var(--color-white);
-            line-height: 1.75;
-        }
+        /* LAYOUT */
+        section{padding:5rem 1.25rem;position:relative}
+        .inner{max-width:1200px;margin:0 auto}
+        .shead{max-width:780px;margin:0 auto 3rem;text-align:center}
+        .snum{display:inline-flex;align-items:center;gap:.6rem;font-size:.75rem;font-weight:900;letter-spacing:.16em;
+            text-transform:uppercase;color:var(--cyan);margin-bottom:1rem}
+        .snum b{display:flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;
+            border:1.5px solid rgba(0,212,255,.4);font-size:.75rem;color:var(--cyan)}
+        h2.t{font-size:2rem;font-weight:900;letter-spacing:-.025em;line-height:1.15;margin-bottom:1.25rem}
+        h2.t .hl{background:linear-gradient(135deg,var(--cyan),var(--white));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+        .intro{font-size:1.1rem;color:var(--gray2);line-height:1.8;max-width:680px;margin:0 auto}
 
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 1rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(0,0,0,0.95);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .logo { display: flex; align-items: center; text-decoration: none; line-height: 1; }
-        .logo img { height: 40px; width: auto; }
-
-        .nav-desktop { display: flex; gap: 2rem; align-items: center; }
-
-        .nav-link {
-            color: var(--color-gray-light);
-            text-decoration: none;
-            font-size: 1.05rem;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-        .nav-link:hover { color: var(--color-white); }
-
-        .nav-cta {
-            background: var(--color-accent);
-            color: var(--color-bg);
-            padding: 0.75rem 1.5rem;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.05rem;
-            transition: all 0.3s ease;
-        }
-        .nav-cta:hover { box-shadow: 0 0 20px var(--color-accent-glow); }
-
-        .nav-mobile-controls { display: none; align-items: center; gap: 1rem; }
-
-        .nav-call {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 44px;
-            height: 44px;
-            background: var(--color-green);
-            color: var(--color-bg);
-            text-decoration: none;
-            font-size: 1.25rem;
-            border-radius: 50%;
-            transition: all 0.3s ease;
-        }
-        .nav-call:hover { box-shadow: 0 0 20px var(--color-green-glow); transform: scale(1.05); }
-
-        .hamburger {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            width: 44px;
-            height: 44px;
-            background: transparent;
-            border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 8px;
-            cursor: pointer;
-            gap: 5px;
-            transition: all 0.3s ease;
-        }
-        .hamburger:hover { border-color: rgba(255,255,255,0.4); }
-        .hamburger span { display: block; width: 20px; height: 2px; background: var(--color-white); transition: all 0.3s ease; }
-        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
-        .hamburger.active span:nth-child(2) { opacity: 0; }
-        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
-
-        /* Mobile menu */
-        .mobile-menu {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            background: rgba(0,0,0,0.98);
-            z-index: 999;
-            display: flex;
-            flex-direction: column;
-            padding: 6rem 2rem 2rem;
-            transform: translateX(100%);
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            overflow-y: auto;
-        }
-        .mobile-menu.active { transform: translateX(0); }
-
-        .mobile-menu-section { margin-bottom: 2rem; }
-        .mobile-menu-label {
-            font-size: 1.05rem;
-            font-weight: 700;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--color-accent);
-            margin-bottom: 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-        .mobile-menu-links { display: flex; flex-direction: column; gap: 0.25rem; }
-        .mobile-menu-link {
-            display: block;
-            padding: 1rem 0;
-            color: var(--color-white);
-            text-decoration: none;
-            font-size: 1.1rem;
-            font-weight: 500;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            transition: all 0.3s ease;
-        }
-        .mobile-menu-link:hover { color: var(--color-accent); padding-left: 0.5rem; }
-        .mobile-menu-link span { display: block; font-size: 1.1rem; color: var(--color-gray); font-weight: 400; margin-top: 0.25rem; }
-
-        .mobile-menu-contacto {
-            margin-top: auto;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-        .mobile-menu-tel {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 1rem;
-            background: var(--color-bg-card);
-            border: 1px solid rgba(0, 255, 136, 0.3);
-            border-radius: 12px;
-            text-decoration: none;
-            color: var(--color-white);
-            transition: all 0.3s ease;
-        }
-        .mobile-menu-tel:hover { border-color: var(--color-green); box-shadow: 0 0 20px rgba(0, 255, 136, 0.1); }
-        .mobile-menu-tel-icon {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 48px;
-            height: 48px;
-            background: var(--color-green);
-            color: var(--color-bg);
-            border-radius: 50%;
-            font-size: 1.25rem;
-        }
-        .mobile-menu-tel-info { display: flex; flex-direction: column; }
-        .mobile-menu-tel-label { font-size: 1.05rem; color: var(--color-gray); text-transform: uppercase; letter-spacing: 0.05em; }
-        .mobile-menu-tel-number { font-size: 1.25rem; font-weight: 700; }
-
-        @media (max-width: 900px) {
-            .nav-desktop { display: none; }
-            .nav-mobile-controls { display: flex; }
-        }
-        @media (min-width: 901px) {
-            .mobile-menu { display: none !important; }
-        }
-
-        /* Sections */
-        section { padding: 6rem 5%; }
-
-        .section-label {
-            display: inline-block;
-            font-size: 1.1rem;
-            font-weight: 700;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--color-accent);
-            margin-bottom: 1rem;
-        }
-        .section-title {
-            font-size: clamp(1.75rem, 4vw, 3rem);
-            font-weight: 800;
-            margin-bottom: 1rem;
-            letter-spacing: -0.02em;
-        }
-        .section-title .highlight { color: var(--color-accent); }
-        .section-intro { font-size: 1.1rem; color: var(--color-gray-light); max-width: 600px; }
+        .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;width:100%;min-height:56px;
+            padding:1rem 1.75rem;border-radius:10px;font-weight:800;font-size:1.05rem;text-decoration:none;border:none;cursor:pointer;font-family:var(--f);transition:.3s}
+        .btn.solid{background:var(--cyan);color:#000;box-shadow:0 8px 30px rgba(0,212,255,.3)}
+        .btn.solid:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(0,212,255,.4)}
+        .btn.line{background:rgba(255,255,255,.05);color:var(--white);border:1px solid rgba(255,255,255,.2)}
+        .btn.line:hover{background:rgba(255,255,255,.1);border-color:var(--white)}
 
         /* HERO */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 8rem 5% 5rem;
-            background: #000000;
-        }
-        .hero-content { max-width: 900px; }
-        .hero-logo { max-width: 700px; width: 95%; height: auto; margin: 0 auto 1.5rem; display: block; }
-        .hero-tagline {
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            font-weight: 900;
-            color: var(--color-white);
-            margin-bottom: 1.5rem;
-            letter-spacing: -0.02em;
-            line-height: 1.1;
-        }
-        .hero-tagline .highlight { color: var(--color-accent); }
-        .hero-slogan {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--color-accent);
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            margin-bottom: 1.5rem;
-        }
-        .hero-sub {
-            font-size: 1.25rem;
-            color: var(--color-gray-light);
-            max-width: 650px;
-            margin: 0 auto 3rem;
-            line-height: 1.8;
-        }
-        .hero-ctas { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        .hero{padding:9rem 1.25rem 4rem;overflow:hidden;text-align:center}
+        .hero::before{content:'';position:absolute;inset:0;pointer-events:none;opacity:.5;
+            background-image:linear-gradient(rgba(255,255,255,.028) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.028) 1px,transparent 1px);
+            background-size:44px 44px;-webkit-mask-image:radial-gradient(ellipse at 50% 0%,#000,transparent 72%);mask-image:radial-gradient(ellipse at 50% 0%,#000,transparent 72%)}
+        .hero::after{content:'';position:absolute;top:-20%;left:50%;transform:translateX(-50%);width:120vw;height:70vw;max-width:950px;max-height:600px;
+            background:radial-gradient(ellipse,rgba(0,212,255,.14),transparent 66%);pointer-events:none}
+        .hero-in{position:relative;z-index:2;max-width:900px;margin:0 auto}
+        .hero-logo{max-width:520px;width:88%;height:auto;margin:0 auto 2rem;display:block}
+        @media(max-width:700px){ .hero-logo{max-width:210px;width:62%;margin-bottom:1.35rem;opacity:.92} }
+        .pill{display:inline-flex;align-items:center;gap:.45rem;padding:.45rem 1.1rem;margin-bottom:1.4rem;
+            background:rgba(0,212,255,.09);border:1px solid rgba(0,212,255,.32);border-radius:100px;font-size:.82rem;font-weight:700;color:var(--cyan)}
+        .pill .blink{width:7px;height:7px;border-radius:50%;background:var(--cyan);box-shadow:0 0 10px var(--cyan);animation:pulse 2s infinite}
+        @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+        .hero h1{font-size:2.2rem;font-weight:900;line-height:1.12;letter-spacing:-.035em;margin-bottom:1.3rem}
+        .hero h1 .hl{background:linear-gradient(to right,var(--cyan),var(--white));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+        .hero .sub{font-size:1.12rem;color:var(--gray2);line-height:1.75;margin:0 auto 2rem;max-width:680px}
+        .proof{display:flex;flex-wrap:wrap;justify-content:center;gap:.6rem;margin-bottom:2rem}
+        .proof span{display:inline-flex;gap:.35rem;padding:.45rem .9rem;border-radius:8px;background:rgba(255,255,255,.04);
+            border:1px solid rgba(255,255,255,.1);font-size:.85rem;font-weight:600;color:var(--gray2)}
+        .proof span b{color:var(--cyan);font-weight:900}
+        .hero-btns{display:flex;flex-direction:column;gap:.8rem;max-width:460px;margin:0 auto}
 
-        .btn-primary {
-            display: inline-block;
-            background: var(--color-accent);
-            color: var(--color-bg);
-            padding: 1rem 2.5rem;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-        }
-        .btn-primary:hover { box-shadow: 0 0 40px var(--color-accent-glow); transform: translateY(-2px); }
+        /* DATOS */
+        .datos{background:var(--bg2);border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06);padding:3rem 1.25rem}
+        .dgrid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;max-width:1100px;margin:0 auto}
+        .d{background:var(--card);border:1px solid rgba(255,255,255,.07);border-radius:18px;padding:1.6rem 1.1rem;text-align:center;position:relative;overflow:hidden;transition:transform .3s}
+        .d:hover{transform:translateY(-4px);border-color:rgba(0,212,255,.3)}
+        .d::after{content:'';position:absolute;inset:0 auto auto 0;height:2px;width:100%;background:linear-gradient(90deg,var(--cyan),transparent);opacity:.7}
+        .d .ic-d{color:var(--cyan);opacity:.7;font-size:1.35rem;margin:0 auto .7rem}
+        .d .n{font-size:2.2rem;font-weight:900;line-height:1;margin-bottom:.4rem;
+            background:linear-gradient(135deg,#fff,var(--cyan));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+        .d .l{font-size:.85rem;color:var(--gray);line-height:1.4}
 
-        .btn-secondary {
-            display: inline-block;
-            background: transparent;
-            color: var(--color-white);
-            padding: 1rem 2.5rem;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255,255,255,0.5);
-        }
-        .btn-secondary:hover { background: var(--color-white); color: var(--color-bg); border-color: var(--color-white); }
+        /* EL MODELO: base + dos salidas */
+        .modelo{background:var(--bg)}
+        .base-card{max-width:1000px;margin:0 auto;position:relative;background:var(--card);
+            border:1px solid rgba(0,212,255,.3);border-radius:20px;padding:2rem;overflow:hidden;
+            display:flex;flex-direction:column;gap:1rem;text-decoration:none;color:inherit;transition:.35s}
+        .base-card:hover{transform:translateY(-4px);border-color:var(--cyan);box-shadow:0 15px 45px rgba(0,212,255,.1)}
+        .base-card::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 20% 0%,rgba(0,212,255,.07),transparent 60%);pointer-events:none}
+        .bc-top{display:flex;align-items:center;gap:1rem;position:relative;z-index:2}
+        .bc-top .ic{flex:0 0 52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;
+            background:rgba(0,212,255,.1);border:1px solid rgba(0,212,255,.3);color:var(--cyan)}
+        .bc-top .ic .i{width:1.6rem;height:1.6rem}
+        .bc-lab{display:block;font-size:.72rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan)}
+        .bc-top h3{font-size:1.4rem;font-weight:900;line-height:1.2}
+        .base-card p{font-size:1rem;color:var(--gray2);line-height:1.75;position:relative;z-index:2}
+        .base-card .go{display:inline-flex;align-items:center;gap:.5rem;color:var(--cyan);font-weight:800;font-size:1rem;position:relative;z-index:2}
+        .base-card .go::after{content:'→';transition:transform .3s}
+        .base-card:hover .go::after{transform:translateX(5px)}
 
-        /* SERVICIOS */
-        .servicios { background: #000000; border-top: 1px solid rgba(255,255,255,0.1); }
-        .servicios-header { text-align: center; margin-bottom: 3rem; }
-        .servicios-header .section-intro { margin: 0.5rem auto 0; }
-        .servicios-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; max-width: 1200px; margin: 0 auto; }
-        .servicio-card {
-            padding: 2.5rem;
-            background: var(--color-bg-card);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 8px;
-            text-decoration: none;
-            color: inherit;
-            display: flex;
-            flex-direction: column;
-            transition: all 0.3s ease;
-        }
-        .servicio-card:hover { border-color: var(--color-accent); box-shadow: 0 0 40px rgba(0, 212, 255, 0.15); transform: translateY(-5px); }
-        .servicio-icon { font-size: 2.5rem; margin-bottom: 1.5rem; }
-        .servicio-card h3 { font-size: 1.35rem; font-weight: 800; margin-bottom: 0.75rem; }
-        .servicio-card p { color: var(--color-gray); font-size: 1rem; flex-grow: 1; margin-bottom: 1.5rem; line-height: 1.7; }
-        .servicio-link { display: inline-flex; align-items: center; gap: 0.5rem; font-weight: 600; color: var(--color-accent); font-size: 1.1rem; }
-        .servicio-link::after { content: '→'; transition: transform 0.3s ease; }
-        .servicio-card:hover .servicio-link::after { transform: translateX(5px); }
+        .flechabaja{display:flex;flex-direction:column;align-items:center;gap:.5rem;margin:2rem 0}
+        .flechabaja .ln{width:2px;height:36px;background:linear-gradient(180deg,var(--cyan),var(--green))}
+        .flechabaja .tx{font-size:.78rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:var(--green);text-align:center}
 
-        /* IMPACTO */
-        .impacto { background: var(--color-bg-light); border-top: 1px solid rgba(255,255,255,0.1); }
-        .impacto-header { text-align: center; margin-bottom: 3rem; }
-        .impacto-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; max-width: 1100px; margin: 0 auto; }
-        .impacto-card {
-            padding: 2.5rem 2rem;
-            background: var(--color-bg-card);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 12px;
-            text-align: center;
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        .impacto-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--color-accent), var(--color-green));
-            transform: scaleX(0);
-            transition: transform 0.4s ease;
-        }
-        .impacto-card:hover { border-color: var(--color-accent); box-shadow: 0 10px 60px rgba(0, 212, 255, 0.2); transform: translateY(-8px); }
-        .impacto-card:hover::before { transform: scaleX(1); }
-        .impacto-icono { font-size: 2.5rem; margin-bottom: 1rem; }
-        .impacto-numero {
-            font-size: 3.5rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-green) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            line-height: 1;
-            margin-bottom: 0.5rem;
-        }
-        .impacto-concepto { font-size: 1rem; font-weight: 700; color: var(--color-white); margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.05em; }
-        .impacto-card p { font-size: 1.05rem; color: var(--color-gray); line-height: 1.6; }
-        .impacto-cta { text-align: center; margin-top: 3rem; }
+        .salidas{display:grid;gap:1.5rem;max-width:1000px;margin:0 auto}
+        .sal{position:relative;background:var(--card);border:1px solid rgba(0,255,136,.28);border-radius:20px;
+            padding:2rem;display:flex;flex-direction:column;text-decoration:none;color:inherit;transition:.35s;overflow:hidden}
+        .sal:hover{transform:translateY(-6px);border-color:var(--green);box-shadow:0 18px 45px rgba(0,255,136,.08)}
+        .sal .ic{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;
+            background:rgba(0,255,136,.09);border:1px solid rgba(0,255,136,.28);color:var(--green);margin-bottom:1.2rem}
+        .sal .ic .i{width:1.6rem;height:1.6rem}
+        .sal .lab{display:block;font-size:.72rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:var(--green);margin-bottom:.5rem}
+        .sal h3{font-size:1.3rem;font-weight:900;margin-bottom:.75rem;line-height:1.25}
+        .sal p{font-size:1rem;color:var(--gray2);line-height:1.75;margin-bottom:1rem}
+        .sal .punch{font-size:1rem;font-weight:700;color:var(--white);margin-bottom:1.25rem;line-height:1.6}
+        .sal .go{margin-top:auto;padding-top:1.25rem;border-top:1px solid rgba(255,255,255,.07);
+            display:inline-flex;align-items:center;gap:.5rem;color:var(--green);font-weight:800;font-size:1rem}
+        .sal .go::after{content:'→';transition:transform .3s}
+        .sal:hover .go::after{transform:translateX(5px)}
+        .sal .badge{position:absolute;top:1.4rem;right:1.4rem;font-size:.7rem;font-weight:800;letter-spacing:.06em;
+            text-transform:uppercase;padding:.25rem .7rem;border-radius:100px;background:rgba(255,204,0,.12);color:var(--yellow);border:1px solid rgba(255,204,0,.35)}
 
-        /* ENTRENAMIENTO */
-        .entrenamiento { background: #000000; border-top: 1px solid rgba(255,255,255,0.1); }
-        .entrenamiento-container { max-width: 1000px; margin: 0 auto; text-align: center; }
-        .entrenamiento-header { margin-bottom: 3rem; }
-        .clientes-grandes { display: flex; justify-content: center; flex-wrap: wrap; gap: 4rem; margin-bottom: 3rem; }
-        .cliente-logo {
-            font-size: 2.25rem;
-            font-weight: 900;
-            color: var(--color-white);
-            opacity: 0.7;
-            transition: all 0.4s ease;
-            letter-spacing: -0.02em;
-        }
-        .cliente-logo:hover { opacity: 1; color: var(--color-accent); transform: scale(1.05); }
-        .entrenamiento-dato {
-            display: inline-flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 1.5rem 2.5rem;
-            background: rgba(0, 212, 255, 0.1);
-            border: 1px solid rgba(0, 212, 255, 0.3);
-            border-radius: 12px;
-        }
-        .dato-numero {
-            font-size: 3rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-green) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .dato-texto { font-size: 1.1rem; color: var(--color-gray-light); text-align: left; max-width: 300px; }
+
+        /* EL BUCLE: retorno al campo */
+        .retorno{max-width:1000px;margin:2.5rem auto 0}
+        .flechasube{display:flex;flex-direction:column;align-items:center;gap:.5rem;margin-bottom:2rem}
+        .flechasube .ln{width:2px;height:32px;background:linear-gradient(0deg,var(--green),var(--cyan))}
+        .flechasube .tx{font-size:.78rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);text-align:center}
+        .bucle{background:var(--card);border:1px solid rgba(0,212,255,.3);border-radius:22px;padding:2rem;
+            position:relative;overflow:hidden}
+        .bucle::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(0,212,255,.08),transparent 62%);pointer-events:none}
+        .bucle-top{position:relative;z-index:2;text-align:center;margin-bottom:2rem}
+        .bucle-top h3{font-size:1.35rem;font-weight:900;line-height:1.35;margin-bottom:.75rem}
+        .bucle-top h3 em{font-style:normal;color:var(--green)}
+        .bucle-top p{font-size:1rem;color:var(--gray2);line-height:1.75;max-width:640px;margin:0 auto}
+        .rueda{width:100%;max-width:340px;margin:0 auto 2rem;position:relative;z-index:2}
+        .rueda svg{width:100%;height:auto;overflow:visible}
+        .girodash{stroke-dasharray:6 8;animation:giro 3.5s linear infinite}
+        @keyframes giro{to{stroke-dashoffset:-28}}
+        .devuelve{display:grid;gap:1rem;position:relative;z-index:2}
+        .dv{padding:1.25rem;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);
+            border-radius:14px;border-top:2px solid var(--green)}
+        .dv b{display:block;font-size:.72rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:var(--green);margin-bottom:.5rem}
+        .dv p{font-size:.95rem;color:var(--gray2);line-height:1.7}
+        .bucle-cierre{position:relative;z-index:2;margin-top:2rem;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,.08);
+            text-align:center;font-size:1.15rem;font-weight:800;line-height:1.5;color:var(--white)}
+        .bucle-cierre span{color:var(--cyan)}
+        @media(min-width:900px){ .devuelve{grid-template-columns:repeat(3,1fr)} .bucle{padding:3rem} }
+
+        /* DÓNDE APRENDIMOS */
+        .origen{background:var(--bg2);border-top:1px solid rgba(255,255,255,.06);text-align:center}
+        .marcas{display:flex;justify-content:center;flex-wrap:wrap;gap:2.5rem;margin-top:2.5rem}
+        .marcas span{font-size:1.6rem;font-weight:900;color:var(--gray2);opacity:.6;transition:.4s;letter-spacing:-.02em}
+        .marcas span:hover{opacity:1;color:var(--cyan)}
 
         /* ESENCIA */
-        .esencia { background: var(--color-bg-light); border-top: 1px solid rgba(255,255,255,0.1); }
-        .esencia-container { max-width: 1000px; margin: 0 auto; }
-        .esencia-header { text-align: center; margin-bottom: 2rem; }
-        .esencia-intro { text-align: center; margin-bottom: 3rem; }
-        .esencia-intro p { font-size: 1.5rem; color: var(--color-gray-light); }
-        .esencia-intro strong { color: var(--color-accent); }
-        .esencia-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-bottom: 3rem; }
-        .esencia-card {
-            padding: 2rem;
-            background: var(--color-bg-card);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 12px;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-        .esencia-card:hover { border-color: var(--color-accent); box-shadow: 0 0 20px rgba(0, 212, 255, 0.1); }
-        .esencia-icono { font-size: 2.5rem; margin-bottom: 1rem; }
-        .esencia-card h3 { font-size: 1.1rem; font-weight: 700; color: var(--color-white); margin-bottom: 0.5rem; }
-        .esencia-card p { font-size: 1.05rem; color: var(--color-gray); line-height: 1.6; }
-        .esencia-origen {
-            text-align: center;
-            padding: 2rem;
-            background: var(--color-bg-card);
-            border: 1px solid rgba(0, 212, 255, 0.2);
-            border-radius: 12px;
-        }
-        .esencia-origen .origen-lugar { display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin-bottom: 0.5rem; }
-        .esencia-origen .origen-pin { font-size: 1.5rem; }
-        .esencia-origen .origen-texto { font-size: 1.1rem; color: var(--color-gray-light); }
-        .esencia-origen .origen-texto strong { color: var(--color-accent); }
-        .esencia-origen .origen-claim { font-size: 1.1rem; color: var(--color-gray); margin: 0; }
+        .esencia{background:var(--bg);border-top:1px solid rgba(255,255,255,.06)}
+        .eclaim{max-width:860px;margin:0 auto 2.5rem;text-align:center;padding:2rem;border-radius:18px;
+            background:linear-gradient(135deg,rgba(0,212,255,.08),rgba(0,255,136,.03));border:1px solid rgba(0,212,255,.25)}
+        .eclaim p{font-size:1.35rem;font-weight:900;line-height:1.4}
+        .eclaim strong{color:var(--cyan)}
+        .egrid{display:grid;gap:1.25rem;max-width:1100px;margin:0 auto}
+        .ec{padding:1.8rem;background:var(--card);border:1px solid rgba(255,255,255,.07);border-radius:18px;text-align:center;transition:.3s}
+        .ec:hover{border-color:rgba(0,212,255,.3);transform:translateY(-4px)}
+        .ec .ic{width:48px;height:48px;border-radius:13px;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;
+            background:rgba(0,212,255,.08);border:1px solid rgba(0,212,255,.22);color:var(--cyan)}
+        .ec .ic .i{width:1.45rem;height:1.45rem}
+        .ec h4{font-size:1.05rem;font-weight:800;margin-bottom:.5rem}
+        .ec p{font-size:.95rem;color:var(--gray);line-height:1.65}
 
-        /* PERSONAS */
-        .personas { background: #000000; border-top: 1px solid rgba(255,255,255,0.1); }
-        .personas-header { text-align: center; margin-bottom: 3rem; }
-        .personas-contraste { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; max-width: 800px; margin: 0 auto 3rem; }
-        .contraste-card { padding: 2rem; border-radius: 12px; text-align: center; }
-        .contraste-card.malo { background: rgba(255, 77, 77, 0.1); border: 1px solid rgba(255, 77, 77, 0.3); }
-        .contraste-card.bueno { background: rgba(0, 255, 136, 0.1); border: 1px solid rgba(0, 255, 136, 0.3); }
-        .contraste-icono { font-size: 2rem; margin-bottom: 1rem; }
-        .contraste-card.malo .contraste-icono { color: var(--color-red); }
-        .contraste-card.bueno .contraste-icono { color: var(--color-green); }
-        .contraste-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.75rem; }
-        .contraste-card.malo h3 { color: var(--color-red); }
-        .contraste-card.bueno h3 { color: var(--color-green); }
-        .contraste-card p { font-size: 1.1rem; color: var(--color-gray-light); line-height: 1.6; }
-        .equipos-explicacion { max-width: 1000px; margin: 0 auto 3rem; text-align: center; }
-        .equipos-intro { font-size: 1rem; color: var(--color-gray); margin-bottom: 1.5rem; }
-        .equipos-nombres { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
-        .equipo-nombre { padding: 1.25rem; background: var(--color-bg-card); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; text-align: center; transition: all 0.3s ease; }
-        .equipo-nombre:hover { border-color: var(--color-accent); }
-        .nombre-sigla { display: block; font-size: 1.25rem; font-weight: 900; color: var(--color-accent); margin-bottom: 0.5rem; letter-spacing: 0.05em; }
-        .nombre-significado { display: block; font-size: 1.1rem; color: var(--color-gray-light); line-height: 1.5; }
-        .personas-resumen {
-            text-align: center;
-            padding: 3rem;
-            background: var(--color-bg-card);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 12px;
-            max-width: 600px;
-            margin: 0 auto 3rem;
-        }
-        .resumen-numero { display: flex; align-items: baseline; justify-content: center; gap: 0.5rem; margin-bottom: 1.5rem; }
-        .resumen-numero .numero { font-size: 4rem; font-weight: 900; color: var(--color-accent); line-height: 1; }
-        .resumen-numero .texto { font-size: 1.5rem; color: var(--color-gray-light); }
-        .resumen-desc { font-size: 1rem; color: var(--color-gray); line-height: 1.6; }
-        .personas-cta { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
-
-        /* FILOSOFÍA */
-        .filosofia { background: var(--color-bg-light); border-top: 1px solid rgba(255,255,255,0.1); }
-        .filosofia-container { max-width: 900px; margin: 0 auto; }
-        .filosofia-header { text-align: center; margin-bottom: 2rem; }
-        .filosofia-intro {
-            text-align: center;
-            margin-bottom: 3rem;
-            padding: 1.5rem 2rem;
-            background: var(--color-bg-card);
-            border-left: 3px solid var(--color-accent);
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .filosofia-intro p { font-size: 1.1rem; color: var(--color-gray-light); margin: 0; line-height: 1.7; }
-        .valores-destacados { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 3rem; }
-        .valor-destacado {
-            padding: 2rem;
-            background: var(--color-bg-card);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 12px;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-        .valor-destacado:hover { border-color: var(--color-accent); box-shadow: 0 0 20px rgba(0, 212, 255, 0.1); }
-        .valor-icono { font-size: 2.5rem; margin-bottom: 1rem; display: block; }
-        .valor-destacado h3 { font-size: 1.1rem; font-weight: 700; color: var(--color-white); margin-bottom: 0.5rem; }
-        .valor-destacado p { font-size: 1.05rem; color: var(--color-gray); line-height: 1.5; margin: 0; }
-        .filosofia-claim {
-            text-align: center;
-            margin-bottom: 2rem;
-            padding: 2.5rem 3rem;
-            background: rgba(0, 212, 255, 0.1);
-            border: 1px solid rgba(0, 212, 255, 0.3);
-            border-radius: 16px;
-            position: relative;
-            overflow: hidden;
-        }
-        .filosofia-claim::before {
-            content: '"';
-            position: absolute;
-            top: -20px;
-            left: 20px;
-            font-size: 8rem;
-            font-weight: 900;
-            color: var(--color-accent);
-            opacity: 0.1;
-            line-height: 1;
-        }
-        .filosofia-claim p { font-size: 1.6rem; font-weight: 600; color: var(--color-white); margin: 0; position: relative; z-index: 1; }
-        .filosofia-claim p strong {
-            background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-green) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .filosofia-cta { text-align: center; }
+        /* EQUIPOS */
+        .equipos{background:var(--bg2);border-top:1px solid rgba(255,255,255,.06)}
+        .eqgrid{display:grid;gap:1rem;max-width:1100px;margin:0 auto}
+        .eqc{padding:1.4rem;background:var(--card);border:1px solid rgba(255,255,255,.07);border-radius:14px;text-align:center;transition:.3s}
+        .eqc:hover{border-color:rgba(0,212,255,.3)}
+        .eqc b{display:block;font-size:1.2rem;font-weight:900;color:var(--cyan);letter-spacing:.05em;margin-bottom:.4rem}
+        .eqc span{display:block;font-size:.92rem;color:var(--gray2);line-height:1.5}
 
         /* COBERTURA */
-        .cobertura { background: var(--color-bg-light); border-top: 1px solid rgba(255,255,255,0.1); }
-        .cobertura-container { max-width: 1000px; margin: 0 auto; }
-        .cobertura-header { text-align: center; margin-bottom: 3rem; }
-        .cobertura-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
-        .cobertura-bloque {
-            padding: 2.5rem;
-            background: var(--color-bg-card);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 12px;
-            text-align: center;
-        }
-        .cobertura-bloque.presencial { border-color: rgba(0, 212, 255, 0.3); }
-        .cobertura-bloque.online { border-color: rgba(0, 255, 136, 0.3); }
-        .bloque-icono { font-size: 2.5rem; margin-bottom: 1rem; }
-        .cobertura-bloque h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 1.5rem; }
-        .cobertura-bloque.presencial h3 { color: var(--color-accent); }
-        .cobertura-bloque.online h3 { color: var(--color-green); }
-        .bloque-servicios { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.5rem; }
-        .bloque-servicios span { font-size: 1.1rem; color: var(--color-gray-light); }
-        .bloque-alcance {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-            padding: 1rem;
-            background: var(--color-bg);
-            border-radius: 8px;
-        }
-        .alcance-pin { font-size: 1.25rem; }
-        .alcance-texto { font-size: 1.1rem; font-weight: 700; color: var(--color-white); }
-        .bloque-zonas { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; margin-bottom: 1rem; }
-        .bloque-zonas span { padding: 0.4rem 0.8rem; background: var(--color-bg); border-radius: 4px; font-size: 1.1rem; color: var(--color-gray); }
-        .bloque-nota, .bloque-mensaje { font-size: 1.05rem; color: var(--color-gray); margin: 0; }
+        .cobertura{background:var(--bg);border-top:1px solid rgba(255,255,255,.06)}
+        .cgrid{display:grid;gap:1.5rem;max-width:1000px;margin:0 auto}
+        .cb{padding:2rem;background:var(--card);border:1px solid rgba(255,255,255,.08);border-radius:18px;text-align:center}
+        .cb.pres{border-color:rgba(0,212,255,.28)}
+        .cb.onl{border-color:rgba(0,255,136,.28)}
+        .cb .ic{width:50px;height:50px;border-radius:14px;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem}
+        .cb.pres .ic{background:rgba(0,212,255,.09);border:1px solid rgba(0,212,255,.25);color:var(--cyan)}
+        .cb.onl .ic{background:rgba(0,255,136,.09);border:1px solid rgba(0,255,136,.25);color:var(--green)}
+        .cb .ic .i{width:1.5rem;height:1.5rem}
+        .cb h3{font-size:1.15rem;font-weight:800;margin-bottom:1rem}
+        .cb.pres h3{color:var(--cyan)}
+        .cb.onl h3{color:var(--green)}
+        .cb ul{list-style:none;display:flex;flex-direction:column;gap:.45rem;margin-bottom:1.25rem}
+        .cb li{font-size:.98rem;color:var(--gray2)}
+        .zonas{display:flex;flex-wrap:wrap;justify-content:center;gap:.5rem}
+        .zonas span{padding:.4rem .85rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:100px;font-size:.88rem;color:var(--gray2)}
+        .cb .nota{font-size:.9rem;color:var(--gray);margin-top:1rem}
+        .lugar{max-width:1000px;margin:2.5rem auto 0;text-align:center;font-size:1.05rem;color:var(--gray2);line-height:1.8}
+        .lugar b{color:var(--cyan)}
+        .lugar em{display:block;font-style:normal;color:var(--gray);font-size:.98rem;margin-top:.3rem}
 
         /* CONTACTO */
-        .contacto { background: #000000; border-top: 1px solid rgba(255,255,255,0.1); }
-        .contacto-container { max-width: 800px; margin: 0 auto; }
-        .contacto-header { text-align: center; margin-bottom: 3rem; }
-        .contacto-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem; }
-        .contacto-form { background: var(--color-bg-card); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; padding: 2.5rem; }
-        .form-grid { display: grid; gap: 1.5rem; }
-        .input-group { display: flex; flex-direction: column; }
-        .input-group label { font-size: 1rem; color: var(--color-gray-light); margin-bottom: 0.75rem; font-weight: 500; }
-        .input-group input,
-        .input-group textarea {
-            width: 100%;
-            box-sizing: border-box;
-            background: var(--color-bg);
-            border: 1px solid rgba(255,255,255,0.2);
-            color: var(--color-white);
-            padding: 1rem;
-            font-size: 1rem;
-            font-family: var(--font-main);
-            border-radius: 4px;
-            transition: all 0.3s ease;
-        }
-        .input-group input:focus,
-        .input-group textarea:focus { outline: none; border-color: var(--color-accent); box-shadow: 0 0 20px rgba(0, 212, 255, 0.2); }
-        .input-group input::placeholder,
-        .input-group textarea::placeholder { color: var(--color-gray); }
-        .form-btn {
-            display: block;
-            width: 100%;
-            background: var(--color-accent);
-            color: var(--color-bg);
-            border: none;
-            padding: 1.25rem;
-            font-size: 1rem;
-            font-weight: 700;
-            font-family: var(--font-main);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 1rem;
-        }
-        .form-btn:hover { box-shadow: 0 0 40px var(--color-accent-glow); }
-        .contacto-canales { display: flex; flex-direction: column; justify-content: center; gap: 1.5rem; }
-        .canal {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 1.5rem;
-            background: var(--color-bg-card);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 8px;
-            text-decoration: none;
-            color: inherit;
-            transition: all 0.3s ease;
-        }
-        .canal:hover { border-color: var(--color-accent); box-shadow: 0 0 20px rgba(0, 212, 255, 0.1); }
-        .canal-icon { font-size: 1.5rem; }
-        .canal-info { display: flex; flex-direction: column; }
-        .canal-label { font-size: 1.05rem; color: var(--color-gray); text-transform: uppercase; letter-spacing: 0.05em; }
-        .canal-value { font-size: 1.1rem; font-weight: 700; color: var(--color-white); }
+        .form-sec{background:var(--bg2);border-top:1px solid rgba(255,255,255,.06)}
+        .fbox{background:var(--card);border:1px solid rgba(0,212,255,.28);border-radius:20px;padding:2rem;margin:0 auto;max-width:640px;box-shadow:0 20px 50px rgba(0,0,0,.4)}
+        .fbox h3{font-size:1.3rem;font-weight:900;margin-bottom:.4rem}
+        .fbox .fsub{font-size:.95rem;color:var(--gray);margin-bottom:1.75rem}
+        .fg{display:flex;flex-direction:column;gap:1.1rem}
+        .ig{display:flex;flex-direction:column}
+        .ig label{font-size:.85rem;color:var(--gray2);margin-bottom:.5rem;font-weight:600}
+        .ig input,.ig select,.ig textarea{width:100%;min-height:54px;background:#0a0a0a;border:1px solid rgba(255,255,255,.16);
+            color:var(--white);padding:1rem;font-size:16px;font-family:var(--f);border-radius:10px;transition:.3s}
+        .ig textarea{min-height:100px;resize:vertical}
+        .ig input:focus,.ig select:focus,.ig textarea:focus{outline:none;border-color:var(--cyan);box-shadow:0 0 0 3px rgba(0,212,255,.15)}
+        .ig input::placeholder,.ig textarea::placeholder{color:#5a5a5a}
+        .flegal{font-size:.82rem;color:var(--gray);text-align:center;line-height:1.55}
+        .flegal a{color:var(--gray2)}
+        .hp{position:absolute;left:-9999px}
+        .canales{display:grid;gap:1rem;max-width:950px;margin:2rem auto 0}
+        .canal{display:flex;align-items:center;gap:1.25rem;padding:1.25rem 1.5rem;background:var(--card);
+            border:1px solid rgba(255,255,255,.07);border-radius:16px;text-decoration:none;color:inherit;transition:all .3s}
+        .canal:hover{border-color:var(--cyan);transform:translateY(-3px)}
+        .canal .ci{flex:0 0 50px;height:50px;border-radius:14px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.05)}
+        .canal .ci .i{width:1.5rem;height:1.5rem;color:var(--cyan)}
+        .canal .cl{display:block;font-size:.78rem;color:var(--gray);text-transform:uppercase;letter-spacing:.1em;margin-bottom:2px}
+        .canal .cv{display:block;font-size:1.12rem;font-weight:800}
 
-        /* Footer */
-        footer {
-            background: #000000;
-            padding: 4rem 5% 2rem;
-            text-align: center;
-            border-top: 1px solid rgba(255,255,255,0.1);
-        }
-        footer .logo { margin-bottom: 1rem; display: inline-block; }
-        footer .logo img { height: 50px; width: auto; }
-        footer .tagline { font-size: 1.2rem; font-weight: 600; color: var(--color-white); margin-bottom: 0.5rem; }
-        footer .subtag { font-size: 1rem; color: var(--color-gray); margin-bottom: 2rem; }
-        footer p { color: var(--color-gray); font-size: 1.05rem; }
-        footer .legal { margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); font-size: 1.1rem; color: var(--color-gray); }
-        footer .legal a { color: var(--color-gray); text-decoration: none; transition: color 0.3s ease; }
-        footer .legal a:hover { color: var(--color-accent); }
+        /* FOOTER + COOKIES */
+        footer{background:#000;padding:4.5rem 5% 2.5rem;text-align:center;border-top:1px solid rgba(255,255,255,.06)}
+        footer .logo{margin-bottom:1.25rem;display:inline-block}
+        footer .logo img{height:45px;width:auto}
+        footer .tagline{font-size:1.2rem;font-weight:600;margin-bottom:.5rem}
+        footer .subtag{font-size:1rem;color:var(--gray);line-height:1.6}
+        footer .legal{margin-top:2.5rem;padding-top:2rem;border-top:1px solid rgba(255,255,255,.06);font-size:.95rem;color:var(--gray)}
+        footer .legal a{color:var(--gray);text-decoration:none;transition:color .3s ease}
+        footer .legal a:hover{color:var(--cyan)}
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            html { font-size: 19px; }
-            section { padding: 3.5rem 6%; }
-            .hero { padding-top: 6rem; }
-            nav { padding: 1rem 5%; }
-            .hero-logo { max-width: 420px; }
-            .hero-ctas { flex-direction: column; }
-            .hero-ctas .btn-primary, .hero-ctas .btn-secondary { padding: 1.25rem 2rem; font-size: 1.1rem; }
-            .btn-primary, .btn-secondary { padding: 1.15rem 2rem; font-size: 1.05rem; }
-            .contacto-grid { grid-template-columns: 1fr; }
-            .contacto-form { padding: 1.5rem; }
-            .input-group label { font-size: 1.1rem; margin-bottom: 0.6rem; }
-            .input-group input, .input-group textarea { font-size: 1.1rem; padding: 1.1rem; }
-            .form-btn { padding: 1.25rem; font-size: 1.15rem; }
-            .servicio-card p { font-size: 1.1rem; }
-            .canal-value { font-size: 1.3rem; }
-            .personas-contraste { grid-template-columns: 1fr; }
-            .equipos-nombres { grid-template-columns: repeat(2, 1fr); }
-            .valores-destacados { grid-template-columns: repeat(2, 1fr); }
-            .cobertura-grid { grid-template-columns: 1fr; }
+        .cookie-banner{position:fixed;bottom:0;left:0;right:0;background:rgba(10,10,10,.98);backdrop-filter:blur(10px);
+            padding:1.25rem 5%;z-index:10000;border-top:1px solid rgba(255,255,255,.1);display:none}
+        .cookie-banner.active{display:block}
+        .cookie-content{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:2rem;flex-wrap:wrap}
+        .cookie-content p{color:var(--gray2);font-size:.95rem;margin:0;flex:1;min-width:250px}
+        .cookie-content a{color:var(--cyan);text-decoration:none}
+        .cookie-buttons{display:flex;gap:.75rem}
+        .cookie-btn{padding:.75rem 1.5rem;border:none;border-radius:6px;font-size:.95rem;font-weight:700;cursor:pointer;transition:all .3s ease;font-family:inherit}
+        .cookie-btn.accept{background:var(--cyan);color:#000}
+        .cookie-btn.reject{background:transparent;color:var(--gray);border:1px solid rgba(255,255,255,.2)}
+        @media(max-width:600px){
+            .cookie-content{flex-direction:column;text-align:center}
+            .cookie-buttons{width:100%;justify-content:center}
+            .hero h1{font-size:1.95rem}
+            h2.t{font-size:1.7rem}
+            .marcas{gap:1.25rem}
+            .marcas span{font-size:1.15rem}
         }
 
-        @media (max-width: 480px) {
-            .valores-destacados { grid-template-columns: 1fr; }
+        .rv{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
+        .rv.on{opacity:1;transform:none}
+
+        @media(min-width:900px){
+            html{font-size:17px}
+            section{padding:7rem 2rem}
+            .hero{padding:11rem 2rem 5rem}
+            .hero h1{font-size:3.1rem}
+            h2.t{font-size:2.3rem}
+            .hero-btns{flex-direction:row;max-width:none;justify-content:center}
+            .hero-btns .btn{width:auto;padding:1rem 2.5rem}
+            .dgrid{grid-template-columns:repeat(4,1fr)}
+            .salidas{grid-template-columns:1fr 1fr}
+            .egrid{grid-template-columns:repeat(4,1fr)}
+            .eqgrid{grid-template-columns:repeat(4,1fr)}
+            .cgrid{grid-template-columns:1fr 1fr}
+            .canales{grid-template-columns:repeat(3,1fr)}
+            .base-card{padding:2.5rem}
         }
 
-        @media (max-width: 400px) {
-            .hero-logo { max-width: 300px; }
-            .hero-slogan { font-size: 0.9rem; letter-spacing: 0.1em; }
+        /* ═══════ CAPA DE ACABADO ═══════ */
+
+        /* 1 · Grano de película sobre toda la página */
+        body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.04;
+            background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+        /* 2 · Tipografía editorial del hero */
+        .hero h1{font-size:clamp(2.3rem,8.5vw,5.2rem);line-height:.98;letter-spacing:-.045em;font-weight:300}
+        .hero h1 .hl{font-weight:900;letter-spacing:-.05em}
+        .hero .sub{font-size:clamp(1rem,2.1vw,1.2rem);color:var(--gray2);max-width:600px}
+        .hero-logo{max-width:400px;margin-bottom:2.5rem;opacity:.95}
+
+        /* 3 · Numeral fantasma detrás de cada encabezado */
+        .shead{position:relative}
+        .shead>*{position:relative;z-index:1}
+        .gh{position:absolute!important;z-index:0!important;top:-3.5rem;left:50%;transform:translateX(-50%);
+            font-size:clamp(6rem,18vw,11rem);font-weight:900;line-height:1;letter-spacing:-.06em;
+            color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.055);pointer-events:none;user-select:none}
+
+        /* 4 · Encabezado asimétrico (escritorio) */
+        @media(min-width:900px){
+            .shead.izq{max-width:1200px;text-align:left;display:grid;grid-template-columns:1.05fr .95fr;
+                gap:3rem;align-items:end;margin-bottom:3.5rem}
+            .shead.izq .intro{margin:0;max-width:none}
+            .shead.izq .gh{left:auto;right:0;transform:none;top:-4.5rem}
         }
 
-        /* Cookie Banner */
-        .cookie-banner {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(20, 20, 20, 0.98);
-            padding: 1.25rem 5%;
-            z-index: 10000;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            display: none;
+        /* 5 · Cinta infinita de marcas */
+        .marquee{position:relative;overflow:hidden;margin-top:3rem;
+            -webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);
+            mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+        .mtrack{display:flex;gap:3.5rem;width:max-content;animation:desliza 34s linear infinite}
+        .marquee:hover .mtrack{animation-play-state:paused}
+        .mtrack span{font-size:clamp(1.3rem,3.6vw,2.1rem);font-weight:900;letter-spacing:-.03em;
+            color:var(--gray2);opacity:.45;white-space:nowrap;transition:.35s}
+        .mtrack span:hover{opacity:1;color:var(--cyan)}
+        @keyframes desliza{to{transform:translateX(-50%)}}
+
+        /* 6 · Foco que sigue al cursor en las tarjetas del modelo */
+        .base-card,.sal{--mx:50%;--my:0%}
+        .base-card::after,.sal::after{content:'';position:absolute;inset:0;pointer-events:none;opacity:0;
+            transition:opacity .4s;background:radial-gradient(420px circle at var(--mx) var(--my),rgba(255,255,255,.06),transparent 42%)}
+        .base-card:hover::after,.sal:hover::after{opacity:1}
+
+        /* 7 · Filo superior degradado en las tarjetas */
+        .base-card>.bc-top{padding-top:.25rem}
+        .sal,.base-card{border-top-width:1px}
+        .sal::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;
+            background:linear-gradient(90deg,transparent,var(--green),transparent);opacity:.55}
+        .base-card::before{background:radial-gradient(ellipse at 20% 0%,rgba(0,212,255,.09),transparent 60%)}
+
+        /* 8 · Más aire y jerarquía */
+        h2.t{letter-spacing:-.035em}
+        .eclaim p,.bucle-cierre{letter-spacing:-.02em}
+        .intro{color:var(--gray2)}
+
+        /* 9 · Indicador de scroll en el hero */
+        .cue{display:flex;flex-direction:column;align-items:center;gap:.5rem;margin-top:3rem;
+            font-size:.7rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--gray)}
+        .cue i{display:block;width:1px;height:46px;background:linear-gradient(180deg,var(--cyan),transparent);
+            animation:baja 2.2s ease-in-out infinite}
+        @keyframes baja{0%,100%{opacity:.25;transform:scaleY(.6);transform-origin:top}50%{opacity:1;transform:scaleY(1)}}
+
+        @media(min-width:900px){
+            section{padding:8rem 2rem}
+            .hero{padding:12rem 2rem 5rem}
         }
-        .cookie-banner.active { display: block; }
-        .cookie-content { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 2rem; flex-wrap: wrap; }
-        .cookie-content p { color: #ccc; font-size: 0.95rem; margin: 0; flex: 1; min-width: 250px; }
-        .cookie-content a { color: #00d4ff; text-decoration: none; }
-        .cookie-content a:hover { text-decoration: underline; }
-        .cookie-buttons { display: flex; gap: 0.75rem; }
-        .cookie-btn { padding: 0.75rem 1.5rem; border: none; border-radius: 4px; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; font-family: inherit; }
-        .cookie-btn.accept { background: #00d4ff; color: #0a0a0a; }
-        .cookie-btn.accept:hover { filter: brightness(1.1); }
-        .cookie-btn.reject { background: transparent; color: #888; border: 1px solid #444; }
-        .cookie-btn.reject:hover { border-color: #666; color: #ccc; }
-        @media (max-width: 600px) {
-            .cookie-content { flex-direction: column; text-align: center; }
-            .cookie-buttons { width: 100%; justify-content: center; }
+        
+
+        /* LAS TRES CADENAS */
+        .cadenas{background:var(--bg2);border-top:1px solid rgba(255,255,255,.06)}
+        .cd-grid{display:grid;gap:1rem;max-width:1150px;margin:0 auto}
+        .cd{position:relative;display:grid;grid-template-columns:auto 1fr;gap:1.25rem;align-items:start;
+            padding:1.75rem;background:var(--card);border:1px solid rgba(255,255,255,.07);
+            border-radius:18px;border-left:3px solid var(--cyan);transition:.3s;text-decoration:none;color:inherit}
+        .cd:hover{transform:translateX(4px);border-color:rgba(0,212,255,.35);border-left-color:var(--cyan);
+            box-shadow:0 12px 32px rgba(0,212,255,.07)}
+        .cd .num{display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:12px;
+            background:rgba(0,212,255,.09);border:1px solid rgba(0,212,255,.26);
+            color:var(--cyan);font-size:.9rem;font-weight:900}
+        .cd h3{font-size:1.18rem;font-weight:900;letter-spacing:-.02em;line-height:1.25;margin-bottom:.4rem}
+        .cd p{font-size:.96rem;color:var(--gray);line-height:1.65}
+        .cd .como{display:inline-flex;align-items:center;gap:.45rem;margin-top:.85rem;
+            font-size:.78rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--cyan)}
+        .cd .como::before{content:'';width:16px;height:1px;background:var(--cyan)}
+        .cd.dev{border-left-color:var(--yellow)}
+        .cd.dev .num{background:rgba(255,204,0,.09);border-color:rgba(255,204,0,.28);color:var(--yellow)}
+        .cd.dev .como{color:var(--yellow)}
+        .cd.dev .como::before{background:var(--yellow)}
+        .cd-cierre{max-width:900px;margin:2.5rem auto 0;text-align:center;padding:2rem;border-radius:18px;
+            background:linear-gradient(135deg,rgba(0,212,255,.08),rgba(0,255,136,.03));border:1px solid rgba(0,212,255,.25)}
+        .cd-cierre p{font-size:1.3rem;font-weight:900;line-height:1.4}
+        .cd-cierre strong{color:var(--green)}
+        @media(min-width:900px){ .cd-grid{grid-template-columns:1fr 1fr;gap:1.25rem} }
+
+
+        /* Ilustraciones técnicas */
+        .ilus{width:100%;height:auto;display:block;max-width:400px;margin:0 auto}
+        .ilus-caja{padding:1rem}
+        .cadena-eq svg{max-width:400px;width:100%;height:auto;display:block;margin:0 auto}
+        .flujo{stroke-dasharray:7 9;animation:il-flujo 3s linear infinite}
+        .flujo-inv{stroke-dasharray:7 9;animation:il-flujo 3s linear infinite reverse}
+        @keyframes il-flujo{to{stroke-dashoffset:-32}}
+        .gira{animation:il-gira 6s linear infinite}
+        @keyframes il-gira{to{transform:rotate(360deg)}}
+        .late{animation:il-late 2.4s ease-in-out infinite}
+        @keyframes il-late{0%,100%{opacity:.35}50%{opacity:1}}
+        .sube{animation:il-sube 2.8s ease-in-out infinite}
+        @keyframes il-sube{0%,100%{opacity:.25;transform:translateY(3px)}50%{opacity:.9;transform:translateY(-3px)}}
+        .baja{animation:il-baja 2.8s ease-in-out infinite}
+        @keyframes il-baja{0%,100%{opacity:.25;transform:translateY(-3px)}50%{opacity:.9;transform:translateY(3px)}}
+        .viaja{animation:il-viaja 5s ease-in-out infinite}
+        @keyframes il-viaja{0%,100%{transform:translateX(-60px);opacity:.3}50%{transform:translateX(60px);opacity:1}}
+        .hero-plano{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none;z-index:0;opacity:.85}
+        @media(prefers-reduced-motion:reduce){
+            .flujo,.flujo-inv,.gira,.late,.sube,.baja,.viaja{animation:none}
         }
+
+
+        /* Cadena de equipos */
+        .cadena-eq{max-width:1150px;margin:0 auto 2.5rem;padding:1.25rem;border-radius:20px;
+            background:linear-gradient(150deg,#0d0d0d,#151515);border:1px solid rgba(0,212,255,.2)}
+        .cadena-eq svg{width:100%;height:auto;display:block;filter:drop-shadow(0 0 8px rgba(0,212,255,.16))}
+        @media(min-width:900px){ .cadena-eq{padding:2rem} }
+
+        /* Las tres piezas de Cardinal */
+        .tres-piezas{list-style:none;display:flex;flex-direction:column;gap:.7rem;margin:1.1rem 0 1.25rem}
+        .tres-piezas li{display:grid;grid-template-columns:26px 1fr;gap:.7rem;align-items:start}
+        .tres-piezas .pn{display:flex;align-items:center;justify-content:center;width:26px;height:26px;
+            border-radius:8px;font-size:.75rem;font-weight:900;
+            background:rgba(0,212,255,.1);border:1px solid rgba(0,212,255,.32);color:var(--cyan)}
+        .tres-piezas li:nth-child(2) .pn{background:rgba(195,155,255,.1);border-color:rgba(195,155,255,.32);color:#c39bff}
+        .tres-piezas li:nth-child(3) .pn{background:rgba(0,255,136,.1);border-color:rgba(0,255,136,.32);color:var(--green)}
+        .tres-piezas b{display:block;font-size:1rem;font-weight:800;color:var(--white);line-height:1.35}
+        .tres-piezas span{display:block;font-size:.92rem;color:var(--gray);line-height:1.6;margin-top:.1rem}
+
+        /* Distintivo transversal de conservación */
+        .conserva{display:inline-flex;align-items:center;gap:.5rem;padding:.4rem .9rem;margin-bottom:1.1rem;
+            border-radius:100px;background:rgba(0,255,136,.08);border:1px solid rgba(0,255,136,.3);
+            font-size:.78rem;font-weight:800;letter-spacing:.06em;color:var(--green)}
+        .conserva svg{width:.95rem;height:.95rem;stroke:currentColor;fill:none;stroke-width:2}
+
+        /* Ilustraciones dentro de las tarjetas del modelo */
+        .ilus-caja{position:relative;border-radius:14px;overflow:hidden;
+            background:linear-gradient(150deg,#0e0e0e,#161616);border:1px solid rgba(0,212,255,.16)}
+        .base-card .ilus-caja{margin-bottom:1.5rem;z-index:2}
+        .sal .ilus-caja{margin-bottom:1.5rem}
+        .ilus-caja .ilus{padding:.4rem}
+
+        @media(prefers-reduced-motion:reduce){
+            .mtrack{animation:none}
+            .cue i{animation:none}
+            body::after{display:none}
+        }
+
+        @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}.rv{opacity:1!important;transform:none!important}}
+        /* ═══════════ ESCRITORIO · una columna y anchos contenidos ═══════════ */
+        @media(min-width:900px){
+          /* bloques de lectura, a una sola columna */
+          .salidas{grid-template-columns:1fr;max-width:720px}
+          .cd-grid{grid-template-columns:1fr;max-width:720px}
+          .cgrid{grid-template-columns:1fr;max-width:720px;margin-left:auto;margin-right:auto}
+          .base-card,.cadena-eq{max-width:720px}
+          .shead,.shead.izq{max-width:720px;margin-left:auto;margin-right:auto}
+          .shead.izq{display:block;text-align:left}
+          .shead.izq .intro{max-width:none;margin:1rem 0 0}
+
+          /* rejillas de 4 elementos: 2 + 2 */
+          .dgrid,.egrid,.eqgrid{grid-template-columns:1fr 1fr;max-width:720px;margin-left:auto;margin-right:auto}
+
+          /* rejillas de 3 elementos: 3 en fila */
+          .devuelve,.canales{grid-template-columns:repeat(3,1fr);max-width:720px;margin-left:auto;margin-right:auto}
+
+          /* ilustraciones a tamaño natural */
+          .ilus{max-width:440px;margin:0 auto}
+          .cadena-eq svg{max-width:440px;margin:0 auto}
+        }
+
+    
+        /* ═══ Ilustraciones · alto y ancho topados por igual ═══ */
+        .ilus,.cadena-eq svg,.ilus-caja svg{
+            width:auto;height:auto;max-width:440px;max-height:470px;display:block;margin:0 auto}
+        @media(min-width:900px){
+            .ilus,.cadena-eq svg,.ilus-caja svg{max-width:440px;max-height:470px}
+        }
+
     </style>
 </head>
 <body>
-    <!-- GTM noscript -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MWTDJLNC" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<div class="progress" id="prog"></div>
 
-    <!-- Navigation -->
-    <nav>
-        <a href="index.html" class="logo"><img src="logo.png" alt="Northcare"></a>
-        <div class="nav-desktop">
-            <a href="mantenimiento.html" class="nav-link">SAT</a>
-            <a href="reparaciones.html" class="nav-link">Urgencias</a>
-            <a href="energia.html" class="nav-link">Energía</a>
-            <a href="formacion.html" class="nav-link">Formación</a>
-            <a href="equipo.html" class="nav-link">Equipo</a>
-            <a href="valores.html" class="nav-link">Valores</a>
-            <a href="#contacto" class="nav-cta">Contactar</a>
-        </div>
-        <div class="nav-mobile-controls">
-            <a href="tel:603081740" class="nav-call">📞</a>
-            <button class="hamburger" onclick="toggleMenu()" aria-label="Menú">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </div>
-    </nav>
+<svg class="sprite" aria-hidden="true"><defs>
+<symbol id="ic-tel" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></symbol>
+<symbol id="ic-chat" viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.5 8.5 0 0 1-3.9-.9L3 20.5l1.4-4.9A8.4 8.4 0 0 1 12 3.1a8.4 8.4 0 0 1 9 8.4Z"/></symbol>
+<symbol id="ic-mail" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></symbol>
+<symbol id="ic-tool" viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0 5.3 5.2l-8 8a2.8 2.8 0 0 1-4-4l8-8Z"/><path d="M14.7 6.3 17 4"/></symbol>
+<symbol id="ic-snow" viewBox="0 0 24 24"><path d="M12 2v20M4.5 6.5l15 11M19.5 6.5l-15 11M12 6l-2.5-2.5M12 6l2.5-2.5M12 18l-2.5 2.5M12 18l2.5 2.5"/></symbol>
+<symbol id="ic-badge" viewBox="0 0 24 24"><circle cx="12" cy="9" r="5.5"/><path d="m8.5 13.5-1 8 4.5-2.6 4.5 2.6-1-8"/></symbol>
+<symbol id="ic-doc" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Zm0 0v6h6M9 13h6M9 17h6"/></symbol>
+<symbol id="ic-shop" viewBox="0 0 24 24"><path d="M3 9h18l-1.2-4.2A1 1 0 0 0 18.8 4H5.2a1 1 0 0 0-1 .8L3 9Zm1 0v10a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9M9 20v-6h6v6"/></symbol>
+<symbol id="ic-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5.5l3.5 2"/></symbol>
+<symbol id="ic-refresh" viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-2.6-6.4M21 4v5h-5"/></symbol>
+<symbol id="ic-book" viewBox="0 0 24 24"><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v16H6.5A2.5 2.5 0 0 0 4 20.5Z"/><path d="M4 18.5V4.5"/></symbol>
+<symbol id="ic-chart" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></symbol>
+<symbol id="ic-ai" viewBox="0 0 24 24"><rect x="5" y="7" width="14" height="12" rx="3"/><path d="M12 7V3.5M8.5 2.5h7M9.5 12v1.5M14.5 12v1.5M2.5 12H5M19 12h2.5"/></symbol>
+<symbol id="ic-pin" viewBox="0 0 24 24"><path d="M12 21s7-6.3 7-11a7 7 0 1 0-14 0c0 4.7 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/></symbol>
+<symbol id="ic-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18 15 15 0 0 1 0-18Z"/></symbol>
+</defs></svg>
 
-    <!-- Mobile Menu -->
-    <div class="mobile-menu" id="mobileMenu">
-        <div class="mobile-menu-section">
-            <div class="mobile-menu-label">Servicios</div>
-            <div class="mobile-menu-links">
-                <a href="mantenimiento.html" class="mobile-menu-link">SAT · Tarifa plana<span>Mantenimiento preventivo y correctivo</span></a>
-                <a href="reparaciones.html" class="mobile-menu-link">Urgencias<span>Reparaciones e instalaciones</span></a>
-                <a href="energia.html" class="mobile-menu-link">Eficiencia Energética<span>Auditorías y ahorro</span></a>
-                <a href="formacion.html" class="mobile-menu-link">Formación Técnica<span>Consultoría y capacitación</span></a>
-            </div>
-        </div>
-        <div class="mobile-menu-section">
-            <div class="mobile-menu-label">Nosotros</div>
-            <div class="mobile-menu-links">
-                <a href="equipo.html" class="mobile-menu-link">Equipo</a>
-                <a href="valores.html" class="mobile-menu-link">Valores</a>
-            </div>
-        </div>
-        <div class="mobile-menu-contacto">
-            <a href="tel:603081740" class="mobile-menu-tel">
-                <span class="mobile-menu-tel-icon">📞</span>
-                <div class="mobile-menu-tel-info">
-                    <span class="mobile-menu-tel-label">Llamar ahora</span>
-                    <span class="mobile-menu-tel-number">603 08 17 40</span>
-                </div>
-            </a>
-            <a href="https://wa.me/34603081740" class="mobile-menu-tel">
-                <span class="mobile-menu-tel-icon">💬</span>
-                <div class="mobile-menu-tel-info">
-                    <span class="mobile-menu-tel-label">WhatsApp</span>
-                    <span class="mobile-menu-tel-number">603 08 17 40</span>
-                </div>
-            </a>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MWTDJLNC" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<!-- Navigation -->
+<nav>
+    <a href="index.html" class="logo"><img src="logo.png" alt="Northcare"></a>
+    <div class="nav-desktop">
+        <a href="instalaciones.html" class="nav-link">Instalaciones</a>
+        <a href="mantenimiento.html" class="nav-link">Mantenimiento</a>
+            <a href="formacion.html" class="nav-link">Cardinal</a>
+        <a href="#contacto" class="nav-cta">Contactar</a>
+    </div>
+    <div class="nav-mobile-controls">
+        <a href="tel:603081740" class="nav-call" aria-label="Llamar" data-canal="telefono-nav">📞</a>
+        <button class="hamburger" onclick="toggleMenu()" aria-label="Menú">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu-section">
+        <div class="mobile-menu-label">Servicios</div>
+        <div class="mobile-menu-links">
+            <a href="instalaciones.html" class="mobile-menu-link">Montajes e Instalaciones<span>Frío industrial y climatización</span></a>
+            <a href="formacion.html" class="mobile-menu-link">Cardinal<span>Guía técnica, IA y certificación</span></a>
+            <a href="mantenimiento.html" class="mobile-menu-link">Mantenimiento<span>Nuestro campo: dónde aprendemos todo</span></a>
         </div>
     </div>
+    <div class="mobile-menu-contacto">
+        <a href="tel:603081740" class="mobile-menu-tel" data-canal="telefono-menu">
+            <span class="mobile-menu-tel-icon">📞</span>
+            <div class="mobile-menu-tel-info">
+                <span class="mobile-menu-tel-label">Llamar ahora</span>
+                <span class="mobile-menu-tel-number">603 08 17 40</span>
+            </div>
+        </a>
+        <a href="https://wa.me/34603081740" class="mobile-menu-tel" data-canal="whatsapp-menu">
+            <span class="mobile-menu-tel-icon">💬</span>
+            <div class="mobile-menu-tel-info">
+                <span class="mobile-menu-tel-label">WhatsApp</span>
+                <span class="mobile-menu-tel-number">603 08 17 40</span>
+            </div>
+        </a>
+    </div>
+</div>
 
-    <!-- HERO -->
-    <section class="hero">
-        <div class="hero-content">
-            <img src="northcare-logo-final.svg" alt="Northcare" class="hero-logo">
-            <h1 class="hero-tagline">Que nada pare <span class="highlight">tu negocio.</span></h1>
-            <p class="hero-slogan">Parar nunca, anticiparse siempre</p>
-            <p class="hero-sub">Mantenimiento de cocinas industriales con conocimiento técnico real. Menos averías, menos costes, cero sorpresas.</p>
-            <div class="hero-ctas">
-                <a href="#servicios" class="btn-primary">Ver servicios</a>
-                <a href="#contacto" class="btn-secondary">Hablar ahora</a>
-            </div>
-        </div>
-    </section>
+<!-- ═══════════ HERO ═══════════ -->
+<section class="hero">
+  <div class="hero-in">
+    <img src="northcare-logo-final.svg" alt="Northcare" class="hero-logo">
+    <span class="pill"><span class="blink"></span> Cocina industrial · Zona Norte</span>
+    <h1>Nuestro trabajo es que<br><span class="hl">nada se pare.</span></h1>
+    <p class="sub">Ni la producción, ni el frío, ni el conocimiento que hace falta para sostener las dos cosas.</p>
+    <div class="proof">
+      <span><b>8.034</b> intervenciones en 2025</span>
+      <span><b>~90</b> cocinas a diario</span>
+      <span>Desde <b>2023</b></span>
+    </div>
+    <div class="hero-btns">
+      <a href="#modelo" class="btn solid">Ver qué hacemos</a>
+      <a href="#contacto" class="btn line">Hablemos</a>
+    </div>
+    <div class="cue" aria-hidden="true"><i></i>Sigue bajando</div>
+  </div>
+</section>
 
-    <!-- SERVICIOS -->
-    <section class="servicios" id="servicios">
-        <div class="servicios-header">
-            <span class="section-label">Servicios</span>
-            <h2 class="section-title">¿Qué <span class="highlight">necesitas</span>?</h2>
-            <p class="section-intro">Cuatro formas de aplicar nuestro conocimiento a tu realidad.</p>
-        </div>
-        <div class="servicios-grid">
-            <a href="mantenimiento.html" class="servicio-card">
-                <div class="servicio-icon">🔧</div>
-                <h3>Mantenimiento</h3>
-                <p>Tarifa plana. Preventivo y correctivo. Menos urgencias, más tranquilidad. Para quien quiere olvidarse de las averías.</p>
-                <span class="servicio-link">Ver más</span>
-            </a>
-            <a href="reparaciones.html" class="servicio-card">
-                <div class="servicio-icon">⚡</div>
-                <h3>Reparación e Instalaciones</h3>
-                <p>Cuando lo necesitas, sin contrato. Técnicos disponibles para intervenciones puntuales o refuerzo de tu SAT.</p>
-                <span class="servicio-link">Ver más</span>
-            </a>
-            <a href="energia.html" class="servicio-card">
-                <div class="servicio-icon">💡</div>
-                <h3>Eficiencia Energética</h3>
-                <p>Reduce tu factura y tus emisiones. Auditoría, asesoramiento e instalación de soluciones sostenibles.</p>
-                <span class="servicio-link">Ver más</span>
-            </a>
-            <a href="formacion.html" class="servicio-card">
-                <div class="servicio-icon">🎓</div>
-                <h3>Formación Técnica</h3>
-                <p>Nuestro conocimiento para tu equipo. Formación en organización y procesos para empresas de mantenimiento y equipos internos.</p>
-                <span class="servicio-link">Ver más</span>
-            </a>
-        </div>
-    </section>
+<!-- ═══════════ DATOS ═══════════ -->
+<section class="datos">
+  <div class="dgrid">
+    <div class="rv d"><svg class="i ic-d"><use href="#ic-tool"/></svg><div class="n">8.034</div><div class="l">intervenciones documentadas en 2025</div></div>
+    <div class="rv d"><svg class="i ic-d"><use href="#ic-doc"/></svg><div class="n">156</div><div class="l">tipos de equipo distintos</div></div>
+    <div class="rv d"><svg class="i ic-d"><use href="#ic-shop"/></svg><div class="n">~90</div><div class="l">cocinas atendidas a diario</div></div>
+    <div class="rv d"><svg class="i ic-d"><use href="#ic-clock"/></svg><div class="n">2023</div><div class="l">desde entonces, sin parar</div></div>
+  </div>
+</section>
 
-    <!-- IMPACTO -->
-    <section class="impacto">
-        <div class="impacto-header">
-            <span class="section-label">Resultados</span>
-            <h2 class="section-title">Lo que <span class="highlight">conseguimos</span></h2>
-        </div>
-        <div class="impacto-grid">
-            <div class="impacto-card">
-                <div class="impacto-icono">💸</div>
-                <div class="impacto-numero">-65%</div>
-                <div class="impacto-concepto">Urgencias evitadas</div>
-                <p>Menos paradas imprevistas. Tu cocina produce, tu negocio factura.</p>
-            </div>
-            <div class="impacto-card">
-                <div class="impacto-icono">⚡</div>
-                <div class="impacto-numero">20-35%</div>
-                <div class="impacto-concepto">Ahorro energético</div>
-                <p>Menos consumo, menos factura. Con las mejoras adecuadas para tu caso.</p>
-            </div>
-            <div class="impacto-card">
-                <div class="impacto-icono">⏱️</div>
-                <div class="impacto-numero">&lt;4h</div>
-                <div class="impacto-concepto">Respuesta críticos</div>
-                <p>Cuando algo falla de verdad, estamos ahí. Sin esperas interminables.</p>
-            </div>
-            <div class="impacto-card">
-                <div class="impacto-icono">🌍</div>
-                <div class="impacto-numero">80K€</div>
-                <div class="impacto-concepto">Multas evitadas</div>
-                <p>Cumplimiento normativa CO₂. Sin sustos, sin sanciones.</p>
-            </div>
-        </div>
-        <div class="impacto-cta">
-            <a href="#contacto" class="btn-primary">Hablemos de tu caso</a>
-        </div>
-    </section>
 
-    <!-- CONFÍAN EN NOSOTROS -->
-    <section class="entrenamiento">
-        <div class="entrenamiento-container">
-            <div class="entrenamiento-header">
-                <span class="section-label">Referencias</span>
-                <h2 class="section-title">Confían en <span class="highlight">nosotros</span></h2>
-            </div>
-            <div class="clientes-grandes">
-                <div class="cliente-logo">Burger King</div>
-                <div class="cliente-logo">Welbilt</div>
-                <div class="cliente-logo">Popeyes</div>
-                <div class="cliente-logo">Hipercor</div>
-                <div class="cliente-logo">El Corte Inglés</div>
-            </div>
-            <div class="entrenamiento-dato">
-                <span class="dato-numero">+80</span>
-                <span class="dato-texto">restaurantes mantenidos cada día en la Zona Norte</span>
-            </div>
-        </div>
-    </section>
+<!-- ═══════════ LAS TRES CADENAS ═══════════ -->
+<section class="cadenas" id="cadenas">
+  <div class="shead">
+    <span class="gh" aria-hidden="true">01</span>
+    <span class="snum"><b>01</b> Lo que conservamos</span>
+    <h2 class="t">Tres cadenas que <span class="hl">no se pueden romper</span></h2>
+    <p class="intro">Cuando una se rompe, siempre se pierde valor: ventas, género, un veterano que se va o una solución que nadie apuntó.</p>
+  </div>
 
-    <!-- ESENCIA -->
-    <section class="esencia">
-        <div class="esencia-container">
-            <div class="esencia-header">
-                <span class="section-label">Nuestra esencia</span>
-                <h2 class="section-title">¿Por qué <span class="highlight">funciona</span>?</h2>
-            </div>
-            <div class="esencia-intro">
-                <p>Somos una <strong>empresa de conocimiento</strong> que hace mantenimiento. No al revés.</p>
-            </div>
-            <div class="esencia-grid">
-                <div class="esencia-card">
-                    <div class="esencia-icono">🔁</div>
-                    <h3>Mejora continua</h3>
-                    <p>Cada problema resuelto alimenta el sistema. Nunca cometemos el mismo error dos veces.</p>
-                </div>
-                <div class="esencia-card">
-                    <div class="esencia-icono">📚</div>
-                    <h3>Todo documentado</h3>
-                    <p>Wiki técnica viva. El saber no se pierde cuando alguien falta.</p>
-                </div>
-                <div class="esencia-card">
-                    <div class="esencia-icono">📊</div>
-                    <h3>Datos, no sensaciones</h3>
-                    <p>Medimos para anticipar. Sabemos qué va a fallar antes de que falle.</p>
-                </div>
-                <div class="esencia-card">
-                    <div class="esencia-icono">🤖</div>
-                    <h3>IA como herramienta</h3>
-                    <p>Tecnología al servicio de las personas. Diagnósticos más rápidos, decisiones más certeras.</p>
-                </div>
-            </div>
-            <div class="esencia-origen">
-                <div class="origen-lugar">
-                    <span class="origen-pin">📍</span>
-                    <span class="origen-texto">Desde <strong>Revilla de Camargo, Cantabria</strong></span>
-                </div>
-                <p class="origen-claim">No hay que irse a Silicon Valley para innovar.</p>
-            </div>
-        </div>
-    </section>
+  <div class="cd-grid">
+    <a href="mantenimiento.html" class="cd rv" data-linea="mantenimiento">
+      <span class="num">01</span>
+      <div>
+        <h3>La producción no para</h3>
+        <p>Un equipo caído en hora punta son ventas que no vuelven. Estamos en campo todos los días para que eso no ocurra, y cuando ocurre, para que dure lo mínimo.</p>
+        <span class="como">Mantenimiento</span>
+      </div>
+    </a>
 
-    <!-- PERSONAS -->
-    <section class="personas" id="personas">
-        <div class="personas-header">
-            <span class="section-label">Cómo trabajamos</span>
-            <h2 class="section-title">Equipos que <span class="highlight">aprenden</span></h2>
-        </div>
-        <div class="personas-contraste">
-            <div class="contraste-card malo">
-                <div class="contraste-icono">🚫</div>
-                <h3>Otras empresas</h3>
-                <p>Personas aisladas. Estructuras rígidas. Control por miedo. El conocimiento se pierde cuando alguien se va.</p>
-            </div>
-            <div class="contraste-card bueno">
-                <div class="contraste-icono">✓</div>
-                <h3>Northcare</h3>
-                <p>Equipos conectados. Autonomía con responsabilidad. Conocimiento compartido. Valor para cliente externo e interno.</p>
-            </div>
-        </div>
-        <div class="equipos-explicacion">
-            <p class="equipos-intro">Cada equipo tiene un nombre que refleja el valor que genera:</p>
-            <div class="equipos-nombres">
-                <div class="equipo-nombre">
-                    <span class="nombre-sigla">CLIOPE</span>
-                    <span class="nombre-significado">Cliente Operando · Prevención Eficiente</span>
-                </div>
-                <div class="equipo-nombre">
-                    <span class="nombre-sigla">RESPICE</span>
-                    <span class="nombre-significado">Recursos y Economía Saneada · Proveedor Integrado · Cliente Entusiasta</span>
-                </div>
-                <div class="equipo-nombre">
-                    <span class="nombre-sigla">CRESIS</span>
-                    <span class="nombre-significado">Crecimiento · Sistemas · Innovaciones</span>
-                </div>
-                <div class="equipo-nombre">
-                    <span class="nombre-sigla">SINCRO</span>
-                    <span class="nombre-significado">Integración de equipos · Visión holística</span>
-                </div>
-            </div>
-        </div>
-        <div class="personas-resumen">
-            <div class="resumen-numero">
-                <span class="numero">18</span>
-                <span class="texto">personas</span>
-            </div>
-            <p class="resumen-desc">Organizados en 4 equipos con propósito. Cada uno genera valor específico para el cliente y para la organización.</p>
-        </div>
-        <div class="personas-cta">
-            <a href="equipo.html" class="btn-secondary">Conocer al equipo</a>
-            <a href="#contacto" class="btn-primary">¿Quieres trabajar con nosotros?</a>
-        </div>
-    </section>
+    <a href="instalaciones.html" class="cd rv" data-linea="instalaciones">
+      <span class="num">02</span>
+      <div>
+        <h3>La cadena de frío se mantiene</h3>
+        <p>Una cámara que no baja de temperatura no es una avería: es género perdido y trazabilidad rota. Montamos las instalaciones para que aguanten agosto y lleguen al final de su vida útil.</p>
+        <span class="como">Montajes e Instalaciones</span>
+      </div>
+    </a>
 
-    <!-- FILOSOFÍA -->
-    <section class="filosofia" id="filosofia">
-        <div class="filosofia-container">
-            <div class="filosofia-header">
-                <span class="section-label">Nuestra filosofía</span>
-                <h2 class="section-title">Valores que nos <span class="highlight">guían</span></h2>
-            </div>
-            <div class="filosofia-intro">
-                <p>Creemos que una PYME puede ser una empresa de gestión avanzada. Es contracultural, pero confiamos. Las resistencias al cambio son aliadas: nos obligan a ser mejores.</p>
-            </div>
-            <div class="valores-destacados">
-                <div class="valor-destacado">
-                    <span class="valor-icono">🔄</span>
-                    <h3>Mejora continua</h3>
-                    <p>Cambio a mejor, cada día</p>
-                </div>
-                <div class="valor-destacado">
-                    <span class="valor-icono">📊</span>
-                    <h3>Decisiones con datos</h3>
-                    <p>No intuiciones, evidencias</p>
-                </div>
-                <div class="valor-destacado">
-                    <span class="valor-icono">🤝</span>
-                    <h3>Beneficio compartido</h3>
-                    <p>Si el éxito es colectivo, el reparto también</p>
-                </div>
-                <div class="valor-destacado">
-                    <span class="valor-icono">🌱</span>
-                    <h3>Sostenibilidad 360º</h3>
-                    <p>Económica, ecológica, social</p>
-                </div>
-            </div>
-            <div class="filosofia-claim">
-                <p>Damos para recibir. <strong>Cosecha compartida.</strong></p>
-            </div>
-            <div class="filosofia-cta">
-                <a href="valores.html" class="btn-secondary">Ver nuestros 11 valores</a>
-            </div>
-        </div>
-    </section>
+    <a href="formacion.html" class="cd rv" data-linea="formacion">
+      <span class="num">03</span>
+      <div>
+        <h3>El conocimiento no se pierde ni se queda quieto</h3>
+        <p>Lo que sabe hacer un veterano se va con él el día que se marcha. Por eso cada avería resuelta se escribe: una guía viva de procedimientos con una IA especialista por máquina, y un examen que acredita quién sabe usarla.</p>
+        <span class="como">Cardinal · Oficio certificado</span>
+      </div>
+    </a>
+  </div>
 
-    <!-- COBERTURA -->
-    <section class="cobertura">
-        <div class="cobertura-container">
-            <div class="cobertura-header">
-                <span class="section-label">Dónde estamos</span>
-                <h2 class="section-title">Cerca de ti. <span class="highlight">Y más allá.</span></h2>
-            </div>
-            <div class="cobertura-grid">
-                <div class="cobertura-bloque presencial">
-                    <div class="bloque-icono">🔧</div>
-                    <h3>Presencial</h3>
-                    <div class="bloque-servicios">
-                        <span>Mantenimiento</span>
-                        <span>Reparaciones</span>
-                        <span>Instalaciones</span>
-                    </div>
-                    <div class="bloque-alcance">
-                        <span class="alcance-pin">📍</span>
-                        <span class="alcance-texto">Zona Norte</span>
-                    </div>
-                    <div class="bloque-zonas">
-                        <span>Cantabria</span>
-                        <span>País Vasco</span>
-                        <span>Asturias</span>
-                        <span>Navarra</span>
-                        <span>La Rioja</span>
-                        <span>Castilla y León</span>
-                    </div>
-                    <p class="bloque-nota">También zonas limítrofes. Consúltanos.</p>
-                </div>
-                <div class="cobertura-bloque online">
-                    <div class="bloque-icono">💻</div>
-                    <h3>Online</h3>
-                    <div class="bloque-servicios">
-                        <span>Formación técnica</span>
-                        <span>Consultoría</span>
-                        <span>Auditorías energéticas</span>
-                    </div>
-                    <div class="bloque-alcance">
-                        <span class="alcance-pin">🌍</span>
-                        <span class="alcance-texto">Sin fronteras</span>
-                    </div>
-                    <p class="bloque-mensaje">Trabajamos contigo estés donde estés.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+  <div class="cd-cierre rv">
+    <p>Tres cadenas que no se pueden romper.<br><strong>Y todas se sostienen con lo mismo: saber lo que estás haciendo.</strong></p>
+  </div>
+</section>
 
-    <!-- CONTACTO -->
-    <section class="contacto" id="contacto">
-        <div class="contacto-container">
-            <div class="contacto-header">
-                <span class="section-label">Contacto</span>
-                <h2 class="section-title">Hablemos</h2>
-            </div>
-            <div class="contacto-grid">
-                <div class="contacto-form">
-                    <form class="form-grid" name="contacto-home" method="POST" data-netlify="true">
-                        <input type="hidden" name="form-name" value="contacto-home">
-                        <div class="input-group">
-                            <label>Nombre *</label>
-                            <input type="text" name="nombre" placeholder="Tu nombre" required>
-                        </div>
-                        <div class="input-group">
-                            <label>Email *</label>
-                            <input type="email" name="email" placeholder="tu@email.com" required>
-                        </div>
-                        <div class="input-group">
-                            <label>Teléfono</label>
-                            <input type="tel" name="telefono" placeholder="600 000 000">
-                        </div>
-                        <div class="input-group">
-                            <label>Mensaje</label>
-                            <textarea name="mensaje" rows="4" placeholder="¿En qué podemos ayudarte?"></textarea>
-                        </div>
-                        <button type="submit" class="form-btn">Enviar mensaje</button>
-                    </form>
-                </div>
-                <div class="contacto-canales">
-                    <a href="tel:603081740" class="canal">
-                        <span class="canal-icon">📞</span>
-                        <div class="canal-info">
-                            <span class="canal-label">Teléfono</span>
-                            <span class="canal-value">603 08 17 40</span>
-                        </div>
-                    </a>
-                    <a href="https://wa.me/34603081740" class="canal">
-                        <span class="canal-icon">💬</span>
-                        <div class="canal-info">
-                            <span class="canal-label">WhatsApp</span>
-                            <span class="canal-value">603 08 17 40</span>
-                        </div>
-                    </a>
-                    <a href="mailto:info@northcare.es" class="canal">
-                        <span class="canal-icon">✉️</span>
-                        <div class="canal-info">
-                            <span class="canal-label">Email</span>
-                            <span class="canal-value">info@northcare.es</span>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- ═══════════ EL MODELO ═══════════ -->
+<section class="modelo" id="modelo">
+  <div class="shead izq">
+    <span class="gh" aria-hidden="true">02</span>
+    <span class="snum"><b>02</b> Cómo encaja todo</span>
+    <h2 class="t">Un campo donde aprender.<br><span class="hl">Y todo lo aprendido vuelve a él.</span></h2>
+    <p class="intro">No somos tres empresas distintas ni tres servicios en fila. Las tres hacen lo mismo en planos distintos: <b>evitar que se pierda valor</b>. El de la producción, el de los equipos y el del conocimiento.</p>
+  </div>
 
-    <!-- Footer -->
-    <footer>
-        <a href="index.html" class="logo"><img src="logo.png" alt="Northcare"></a>
-        <p class="tagline">Parar nunca, anticiparse siempre</p>
-        <p class="subtag">Mantenimiento de cocinas industriales · Zona Norte</p>
-        <div class="legal">
-            <p>Northcare © 2025 · <a href="privacidad.html">Política de Privacidad</a> · <a href="cookies.html">Política de Cookies</a></p>
-        </div>
-    </footer>
+  <a href="mantenimiento.html" class="base-card rv" data-linea="mantenimiento">
+    <div class="bc-top">
+      <div class="ic"><svg class="i"><use href="#ic-tool"/></svg></div>
+      <div>
+        <span class="bc-lab">La base · El campo</span>
+        <h3>Mantenimiento integral de cocina industrial</h3>
+      </div>
+    </div>
+    <span class="conserva"><svg viewBox="0 0 24 24"><rect x="4.5" y="10.5" width="15" height="10.5" rx="2.5"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/></svg> Conserva la producción</span>
+    <div class="ilus-caja"><svg viewBox="0 0 340 440" class="ilus" role="img" aria-label="Las averías de las cocinas entran, se procesan y salen convertidas en procedimiento">
+  <defs>
+    <filter id="nc-b" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <marker id="nc-in" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><path d="M0 0 L7 3.5 L0 7 Z" fill="#00d4ff"/></marker>
+    <marker id="nc-out" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><path d="M0 0 L7 3.5 L0 7 Z" fill="#00ff88"/></marker>
+  </defs>
 
-    <!-- Cookie Banner -->
-    <div class="cookie-banner" id="cookieBanner">
-        <div class="cookie-content">
-            <p>Utilizamos cookies propias y de terceros para analizar el uso de la web. <a href="cookies.html">Más información</a></p>
-            <div class="cookie-buttons">
-                <button class="cookie-btn reject" onclick="setCookieConsent(false)">Rechazar</button>
-                <button class="cookie-btn accept" onclick="setCookieConsent(true)">Aceptar</button>
-            </div>
-        </div>
+  <text x="14" y="22" fill="#00d4ff" font-family="Inter,sans-serif" font-size="13" font-weight="900" letter-spacing=".12em">ENTRA UNA AVERÍA</text>
+
+  <g font-family="Inter,sans-serif" font-size="13" font-weight="800" text-anchor="middle">
+    <rect x="12" y="38" width="96" height="30" rx="8" fill="#141414" stroke="#ff8a3d" stroke-opacity=".6" stroke-width="2"/><text x="60" y="58" fill="#ff8a3d">Cocción</text>
+    <rect x="120" y="38" width="96" height="30" rx="8" fill="#141414" stroke="#00d4ff" stroke-opacity=".6" stroke-width="2"/><text x="168" y="58" fill="#00d4ff">Frío</text>
+    <rect x="228" y="38" width="100" height="30" rx="8" fill="#141414" stroke="#ffcc00" stroke-opacity=".6" stroke-width="2"/><text x="278" y="58" fill="#ffcc00">Electricidad</text>
+    <rect x="46" y="78" width="106" height="30" rx="8" fill="#141414" stroke="#4fd1c5" stroke-opacity=".6" stroke-width="2"/><text x="99" y="98" fill="#4fd1c5">Fontanería</text>
+    <rect x="164" y="78" width="130" height="30" rx="8" fill="#141414" stroke="#c39bff" stroke-opacity=".6" stroke-width="2"/><text x="229" y="98" fill="#c39bff">Electromecánica</text>
+  </g>
+
+  <g stroke="#00d4ff" stroke-opacity=".5" stroke-width="2" fill="none" stroke-dasharray="4 6" class="flujo" marker-end="url(#nc-in)">
+    <path d="M60 70 C60 120 130 140 152 168"/>
+    <path d="M168 110 V166"/>
+    <path d="M278 70 C278 120 208 140 188 168"/>
+    <path d="M99 110 C110 140 132 156 150 176"/>
+    <path d="M229 110 C218 140 196 156 188 178"/>
+  </g>
+
+  <path d="M170 176 L226 208 L226 264 L170 296 L114 264 L114 208 Z" fill="#0a0a0a" stroke="#00ff88" stroke-opacity=".9" stroke-width="3" filter="url(#nc-b)"/>
+  <g fill="none" stroke="#00ff88" stroke-linecap="round">
+    <path d="M167 212 C154 208 145 219 147 230 C136 235 138 250 149 253 C151 264 165 266 167 258" stroke-opacity=".9" stroke-width="2.2"/>
+    <path d="M173 212 C186 208 195 219 193 230 C204 235 202 250 191 253 C189 264 175 266 173 258" stroke-opacity=".9" stroke-width="2.2"/>
+  </g>
+  <g fill="#00ff88"><circle cx="147" cy="230" r="3.2" class="late"/><circle cx="193" cy="230" r="3.2" class="late" style="animation-delay:.7s"/></g>
+
+  <path d="M170 304 V336" stroke="#00ff88" stroke-opacity=".8" stroke-width="2.6" stroke-dasharray="5 7" class="flujo" marker-end="url(#nc-out)" fill="none"/>
+
+  <rect x="76" y="348" width="188" height="48" rx="12" fill="#0e1512" stroke="#00ff88" stroke-opacity=".8" stroke-width="2.6"/>
+  <g stroke="#00ff88" stroke-opacity=".6" stroke-width="2.2" stroke-linecap="round"><path d="M96 364 h96M96 378 h64"/></g>
+  <circle cx="242" cy="378" r="9" fill="#0a0a0a" stroke="#00ff88" stroke-opacity=".9" stroke-width="2.2"/>
+  <path d="m238 378 3 3 6-7" fill="none" stroke="#00ff88" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <text x="170" y="424" text-anchor="middle" fill="#00ff88" font-family="Inter,sans-serif" font-size="15" font-weight="800">Sale un procedimiento escrito</text>
+</svg></div>
+    <p>Siete oficios y más de un centenar de máquinas conviviendo en veinte metros cuadrados, dieciocho horas al día. Aquí el valor que se protege es <b>el más inmediato</b>: que el servicio no se corte y que el género no se pierda.</p>
+    <p>Y cada avería que resolvemos se documenta. Es el trabajo más duro que hacemos y también el más rentable, aunque no en dinero.</p>
+    <span class="go">Ver nuestro campo de aprendizaje</span>
+  </a>
+
+  <div class="flechabaja rv">
+    <div class="ln"></div>
+    <div class="tx">De ahí sale todo lo demás</div>
+    <div class="ln"></div>
+  </div>
+
+  <div class="salidas">
+    <a href="instalaciones.html" class="sal rv" data-linea="instalaciones">
+      <div class="ic"><svg class="i"><use href="#ic-snow"/></svg></div>
+      <span class="lab">Aplicamos el saber</span>
+      <h3>Montajes e Instalaciones</h3>
+      <span class="conserva"><svg viewBox="0 0 24 24"><rect x="4.5" y="10.5" width="15" height="10.5" rx="2.5"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/></svg> Conserva el equipo y los insumos</span>
+      <div class="ilus-caja"><svg viewBox="0 0 340 620" class="ilus" role="img" aria-label="Ciclo frigorífico y las cuatro decisiones que deciden si un equipo dura">
+  <defs>
+    <filter id="cf-b" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <marker id="cf-c" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><path d="M0 0 L7 3.5 L0 7 Z" fill="#ff8a3d"/></marker>
+    <marker id="cf-f" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><path d="M0 0 L7 3.5 L0 7 Z" fill="#00d4ff"/></marker>
+  </defs>
+
+  <text x="14" y="22" fill="#ff8a3d" font-family="Inter,sans-serif" font-size="13" font-weight="900" letter-spacing=".12em">EL CICLO</text>
+
+  <rect x="88" y="44" width="164" height="40" rx="8" fill="#0d0d0d" stroke="#ff8a3d" stroke-opacity=".75" stroke-width="2.4"/>
+  <path d="M104 64 l12-12 12 24 12-24 12 24 12-24 12 24 12-12" fill="none" stroke="#ff8a3d" stroke-opacity=".85" stroke-width="2.2" stroke-linejoin="round"/>
+  <text x="170" y="104" text-anchor="middle" fill="#ff8a3d" font-family="Inter,sans-serif" font-size="15" font-weight="800">Condensador</text>
+
+  <path d="M252 64 H296 V216" fill="none" stroke="#1a1a1a" stroke-width="8"/>
+  <path d="M252 64 H296 V216" fill="none" stroke="#ff8a3d" stroke-opacity=".8" stroke-width="2.4" stroke-dasharray="5 7" class="flujo-inv" marker-end="url(#cf-c)"/>
+  <path d="M88 64 H44 V196" fill="none" stroke="#1a1a1a" stroke-width="8"/>
+  <path d="M88 64 H44 V196" fill="none" stroke="#ff8a3d" stroke-opacity=".6" stroke-width="2.4" stroke-dasharray="5 7" class="flujo" marker-end="url(#cf-c)"/>
+
+  <path d="M28 200 L60 200 L44 224 Z" fill="#0d0d0d" stroke="#00d4ff" stroke-opacity=".85" stroke-width="2.2"/>
+  <path d="M28 248 L60 248 L44 224 Z" fill="#0d0d0d" stroke="#00d4ff" stroke-opacity=".85" stroke-width="2.2"/>
+  <text x="70" y="216" fill="#00d4ff" font-family="Inter,sans-serif" font-size="14" font-weight="800">Válvula</text>
+
+  <circle cx="296" cy="252" r="30" fill="#0a0a0a" stroke="#00ff88" stroke-opacity=".9" stroke-width="2.8" filter="url(#cf-b)"/>
+  <g class="gira" style="transform-origin:296px 252px">
+    <path d="M296 230 a22 22 0 0 1 19 11M296 274 a22 22 0 0 1-19-11" fill="none" stroke="#00ff88" stroke-opacity=".85" stroke-width="2.4"/>
+  </g>
+  <circle cx="296" cy="252" r="4" fill="#00ff88"/>
+  <text x="258" y="246" text-anchor="end" fill="#00ff88" font-family="Inter,sans-serif" font-size="14" font-weight="800">Compresor</text>
+
+  <path d="M44 252 V320 H210" fill="none" stroke="#1a1a1a" stroke-width="8"/>
+  <path d="M44 252 V320 H210" fill="none" stroke="#00d4ff" stroke-opacity=".85" stroke-width="2.4" stroke-dasharray="5 7" class="flujo" marker-end="url(#cf-f)"/>
+  <path d="M266 320 H296 V286" fill="none" stroke="#1a1a1a" stroke-width="8"/>
+  <path d="M266 320 H296 V286" fill="none" stroke="#00d4ff" stroke-opacity=".65" stroke-width="2.4" stroke-dasharray="5 7" class="flujo"/>
+
+  <g stroke="#00d4ff" stroke-opacity=".28" stroke-width="1.3"><path d="M96 300 V344M112 300 V344M128 300 V344M144 300 V344M160 300 V344M176 300 V344M192 300 V344M208 300 V344M224 300 V344"/></g>
+  <path d="M84 320 H246 a12 12 0 0 1 0 24 H96 a12 12 0 0 1 0-24" fill="none" stroke="#00d4ff" stroke-opacity=".9" stroke-width="2.6"/>
+  <path d="M96 296 H246 a12 12 0 0 1 0 24" fill="none" stroke="#00d4ff" stroke-opacity=".9" stroke-width="2.6"/>
+  <text x="170" y="374" text-anchor="middle" fill="#00d4ff" font-family="Inter,sans-serif" font-size="15" font-weight="800">Evaporador</text>
+
+  <path d="M14 398 H326" stroke="#ffffff" stroke-opacity=".08" stroke-width="1.4"/>
+  <text x="14" y="424" fill="#00ff88" font-family="Inter,sans-serif" font-size="12" font-weight="900" letter-spacing=".12em">LO QUE DECIDE SI DURA</text>
+  <g font-family="Inter,sans-serif" font-size="14" font-weight="700" fill="#c9c9c9">
+    <circle cx="24" cy="452" r="7" fill="none" stroke="#00ff88" stroke-width="2"/><path d="m20.5 452 3 3.5 6-7" fill="none" stroke="#00ff88" stroke-width="2" stroke-linecap="round"/>
+    <text x="40" y="457">Dimensionado con la carga real</text>
+    <circle cx="24" cy="484" r="7" fill="none" stroke="#00ff88" stroke-width="2"/><path d="m20.5 484 3 3.5 6-7" fill="none" stroke="#00ff88" stroke-width="2" stroke-linecap="round"/>
+    <text x="40" y="489">Línea aislada y con cortes</text>
+    <circle cx="24" cy="516" r="7" fill="none" stroke="#00ff88" stroke-width="2"/><path d="m20.5 516 3 3.5 6-7" fill="none" stroke="#00ff88" stroke-width="2" stroke-linecap="round"/>
+    <text x="40" y="521">Acceso para repararlo rápido</text>
+    <circle cx="24" cy="548" r="7" fill="none" stroke="#00ff88" stroke-width="2"/><path d="m20.5 548 3 3.5 6-7" fill="none" stroke="#00ff88" stroke-width="2" stroke-linecap="round"/>
+    <text x="40" y="553">Consumo medido antes y después</text>
+  </g>
+  <path d="M14 578 H326" stroke="#ffffff" stroke-opacity=".08" stroke-width="1.4"/>
+  <text x="170" y="604" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="800">
+    <tspan fill="#8b8b8b">Bien montado llega a viejo. </tspan><tspan fill="#00ff88">Mal montado no.</tspan>
+  </text>
+</svg></div>
+      <p class="punch">El valor de un equipo se decide el día que se monta.</p>
+      <p>Los tres errores que más caros salen son siempre los mismos: sobredimensionar el equipo, colocar mal el evaporador y no sellar bien la línea. Ninguno se nota el primer año; los tres se pagan a partir del tercero.</p>
+      <p>Calculamos la carga térmica real, dimensionamos con ella y cargamos la cantidad justa de refrigerante. Un equipo bien montado llega al final de su vida útil; mal montado, muere a la mitad.</p>
+      <p>Después medimos el consumo. El ahorro se comprueba, no se promete.</p>
+      <span class="go">Pedir presupuesto</span>
+    </a>
+
+    <a href="formacion.html" class="sal rv" data-linea="formacion">
+      <span class="badge">En desarrollo</span>
+      <div class="ic"><svg class="i"><use href="#ic-badge"/></svg></div>
+      <span class="lab">Enseñamos el saber</span>
+      <h3>Cardinal · Oficio certificado</h3>
+      <span class="conserva"><svg viewBox="0 0 24 24"><rect x="4.5" y="10.5" width="15" height="10.5" rx="2.5"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/></svg> Conserva el conocimiento</span>
+      <div class="ilus-caja"><svg viewBox="0 0 340 520" class="ilus" role="img" aria-label="Cardinal: guía interactiva, IA especialista por máquina y un certificado que acredita el oficio">
+  <defs>
+    <linearGradient id="cr-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#00d4ff"/><stop offset="100%" stop-color="#00ff88"/></linearGradient>
+    <filter id="cr-b" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <marker id="cr-f" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#00ff88"/></marker>
+  </defs>
+
+  <text x="14" y="22" fill="#00d4ff" font-family="Inter,sans-serif" font-size="12" font-weight="900" letter-spacing=".12em">LO QUE TIENE EN LA MANO</text>
+
+  <rect x="14" y="38" width="146" height="112" rx="12" fill="#111" stroke="#00d4ff" stroke-opacity=".65" stroke-width="2.4"/>
+  <rect x="30" y="56" width="114" height="16" rx="4" fill="#0d0d0d" stroke="#00d4ff" stroke-opacity=".5" stroke-width="1.6"/>
+  <rect x="40" y="61" width="70" height="6" rx="3" fill="#00d4ff" fill-opacity=".45"/>
+  <g fill="#0d0d0d" stroke="#00d4ff" stroke-opacity=".5" stroke-width="1.6">
+    <rect x="30" y="80" width="114" height="20" rx="4"/><rect x="30" y="106" width="114" height="20" rx="4"/><rect x="30" y="132" width="72" height="12" rx="4"/>
+  </g>
+  <g fill="#00d4ff" fill-opacity=".8"><circle cx="42" cy="90" r="3"/><circle cx="42" cy="116" r="3"/></g>
+  <text x="87" y="174" text-anchor="middle" fill="#00d4ff" font-family="Inter,sans-serif" font-size="14" font-weight="800">Guía interactiva</text>
+
+  <path d="M244 62 L294 92 L294 136 L244 166 L194 136 L194 92 Z" fill="#0a0a0a" stroke="#c39bff" stroke-opacity=".8" stroke-width="2.6"/>
+  <g fill="none" stroke="#c39bff" stroke-linecap="round">
+    <path d="M241 100 C231 97 224 106 226 114 C218 118 220 130 228 132 C230 141 240 143 241 137" stroke-opacity=".9" stroke-width="2"/>
+    <path d="M247 100 C257 97 264 106 262 114 C270 118 268 130 260 132 C258 141 248 143 247 137" stroke-opacity=".9" stroke-width="2"/>
+  </g>
+  <g fill="#c39bff"><circle cx="226" cy="114" r="2.8" class="late"/><circle cx="262" cy="114" r="2.8" class="late" style="animation-delay:.7s"/></g>
+  <text x="244" y="190" text-anchor="middle" fill="#c39bff" font-family="Inter,sans-serif" font-size="14" font-weight="800">IA por máquina</text>
+
+  <text x="170" y="212" text-anchor="middle" fill="#8b8b8b" font-family="Inter,sans-serif" font-size="12" font-weight="600">Nutridas por 9.363 órdenes desde 2022</text>
+
+  <path d="M14 236 H326" stroke="#ffffff" stroke-opacity=".08" stroke-width="1.4"/>
+  <text x="14" y="266" fill="#00ff88" font-family="Inter,sans-serif" font-size="12" font-weight="900" letter-spacing=".12em">Y LO QUE LO DEMUESTRA</text>
+
+  <circle cx="170" cy="352" r="52" fill="#0a0a0a" stroke="url(#cr-g)" stroke-width="3.4" filter="url(#cr-b)"/>
+  <path d="M170 314 C177 342 183 346 208 352 C183 358 177 362 170 390 C163 362 157 358 132 352 C157 346 163 342 170 314 Z" fill="url(#cr-g)" opacity=".85"/>
+  <circle cx="170" cy="352" r="18" fill="#0a0a0a"/>
+  <text x="170" y="357" text-anchor="middle" fill="#00ff88" font-family="Inter,sans-serif" font-size="13" font-weight="900">2026</text>
+
+  <text x="170" y="428" text-anchor="middle" fill="#ffffff" font-family="Inter,sans-serif" font-size="17" font-weight="900">Oficio certificado</text>
+  <g font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#c9c9c9">
+    <circle cx="24" cy="456" r="7" fill="none" stroke="#00ff88" stroke-width="2"/><path d="m20.5 456 3 3.5 6-7" fill="none" stroke="#00ff88" stroke-width="2" stroke-linecap="round"/>
+    <text x="40" y="461">Sabe resolver, no sólo asistir</text>
+    <circle cx="24" cy="488" r="7" fill="none" stroke="#00ff88" stroke-width="2"/><path d="m20.5 488 3 3.5 6-7" fill="none" stroke="#00ff88" stroke-width="2" stroke-linecap="round"/>
+    <text x="40" y="493">Se renueva cada año</text>
+  </g>
+</svg></div>
+      <p class="punch">Una guía con IA, y un sello que lo demuestra.</p>
+      <ul class="tres-piezas">
+        <li><span class="pn">1</span><div><b>Guía interactiva</b><span>Los procedimientos que sabemos que funcionan, paso a paso y con el despiece delante.</span></div></li>
+        <li><span class="pn">2</span><div><b>IA asistentes especializadas por máquina</b><span>Una por equipo. Se le pregunta con la máquina abierta y responde con el manual detrás.</span></div></li>
+        <li><span class="pn">3</span><div><b>Un certificado que acredita el saber hacer actualizado</b><span>Un examen que demuestra que el técnico sabe. Y que se renueva cada año, porque el listón sube.</span></div></li>
+      </ul>
+      <span class="go">Conocer el programa</span>
+    </a>
+  </div>
+
+  <div class="retorno">
+    <div class="flechasube rv">
+      <div class="ln"></div>
+      <div class="tx">Y todo vuelve al campo</div>
+      <div class="ln"></div>
     </div>
 
-    <script>
-        // Toggle mobile menu
-        function toggleMenu() {
-            const menu = document.getElementById('mobileMenu');
-            const hamburger = document.querySelector('.hamburger');
-            if (menu && hamburger) {
-                menu.classList.toggle('active');
-                hamburger.classList.toggle('active');
-                document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : '';
-            }
-        }
+    <div class="bucle rv">
+      <div class="bucle-top">
+        <h3>El aprendizaje no termina cuando se vende.<br><em>Vuelve a entrar por la puerta de la cocina.</em></h3>
+        <p>Instalar y enseñar no son el final del recorrido: son dos maneras de someter nuestro conocimiento a prueba. Y cada vez que lo hacemos, el mantenimiento del día siguiente sale mejor.</p>
+      </div>
 
-        // Nav scroll effect
-        window.addEventListener('scroll', function() {
-            const nav = document.querySelector('nav');
-            if (window.scrollY > 50) {
-                nav.style.background = 'rgba(0,0,0,0.98)';
-                nav.style.borderBottomColor = 'rgba(0, 212, 255, 0.2)';
-            } else {
-                nav.style.background = 'rgba(0,0,0,0.95)';
-                nav.style.borderBottomColor = 'rgba(255,255,255,0.1)';
-            }
-        });
+      <div class="rueda" aria-hidden="true">
+        <svg viewBox="0 0 320 320">
+          <circle cx="160" cy="160" r="112" fill="none" stroke="#1a1a1a" stroke-width="12"/>
+          <circle cx="160" cy="160" r="112" fill="none" stroke="#00d4ff" stroke-opacity=".9" stroke-width="3.2" class="girodash"/>
 
-        // Cookie functions
-        function setCookieConsent(accepted) {
-            const expires = new Date();
-            expires.setFullYear(expires.getFullYear() + 1);
-            document.cookie = 'cookie_consent=' + (accepted ? 'accepted' : 'rejected') + ';expires=' + expires.toUTCString() + ';path=/;SameSite=Lax';
-            document.getElementById('cookieBanner').classList.remove('active');
-            if (accepted) loadAnalytics();
-        }
+          <g fill="#0d0d0d" stroke="#00d4ff" stroke-width="2.4">
+            <circle cx="160" cy="48" r="34"/>
+            <circle cx="272" cy="160" r="34"/>
+            <circle cx="160" cy="272" r="34"/>
+            <circle cx="48" cy="160" r="34"/>
+          </g>
+          <g fill="#00d4ff" font-family="Inter,sans-serif" font-size="14" font-weight="900" text-anchor="middle">
+            <text x="160" y="46">1</text><text x="273" y="158">2</text>
+            <text x="160" y="270">3</text><text x="49" y="158">4</text>
+          </g>
+          <g fill="#c9c9c9" font-family="Inter,sans-serif" font-size="12" font-weight="800" text-anchor="middle">
+            <text x="160" y="62">CAMPO</text><text x="273" y="174">ESCRIBIR</text>
+            <text x="160" y="286">APLICAR</text><text x="49" y="174">MEJORAR</text>
+          </g>
 
-        function getCookieConsent() {
-            const match = document.cookie.match(/cookie_consent=([^;]+)/);
-            return match ? match[1] : null;
-        }
+          <!-- Puntas de flecha tangentes al círculo, todas en sentido horario -->
+          <g fill="#00ff88">
+            <path d="M245.4 87.4 L231.9 81 L239 73.9 Z"/>
+            <path d="M232.6 245.4 L239 231.9 L246.1 239 Z"/>
+            <path d="M74.6 232.6 L88.1 239 L81 246.1 Z"/>
+            <path d="M87.4 74.6 L81 88.1 L73.9 81 Z"/>
+          </g>
 
-        function loadAnalytics() {
-            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-            })(window,document,'script','dataLayer','GTM-MWTDJLNC');
-        }
+          <text x="160" y="152" text-anchor="middle" fill="#00ff88" font-family="Inter,sans-serif" font-size="17" font-weight="900">CADA VUELTA</text>
+          <text x="160" y="172" text-anchor="middle" fill="#8b8b8b" font-family="Inter,sans-serif" font-size="14" font-weight="600">lo hacemos mejor</text>
+        </svg>
+      </div>
 
-        document.addEventListener('DOMContentLoaded', function() {
-            const consent = getCookieConsent();
-            if (!consent) {
-                document.getElementById('cookieBanner').classList.add('active');
-            } else if (consent === 'accepted') {
-                loadAnalytics();
-            }
+      <div class="devuelve">
+        <div class="dv">
+          <b>Lo que devuelve instalar</b>
+          <p>Cuando montas tú, entiendes por dentro cómo falla lo que montan otros. El diagnóstico en campo se acorta: ya no buscas la avería, sabes dónde mirar.</p>
+        </div>
+        <div class="dv">
+          <b>Lo que devuelve enseñar</b>
+          <p>Para explicar algo hay que ordenarlo primero. Preparar la formación nos ha obligado a descubrir agujeros en nuestra propia manera de trabajar y a taparlos.</p>
+        </div>
+        <div class="dv">
+          <b>Lo que devuelve documentar</b>
+          <p>Cada ficha nueva la estrenan nuestros propios técnicos. La plataforma que vendemos es la misma que usamos a diario, y por eso no puede quedarse vieja.</p>
+        </div>
+      </div>
 
-            // Close menu on link click
-            document.querySelectorAll('.mobile-menu-link').forEach(link => {
-                link.addEventListener('click', () => {
-                    const menu = document.getElementById('mobileMenu');
-                    const hamburger = document.querySelector('.hamburger');
-                    if (menu) menu.classList.remove('active');
-                    if (hamburger) hamburger.classList.remove('active');
-                    document.body.style.overflow = '';
-                });
-            });
+      <p class="bucle-cierre">Por eso el mantenimiento de este año <span>no se parece al del año pasado.</span></p>
+    </div>
+  </div>
+</section>
 
-            // Close menu on background click
-            const mobileMenu = document.getElementById('mobileMenu');
-            if (mobileMenu) {
-                mobileMenu.addEventListener('click', function(e) {
-                    if (e.target === this) toggleMenu();
-                });
-            }
-        });
-    </script>
+<!-- ═══════════ DÓNDE APRENDIMOS ═══════════ -->
+<section class="origen">
+  <div class="shead">
+    <span class="gh" aria-hidden="true">03</span>
+    <span class="snum"><b>03</b> Dónde aprendimos</span>
+    <h2 class="t">Nos formamos en cocinas <span class="hl">que no pueden parar</span></h2>
+    <p class="intro">Sitios donde un equipo parado son ventas perdidas cada minuto. Ahí no se improvisa, y ahí es donde se aprende de verdad.</p>
+  </div>
+  <div class="marquee rv">
+    <div class="mtrack">
+      <span>Burger King</span><span>Popeyes</span><span>Welbilt</span><span>Hipercor</span><span>El Corte Inglés</span>
+      <span>Burger King</span><span>Popeyes</span><span>Welbilt</span><span>Hipercor</span><span>El Corte Inglés</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ ESENCIA ═══════════ -->
+<section class="esencia">
+  <div class="shead">
+    <span class="gh" aria-hidden="true">04</span>
+    <span class="snum"><b>04</b> Nuestra esencia</span>
+    <h2 class="t">¿Por qué <span class="hl">funciona</span>?</h2>
+  </div>
+
+  <div class="eclaim rv">
+    <p>Somos una <strong>empresa de conocimiento</strong> que hace mantenimiento. No al revés.</p>
+  </div>
+
+  <div class="egrid">
+    <div class="ec rv">
+      <div class="ic"><svg class="i"><use href="#ic-refresh"/></svg></div>
+      <h4>Mejora continua</h4>
+      <p>Cada problema resuelto alimenta el sistema. Nunca cometemos el mismo error dos veces.</p>
+    </div>
+    <div class="ec rv">
+      <div class="ic"><svg class="i"><use href="#ic-book"/></svg></div>
+      <h4>Todo documentado</h4>
+      <p>Wiki técnica viva. El saber no se pierde cuando alguien falta.</p>
+    </div>
+    <div class="ec rv">
+      <div class="ic"><svg class="i"><use href="#ic-chart"/></svg></div>
+      <h4>Datos, no sensaciones</h4>
+      <p>Medimos para anticipar. Sabemos qué va a fallar antes de que falle.</p>
+    </div>
+    <div class="ec rv">
+      <div class="ic"><svg class="i"><use href="#ic-ai"/></svg></div>
+      <h4>IA como herramienta</h4>
+      <p>Tecnología al servicio de las personas. Diagnósticos más rápidos, decisiones más certeras.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ EQUIPOS ═══════════ -->
+<section class="equipos">
+  <div class="shead izq">
+    <span class="gh" aria-hidden="true">05</span>
+    <span class="snum"><b>05</b> Cómo trabajamos</span>
+    <h2 class="t">Equipos, <span class="hl">no departamentos</span></h2>
+    <p class="intro">No somos departamentos que se pasan el trabajo: somos equipos autónomos encadenados que se prestan servicio unos a otros. Y el cliente no está al final de la cadena, está dentro.</p>
+  </div>
+
+  <div class="cadena-eq rv">
+    <svg viewBox="0 0 340 560" role="img" aria-label="Cadena de equipos: proveedor, RESPICE, CLIOPE y cliente, sostenidos por CRESIS e integrados por SINCRO">
+  <defs>
+    <filter id="eq-b" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <marker id="eq-f" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><path d="M0 0 L7 3.5 L0 7 Z" fill="#00d4ff"/></marker>
+    <marker id="eq-v" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><path d="M0 0 L7 3.5 L0 7 Z" fill="#ff8a3d"/></marker>
+  </defs>
+
+  <rect x="10" y="62" width="320" height="404" rx="20" fill="none" stroke="#00ff88" stroke-opacity=".4" stroke-width="2" stroke-dasharray="8 7"/>
+  <rect x="96" y="40" width="148" height="44" rx="22" fill="#0a0a0a" stroke="#00ff88" stroke-opacity=".85" stroke-width="2.6" filter="url(#eq-b)"/>
+  <text x="170" y="69" text-anchor="middle" fill="#00ff88" font-family="Inter,sans-serif" font-size="17" font-weight="900" letter-spacing=".08em">SINCRO</text>
+  <text x="170" y="24" text-anchor="middle" fill="#8b8b8b" font-family="Inter,sans-serif" font-size="13" font-weight="700">Integra a todos en una mirada común</text>
+
+  <g fill="url(#none)">
+    <rect x="34" y="108" width="180" height="56" rx="12" fill="#141414" stroke="#8b8b8b" stroke-opacity=".5" stroke-width="2.2" stroke-dasharray="7 6"/>
+    <rect x="34" y="196" width="180" height="56" rx="12" fill="#141414" stroke="#c39bff" stroke-opacity=".7" stroke-width="2.2"/>
+    <rect x="34" y="284" width="180" height="56" rx="12" fill="#141414" stroke="#00d4ff" stroke-opacity=".8" stroke-width="2.4"/>
+    <rect x="34" y="372" width="180" height="56" rx="12" fill="#141414" stroke="#00ff88" stroke-opacity=".8" stroke-width="2.4" stroke-dasharray="7 6"/>
+  </g>
+  <g font-family="Inter,sans-serif" font-weight="900" font-size="16">
+    <text x="52" y="132" fill="#c9c9c9" letter-spacing=".05em">PROVEEDOR</text>
+    <text x="52" y="220" fill="#c39bff" letter-spacing=".06em">RESPICE</text>
+    <text x="52" y="308" fill="#00d4ff" letter-spacing=".06em">CLIOPE</text>
+    <text x="52" y="396" fill="#00ff88" letter-spacing=".06em">CLIENTE</text>
+  </g>
+  <g font-family="Inter,sans-serif" font-size="13" font-weight="600" fill="#8b8b8b">
+    <text x="52" y="152">Integrado, no externo</text>
+    <text x="52" y="240">Recursos y compras</text>
+    <text x="52" y="328">Servicio en campo</text>
+    <text x="52" y="416">Parte de la cadena</text>
+  </g>
+
+  <g stroke="#00d4ff" stroke-opacity=".75" stroke-width="2.4" fill="none" stroke-dasharray="5 7" class="flujo" marker-end="url(#eq-f)">
+    <path d="M124 166 V190"/><path d="M124 254 V278"/><path d="M124 342 V366"/>
+  </g>
+
+  <rect x="238" y="240" width="88" height="56" rx="12" fill="#141414" stroke="#ff8a3d" stroke-opacity=".75" stroke-width="2.2"/>
+  <text x="282" y="266" text-anchor="middle" fill="#ff8a3d" font-family="Inter,sans-serif" font-size="15" font-weight="900" letter-spacing=".06em">CRESIS</text>
+  <text x="282" y="284" text-anchor="middle" fill="#8b8b8b" font-family="Inter,sans-serif" font-size="11" font-weight="600">Sistemas</text>
+  <g stroke="#ff8a3d" stroke-opacity=".6" stroke-width="2.2" fill="none" stroke-dasharray="5 7" class="flujo" marker-end="url(#eq-v)">
+    <path d="M236 254 C226 240 224 232 216 224"/>
+    <path d="M236 276 C226 290 224 300 216 312"/>
+    <path d="M256 300 C252 340 240 372 220 396"/>
+  </g>
+
+  <path d="M14 490 H326" stroke="#ffffff" stroke-opacity=".08" stroke-width="1.4"/>
+  <text x="170" y="518" text-anchor="middle" fill="#c9c9c9" font-family="Inter,sans-serif" font-size="15" font-weight="800">Cada equipo sirve al siguiente</text>
+  <text x="170" y="544" text-anchor="middle" fill="#8b8b8b" font-family="Inter,sans-serif" font-size="13" font-weight="600">Proveedor y cliente están dentro</text>
+</svg>
+  </div>
+
+  <div class="eqgrid">
+    <div class="eqc rv"><b>CLIOPE</b><span>Cliente Operando · Prevención Eficiente</span></div>
+    <div class="eqc rv"><b>RESPICE</b><span>Recursos y Economía Saneada · Proveedor Integrado · Cliente Entusiasta</span></div>
+    <div class="eqc rv"><b>CRESIS</b><span>Crecimiento · Sistemas · Innovaciones</span></div>
+    <div class="eqc rv"><b>SINCRO</b><span>Integración de equipos · Visión holística</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ COBERTURA ═══════════ -->
+<section class="cobertura">
+  <div class="shead">
+    <span class="gh" aria-hidden="true">06</span>
+    <span class="snum"><b>06</b> Dónde estamos</span>
+    <h2 class="t">Cerca de ti. <span class="hl">Y más allá.</span></h2>
+  </div>
+  <div class="cgrid">
+    <div class="cb pres rv">
+      <div class="ic"><svg class="i"><use href="#ic-pin"/></svg></div>
+      <h3>Presencial</h3>
+      <ul>
+        <li>Instalaciones y montaje</li>
+        <li>Medición y eficiencia energética</li>
+        <li>Mantenimiento de la red que ya atendemos</li>
+      </ul>
+      <div class="zonas">
+        <span>Cantabria</span><span>País Vasco</span><span>Asturias</span>
+        <span>Navarra</span><span>La Rioja</span><span>Castilla y León</span>
+      </div>
+      <p class="nota">También zonas limítrofes. Consúltanos.</p>
+    </div>
+    <div class="cb onl rv">
+      <div class="ic"><svg class="i"><use href="#ic-globe"/></svg></div>
+      <h3>Sin fronteras</h3>
+      <ul>
+        <li>Certificación y formación técnica</li>
+        <li>Plataforma de conocimiento</li>
+        <li>Acompañamiento a distancia</li>
+      </ul>
+      <div class="zonas"><span>Online</span><span>En tus instalaciones</span></div>
+      <p class="nota">Trabajamos contigo estés donde estés.</p>
+    </div>
+  </div>
+  <p class="lugar rv">Desde <b>Revilla de Camargo, Cantabria</b><em>No hay que irse a Silicon Valley para innovar.</em></p>
+</section>
+
+<!-- ═══════════ CONTACTO ═══════════ -->
+<section class="form-sec" id="contacto">
+  <div class="shead">
+    <span class="snum"><b>→</b> Contacto</span>
+    <h2 class="t">Hablemos</h2>
+    <p class="intro">Cuéntanos qué necesitas. Te respondemos en 48 horas laborables.</p>
+  </div>
+
+  <div class="fbox">
+    <h3>Escríbenos</h3>
+    <p class="fsub">Sin compromiso. Si vemos que no somos los adecuados, te lo decimos.</p>
+    <form class="fg" method="POST" name="contacto-home" action="/gracias.html" data-netlify="true" netlify-honeypot="empresa-web">
+      <input type="hidden" name="form-name" value="contacto-home">
+      <p class="hp"><label>No rellenar: <input name="empresa-web" tabindex="-1" autocomplete="off"></label></p>
+
+      <div class="ig">
+        <label for="tema">¿Sobre qué? *</label>
+        <select id="tema" name="tema" required>
+          <option value="">Selecciona una opción</option>
+          <option>Instalación de frío o climatización</option>
+          <option>Medición y eficiencia energética</option>
+          <option>Certificación y formación</option>
+          <option>Trabajar en Northcare</option>
+          <option>Otro</option>
+        </select>
+      </div>
+      <div class="ig">
+        <label for="n">Nombre *</label>
+        <input id="n" type="text" name="nombre" placeholder="Tu nombre" autocomplete="name" required>
+      </div>
+      <div class="ig">
+        <label for="e">Email *</label>
+        <input id="e" type="email" name="email" placeholder="tu@email.com" inputmode="email" autocomplete="email" required>
+      </div>
+      <div class="ig">
+        <label for="t">Teléfono</label>
+        <input id="t" type="tel" name="telefono" placeholder="600 000 000" inputmode="tel" autocomplete="tel">
+      </div>
+      <div class="ig">
+        <label for="ms">Mensaje</label>
+        <textarea id="ms" name="mensaje" rows="4" placeholder="Cuéntanos tu situación"></textarea>
+      </div>
+      <button type="submit" class="btn solid">Enviar mensaje</button>
+      <p class="flegal">Tus datos sólo se usan para responderte. <a href="privacidad.html">Privacidad</a></p>
+    </form>
+  </div>
+
+  <div class="canales">
+    <a href="tel:603081740" class="canal" data-canal="telefono"><span class="ci"><svg class="i"><use href="#ic-tel"/></svg></span><span><span class="cl">Teléfono</span><span class="cv">603 08 17 40</span></span></a>
+    <a href="https://wa.me/34603081740" class="canal" data-canal="whatsapp"><span class="ci"><svg class="i"><use href="#ic-chat"/></svg></span><span><span class="cl">WhatsApp</span><span class="cv">603 08 17 40</span></span></a>
+    <a href="mailto:info@northcare.es" class="canal" data-canal="email"><span class="ci"><svg class="i"><use href="#ic-mail"/></svg></span><span><span class="cl">Email</span><span class="cv">info@northcare.es</span></span></a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <a href="index.html" class="logo"><img src="logo.png" alt="Northcare"></a>
+    <p class="tagline">Conocimiento que cuida</p>
+    <p class="subtag">Instalaciones, certificación y mantenimiento de cocina industrial<br>Cantabria · País Vasco · Asturias · Navarra · La Rioja · Castilla y León</p>
+    <div class="legal">
+        <p>Northcare © 2026 · <a href="privacidad.html">Política de Privacidad</a> · <a href="cookies.html">Política de Cookies</a></p>
+    </div>
+</footer>
+
+<!-- Cookie Banner -->
+<div class="cookie-banner" id="cookieBanner">
+    <div class="cookie-content">
+        <p>Utilizamos cookies propias y de terceros para analizar el uso de la web. <a href="cookies.html">Más información</a></p>
+        <div class="cookie-buttons">
+            <button class="cookie-btn reject" onclick="setCookieConsent(false)">Rechazar</button>
+            <button class="cookie-btn accept" onclick="setCookieConsent(true)">Aceptar</button>
+        </div>
+    </div>
+</div>
+
+<script>
+  function toggleMenu() {
+      const menu = document.getElementById('mobileMenu');
+      const hamburger = document.querySelector('.hamburger');
+      if (menu && hamburger) {
+          menu.classList.toggle('active');
+          hamburger.classList.toggle('active');
+          document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : '';
+      }
+  }
+
+  window.addEventListener('scroll', function() {
+      const nav = document.querySelector('nav');
+      if (window.scrollY > 50) {
+          nav.style.background = 'rgba(0,0,0,0.96)';
+          nav.style.borderBottomColor = 'rgba(0, 212, 255, 0.18)';
+      } else {
+          nav.style.background = 'rgba(0,0,0,0.85)';
+          nav.style.borderBottomColor = 'rgba(255,255,255,0.06)';
+      }
+  });
+
+  // Revelado al hacer scroll
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(e,i){ if(e.isIntersecting){ setTimeout(function(){e.target.classList.add('on')}, (i%5)*90); io.unobserve(e.target);} });
+    }, {threshold:.12, rootMargin:'0px 0px -40px 0px'});
+    document.querySelectorAll('.rv').forEach(function(el){ io.observe(el); });
+  } else {
+    document.querySelectorAll('.rv').forEach(function(el){ el.classList.add('on'); });
+  }
+
+  // Foco que sigue al cursor (sólo con ratón)
+  if (window.matchMedia('(hover:hover)').matches) {
+    document.querySelectorAll('.base-card, .sal').forEach(function(c){
+      c.addEventListener('mousemove', function(ev){
+        var r = c.getBoundingClientRect();
+        c.style.setProperty('--mx', (ev.clientX - r.left) + 'px');
+        c.style.setProperty('--my', (ev.clientY - r.top) + 'px');
+      });
+    });
+  }
+
+  // Barra de progreso
+  var prog = document.getElementById('prog');
+  function onScroll(){
+    var d = document.documentElement;
+    if (prog) prog.style.width = (d.scrollTop / (d.scrollHeight - d.clientHeight) * 100) + '%';
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+
+  // Contador numérico
+  document.querySelectorAll('.d .n').forEach(function(el){
+    var raw = el.textContent, num = parseFloat(raw.replace(/[^\d,.]/g,'').replace('.',''));
+    if (!num || !('IntersectionObserver' in window)) return;
+    var pre = raw.startsWith('~') ? '~' : '', done = false;
+    new IntersectionObserver(function(es,ob){
+      if (!es[0].isIntersecting || done) return;
+      done = true; ob.disconnect();
+      var t0 = null;
+      function tick(ts){
+        if (!t0) t0 = ts;
+        var p = Math.min(1,(ts-t0)/1100), v = Math.round(num*(1-Math.pow(1-p,3)));
+        el.textContent = pre + v.toLocaleString('es-ES');
+        if (p<1) requestAnimationFrame(tick); else el.textContent = raw;
+      }
+      requestAnimationFrame(tick);
+    }, {threshold:.5}).observe(el);
+  });
+
+  // Cookies & Analytics
+  function setCookieConsent(accepted) {
+      const expires = new Date();
+      expires.setFullYear(expires.getFullYear() + 1);
+      document.cookie = 'cookie_consent=' + (accepted ? 'accepted' : 'rejected') + ';expires=' + expires.toUTCString() + ';path=/;SameSite=Lax';
+      document.getElementById('cookieBanner').classList.remove('active');
+      if (accepted) loadAnalytics();
+  }
+  function getCookieConsent() {
+      const match = document.cookie.match(/cookie_consent=([^;]+)/);
+      return match ? match[1] : null;
+  }
+  function loadAnalytics() {
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-MWTDJLNC');
+  }
+
+  // ═══ Seguimiento (dataLayer para GTM) ═══
+  window.dataLayer = window.dataLayer || [];
+
+  document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('.mobile-menu-link').forEach(link => {
+          link.addEventListener('click', () => {
+              const menu = document.getElementById('mobileMenu');
+              const hamburger = document.querySelector('.hamburger');
+              if (menu) menu.classList.remove('active');
+              if (hamburger) hamburger.classList.remove('active');
+              document.body.style.overflow = '';
+          });
+      });
+      const mobileMenu = document.getElementById('mobileMenu');
+      if (mobileMenu) {
+          mobileMenu.addEventListener('click', function(e) {
+              if (e.target === this) toggleMenu();
+          });
+      }
+
+      const consent = getCookieConsent();
+      if (!consent) {
+          document.getElementById('cookieBanner').classList.add('active');
+      } else if (consent === 'accepted') {
+          loadAnalytics();
+      }
+
+      // Envío del formulario
+      var f = document.querySelector('form[name="contacto-home"]');
+      if (f) {
+          f.addEventListener('submit', function() {
+              var tema = f.querySelector('[name="tema"]');
+              window.dataLayer.push({
+                  event: 'form_submit',
+                  form_name: 'contacto-home',
+                  pagina: 'home',
+                  tema: tema ? tema.value : ''
+              });
+          });
+      }
+
+      // Clics en teléfono, WhatsApp y email
+      document.querySelectorAll('[data-canal]').forEach(function(a) {
+          a.addEventListener('click', function() {
+              window.dataLayer.push({ event: 'contacto_click', canal: a.getAttribute('data-canal'), pagina: 'home' });
+          });
+      });
+
+      // Salida hacia cada línea
+      document.querySelectorAll('[data-linea]').forEach(function(a) {
+          a.addEventListener('click', function() {
+              window.dataLayer.push({ event: 'salida_linea', linea: a.getAttribute('data-linea'), pagina: 'home' });
+          });
+      });
+
+      // Profundidad de lectura
+      var hitos = [25, 50, 75, 100], vistos = [];
+      window.addEventListener('scroll', function() {
+          var d = document.documentElement;
+          var pc = Math.round(d.scrollTop / (d.scrollHeight - d.clientHeight) * 100);
+          hitos.forEach(function(x) {
+              if (pc >= x && vistos.indexOf(x) === -1) {
+                  vistos.push(x);
+                  window.dataLayer.push({ event: 'scroll_depth', porcentaje: x, pagina: 'home' });
+              }
+          });
+      }, { passive: true });
+  });
+</script>
 </body>
 </html>

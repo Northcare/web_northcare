@@ -1,0 +1,1547 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Montajes e Instalaciones de frío y clima | Northcare</title>
+    <meta name="description" content="Diseño, montaje y puesta en marcha de instalaciones de frío industrial y climatización. Consumo medido antes y después. Pide presupuesto.">
+    <meta name="theme-color" content="#000000">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root{
+            --bg:#000; --bg2:#0a0a0a; --card:#141414; --card2:#1a1a1a;
+            --white:#fff; --gray:#8b8b8b; --gray2:#c9c9c9;
+            --cyan:#00d4ff; --cyanGlow:rgba(0,212,255,.4);
+            --green:#00ff88; --greenGlow:rgba(0,255,136,.3);
+            --red:#ff4d4d; --yellow:#ffcc00;
+            --f:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+            --safe:env(safe-area-inset-bottom,0px);
+        }
+        *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+        html{scroll-behavior:smooth;font-size:16px;-webkit-text-size-adjust:100%}
+        body{font-family:var(--f);background:var(--bg);color:var(--white);line-height:1.65;overflow-x:hidden}
+        img{max-width:100%;display:block}
+
+        .i{width:1em;height:1em;flex-shrink:0;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;display:block}
+        .sprite{position:absolute;width:0;height:0;overflow:hidden}
+        .progress{position:fixed;top:0;left:0;height:2px;width:0;z-index:1100;background:linear-gradient(90deg,var(--cyan),var(--green));transition:width .1s linear}
+
+        /* ============ NAV INTEGRADO ============ */
+        nav {
+            position: fixed; top: 0; width: 100%; padding: 1rem 5%; display: flex; justify-content: space-between;
+            align-items: center; background: rgba(0,0,0,0.95); backdrop-filter: blur(10px); z-index: 1000;
+            border-bottom: 1px solid rgba(255,255,255,0.1); transition: all 0.3s ease;
+        }
+        .logo { display: flex; align-items: center; text-decoration: none; line-height: 1; }
+        .logo img { height: 40px; width: auto; }
+        .nav-desktop { display: flex; gap: 2rem; align-items: center; }
+        .nav-link { color: var(--gray2); text-decoration: none; font-size: 1.05rem; font-weight: 500; transition: color 0.3s ease; }
+        .nav-link:hover { color: var(--white); }
+        .nav-link.active { color: var(--cyan); font-weight: 700; }
+        .nav-cta {
+            background: var(--cyan); color: #000; padding: 0.75rem 1.5rem; text-decoration: none;
+            font-weight: 600; font-size: 1.05rem; border-radius: 8px; transition: all 0.3s ease;
+        }
+        .nav-cta:hover { box-shadow: 0 0 20px var(--cyanGlow); }
+        .nav-mobile-controls { display: none; align-items: center; gap: 1rem; }
+        .nav-call {
+            display: flex; align-items: center; justify-content: center; width: 44px; height: 44px;
+            background: var(--green); color: #000; text-decoration: none; font-size: 1.25rem;
+            border-radius: 50%; transition: all 0.3s ease;
+        }
+        .nav-call:hover { box-shadow: 0 0 20px var(--greenGlow); transform: scale(1.05); }
+        .hamburger {
+            display: flex; flex-direction: column; justify-content: center; align-items: center; width: 44px; height: 44px;
+            background: transparent; border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; cursor: pointer; gap: 5px; transition: all 0.3s ease;
+        }
+        .hamburger:hover { border-color: rgba(255,255,255,0.4); }
+        .hamburger span { display: block; width: 20px; height: 2px; background: var(--white); transition: all 0.3s ease; }
+        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+        /* ============ MENÚ MÓVIL ============ */
+        .mobile-menu {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(0,0,0,0.98); z-index: 999;
+            display: flex; flex-direction: column; padding: 6rem 2rem 2rem; transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); overflow-y: auto;
+        }
+        .mobile-menu.active { transform: translateX(0); }
+        .mobile-menu-section { margin-bottom: 2rem; }
+        .mobile-menu-label {
+            font-size: 1.05rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
+            color: var(--cyan); margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .mobile-menu-links { display: flex; flex-direction: column; gap: 0.25rem; }
+        .mobile-menu-link {
+            display: block; padding: 1rem 0; color: var(--white); text-decoration: none; font-size: 1.1rem;
+            font-weight: 500; border-bottom: 1px solid rgba(255,255,255,0.05); transition: all 0.3s ease;
+        }
+        .mobile-menu-link:hover { color: var(--cyan); padding-left: 0.5rem; }
+        .mobile-menu-link span { display: block; font-size: 1.1rem; color: var(--gray); font-weight: 400; margin-top: 0.25rem; }
+        .mobile-menu-contacto { margin-top: auto; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); display: flex; flex-direction: column; gap: 1rem; }
+        .mobile-menu-tel {
+            display: flex; align-items: center; gap: 1rem; padding: 1rem; background: var(--card);
+            border: 1px solid rgba(0, 255, 136, 0.3); border-radius: 12px; text-decoration: none; color: var(--white); transition: all 0.3s ease;
+        }
+        .mobile-menu-tel:hover { border-color: var(--green); box-shadow: 0 0 20px rgba(0, 255, 136, 0.1); }
+        .mobile-menu-tel-icon { display: flex; align-items: center; justify-content: center; width: 48px; height: 48px; background: var(--green); color: #000; border-radius: 50%; font-size: 1.25rem; }
+        .mobile-menu-tel-info { display: flex; flex-direction: column; }
+        .mobile-menu-tel-label { font-size: 1.05rem; color: var(--gray); text-transform: uppercase; letter-spacing: 0.05em; }
+        .mobile-menu-tel-number { font-size: 1.25rem; font-weight: 700; }
+
+        @media (max-width: 900px) {
+            .nav-desktop { display: none; }
+            .nav-mobile-controls { display: flex; }
+        }
+        @media (min-width: 901px) {
+            .mobile-menu { display: none !important; }
+        }
+
+        /* ============ LAYOUT ============ */
+        section{padding:4.5rem 1.1rem;position:relative}
+        .inner{max-width:1150px;margin:0 auto}
+        .eyebrow{display:inline-flex;align-items:center;gap:.5rem;font-size:.72rem;font-weight:800;letter-spacing:.16em;
+            text-transform:uppercase;color:var(--cyan);margin-bottom:.75rem}
+        .eyebrow::before{content:'';width:22px;height:2px;background:var(--cyan)}
+        h2.t{font-size:1.8rem;font-weight:900;letter-spacing:-.025em;line-height:1.14;margin-bottom:.75rem}
+        h2.t .hl{color:var(--cyan)}
+        .intro{font-size:1.05rem;color:var(--gray2);line-height:1.8}
+        .mid{text-align:center}
+        .mid .eyebrow::before{display:none}
+        .mid .intro{margin-left:auto;margin-right:auto;max-width:660px}
+
+        .btn{display:flex;align-items:center;justify-content:center;gap:.5rem;width:100%;min-height:56px;
+            padding:1rem 1.5rem;border-radius:10px;font-weight:800;font-size:1.02rem;text-decoration:none;border:none;
+            cursor:pointer;font-family:var(--f);transition:.25s}
+        .btn.solid{background:var(--cyan);color:#000;box-shadow:0 6px 26px var(--cyanGlow)}
+        .btn.solid:active{transform:scale(.98)}
+        .btn.solid:hover{box-shadow:0 10px 40px var(--cyanGlow); transform: translateY(-2px);}
+        .btn.line{background:transparent;color:var(--white);border:1.5px solid rgba(255,255,255,.35)}
+        .btn.line:hover{border-color:var(--white); background:rgba(255,255,255,.05);}
+
+        /* ============ HERO ============ */
+        .hero{padding:8rem 1.1rem 4rem;position:relative;overflow:hidden}
+        .hero::before{content:'';position:absolute;inset:0;pointer-events:none;opacity:.5;
+            background-image:linear-gradient(rgba(255,255,255,.028) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.028) 1px,transparent 1px);
+            background-size:44px 44px;-webkit-mask-image:radial-gradient(ellipse at 50% 0%,#000,transparent 72%);mask-image:radial-gradient(ellipse at 50% 0%,#000,transparent 72%)}
+        .hero::after{content:'';position:absolute;top:-20%;left:40%;transform:translateX(-50%);width:100vw;height:100vw;max-width:700px;max-height:700px;
+            background:radial-gradient(circle,rgba(0,212,255,.12),transparent 68%);pointer-events:none}
+        .hero-in{position:relative;z-index:1}
+
+        .pill{display:inline-flex;align-items:center;gap:.45rem;padding:.4rem .85rem;margin-bottom:1.4rem;
+            background:rgba(0,212,255,.09);border:1px solid rgba(0,212,255,.32);border-radius:100px;
+            font-size:.78rem;font-weight:700;color:var(--cyan);letter-spacing:.03em}
+        .pill .blink{width:7px;height:7px;border-radius:50%;background:var(--cyan);box-shadow:0 0 10px var(--cyan)}
+        .hero h1{font-size:2.2rem;font-weight:900;line-height:1.1;letter-spacing:-.03em;margin-bottom:1.2rem}
+        .hero h1 .hl{color:var(--cyan)}
+        .hero h1 .warn{color:var(--red)}
+        .hero p.sub{font-size:1.08rem;color:var(--gray2);line-height:1.7;margin-bottom:1.5rem}
+        .hero p.sub b{color:var(--white);font-weight:700}
+
+        /* dolor reconocible */
+        .dolor{margin-bottom:.85rem}
+        .dolor li{list-style:none;display:flex;gap:.6rem;align-items:flex-start;font-size:1rem;
+            color:var(--gray2);line-height:1.5;margin-bottom:.6rem}
+        .dolor li::before{content:'—';color:var(--red);flex-shrink:0;font-weight:900}
+        .cierra{margin-bottom:2rem;font-size:1.1rem;color:var(--white);font-weight:700;line-height:1.5}
+        .cierra em{color:var(--cyan);font-style:normal}
+
+        /* cadena causal */
+        .cadena{display:flex;flex-direction:column;gap:0;margin-bottom:2rem;position:relative;padding-left:2.4rem}
+        .cadena::before{content:'';position:absolute;left:11px;top:14px;bottom:14px;width:2px;
+            background:linear-gradient(180deg,var(--cyan),var(--cyan) 55%,var(--green))}
+        .link{display:flex;align-items:flex-start;gap:.85rem;padding:1.1rem 1.25rem;background:var(--card);
+            border:1px solid rgba(255,255,255,.07);border-radius:14px;position:relative;transition:transform 0.3s ease, border-color 0.3s ease}
+        .link:hover{border-color:rgba(0,212,255,.4); transform: translateX(4px);}
+        .link::before{content:'';position:absolute;left:-2.4rem;top:1.25rem;width:20px;height:20px;border-radius:50%;
+            background:var(--bg);border:2px solid var(--cyan);box-shadow:0 0 0 4px rgba(0,212,255,.1)}
+        .link .k{flex:0 0 auto;font-size:1.1rem;font-weight:900;color:var(--cyan);line-height:1.35;min-width:70px}
+        .link .v{font-size:.95rem;color:var(--gray2);line-height:1.5}
+        .link.fin{border-color:rgba(0,255,136,.35);background:rgba(0,255,136,.06)}
+        .link.fin:hover{border-color:var(--green); box-shadow: 0 0 25px rgba(0,255,136,.1);}
+        .link.fin::before{border-color:var(--green);box-shadow:0 0 0 4px rgba(0,255,136,.12),0 0 16px rgba(0,255,136,.4)}
+        .link.fin .k{color:var(--green)}
+        .link.fin .v{color:var(--white);font-weight:600}
+        .flecha{height:.6rem;padding:0;font-size:0}
+
+        .proof{display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:2rem}
+        .proof span{display:inline-flex;align-items:center;gap:.35rem;padding:.45rem .85rem;border-radius:8px;
+            background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);
+            font-size:.85rem;font-weight:600;color:var(--gray2); transition: 0.3s;}
+        .proof span:hover{background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.2); color:var(--white);}
+        .proof span b{color:var(--cyan);font-weight:900}
+
+        .hero-btns{display:flex;flex-direction:column;gap:.8rem;margin-bottom:1.2rem}
+        .btn.solid small{display:block;font-size:.75rem;font-weight:600;opacity:.7;margin-top:.1rem}
+        .escasez{display:flex;align-items:center;gap:.45rem;font-size:.85rem;color:var(--yellow);
+            font-weight:600;margin-bottom:1rem}
+        .escasez span{width:6px;height:6px;border-radius:50%;background:var(--yellow);box-shadow:0 0 8px var(--yellow);flex-shrink:0}
+
+        /* ============ CINTA DE DATOS ============ */
+        .datos{background:var(--bg2);border-top:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.08);padding:3rem 1.1rem}
+        .dgrid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;max-width:1000px;margin:0 auto}
+        .d{background:var(--card);border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:1.4rem 1rem;text-align:center; position:relative; overflow:hidden;}
+        .d::after{content:'';position:absolute;inset:0 auto auto 0;height:2px;width:100%;background:linear-gradient(90deg,var(--cyan),transparent);opacity:.5}
+        .d::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(0,212,255,.03),transparent 70%);pointer-events:none}
+        .d .ic-d{color:var(--cyan);opacity:.6;font-size:1.3rem;margin:0 auto .6rem}
+        .d .n{font-size:2.1rem;font-weight:900;line-height:1;margin-bottom:.4rem;
+            background:linear-gradient(135deg,var(--cyan),var(--green));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+        .d .l{font-size:.85rem;color:var(--gray);line-height:1.4}
+
+        /* ============ CARRUSEL (móvil) ============ */
+        .swipe{display:grid;gap:1rem;margin:2rem 0 0;padding:0}
+        .swipe::-webkit-scrollbar{display:none}
+        .swipe > *{flex:none}
+        .hint{display:flex;align-items:center;justify-content:center;gap:.4rem;font-size:.85rem;color:var(--gray);margin-top:.5rem}
+
+        /* ============ PARA QUIÉN ============ */
+        .pq{background:var(--bg)}
+        .pqc{background:var(--card);border:1px solid rgba(255,255,255,.09);border-radius:18px;padding:2rem;
+            display:flex;flex-direction:column; transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;}
+        .pqc:hover{border-color:rgba(0,212,255,.3); transform: translateY(-6px); box-shadow: 0 15px 40px rgba(0,212,255,.08);}
+        .pqc .ic{width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;
+            font-size:1.6rem;background:rgba(0,212,255,.1);border:1px solid rgba(0,212,255,.25);margin-bottom:1.25rem; color:var(--cyan);}
+        .pqc .ic .i{width:1.6rem;height:1.6rem}
+        .pqc h3{font-size:1.15rem;font-weight:800;margin-bottom:.6rem;line-height:1.25}
+        .pqc p{font-size:.96rem;color:var(--gray);line-height:1.65}
+
+        /* ============ ANTES / DESPUÉS ============ */
+        .vs{background:var(--bg2);border-top:1px solid rgba(255,255,255,.08)}
+        .vs-claim{background:linear-gradient(135deg,rgba(0,212,255,.1),rgba(0,255,136,.05));
+            border:1px solid rgba(0,212,255,.3);border-radius:18px;padding:2rem;text-align:center;margin-bottom:2rem; position:relative; overflow:hidden;}
+        .vs-claim::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(255,255,255,.03),transparent 50%);pointer-events:none}
+        .vs-claim p{font-size:1.2rem;font-weight:800;line-height:1.5;position:relative;z-index:1}
+        .vs-claim strong{color:var(--green)}
+
+        .vscard{border-radius:18px;padding:2rem;margin-bottom:1.25rem; transition: all 0.3s ease;}
+        .vscard.mal{background:rgba(255,77,77,.04);border:1px solid rgba(255,77,77,.2)}
+        .vscard.mal:hover{border-color:rgba(255,77,77,.4); background:rgba(255,77,77,.06);}
+        .vscard.bien{background:rgba(0,255,136,.04);border:1px solid rgba(0,255,136,.25)}
+        .vscard.bien:hover{border-color:rgba(0,255,136,.5); box-shadow: 0 0 30px rgba(0,255,136,.08); transform: translateY(-4px);}
+
+        .vshead{display:flex;align-items:center;gap:.85rem;margin-bottom:1.25rem;padding-bottom:1rem;border-bottom:1px solid rgba(255,255,255,.08)}
+        .vshead .tag{flex:0 0 38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:900}
+        .vshead .tag .i{width:1.2rem;height:1.2rem;stroke-width:2.4}
+        .vscard.mal .tag{background:rgba(255,77,77,.12);color:var(--red); border: 1px solid rgba(255,77,77,.3);}
+        .vscard.bien .tag{background:rgba(0,255,136,.12);color:var(--green); border: 1px solid rgba(0,255,136,.3);}
+        .vshead h3{font-size:1.1rem;font-weight:800;line-height:1.3}
+        .vscard.mal h3{color:var(--red)}
+        .vscard.bien h3{color:var(--green)}
+        .vslist{list-style:none;display:flex;flex-direction:column;gap:.9rem}
+        .vslist li{font-size:.96rem;color:var(--gray2);line-height:1.6;padding-left:1.2rem;position:relative}
+        .vslist li::before{position:absolute;left:0;top:0;font-weight:900}
+        .vscard.mal .vslist li::before{content:'×';color:var(--red)}
+        .vscard.bien .vslist li::before{content:'✓';color:var(--green)}
+
+        /* ============ PROCESO / TIMELINE ============ */
+        .proc{background:var(--bg)}
+        .tl{position:relative;margin-top:2.5rem;padding-left:3rem}
+        .tl::before{content:'';position:absolute;left:21px;top:12px;bottom:12px;width:2px;
+            background:linear-gradient(180deg,var(--green),var(--cyan) 30%,var(--cyan) 70%,var(--green))}
+        .tl::after{content:'';position:absolute;left:21px;top:12px;width:2px;height:var(--fill,0%);
+            background:var(--green);box-shadow:0 0 12px var(--green);transition:height .4s ease}
+        .step{position:relative;margin-bottom:2rem}
+        .step:last-child{margin-bottom:0}
+        .step .dot{position:absolute;left:-3rem;top:0;width:42px;height:42px;border-radius:50%;
+            background:var(--card);border:2px solid rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;
+            font-size:.95rem;font-weight:900;color:var(--gray); transition:all 0.3s;}
+        .step.key .dot{border-color:var(--green);color:var(--green);background:rgba(0,255,136,.1);box-shadow:0 0 20px rgba(0,255,136,.25)}
+        .step:hover .dot{transform: scale(1.1);}
+        .step h3{font-size:1.1rem;font-weight:800;margin-bottom:.4rem;padding-top:.4rem;line-height:1.3}
+        .step p{font-size:.96rem;color:var(--gray);line-height:1.65}
+
+        /* ============ OBRAS ============ */
+        .obras{background:var(--bg2);border-top:1px solid rgba(255,255,255,.08)}
+        .obra{background:var(--card);border:1px solid rgba(255,255,255,.09);border-radius:18px;overflow:hidden; transition: all 0.4s ease;}
+        .obra:hover{border-color:rgba(0,212,255,.3); box-shadow: 0 15px 40px rgba(0,0,0,0.5);}
+        .obra figure{position:relative;aspect-ratio:4/3;background:linear-gradient(135deg,#141414,#1e1e1e);display:flex;align-items:center;justify-content:center; overflow:hidden;}
+        .obra figure::after{content:'';position:absolute;inset:0;display:flex;background:radial-gradient(circle at 50% 45%,rgba(0,212,255,.09),transparent 62%)}
+        .obra figure img{width:100%;height:100%;object-fit:cover;position:relative;z-index:1; transition: transform 0.5s ease;}
+        .obra:hover figure img{transform: scale(1.05);}
+        .obra figure img[src=""],.obra figure img:not([src]){display:none}
+        .ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;color:#3a3a3a;z-index:0}
+        .ph .i{width:2.4rem;height:2.4rem;stroke-width:1.2}
+        .ph small{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase}
+
+        .obra .chip{position:absolute;top:.85rem;left:.85rem;padding:.35rem .8rem;border-radius:100px;
+            background:rgba(0,0,0,.75);backdrop-filter:blur(8px);border:1px solid rgba(0,212,255,.35);
+            font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--cyan); z-index:2;}
+        .obra .body{padding:1.4rem}
+        .obra h3{font-size:1.05rem;font-weight:800;margin-bottom:.4rem}
+        .obra p{font-size:.94rem;color:var(--gray);line-height:1.6}
+
+        /* ============ ALCANCE ============ */
+        .alc{background:var(--bg)}
+        .alcbox{background:var(--card);border:1px solid rgba(255,255,255,.09);border-radius:18px;padding:2rem;margin-top:1.5rem; transition: all 0.3s;}
+        .alcbox:hover{transform: translateY(-4px);}
+        .alcbox.si:hover{border-color:rgba(0,255,136,.3); box-shadow: 0 10px 30px rgba(0,255,136,.06);}
+        .alcbox h3{display:flex;align-items:center;gap:.6rem;font-size:1.1rem;font-weight:800;margin-bottom:1.25rem}
+        .alcbox h3 .i{width:1.25rem;height:1.25rem;stroke-width:2.4}
+        .alcbox.si h3{color:var(--green)}
+        .alcbox.no h3{color:var(--gray)}
+        .alclist{list-style:none;display:flex;flex-direction:column;gap:.85rem}
+        .alclist li{display:flex;gap:.7rem;font-size:.96rem;color:var(--gray2);line-height:1.55}
+        .alclist li::before{flex-shrink:0;font-weight:900}
+        .alcbox.si li::before{content:'✓';color:var(--green)}
+        .alcbox.no li::before{content:'—';color:var(--gray)}
+        .aviso{margin-top:2rem;padding:1.4rem;background:rgba(255,204,0,.06);
+            border-left:3px solid var(--yellow);border-radius:12px;font-size:.96rem;color:var(--gray2);line-height:1.65}
+        .aviso strong{color:var(--white)}
+
+        /* ============ FAQ ============ */
+        .faq{background:var(--bg2);border-top:1px solid rgba(255,255,255,.08)}
+        .fitem{background:var(--card);border:1px solid rgba(255,255,255,.09);border-radius:14px;margin-bottom:.8rem;overflow:hidden; transition:border-color 0.3s;}
+        .fitem:hover{border-color:rgba(0,212,255,.25);}
+        .fitem summary{display:flex;justify-content:space-between;align-items:center;gap:1rem;
+            padding:1.25rem;min-height:60px;font-size:1rem;font-weight:700;cursor:pointer;list-style:none;line-height:1.4}
+        .fitem summary::-webkit-details-marker{display:none}
+        .fitem summary::after{content:'+';flex-shrink:0;color:var(--cyan);font-size:1.5rem;font-weight:300;transition:transform .25s}
+        .fitem[open] summary::after{transform:rotate(45deg)}
+        .fitem[open] summary{color:var(--cyan)}
+        .fbody{padding:0 1.25rem 1.4rem;font-size:.96rem;color:var(--gray2);line-height:1.75}
+        .fbody p+p{margin-top:.8rem}
+
+        /* ============ FORMULARIO ============ */
+        .form-sec{background:var(--bg);border-top:1px solid rgba(255,255,255,.08)}
+        .fbox{background:var(--card);border:1px solid rgba(0,212,255,.3);border-radius:20px;padding:2rem;margin-top:2rem; box-shadow: 0 20px 50px rgba(0,0,0,.4);}
+        .fbox h3{font-size:1.3rem;font-weight:900;margin-bottom:.4rem}
+        .fbox .fsub{font-size:.95rem;color:var(--gray);margin-bottom:1.75rem}
+        .fg{display:flex;flex-direction:column;gap:1.1rem}
+        .ig{display:flex;flex-direction:column}
+        .ig label{font-size:.85rem;color:var(--gray2);margin-bottom:.5rem;font-weight:600}
+        .ig input,.ig select,.ig textarea{width:100%;min-height:54px;background:#0a0a0a;border:1px solid rgba(255,255,255,.16);
+            color:var(--white);padding:1rem;font-size:16px;font-family:var(--f);border-radius:10px;transition:.3s}
+        .ig textarea{min-height:100px;resize:vertical}
+        .ig input:focus,.ig select:focus,.ig textarea:focus{outline:none;border-color:var(--cyan);box-shadow:0 0 0 3px rgba(0,212,255,.15)}
+        .ig input::placeholder,.ig textarea::placeholder{color:#5a5a5a}
+        .mas{background:transparent;border:none;color:var(--cyan);font-family:var(--f);font-size:.95rem;font-weight:700;
+            cursor:pointer;padding:.75rem 0;text-align:left;min-height:44px; transition: color 0.2s;}
+        .mas:hover{color: var(--white);}
+        .extra{display:none;flex-direction:column;gap:1.1rem}
+        .extra.open{display:flex}
+        .flegal{font-size:.82rem;color:var(--gray);text-align:center;line-height:1.55}
+        .flegal a{color:var(--gray2)}
+        .hp{position:absolute;left:-9999px}
+
+        .riesgo{display:flex;gap:.7rem;align-items:flex-start;padding:1rem 1.25rem;margin-bottom:1.5rem;
+            background:rgba(0,255,136,.05);border:1px solid rgba(0,255,136,.22);border-radius:12px;
+            font-size:.92rem;color:var(--gray2);line-height:1.55}
+        .riesgo i{flex-shrink:0;font-style:normal;color:var(--green);font-weight:900}
+        .riesgo b{color:var(--white);font-weight:700}
+
+        .canales{display:flex;flex-direction:column;gap:.85rem;margin-top:1.5rem}
+        .canal{display:flex;align-items:center;gap:1rem;padding:1.1rem 1.25rem;min-height:64px;background:var(--card);
+            border:1px solid rgba(255,255,255,.09);border-radius:14px;text-decoration:none;color:inherit;transition:all .3s}
+        .canal:hover{border-color:var(--cyan); transform:translateY(-2px); box-shadow:0 5px 15px rgba(0,212,255,.06);}
+        .canal .ci{flex:0 0 44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;background:rgba(255,255,255,.05)}
+        .canal .ci .i{width:1.35rem;height:1.35rem;color:var(--cyan)}
+        .canal .cl{display:block;font-size:.76rem;color:var(--gray);text-transform:uppercase;letter-spacing:.08em}
+        .canal .cv{display:block;font-size:1.05rem;font-weight:800}
+
+        /* ============ FOOTER ============ */
+        footer{background:#000;padding:4rem 5% 2rem;text-align:center;border-top:1px solid rgba(255,255,255,.08)}
+        footer .logo { margin-bottom: 1rem; display: inline-block; }
+        footer .logo img { height: 50px; width: auto; }
+        footer .tagline { font-size: 1.2rem; font-weight: 600; color: var(--white); margin-bottom: 0.5rem; }
+        footer .subtag { font-size: 1rem; color: var(--gray); margin-bottom: 2rem; line-height:1.6;}
+        footer .legal { margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); font-size: 1rem; color: var(--gray); }
+        footer .legal a { color: var(--gray); text-decoration: none; transition: color 0.3s ease; }
+        footer .legal a:hover { color: var(--cyan); }
+
+        /* ============ CTA FIJA & COOKIES ============ */
+        .dock{position:fixed;bottom:0;left:0;right:0;z-index:900;display:flex;gap:.7rem;
+            padding:.75rem .9rem calc(.75rem + var(--safe));background:rgba(0,0,0,.96);
+            backdrop-filter:blur(14px);border-top:1px solid rgba(255,255,255,.12); transition:transform .3s}
+        .dock a{display:flex;align-items:center;justify-content:center;gap:.4rem;min-height:54px;border-radius:12px;
+            font-weight:800;font-size:1rem;text-decoration:none}
+        .dock .p{flex:1;background:var(--cyan);color:#000}
+        .dock .s{flex:0 0 30%;background:transparent;color:var(--green);border:1.5px solid rgba(0,255,136,.5)}
+
+        .cookie-banner {
+            position: fixed; bottom: 0; left: 0; right: 0; background: rgba(10, 10, 10, 0.98); backdrop-filter: blur(10px);
+            padding: 1.25rem 5%; z-index: 10000; border-top: 1px solid rgba(255,255,255,0.1); display: none;
+        }
+        .cookie-banner.active { display: block; }
+        .cookie-content { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 2rem; flex-wrap: wrap; }
+        .cookie-content p { color: var(--gray2); font-size: 0.95rem; margin: 0; flex: 1; min-width: 250px; }
+        .cookie-content a { color: var(--cyan); text-decoration: none; }
+        .cookie-content a:hover { text-decoration: underline; }
+        .cookie-buttons { display: flex; gap: 0.75rem; }
+        .cookie-btn { padding: 0.75rem 1.5rem; border: none; border-radius: 6px; font-size: 0.95rem; font-weight: 700; cursor: pointer; transition: all 0.3s ease; font-family: inherit; }
+        .cookie-btn.accept { background: var(--cyan); color: #000; }
+        .cookie-btn.accept:hover { box-shadow: 0 0 15px var(--cyanGlow); }
+        .cookie-btn.reject { background: transparent; color: var(--gray); border: 1px solid rgba(255,255,255,0.2); }
+        .cookie-btn.reject:hover { border-color: var(--white); color: var(--white); }
+
+        /* ============ TABLET / ESCRITORIO ============ */
+        @media(min-width:700px){
+            html{font-size:17px}
+            section{padding:6.5rem 2rem}
+            .hero{padding:9rem 2rem 5rem}
+            .hero h1{font-size:3.2rem}
+            h2.t{font-size:2.3rem}
+            .hero-btns{flex-direction:row}
+            .hero-btns .btn{width:auto;padding:1rem 2rem}
+            .dgrid{grid-template-columns:repeat(4,1fr)}
+            .d .n{font-size:2.4rem}
+            .swipe{display:grid;grid-template-columns:repeat(3,1fr);overflow:visible;margin:2.5rem 0 0;padding:0}
+            .swipe > *{flex:none}
+            .hint{display:none}
+            .vs-cols{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+            .vscard{margin-bottom:0}
+            .alc-cols{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+            .tl{padding-left:3.2rem;max-width:760px;margin-left:auto;margin-right:auto}
+            .step .dot{left:-3.2rem;width:42px;height:42px;font-size:.95rem}
+            .tl::before,.tl::after{left:20px}
+            .fbox{max-width:640px;margin:2.5rem auto 0;padding:2.5rem}
+            .row2{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem}
+            .canales{flex-direction:row;max-width:860px;margin:2rem auto 0}
+            .canal{flex:1}
+            footer{padding-bottom:3rem}
+            .dock{display:none}
+            .cookie-content { flex-direction: row; }
+        }
+        @media (max-width: 600px) {
+            .cookie-content { flex-direction: column; text-align: center; }
+            .cookie-buttons { width: 100%; justify-content: center; }
+        }
+        @media(min-width:1000px){
+            .hero-in{max-width:1150px;margin:0 auto;display:grid;grid-template-columns:1.1fr .9fr;gap:4rem;align-items:center}
+            .hero h1{font-size:3.2rem}
+            .hero .fbox{margin:0}
+        }
+
+        /* ══ ILUSTRACIÓN HERO ══ */
+        .hero-art{display:none}
+        .hero-art svg{width:100%;height:auto;overflow:visible;filter:drop-shadow(0 0 10px rgba(0,212,255,.2))}
+        .flow{stroke-dasharray:7 9;animation:flow 2.6s linear infinite}
+        @keyframes flow{to{stroke-dashoffset:-32}}
+        .pulse{animation:pulse 2.6s ease-in-out infinite}
+        @keyframes pulse{0%,100%{opacity:.35}50%{opacity:1}}
+
+        /* ══ REVELADO AL SCROLL ══ */
+        .rv{opacity:0;transform:translateY(18px);transition:opacity .55s ease,transform .55s ease}
+        .rv.on{opacity:1;transform:none}
+
+        /* ═══════ CAPA DE ACABADO (común a todo el sitio) ═══════ */
+        body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.04;
+            background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E")}
+        .gh{position:absolute!important;z-index:0!important;top:-3.5rem;left:50%;transform:translateX(-50%);
+            font-size:clamp(6rem,18vw,11rem);font-weight:900;line-height:1;letter-spacing:-.06em;
+            color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.055);pointer-events:none;user-select:none}
+        .cue{display:flex;flex-direction:column;align-items:center;gap:.5rem;margin-top:3rem;
+            font-size:.7rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--gray)}
+        .cue i{display:block;width:1px;height:46px;background:linear-gradient(180deg,var(--cyan),transparent);
+            animation:baja 2.2s ease-in-out infinite}
+        @keyframes baja{0%,100%{opacity:.25;transform:scaleY(.6);transform-origin:top}50%{opacity:1;transform:scaleY(1)}}
+        h2.t{letter-spacing:-.035em}
+        
+        /* Logo reducido en heros de páginas interiores */
+        .hero-logo-mini{max-width:240px;width:60%;height:auto;margin:0 0 1.75rem;display:block;opacity:.9}
+        @media(max-width:700px){ .hero-logo-mini{max-width:190px} }
+
+        
+        /* Proceso con foto al lado */
+        .proc-layout{max-width:1100px;margin:0 auto}
+        .proc-foto{display:block;margin:0 auto 1.75rem}
+        @media(min-width:900px){
+            .proc-layout{display:grid;grid-template-columns:1.15fr .85fr;gap:3.5rem;align-items:start}
+            .proc-layout .tl{margin:0;max-width:none}
+            .proc-foto{display:block;position:static}
+        }
+
+
+        /* Cadena compacta del hero */
+        .tres-golpes{display:flex;flex-wrap:wrap;align-items:stretch;gap:.6rem;margin-bottom:2rem}
+        .tg{flex:1 1 150px;padding:1rem 1.1rem;background:var(--card);border:1px solid rgba(255,255,255,.08);
+            border-radius:14px;transition:.3s}
+        .tg:hover{border-color:rgba(0,212,255,.35);transform:translateY(-3px)}
+        .tg b{display:block;font-size:1.7rem;font-weight:900;line-height:1;margin-bottom:.35rem;
+            background:linear-gradient(135deg,var(--cyan),var(--green));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+        .tg span{display:block;font-size:.85rem;color:var(--gray2);line-height:1.45}
+        .tg.fin{border-color:rgba(0,255,136,.35);background:rgba(0,255,136,.05)}
+        .tg.fin b{font-size:1.05rem;color:var(--green);-webkit-text-fill-color:var(--green);letter-spacing:-.01em}
+        .tg.fin span{color:var(--white);font-weight:600}
+        .tg.med b{font-size:1.05rem;-webkit-text-fill-color:var(--cyan);letter-spacing:-.01em}
+
+        /* Dolor reubicado en la sección de comparación */
+        .dolor-bloque{max-width:900px;margin:0 auto 2rem}
+        .dolor-bloque ul{list-style:none;display:grid;gap:.7rem;margin-bottom:1.25rem}
+        .dolor-bloque li{display:flex;gap:.7rem;align-items:flex-start;font-size:1rem;color:var(--gray2);line-height:1.5}
+        .dolor-bloque li::before{content:'—';color:var(--red);flex-shrink:0;font-weight:900}
+        .dolor-bloque .cierra{font-size:1.15rem;color:var(--white);font-weight:700;line-height:1.5;text-align:center}
+        .dolor-bloque .cierra em{color:var(--cyan);font-style:normal}
+        @media(min-width:760px){ .dolor-bloque ul{grid-template-columns:repeat(3,1fr)} }
+
+
+
+        /* Tres argumentos, ordenados por peso */
+        .argus{list-style:none;display:flex;flex-direction:column;gap:.85rem;
+            padding-top:1.25rem;border-top:1px solid rgba(255,255,255,.08)}
+        .argus li{display:grid;grid-template-columns:26px 1fr;gap:.85rem;align-items:start}
+        .argus .pos{display:flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:8px;
+            font-size:.78rem;font-weight:900;background:rgba(255,255,255,.05);color:var(--gray);border:1px solid rgba(255,255,255,.1)}
+        .argus li.top .pos{background:rgba(0,255,136,.14);color:var(--green);border-color:rgba(0,255,136,.4)}
+        .argus b{display:block;font-size:.95rem;font-weight:800;color:var(--white);margin-bottom:.15rem}
+        .argus li.top b{color:var(--green)}
+        .argus span{display:block;font-size:.9rem;color:var(--gray);line-height:1.6}
+
+
+        /* Bloque de clima */
+        .clima-bloque{max-width:1000px;margin:2.5rem auto 0;padding:1.5rem;border-radius:20px;
+            background:linear-gradient(150deg,#0d0d0d,#151515);border:1px solid rgba(255,138,61,.28)}
+        .clima-bloque svg{width:100%;height:auto;display:block}
+        .clima-txt{max-width:760px;margin:0 auto 1.5rem;text-align:center}
+        .clima-txt p{font-size:1.05rem;color:var(--gray2);line-height:1.8}
+        .clima-txt b{color:var(--white)}
+        .clima-pie{margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid rgba(255,255,255,.08);
+            text-align:center;font-size:1.05rem;font-weight:800;color:var(--white);line-height:1.5}
+        .clima-pie em{font-style:normal;color:#ff8a3d}
+        @media(min-width:900px){ .clima-bloque{padding:2.25rem} }
+
+        /* Dos servicios */
+        .serv-grid{display:grid;gap:2rem;max-width:1150px;margin:0 auto}
+        .serv{background:var(--card);border:1px solid rgba(255,255,255,.08);border-radius:20px;overflow:hidden;transition:.35s}
+        .serv:hover{border-color:rgba(0,212,255,.35);transform:translateY(-5px);box-shadow:0 18px 45px rgba(0,0,0,.5)}
+        .serv .ilus-caja{border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:1rem;
+            background:linear-gradient(150deg,#0e0e0e,#151515);margin:1.5rem auto;max-width:520px}
+        .serv-txt{padding-bottom:1.25rem}
+        .serv-txt{padding:1.75rem}
+        .serv-txt .chip-o{display:inline-block;padding:.3rem .85rem;border-radius:100px;
+            background:rgba(0,212,255,.1);border:1px solid rgba(0,212,255,.32);
+            font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--cyan);margin-bottom:1rem}
+        .serv-txt h3{font-size:1.4rem;font-weight:900;letter-spacing:-.02em;line-height:1.2;margin-bottom:.75rem}
+        .serv-txt p{font-size:1rem;color:var(--gray2);line-height:1.75}
+
+        /* Señales de criterio sobre el esquema */
+        .humo{animation:il-humo 3s ease-in-out infinite}
+        @keyframes il-humo{0%,100%{opacity:.25;transform:translateY(3px)}50%{opacity:.9;transform:translateY(-4px)}}
+        @media(prefers-reduced-motion:reduce){ .humo{animation:none} }
+
+        .senal{opacity:0;animation:aparece .6s ease forwards}
+        .senal:nth-of-type(1){animation-delay:.4s}
+        .senal:nth-of-type(2){animation-delay:.7s}
+        .senal:nth-of-type(3){animation-delay:1s}
+        .senal:nth-of-type(4){animation-delay:1.3s}
+        @keyframes aparece{to{opacity:1}}
+        @media(prefers-reduced-motion:reduce){ .senal{opacity:1;animation:none} }
+
+        /* Criterios nombrados en cada servicio */
+        .crits{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid rgba(255,255,255,.07)}
+        .crits span{display:inline-flex;align-items:center;gap:.4rem;padding:.35rem .8rem;border-radius:100px;
+            background:rgba(0,255,136,.07);border:1px solid rgba(0,255,136,.28);
+            font-size:.8rem;font-weight:800;color:var(--green)}
+        .crits span::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--green)}
+
+        /* Tres valores */
+        .valores-sec{background:var(--bg);border-top:1px solid rgba(255,255,255,.08)}
+        .val-grid{display:grid;gap:1.25rem;max-width:1150px;margin:0 auto}
+        .val{padding:2rem 1.75rem;background:var(--card);border:1px solid rgba(255,255,255,.08);
+            border-radius:20px;border-top:3px solid var(--green);transition:.3s;text-align:center}
+        .val:hover{transform:translateY(-5px);border-color:rgba(0,255,136,.4)}
+        .val .ic{width:54px;height:54px;border-radius:15px;display:flex;align-items:center;justify-content:center;margin:0 auto 1.1rem;
+            background:rgba(0,255,136,.09);border:1px solid rgba(0,255,136,.28);color:var(--green)}
+        .val .ic .i{width:1.6rem;height:1.6rem}
+        .val h3{font-size:1.2rem;font-weight:900;margin-bottom:.6rem}
+        .val p{font-size:.98rem;color:var(--gray);line-height:1.7}
+        @media(min-width:860px){ .serv-grid{grid-template-columns:1fr 1fr} .val-grid{grid-template-columns:repeat(3,1fr)} }
+
+
+        /* Ilustraciones técnicas */
+        .ilus{width:100%;height:auto;display:block;max-width:400px;margin:0 auto}
+        .flujo{stroke-dasharray:7 9;animation:il-flujo 3s linear infinite}
+        .flujo-inv{stroke-dasharray:7 9;animation:il-flujo 3s linear infinite reverse}
+        @keyframes il-flujo{to{stroke-dashoffset:-32}}
+        .gira{animation:il-gira 6s linear infinite}
+        @keyframes il-gira{to{transform:rotate(360deg)}}
+        .late{animation:il-late 2.4s ease-in-out infinite}
+        @keyframes il-late{0%,100%{opacity:.35}50%{opacity:1}}
+        .sube{animation:il-sube 2.8s ease-in-out infinite}
+        @keyframes il-sube{0%,100%{opacity:.25;transform:translateY(3px)}50%{opacity:.9;transform:translateY(-3px)}}
+        .baja{animation:il-baja 2.8s ease-in-out infinite}
+        @keyframes il-baja{0%,100%{opacity:.25;transform:translateY(-3px)}50%{opacity:.9;transform:translateY(3px)}}
+        .viaja{animation:il-viaja 5s ease-in-out infinite}
+        @keyframes il-viaja{0%,100%{transform:translateX(-60px);opacity:.3}50%{transform:translateX(60px);opacity:1}}
+        .hero-plano{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none;z-index:0;opacity:.85}
+        @media(prefers-reduced-motion:reduce){
+            .flujo,.flujo-inv,.gira,.late,.sube,.baja,.viaja{animation:none}
+        }
+
+        /* Caja de ilustración */
+        .ilus-caja{position:relative;border-radius:16px;overflow:hidden;padding:.75rem;
+            background:linear-gradient(150deg,#0d0d0d,#151515);border:1px solid rgba(0,212,255,.2)}
+        .ilus-caja .ilus{filter:drop-shadow(0 0 8px rgba(0,212,255,.22))}
+        .obra-fila .ilus-caja{width:100%}
+
+
+
+        /* Marcos de foto */
+        .foto{position:relative;border-radius:18px;overflow:hidden;
+            background:linear-gradient(135deg,#141414,#1c1c1c);border:1px solid rgba(255,255,255,.08)}
+        .foto img{width:100%;height:100%;object-fit:cover;display:block;position:relative;z-index:1}
+        .foto::after{content:'';position:absolute;inset:0;pointer-events:none;z-index:2;border-radius:inherit;
+            box-shadow:inset 0 0 70px rgba(0,0,0,.65);border:1px solid rgba(255,255,255,.06)}
+        .foto-ph{position:absolute;inset:0;z-index:0;display:flex;flex-direction:column;align-items:center;
+            justify-content:center;gap:.45rem;color:#3d3d3d;text-align:center;padding:1rem}
+        .foto-ph svg{width:2.2rem;height:2.2rem;stroke:currentColor;fill:none;stroke-width:1.2}
+        .foto-ph b{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;font-weight:800}
+        .foto-ph span{font-size:.72rem;color:#4d4d4d;font-family:monospace}
+        .foto.h43{aspect-ratio:4/3}
+        .foto.h32{aspect-ratio:3/2}
+        .foto.h169{aspect-ratio:16/9}
+        .foto.v45{aspect-ratio:4/5}
+        .foto.v34{aspect-ratio:3/4}
+
+        @media(prefers-reduced-motion:reduce){ body::after{display:none} .cue i{animation:none} }
+
+        /* Foco que sigue al cursor */
+        .pqc,.vscard,.obra,.alcbox{--mx:50%;--my:0%;position:relative}
+        .pqc::after,.vscard::after,.obra::after,.alcbox::after{content:'';position:absolute;inset:0;pointer-events:none;
+            opacity:0;transition:opacity .4s;border-radius:inherit;
+            background:radial-gradient(420px circle at var(--mx) var(--my),rgba(255,255,255,.055),transparent 42%)}
+        .pqc:hover::after,.vscard:hover::after,.obra:hover::after,.alcbox:hover::after{opacity:1}
+
+        /* Tipografía editorial */
+        .hero h1{font-size:clamp(2.1rem,6.5vw,4.2rem);line-height:1.02;letter-spacing:-.045em;font-weight:300}
+        .hero h1 .hl{font-weight:900;letter-spacing:-.05em}
+        .inner.mid{position:relative}
+        .inner.mid>*{position:relative;z-index:1}
+        @media(min-width:900px){ section{padding:8rem 2rem} }
+
+        @media(prefers-reduced-motion:reduce){
+            .rv{opacity:1!important;transform:none!important;transition:none!important}
+            .flow,.pulse{animation:none}
+            *{scroll-behavior:auto!important}
+        }
+        @media(min-width:1000px){
+            .hero-art{display:block}
+        }
+    
+        /* ═══════════ ESCRITORIO · una columna y anchos contenidos ═══════════ */
+        @media(min-width:900px){
+          /* bloques de lectura, a una sola columna */
+          .hero-in,.proc-layout,.serv-grid,.vs-cols,.alc-cols,.row2{grid-template-columns:1fr;max-width:720px;margin-left:auto;margin-right:auto;gap:2rem}
+          .proc-foto{position:static}
+          .shead,.sec-in,.wrap{max-width:720px;margin-left:auto;margin-right:auto}
+
+          /* rejillas de 4: 2 + 2 · de 3: 3 en fila */
+          .dgrid{grid-template-columns:1fr 1fr;max-width:720px;margin-left:auto;margin-right:auto}
+          .val-grid,.swipe{grid-template-columns:repeat(3,1fr);max-width:720px;margin-left:auto;margin-right:auto}
+
+          /* ilustraciones a tamaño natural */
+          .ilus{max-width:440px;margin:0 auto}
+          .ilus-caja{max-width:560px;margin:1.75rem auto;padding:1.15rem}
+        }
+
+    
+        /* ═══ Ilustraciones · una sola regla para todas ═══ */
+        .ilus-caja,.clima-bloque,.proc-foto{
+            max-width:560px;margin:1.75rem auto;padding:1.15rem;border-radius:16px;
+            background:linear-gradient(150deg,#0e0e0e,#151515);
+            border:1px solid rgba(255,255,255,.08);overflow:visible;position:static}
+        .ilus-caja>svg,.clima-bloque>svg,.proc-foto>svg,
+        .ilus-caja .ilus,.clima-bloque .ilus,.proc-foto .ilus,
+        .ilus-caja svg,.clima-bloque svg,.proc-foto svg{
+            width:100%;height:auto;max-width:440px;display:block;margin:0 auto}
+        @media(min-width:900px){
+            .ilus-caja,.clima-bloque,.proc-foto{max-width:560px;margin-left:auto;margin-right:auto}
+            .ilus-caja svg,.clima-bloque svg,.proc-foto svg{max-width:440px}
+        }
+
+    
+        /* ═══ Ilustraciones · alto y ancho topados por igual ═══ */
+        .ilus-caja svg,.clima-bloque svg,.proc-foto svg{
+            width:auto;height:auto;max-width:440px;max-height:470px;display:block;margin:0 auto}
+        @media(min-width:900px){
+            .ilus-caja svg,.clima-bloque svg,.proc-foto svg{max-width:440px;max-height:470px}
+        }
+
+    
+        /* ═══ Correcciones ═══ */
+        /* la clase de animación en estas ilustraciones es .flu */
+        .flu{stroke-dasharray:6 8;animation:il-flujo 3s linear infinite}
+        @media(prefers-reduced-motion:reduce){ .flu{animation:none} }
+
+        /* las cabeceras de sección usan .inner, no .shead */
+        @media(min-width:900px){
+            .inner{max-width:720px}
+            .inner.mid{max-width:720px}
+        }
+
+    </style>
+</head>
+<body>
+<div class="progress" id="prog"></div>
+<svg class="sprite" aria-hidden="true"><defs>
+<symbol id="ic-tel" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></symbol>
+<symbol id="ic-chat" viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.5 8.5 0 0 1-3.9-.9L3 20.5l1.4-4.9A8.4 8.4 0 0 1 12 3.1a8.4 8.4 0 0 1 9 8.4Z"/></symbol>
+<symbol id="ic-mail" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></symbol>
+<symbol id="ic-crane" viewBox="0 0 24 24"><path d="M3 21h18M6 21V8m0 0h13M6 8 3 3m16 5v5m0 0-2 2m2-2 2 2M9 21v-6h5v6"/></symbol>
+<symbol id="ic-food" viewBox="0 0 24 24"><path d="M4 11h16M5 11a7 7 0 0 1 14 0M3 15h18M5 19h14a2 2 0 0 0 2-2H3a2 2 0 0 0 2 2Z"/></symbol>
+<symbol id="ic-shop" viewBox="0 0 24 24"><path d="M3 9h18l-1.2-4.2A1 1 0 0 0 18.8 4H5.2a1 1 0 0 0-1 .8L3 9Zm1 0v10a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9M9 20v-6h6v6"/></symbol>
+<symbol id="ic-snow" viewBox="0 0 24 24"><path d="M12 2v20M4.5 6.5l15 11M19.5 6.5l-15 11M12 6l-2.5-2.5M12 6l2.5-2.5M12 18l-2.5 2.5M12 18l2.5 2.5"/></symbol>
+<symbol id="ic-tool" viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0 5.3 5.2l-8 8a2.8 2.8 0 0 1-4-4l8-8Z"/><path d="M14.7 6.3 17 4"/></symbol>
+<symbol id="ic-doc" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Zm0 0v6h6M9 13h6M9 17h6"/></symbol>
+<symbol id="ic-gauge" viewBox="0 0 24 24"><path d="M12 21a9 9 0 1 1 9-9"/><path d="m12 12 5-3"/><circle cx="12" cy="12" r="1.4"/></symbol>
+<symbol id="ic-check" viewBox="0 0 24 24"><path d="m4 12.5 5.2 5.2L20 7"/></symbol>
+<symbol id="ic-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+<symbol id="ic-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+<symbol id="ic-img" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="m21 16-5-5-5 5-2-2-6 6"/></symbol>
+</defs></svg>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MWTDJLNC" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<!-- Navigation -->
+<nav>
+    <a href="index.html" class="logo">
+        <img src="logo.png" alt="Northcare">
+    </a>
+    <div class="nav-desktop">
+        <a href="instalaciones.html" class="nav-link active">Instalaciones</a>
+        <a href="mantenimiento.html" class="nav-link">Mantenimiento</a>
+            <a href="formacion.html" class="nav-link">Cardinal</a>
+        <a href="#presupuesto" class="nav-cta">Contactar</a>
+    </div>
+    <div class="nav-mobile-controls">
+        <a href="tel:603081740" class="nav-call" aria-label="Llamar" data-canal="telefono-nav"><svg class="i" style="width:1.15rem;height:1.15rem"><use href="#ic-tel"/></svg></a>
+        <button class="hamburger" onclick="toggleMenu()" aria-label="Menú">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu-section">
+        <div class="mobile-menu-label">Servicios</div>
+        <div class="mobile-menu-links">
+            <a href="instalaciones.html" class="mobile-menu-link">Montajes e Instalaciones<span>Frío industrial y climatización</span></a>
+            <a href="formacion.html" class="mobile-menu-link">Cardinal<span>Guía técnica, IA y certificación</span></a>
+            <a href="mantenimiento.html" class="mobile-menu-link">Mantenimiento<span>Nuestro campo: dónde aprendemos todo</span></a>
+        </div>
+    </div>
+    <div class="mobile-menu-contacto">
+        <a href="tel:603081740" class="mobile-menu-tel" data-canal="telefono-menu">
+            <span class="mobile-menu-tel-icon">📞</span>
+            <div class="mobile-menu-tel-info">
+                <span class="mobile-menu-tel-label">Llamar ahora</span>
+                <span class="mobile-menu-tel-number">603 08 17 40</span>
+            </div>
+        </a>
+        <a href="https://wa.me/34603081740" class="mobile-menu-tel" data-canal="whatsapp-menu">
+            <span class="mobile-menu-tel-icon">💬</span>
+            <div class="mobile-menu-tel-info">
+                <span class="mobile-menu-tel-label">WhatsApp</span>
+                <span class="mobile-menu-tel-number">603 08 17 40</span>
+            </div>
+        </a>
+    </div>
+</div>
+
+<!-- ══════════ HERO ══════════ -->
+<section class="hero">
+  <div class="hero-in">
+    <div>
+      <img src="northcare-logo-final.svg" alt="Northcare" class="hero-logo-mini">
+      <span class="pill"><span class="blink"></span> Montajes e instalaciones · Zona Norte</span>
+      <h1>Instalamos frío industrial y climatización <span class="hl">para que la producción no pare</span></h1>
+
+      <p class="sub">Cocinas profesionales, obradores y retail de alimentación. Obra nueva, reforma y sustitución de equipos.</p>
+
+      <div class="tres-golpes">
+        <div class="tg"><b>1.800</b><span>averías de frío y clima al año, en obras que montaron otros</span></div>
+        <div class="tg med"><b>Por eso</b><span>sabemos qué decisiones de montaje acaban en avería</span></div>
+        <div class="tg fin"><b>Y así</b><span>montamos sin esos errores</span></div>
+      </div>
+
+      <div class="proof">
+        <span><b>~90</b> cocinas a diario</span>
+        <span><b>0</b> subcontratas</span>
+        <span><b>Antes y después</b> consumo medido</span>
+      </div>
+
+      <div class="hero-btns">
+        <a href="#presupuesto" class="btn solid">Pedir presupuesto<small>Respuesta en 48 h laborables</small></a>
+        <a href="tel:603081740" class="btn line" data-canal="telefono-hero"><svg class="i"><use href="#ic-tel"/></svg> 603 08 17 40</a>
+      </div>
+
+      <p class="escasez"><span></span>Aceptamos pocos proyectos a la vez</p>
+      <div class="cue" aria-hidden="true"><i></i>Sigue bajando</div>
+    </div>
+
+    <div class="hero-art">
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ DATOS ══════════ -->
+<section class="datos">
+  <div class="dgrid">
+    <div class="rv d"><svg class="i ic-d"><use href="#ic-snow"/></svg><div class="n">1.800</div><div class="l">averías de frío y clima al año</div></div>
+    <div class="rv d"><svg class="i ic-d"><use href="#ic-tool"/></svg><div class="n">8.034</div><div class="l">intervenciones en 2025</div></div>
+    <div class="rv d"><svg class="i ic-d"><use href="#ic-doc"/></svg><div class="n">156</div><div class="l">tipos de equipo distintos</div></div>
+    <div class="rv d"><svg class="i ic-d"><use href="#ic-shop"/></svg><div class="n">~90</div><div class="l">cocinas atendidas a diario</div></div>
+  </div>
+</section>
+
+<!-- ══════════ PARA QUIÉN ══════════ -->
+<section class="pq">
+  <div class="inner mid">
+    <span class="gh" aria-hidden="true">01</span>
+    <span class="eyebrow">Para quién</span>
+    <h2 class="t">Para quien no se puede permitir <span class="hl">un fallo</span></h2>
+    <p class="intro">Sitios donde un equipo parado son ventas perdidas, género estropeado o una inspección con problemas.</p>
+  </div>
+  <div class="swipe">
+    <div class="rv pqc">
+      <div class="ic"><svg class="i"><use href="#ic-crane"/></svg></div>
+      <h3>Promotores y obra nueva</h3>
+      <p>Entramos en fase de proyecto, cuando todavía se pueden tomar buenas decisiones. Te decimos qué va a dar problemas antes de que esté hormigonado.</p>
+    </div>
+    <div class="rv pqc">
+      <div class="ic"><svg class="i"><use href="#ic-food"/></svg></div>
+      <h3>Franquiciados y restauración</h3>
+      <p>Conocemos las cocinas de cadena por dentro. Sabemos montar con el local abierto, en horario de cierre y sin perder un servicio.</p>
+    </div>
+    <div class="rv pqc">
+      <div class="ic"><svg class="i"><use href="#ic-shop"/></svg></div>
+      <h3>Industria y retail de alimentación</h3>
+      <p>Cámaras, obradores y salas donde la temperatura es trazabilidad. Instalación pensada para turnos largos y auditorías.</p>
+    </div>
+  </div>
+  <p class="hint">← desliza →</p>
+</section>
+
+<!-- ══════════ ANTES / DESPUÉS ══════════ -->
+<section class="vs">
+  <div class="inner mid">
+    <span class="gh" aria-hidden="true">02</span>
+    <span class="eyebrow">El problema</span>
+    <h2 class="t">¿Qué falla ahora mismo <span class="hl">en tu frío?</span></h2>
+  </div>
+  <div class="inner">
+    <div class="dolor-bloque rv">
+      <ul>
+        <li>La cámara que no aguanta la primera ola de calor</li>
+        <li>La factura de la luz subiendo cada año sin que nadie sepa por qué</li>
+        <li>El técnico que ya se sabe tu nombre y el camino a tu cocina</li>
+      </ul>
+      <p class="cierra">Casi nunca es culpa de la máquina. <em>Es de cómo se montó.</em></p>
+    </div>
+    <div class="clima-txt rv">
+      <p>Y hay algo que casi nadie tiene en cuenta: <b>tu instalación se dimensionó para un verano que ya no existe.</b> Los equipos de frío se calculan para una temperatura exterior de diseño. Cuando el termómetro la supera, el compresor deja de tener margen: trabaja al límite, consume mucho más y acaba cediendo.</p>
+    </div>
+
+    <div class="clima-bloque rv">
+      <svg viewBox="0 0 340 400" role="img" aria-label="La máxima de verano ha superado la temperatura para la que se diseñó el equipo">
+  <defs>
+    <linearGradient id="cl-rojo" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ff4d4d" stop-opacity=".32"/><stop offset="100%" stop-color="#ff4d4d" stop-opacity=".04"/></linearGradient>
+    <filter id="cl-glow" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+
+  <text x="14" y="22" fill="#c9c9c9" font-family="Inter,sans-serif" font-size="15" font-weight="800">Máxima exterior en verano</text>
+
+  <circle cx="300" cy="56" r="14" fill="none" stroke="#ff8a3d" stroke-opacity=".8" stroke-width="2.4" class="late"/>
+  <g stroke="#ff8a3d" stroke-opacity=".55" stroke-width="2.2" stroke-linecap="round">
+    <path d="M300 32 v-8M300 80 v8M276 56 h-8M324 56 h8M283 39 l-6-6M317 73 l6 6M317 39 l6-6M283 73 l-6 6"/>
+  </g>
+
+  <path d="M196 172 L232 160 L268 148 L300 140 L300 172 Z" fill="url(#cl-rojo)"/>
+  <path d="M20 172 H320" stroke="#00d4ff" stroke-opacity=".7" stroke-width="2.4" stroke-dasharray="7 6"/>
+  <rect x="20" y="172" width="300" height="88" fill="#00d4ff" fill-opacity=".05"/>
+  <text x="24" y="194" fill="#00d4ff" font-family="Inter,sans-serif" font-size="13" font-weight="800">Temperatura de diseño</text>
+
+  <path d="M28 244 L64 236 L100 240 L136 224 L172 200 L196 172 L232 160 L268 148 L300 140"
+        fill="none" stroke="#ff8a3d" stroke-opacity=".95" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round"/>
+
+  <circle cx="232" cy="160" r="6" fill="#ff4d4d" class="late" filter="url(#cl-glow)"/>
+  <circle cx="300" cy="140" r="6" fill="#ff4d4d" class="late" filter="url(#cl-glow)"/>
+  <path d="M232 152 V126 H180" fill="none" stroke="#ff4d4d" stroke-opacity=".45" stroke-width="1.4" stroke-dasharray="3 4"/>
+  <text x="174" y="131" text-anchor="end" fill="#ff4d4d" font-family="Inter,sans-serif" font-size="13" font-weight="800">Averías en cadena</text>
+  <path d="M300 132 V106 H244" fill="none" stroke="#ff4d4d" stroke-opacity=".45" stroke-width="1.4" stroke-dasharray="3 4"/>
+  <text x="238" y="111" text-anchor="end" fill="#ff4d4d" font-family="Inter,sans-serif" font-size="13" font-weight="800">Consumo disparado</text>
+
+  <path d="M20 262 H320" stroke="#8b8b8b" stroke-opacity=".4" stroke-width="2"/>
+  <g fill="#8b8b8b" font-family="Inter,sans-serif" font-size="13" font-weight="700" text-anchor="middle">
+    <text x="28" y="284">2015</text><text x="136" y="284">2019</text><text x="244" y="284">2023</text>
+  </g>
+  <g stroke="#8b8b8b" stroke-opacity=".3" stroke-width="1.6"><path d="M28 262 v7M136 262 v7M244 262 v7"/></g>
+
+  <path d="M14 312 H326" stroke="#ffffff" stroke-opacity=".08" stroke-width="1.4"/>
+  <text x="14" y="342" fill="#8b8b8b" font-family="Inter,sans-serif" font-size="14" font-weight="700">Cada verano que supera esa línea,</text>
+  <text x="14" y="362" fill="#ff8a3d" font-family="Inter,sans-serif" font-size="14" font-weight="800">el equipo paga la diferencia.</text>
+  <text x="14" y="390" fill="#8b8b8b" font-family="Inter,sans-serif" font-size="13" font-weight="600">No se estropeó: el clima se movió.</text>
+</svg>
+      <p class="clima-pie">No es que tu máquina se haya estropeado. <em>Es que el clima se movió y ella no.</em></p>
+    </div>
+
+    <div class="rv vs-claim">
+      <p>Una instalación mal montada no falla el primer año. Falla el tercero.<br><strong>Nosotros llevamos desde 2023 pagando la factura del montaje ajeno: unas 1.800 averías de frío y clima cada año.</strong></p>
+    </div>
+    <div class="vs-cols">
+      <div class="rv vscard mal">
+        <div class="vshead"><span class="tag"><svg class="i"><use href="#ic-x"/></svg></span><h3>Lo que nos encontramos al reparar</h3></div>
+        <ul class="vslist">
+          <li>Máquinas elegidas grandes «por si acaso», que arrancan y paran todo el día y se gastan antes</li>
+          <li>Tuberías mal trazadas que obligan al compresor a trabajar de más</li>
+          <li>Desagües y condensados donde no tocaba: humedad y averías eléctricas al año siguiente</li>
+          <li>Ninguna documentación. Nadie sabe qué se instaló ni con qué garantía</li>
+        </ul>
+      </div>
+      <div class="rv vscard bien">
+        <div class="vshead"><span class="tag"><svg class="i"><use href="#ic-check"/></svg></span><h3>Cómo lo hacemos nosotros</h3></div>
+        <ul class="vslist">
+          <li>Medimos el consumo y la carga real antes de dimensionar nada</li>
+          <li>Elegimos el equipo que hace falta, aunque sea más barato que el del catálogo</li>
+          <li>Trazado y evacuación pensados para diez años, no para pasar la entrega</li>
+          <li>Te entregamos qué se instaló, por qué, y las garantías a tu nombre</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ PROCESO ══════════ -->
+<section class="proc">
+  <div class="inner mid">
+    <span class="gh" aria-hidden="true">03</span>
+    <span class="eyebrow">Cómo trabajamos</span>
+    <h2 class="t">No te prometemos un ahorro.<br><span class="hl">Te lo enseñamos medido.</span></h2>
+    <p class="intro">Todo el sector promete porcentajes de catálogo que nadie comprueba después. Nosotros empezamos y terminamos con el mismo instrumento.</p>
+  </div>
+  <div class="proc-layout">
+   
+      <div class="proc-foto rv"><div class="ilus-caja"><svg viewBox="0 0 340 461" class="ilus" role="img" aria-label="El mismo analizador de consumo mide antes y después de la obra">
+  <defs>
+    <filter id="me-glow" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+
+  <text x="170.0" y="24.3" text-anchor="middle" fill="#c9c9c9" font-family="Inter,sans-serif" font-size="15" font-weight="800">El mismo instrumento</text>
+
+  <!-- ══ ANALIZADOR ══ -->
+  <rect x="106.9" y="42.5" width="126.3" height="91.1" rx="9.7" fill="#0d0d0d" stroke="#00d4ff" stroke-opacity=".7" stroke-width="1.6"/>
+  <rect x="119.0" y="55.9" width="102.0" height="43.7" rx="4.9" fill="#0a0f10" stroke="#00d4ff" stroke-opacity=".35" stroke-width="1.1"/>
+  <g stroke="#00d4ff" stroke-opacity=".8" stroke-width="1.6" fill="none" stroke-linecap="round">
+    <path d="M127.5 85.0 l10.9-13.4 9.7 8.5 12.1-19.4 10.9 15.8 9.7-10.9 12.1 12.1" class="late"/>
+  </g>
+  <text x="170.0" y="68.0" text-anchor="middle" fill="#00d4ff" font-family="Inter,sans-serif" font-size="13" font-weight="900" letter-spacing=".1em">kWh</text>
+  <g fill="#141414" stroke="#00d4ff" stroke-opacity=".45" stroke-width="1.1">
+    <rect x="121.4" y="109.3" width="25.5" height="14.6" rx="3.0"/>
+    <rect x="155.4" y="109.3" width="25.5" height="14.6" rx="3.0"/>
+    <rect x="189.4" y="109.3" width="25.5" height="14.6" rx="3.0"/>
+  </g>
+  <!-- pinza -->
+  <path d="M106.9 78.9 h-24.3a15.8 15.8 0 0 0 0 31.6 h3.6" fill="none" stroke="#00d4ff" stroke-opacity=".7" stroke-width="1.6"/>
+  <circle cx="82.6" cy="94.7" r="8.5" fill="none" stroke="#00d4ff" stroke-opacity=".45" stroke-width="1.2"/>
+  <circle cx="82.6" cy="94.7" r="3.0" fill="#00d4ff" fill-opacity=".7"/>
+
+  <!-- ══ ANTES ══ -->
+  <text x="31.6" y="176.1" fill="#ff8a3d" font-family="Inter,sans-serif" font-size="13" font-weight="900" letter-spacing=".12em">ANTES</text>
+  <rect x="31.6" y="187.0" width="276.9" height="68.0" rx="7.3" fill="#101010" stroke="#ff8a3d" stroke-opacity=".35" stroke-width="1.1"/>
+  <path d="M43.7 240.4 L71.6 216.1 L99.6 230.7 L127.5 206.4 L155.4 222.2 L183.4 202.8 L211.3 217.4 L239.2 200.4 L267.1 213.7 L296.3 197.9"
+        fill="none" stroke="#ff8a3d" stroke-opacity=".9" stroke-width="1.9" stroke-linejoin="round" stroke-linecap="round"/>
+  <text x="296.3" y="250.1" text-anchor="end" fill="#8b8b8b" font-family="Inter,sans-serif" font-size="12" font-weight="700">Registro de partida</text>
+
+  <!-- ══ LA OBRA ══ -->
+  <rect x="99.6" y="269.6" width="140.9" height="31.6" rx="15.8" fill="#0a0a0a" stroke="#00d4ff" stroke-opacity=".8" stroke-width="1.6" filter="url(#me-glow)"/>
+  <text x="170.0" y="289.6" text-anchor="middle" fill="#00d4ff" font-family="Inter,sans-serif" font-size="14" font-weight="900" letter-spacing=".1em">LA OBRA</text>
+  <g stroke="#00d4ff" stroke-opacity=".5" stroke-width="1.3" fill="none" stroke-dasharray="3.0 4.9" class="flujo">
+    <path d="M170.0 255.0 V267.1"/><path d="M170.0 303.6 V315.7"/>
+  </g>
+
+  <!-- ══ DESPUÉS ══ -->
+  <text x="31.6" y="337.6" fill="#00ff88" font-family="Inter,sans-serif" font-size="13" font-weight="900" letter-spacing=".12em">DESPUÉS</text>
+  <rect x="31.6" y="348.5" width="276.9" height="68.0" rx="7.3" fill="#0d1210" stroke="#00ff88" stroke-opacity=".45" stroke-width="1.1"/>
+  <path d="M43.7 398.3 L71.6 388.6 L99.6 393.4 L127.5 384.9 L155.4 389.8 L183.4 382.5 L211.3 387.4 L239.2 381.3 L267.1 384.9 L296.3 380.1"
+        fill="none" stroke="#00ff88" stroke-opacity=".95" stroke-width="1.9" stroke-linejoin="round" stroke-linecap="round"/>
+  <text x="296.3" y="411.6" text-anchor="end" fill="#8b8b8b" font-family="Inter,sans-serif" font-size="12" font-weight="700">Mismo local, mismo método</text>
+
+  <path d="M31.6 433.5 H308.4" stroke="#ffffff" stroke-opacity=".08" stroke-width="0.8"/>
+  <text x="170.0" y="452.9" text-anchor="middle" fill="#c9c9c9" font-family="Inter,sans-serif" font-size="13" font-weight="800">La diferencia la ves tú, no te la contamos</text>
+</svg></div></div>
+<div class="tl">
+    <div class="rv step key">
+      <div class="dot">01</div>
+      <h3>Visitamos y medimos</h3>
+      <p>Vamos al local, vemos qué hay y registramos el consumo real. En obra nueva, revisamos el proyecto antes de que se cierre nada.</p>
+    </div>
+    <div class="rv step">
+      <div class="dot">02</div>
+      <h3>Te damos el presupuesto</h3>
+      <p>Con las partidas separadas y explicando por qué hemos elegido cada equipo. Si algo del proyecto nos parece un error, te lo decimos.</p>
+    </div>
+    <div class="rv step">
+      <div class="dot">03</div>
+      <h3>Montamos</h3>
+      <p>Equipo propio y fechas cerradas. Si el local está abierto, trabajamos en horario de cierre para no tocarte el servicio.</p>
+    </div>
+    <div class="rv step">
+      <div class="dot">04</div>
+      <h3>Ponemos en marcha y documentamos</h3>
+      <p>Qué se ha instalado, cómo funciona y las garantías registradas. Por escrito, no de palabra.</p>
+    </div>
+    <div class="rv step key">
+      <div class="dot">05</div>
+      <h3>Volvemos a medir</h3>
+      <p>El mismo instrumento del primer día. Ves el consumo real después de la obra, no una estimación.</p>
+    </div>
+   </div>
+  </div>
+</section>
+
+<!-- ══════════ SERVICIOS ══════════ -->
+<section class="obras">
+  <div class="inner mid">
+    <span class="gh" aria-hidden="true">04</span>
+    <span class="eyebrow">Qué instalamos</span>
+    <h2 class="t">Dos servicios. <span class="hl">Un mismo criterio.</span></h2>
+    <p class="intro">Obra nueva, reforma y sustitución de equipos al final de su vida útil. Cambia el esquema, pero no cambian los tres criterios con los que decidimos.</p>
+  </div>
+
+  <div class="serv-grid">
+    <article class="serv rv">
+      <div class="serv-txt">
+        <span class="chip-o">Frío industrial</span>
+        <h3>Cámaras y frío comercial</h3>
+        
+        <div class="ilus-caja"><svg viewBox="0 0 340 620" role="img" aria-label="Ciclo frigorífico y las cuatro decisiones que deciden si un equipo dura">
+  <defs>
+    <filter id="fi-cf-b" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <marker id="fi-cf-c" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><path d="M0 0 L7 3.5 L0 7 Z" fill="#ff8a3d"/></marker>
+    <marker id="fi-cf-f" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><path d="M0 0 L7 3.5 L0 7 Z" fill="#00d4ff"/></marker>
+  </defs>
+
+  <text x="14" y="22" fill="#ff8a3d" font-family="Inter,sans-serif" font-size="13" font-weight="900" letter-spacing=".12em">EL CICLO</text>
+
+  <rect x="88" y="44" width="164" height="40" rx="8" fill="#0d0d0d" stroke="#ff8a3d" stroke-opacity=".75" stroke-width="2.4"/>
+  <path d="M104 64 l12-12 12 24 12-24 12 24 12-24 12 24 12-12" fill="none" stroke="#ff8a3d" stroke-opacity=".85" stroke-width="2.2" stroke-linejoin="round"/>
+  <text x="170" y="104" text-anchor="middle" fill="#ff8a3d" font-family="Inter,sans-serif" font-size="15" font-weight="800">Condensador</text>
+
+  <path d="M252 64 H296 V216" fill="none" stroke="#1a1a1a" stroke-width="8"/>
+  <path d="M252 64 H296 V216" fill="none" stroke="#ff8a3d" stroke-opacity=".8" stroke-width="2.4" stroke-dasharray="5 7" class="flujo-inv" marker-end="url(#fi-cf-c)"/>
+  <path d="M88 64 H44 V196" fill="none" stroke="#1a1a1a" stroke-width="8"/>
+  <path d="M88 64 H44 V196" fill="none" stroke="#ff8a3d" stroke-opacity=".6" stroke-width="2.4" stroke-dasharray="5 7" class="flujo" marker-end="url(#fi-cf-c)"/>
+
+  <path d="M28 200 L60 200 L44 224 Z" fill="#0d0d0d" stroke="#00d4ff" stroke-opacity=".85" stroke-width="2.2"/>
+  <path d="M28 248 L60 248 L44 224 Z" fill="#0d0d0d" stroke="#00d4ff" stroke-opacity=".85" stroke-width="2.2"/>
+  <text x="70" y="216" fill="#00d4ff" font-family="Inter,sans-serif" font-size="14" font-weight="800">Válvula</text>
+
+  <circle cx="296" cy="252" r="30" fill="#0a0a0a" stroke="#00ff88" stroke-opacity=".9" stroke-width="2.8" filter="url(#fi-cf-b)"/>
+  <g class="gira" style="transform-origin:296px 252px">
+    <path d="M296 230 a22 22 0 0 1 19 11M296 274 a22 22 0 0 1-19-11" fill="none" stroke="#00ff88" stroke-opacity=".85" stroke-width="2.4"/>
+  </g>
+  <circle cx="296" cy="252" r="4" fill="#00ff88"/>
+  <text x="258" y="246" text-anchor="end" fill="#00ff88" font-family="Inter,sans-serif" font-size="14" font-weight="800">Compresor</text>
+
+  <path d="M44 252 V320 H210" fill="none" stroke="#1a1a1a" stroke-width="8"/>
+  <path d="M44 252 V320 H210" fill="none" stroke="#00d4ff" stroke-opacity=".85" stroke-width="2.4" stroke-dasharray="5 7" class="flujo" marker-end="url(#fi-cf-f)"/>
+  <path d="M266 320 H296 V286" fill="none" stroke="#1a1a1a" stroke-width="8"/>
+  <path d="M266 320 H296 V286" fill="none" stroke="#00d4ff" stroke-opacity=".65" stroke-width="2.4" stroke-dasharray="5 7" class="flujo"/>
+
+  <g stroke="#00d4ff" stroke-opacity=".28" stroke-width="1.3"><path d="M96 300 V344M112 300 V344M128 300 V344M144 300 V344M160 300 V344M176 300 V344M192 300 V344M208 300 V344M224 300 V344"/></g>
+  <path d="M84 320 H246 a12 12 0 0 1 0 24 H96 a12 12 0 0 1 0-24" fill="none" stroke="#00d4ff" stroke-opacity=".9" stroke-width="2.6"/>
+  <path d="M96 296 H246 a12 12 0 0 1 0 24" fill="none" stroke="#00d4ff" stroke-opacity=".9" stroke-width="2.6"/>
+  <text x="170" y="374" text-anchor="middle" fill="#00d4ff" font-family="Inter,sans-serif" font-size="15" font-weight="800">Evaporador</text>
+
+  <path d="M14 398 H326" stroke="#ffffff" stroke-opacity=".08" stroke-width="1.4"/>
+  <text x="14" y="424" fill="#00ff88" font-family="Inter,sans-serif" font-size="12" font-weight="900" letter-spacing=".12em">LO QUE DECIDE SI DURA</text>
+  <g font-family="Inter,sans-serif" font-size="14" font-weight="700" fill="#c9c9c9">
+    <circle cx="24" cy="452" r="7" fill="none" stroke="#00ff88" stroke-width="2"/><path d="m20.5 452 3 3.5 6-7" fill="none" stroke="#00ff88" stroke-width="2" stroke-linecap="round"/>
+    <text x="40" y="457">Dimensionado con la carga real</text>
+    <circle cx="24" cy="484" r="7" fill="none" stroke="#00ff88" stroke-width="2"/><path d="m20.5 484 3 3.5 6-7" fill="none" stroke="#00ff88" stroke-width="2" stroke-linecap="round"/>
+    <text x="40" y="489">Línea aislada y con cortes</text>
+    <circle cx="24" cy="516" r="7" fill="none" stroke="#00ff88" stroke-width="2"/><path d="m20.5 516 3 3.5 6-7" fill="none" stroke="#00ff88" stroke-width="2" stroke-linecap="round"/>
+    <text x="40" y="521">Acceso para repararlo rápido</text>
+    <circle cx="24" cy="548" r="7" fill="none" stroke="#00ff88" stroke-width="2"/><path d="m20.5 548 3 3.5 6-7" fill="none" stroke="#00ff88" stroke-width="2" stroke-linecap="round"/>
+    <text x="40" y="553">Consumo medido antes y después</text>
+  </g>
+  <path d="M14 578 H326" stroke="#ffffff" stroke-opacity=".08" stroke-width="1.4"/>
+  <text x="170" y="604" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="800">
+    <tspan fill="#8b8b8b">Bien montado llega a viejo. </tspan><tspan fill="#00ff88">Mal montado no.</tspan>
+  </text>
+</svg></div>
+        <p>Cámaras de refrigeración y congelación, arcones y mobiliario refrigerado. Montamos el circuito entero: evaporador, línea, unidad condensadora y bancada.</p>
+        <div class="crits">
+          <span>Eficiencia</span><span>Ciclo de vida</span><span>Mantenibilidad</span>
+        </div>
+      </div>
+      
+    </article>
+
+    <article class="serv rv">
+      <div class="serv-txt">
+        <span class="chip-o">Climatización</span>
+        <h3>Clima y renovación de aire</h3>
+        
+        <div class="ilus-caja"><svg viewBox="0 0 340 540" role="img" aria-label="Climatización por conductos: compuertas por zona, registros para el filtro y compensación de la extracción">
+  <defs>
+    <marker id="cm-fl" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><path d="M0 0 L7 3.5 L0 7 Z" fill="#7bd8ff"/></marker>
+  </defs>
+
+  <text x="14" y="22" fill="#7bd8ff" font-family="Inter,sans-serif" font-size="13" font-weight="900" letter-spacing=".12em">CLIMATIZACIÓN POR CONDUCTOS</text>
+
+  <!-- máquina -->
+  <rect x="20" y="48" width="88" height="60" rx="10" fill="#0d0d0d" stroke="#7bd8ff" stroke-opacity=".8" stroke-width="2.6"/>
+  <g stroke="#7bd8ff" stroke-opacity=".5" stroke-width="2.2"><path d="M34 68 h60M34 80 h60M34 92 h38"/></g>
+  <text x="64" y="130" text-anchor="middle" fill="#7bd8ff" font-family="Inter,sans-serif" font-size="14" font-weight="800">Unidad</text>
+
+  <!-- conducto principal -->
+  <path d="M108 78 H286 V420" fill="none" stroke="#111" stroke-width="22"/>
+  <path d="M108 78 H286 V420" fill="none" stroke="#7bd8ff" stroke-opacity=".55" stroke-width="2.4"/>
+  <path d="M114 78 H280 V414" fill="none" stroke="#7bd8ff" stroke-opacity=".7" stroke-width="2.2" stroke-dasharray="6 8" class="flu" marker-end="url(#cm-fl)"/>
+
+  <!-- derivaciones con compuerta -->
+  <g>
+    <path d="M286 170 H150" stroke="#111" stroke-width="16"/><path d="M286 170 H150" stroke="#7bd8ff" stroke-opacity=".5" stroke-width="2.2"/>
+    <rect x="232" y="158" width="10" height="24" rx="2" fill="#0a0a0a" stroke="#00ff88" stroke-opacity=".9" stroke-width="2.2" transform="rotate(28 237 170)"/>
+    <text x="142" y="176" text-anchor="end" fill="#c9c9c9" font-family="Inter,sans-serif" font-size="14" font-weight="700">Sala</text>
+  </g>
+  <g>
+    <path d="M286 250 H150" stroke="#111" stroke-width="16"/><path d="M286 250 H150" stroke="#7bd8ff" stroke-opacity=".5" stroke-width="2.2"/>
+    <rect x="232" y="238" width="10" height="24" rx="2" fill="#0a0a0a" stroke="#00ff88" stroke-opacity=".9" stroke-width="2.2" transform="rotate(-14 237 250)"/>
+    <text x="142" y="256" text-anchor="end" fill="#c9c9c9" font-family="Inter,sans-serif" font-size="14" font-weight="700">Cocina</text>
+  </g>
+  <g>
+    <path d="M286 330 H150" stroke="#111" stroke-width="16"/><path d="M286 330 H150" stroke="#7bd8ff" stroke-opacity=".5" stroke-width="2.2"/>
+    <rect x="232" y="318" width="10" height="24" rx="2" fill="#0a0a0a" stroke="#00ff88" stroke-opacity=".9" stroke-width="2.2" transform="rotate(48 237 330)"/>
+    <text x="142" y="336" text-anchor="end" fill="#c9c9c9" font-family="Inter,sans-serif" font-size="14" font-weight="700">Almacén</text>
+  </g>
+
+  <!-- registro -->
+  <rect x="264" y="386" width="36" height="34" rx="5" fill="#0a0a0a" stroke="#00ff88" stroke-opacity=".85" stroke-width="2.4" stroke-dasharray="5 4"/>
+  <text x="256" y="408" text-anchor="end" fill="#00ff88" font-family="Inter,sans-serif" font-size="13" font-weight="800">Registro</text>
+
+  <path d="M14 448 H326" stroke="#ffffff" stroke-opacity=".08" stroke-width="1.4"/>
+  <g font-family="Inter,sans-serif" font-size="14" font-weight="700" fill="#c9c9c9">
+    <circle cx="24" cy="474" r="7" fill="none" stroke="#00ff88" stroke-width="2"/><path d="m20.5 474 3 3.5 6-7" fill="none" stroke="#00ff88" stroke-width="2" stroke-linecap="round"/>
+    <text x="40" y="479">Compuerta por zona, no un caudal</text>
+    <circle cx="24" cy="506" r="7" fill="none" stroke="#00ff88" stroke-width="2"/><path d="m20.5 506 3 3.5 6-7" fill="none" stroke="#00ff88" stroke-width="2" stroke-linecap="round"/>
+    <text x="40" y="511">Registro para llegar al filtro</text>
+    <circle cx="24" cy="534" r="7" fill="none" stroke="#00ff88" stroke-width="2"/><path d="m20.5 534 3 3.5 6-7" fill="none" stroke="#00ff88" stroke-width="2" stroke-linecap="round"/>
+    <text x="40" y="539">Compensamos lo que saca la campana</text>
+  </g>
+</svg></div>
+        <p>Climatización de sala, cocina y zonas de trabajo, con conductos y retorno. Calculamos el caudal por zona para que el aire llegue donde tiene que llegar.</p>
+        <div class="crits">
+          <span>Eficiencia</span><span>Ciclo de vida</span><span>Mantenibilidad</span>
+        </div>
+      </div>
+      
+    </article>
+  </div>
+
+
+</section>
+
+<!-- ══════════ LOS TRES VALORES ══════════ -->
+<section class="valores-sec">
+  <div class="inner mid">
+    <span class="gh" aria-hidden="true">05</span>
+    <span class="eyebrow">Por qué nosotros</span>
+    <h2 class="t">Montamos como quien <span class="hl">va a tener que repararlo</span></h2>
+    <p class="intro">Porque es lo que hacemos el resto del año. Eso cambia tres decisiones que casi nadie toma bien.</p>
+  </div>
+
+  <div class="val-grid">
+    <div class="val rv">
+      <div class="ic"><svg class="i"><use href="#ic-gauge"/></svg></div>
+      <h3>Eficiencia</h3>
+      <p>Dimensionamos con la carga térmica real, no con el catálogo. Y medimos el consumo antes y después de la obra: el ahorro se comprueba, no se promete.</p>
+    </div>
+    <div class="val rv">
+      <div class="ic"><svg class="i"><use href="#ic-check"/></svg></div>
+      <h3>Ciclo de vida</h3>
+      <p>Trazado limpio, evacuación bien resuelta y carga correcta. Un equipo bien montado llega al final de su vida útil; mal montado, muere a la mitad.</p>
+    </div>
+    <div class="val rv">
+      <div class="ic"><svg class="i"><use href="#ic-tool"/></svg></div>
+      <h3>Mantenibilidad</h3>
+      <p>Válvulas de corte donde hacen falta, acceso al equipo sin desmontar media cocina y circuito rotulado. Cuando falle, se resuelve en una visita y no en tres.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ ALCANCE ══════════ -->
+<section class="alc">
+  <div class="inner mid">
+    <span class="gh" aria-hidden="true">06</span>
+    <span class="eyebrow">Alcance</span>
+    <h2 class="t">Qué entra y qué <span class="hl">no entra</span></h2>
+    <p class="intro">Preferimos decirlo claro antes de que pierdas tiempo escribiéndonos.</p>
+  </div>
+  <div class="inner alc-cols">
+    <div class="rv alcbox si">
+      <h3><svg class="i"><use href="#ic-check"/></svg> Sí lo hacemos</h3>
+      <ul class="alclist">
+        <li>Cámaras frigoríficas y de congelación: obra nueva y ampliación</li>
+        <li>Frío comercial y mobiliario refrigerado</li>
+        <li>Climatización de sala, cocina y zonas de trabajo</li>
+        <li>Aire acondicionado y renovación de aire</li>
+        <li>Sustitución de equipos al final de su vida útil</li>
+        <li>Medición de consumo antes y después de la obra</li>
+        <li>Puesta en marcha, documentación y registro de garantías</li>
+      </ul>
+    </div>
+    <div class="rv alcbox no">
+      <h3><svg class="i"><use href="#ic-minus"/></svg> No lo hacemos</h3>
+      <ul class="alclist">
+        <li>Instalaciones domésticas o de vivienda particular</li>
+        <li>Contratos de mantenimiento nuevos</li>
+        <li>Obra civil completa: trabajamos junto a tu constructora</li>
+        <li>Reparaciones sueltas fuera de nuestros montajes</li>
+      </ul>
+    </div>
+  </div>
+  <div class="inner">
+    <div class="aviso"><strong>Sobre el mantenimiento:</strong> nuestra capacidad de campo está comprometida con la red que ya atendemos, así que no abrimos contratos nuevos. Lo que sí hacemos es responder de lo que montamos: garantía, puesta a punto y soporte sobre nuestra propia instalación.</div>
+  </div>
+</section>
+
+<!-- ══════════ FAQ ══════════ -->
+<section class="faq">
+  <div class="inner mid">
+    <span class="gh" aria-hidden="true">07</span>
+    <span class="eyebrow">Dudas</span>
+    <h2 class="t">Lo que nos <span class="hl">suelen preguntar</span></h2>
+  </div>
+  <div class="inner" style="margin-top:1.75rem;max-width:800px">
+    <details class="fitem">
+      <summary>¿Cuánto tardáis en dar el presupuesto?</summary>
+      <div class="fbody"><p>Te llamamos en 48 horas laborables para entender el proyecto. Si hace falta visita, la concertamos ahí mismo. El presupuesto llega entre 3 y 7 días después de la visita, según el tamaño de la obra.</p></div>
+    </details>
+    <details class="fitem">
+      <summary>¿Trabajáis fuera de la Zona Norte?</summary>
+      <div class="fbody"><p>Nuestra base está en Cantabria y cubrimos habitualmente País Vasco, Asturias, Navarra, La Rioja y Castilla y León. Para zonas limítrofes depende del tamaño del proyecto. Pregúntanos y te decimos la verdad rápido.</p></div>
+    </details>
+    <details class="fitem">
+      <summary>¿Podéis montar con el local abierto?</summary>
+      <div class="fbody"><p>Sí, es lo habitual para nosotros. Llevamos años entrando en cocinas en horario de cierre y saliendo antes de la apertura. Se planifica por fases para que no pierdas ni un servicio.</p></div>
+    </details>
+    <details class="fitem">
+      <summary>¿Hacéis también el mantenimiento después?</summary>
+      <div class="fbody">
+        <p>Contratos de mantenimiento nuevos, no. Nuestra capacidad de campo está comprometida con la red que ya atendemos.</p>
+        <p>Lo que sí hacemos es responder de nuestra propia instalación: garantía, puesta a punto y soporte técnico sobre lo que hemos montado nosotros.</p>
+      </div>
+    </details>
+    <details class="fitem">
+      <summary>¿Qué es eso de medir antes y después?</summary>
+      <div class="fbody">
+        <p>Antes de tocar nada, instrumentamos la instalación y registramos el consumo real durante un tiempo. Al terminar el montaje, volvemos a medir con el mismo método.</p>
+        <p>Así el resultado no es una promesa nuestra: es un dato tuyo. Y si no mejora lo previsto, lo vemos los dos a la vez.</p>
+      </div>
+    </details>
+    <details class="fitem">
+      <summary>¿Subcontratáis el montaje?</summary>
+      <div class="fbody"><p>No. La instalación la hace nuestro equipo, con técnicos en plantilla y formación propia. Para obra civil sí trabajamos junto a tu constructora, cada uno en lo suyo.</p></div>
+    </details>
+  </div>
+</section>
+
+<!-- ══════════ FORMULARIO ══════════ -->
+<section class="form-sec" id="presupuesto">
+  <div class="inner mid">
+    <span class="gh" aria-hidden="true">08</span>
+    <span class="eyebrow">Siguiente paso</span>
+    <h2 class="t">Cuéntanos <span class="hl">el proyecto</span></h2>
+    <p class="intro">Te llamamos primero para entenderlo bien.</p>
+  </div>
+
+  <div class="inner" style="max-width:640px;margin-top:2rem">
+    <div class="riesgo"><i>✓</i><span><b>Si vemos que no somos los adecuados, te lo decimos</b> y te ahorramos el tiempo.</span></div>
+  </div>
+
+  <div class="fbox">
+    <h3>Pide presupuesto</h3>
+    <p class="fsub">Cuatro datos y te respondemos en 48 horas laborables.</p>
+    <form class="fg" method="POST" name="presupuesto-instalaciones" action="/gracias.html" data-netlify="true" netlify-honeypot="empresa-web">
+      <input type="hidden" name="form-name" value="presupuesto-instalaciones">
+      <p class="hp"><label>No rellenar: <input name="empresa-web" tabindex="-1" autocomplete="off"></label></p>
+
+      <div class="ig">
+        <label for="n">Nombre *</label>
+        <input id="n" type="text" name="nombre" placeholder="Tu nombre" autocomplete="name" required>
+      </div>
+      <div class="ig">
+        <label for="t">Teléfono *</label>
+        <input id="t" type="tel" name="telefono" placeholder="600 000 000" inputmode="tel" autocomplete="tel" required>
+      </div>
+      <div class="ig">
+        <label for="e">Email *</label>
+        <input id="e" type="email" name="email" placeholder="tu@email.com" inputmode="email" autocomplete="email" required>
+      </div>
+      <div class="ig">
+        <label for="p">¿Qué necesitas? *</label>
+        <select id="p" name="tipo-proyecto" required>
+          <option value="">Selecciona una opción</option>
+          <option>Instalación en obra nueva</option>
+          <option>Reforma de instalación existente</option>
+          <option>Sustitución de equipos</option>
+          <option>Ampliación de capacidad frigorífica</option>
+          <option>Climatización de sala</option>
+          <option>Todavía no lo tengo claro</option>
+        </select>
+      </div>
+
+      <button type="button" class="mas" id="verMas">+ Añadir detalles del proyecto (opcional)</button>
+
+      <div class="extra" id="extra">
+        <div class="row2">
+          <div class="ig"><label for="em">Empresa</label><input id="em" type="text" name="empresa" autocomplete="organization"></div>
+          <div class="ig"><label for="pr">Provincia</label><input id="pr" type="text" name="provincia" placeholder="Ej. Bizkaia"></div>
+        </div>
+        <div class="ig">
+          <label for="pl">¿Para cuándo?</label>
+          <select id="pl" name="plazo">
+            <option>Cuanto antes</option>
+            <option>En 1–3 meses</option>
+            <option>En 3–6 meses</option>
+            <option>Sólo estoy pidiendo precios</option>
+          </select>
+        </div>
+        <div class="ig">
+          <label for="ms">Cuéntanos el proyecto</label>
+          <textarea id="ms" name="mensaje" rows="3" placeholder="Qué local es, qué equipos hay o quieres poner, metros, cualquier cosa que ayude"></textarea>
+        </div>
+      </div>
+
+      <button type="submit" class="btn solid">Pedir presupuesto</button>
+      <p class="flegal">Sin compromiso. Tus datos sólo se usan para responderte. <a href="privacidad.html">Privacidad</a></p>
+    </form>
+  </div>
+
+  <div class="canales">
+    <a href="tel:603081740" class="canal" data-canal="telefono"><span class="ci"><svg class="i"><use href="#ic-tel"/></svg></span><span><span class="cl">Teléfono</span><span class="cv">603 08 17 40</span></span></a>
+    <a href="https://wa.me/34603081740" class="canal" data-canal="whatsapp"><span class="ci"><svg class="i"><use href="#ic-chat"/></svg></span><span><span class="cl">WhatsApp</span><span class="cv">603 08 17 40</span></span></a>
+    <a href="mailto:info@northcare.es" class="canal" data-canal="email"><span class="ci"><svg class="i"><use href="#ic-mail"/></svg></span><span><span class="cl">Email</span><span class="cv">info@northcare.es</span></span></a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <a href="index.html" class="logo">
+        <img src="logo.png" alt="Northcare">
+    </a>
+    <p class="tagline">Conocimiento que cuida</p>
+    <p class="subtag">Montajes e instalaciones de frío y climatización<br>Cantabria · País Vasco · Asturias · Navarra · La Rioja · Castilla y León</p>
+    <div class="legal">
+        <p>Northcare © 2026 · <a href="index.html">Inicio</a> · <a href="privacidad.html">Política de Privacidad</a> · <a href="cookies.html">Política de Cookies</a></p>
+    </div>
+</footer>
+
+<div class="dock">
+  <a href="#presupuesto" class="p">Pedir presupuesto</a>
+  <a href="tel:603081740" class="s" data-canal="telefono-dock"><svg class="i"><use href="#ic-tel"/></svg> Llamar</a>
+</div>
+
+<!-- Cookie Banner -->
+<div class="cookie-banner" id="cookieBanner">
+    <div class="cookie-content">
+        <p>Utilizamos cookies propias y de terceros para analizar el uso de la web. <a href="cookies.html">Más información</a></p>
+        <div class="cookie-buttons">
+            <button class="cookie-btn reject" onclick="setCookieConsent(false)">Rechazar</button>
+            <button class="cookie-btn accept" onclick="setCookieConsent(true)">Aceptar</button>
+        </div>
+    </div>
+</div>
+
+<script>
+  // Toggle mobile menu
+  function toggleMenu() {
+      const menu = document.getElementById('mobileMenu');
+      const hamburger = document.querySelector('.hamburger');
+      if (menu && hamburger) {
+          menu.classList.toggle('active');
+          hamburger.classList.toggle('active');
+          document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : '';
+      }
+  }
+
+  // Nav scroll effect
+  window.addEventListener('scroll', function() {
+      const nav = document.querySelector('nav');
+      if (window.scrollY > 50) {
+          nav.style.background = 'rgba(0,0,0,0.98)';
+          nav.style.borderBottomColor = 'rgba(0, 212, 255, 0.2)';
+      } else {
+          nav.style.background = 'rgba(0,0,0,0.95)';
+          nav.style.borderBottomColor = 'rgba(255,255,255,0.1)';
+      }
+  });
+
+
+  // Foco que sigue al cursor (sólo con ratón)
+  if (window.matchMedia('(hover:hover)').matches) {
+    document.querySelectorAll('.pqc, .vscard, .obra, .alcbox').forEach(function(c){
+      c.addEventListener('mousemove', function(ev){
+        var r = c.getBoundingClientRect();
+        c.style.setProperty('--mx', (ev.clientX - r.left) + 'px');
+        c.style.setProperty('--my', (ev.clientY - r.top) + 'px');
+      });
+    });
+  }
+
+  // Detalles opcionales del formulario
+  var vm = document.getElementById('verMas');
+  if (vm) {
+    vm.addEventListener('click', function(){
+      var ex = document.getElementById('extra');
+      ex.classList.toggle('open');
+      vm.textContent = ex.classList.contains('open') ? '− Ocultar detalles' : '+ Añadir detalles del proyecto (opcional)';
+    });
+  }
+
+  // FAQ: una abierta a la vez
+  document.querySelectorAll('.fitem').forEach(function(it){
+    it.addEventListener('toggle', function(){
+      if (it.open) document.querySelectorAll('.fitem').forEach(function(o){ if(o!==it) o.open=false; });
+    });
+  });
+
+  // Ocultar dock al llegar al formulario
+  var dock = document.querySelector('.dock'), formSec = document.getElementById('presupuesto');
+  if (dock && formSec && 'IntersectionObserver' in window) {
+    new IntersectionObserver(function(en){
+      dock.style.transform = en[0].isIntersecting ? 'translateY(120%)' : 'translateY(0)';
+    }, {threshold:.15}).observe(formSec);
+  }
+
+  // Revelado al hacer scroll
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(e,i){ if(e.isIntersecting){ setTimeout(function(){e.target.classList.add('on')}, i*70); io.unobserve(e.target);} });
+    }, {threshold:.12, rootMargin:'0px 0px -40px 0px'});
+    document.querySelectorAll('.rv').forEach(function(el){ io.observe(el); });
+  } else {
+    document.querySelectorAll('.rv').forEach(function(el){ el.classList.add('on'); });
+  }
+
+  // Barra de progreso y relleno del timeline
+  var prog = document.getElementById('prog');
+  var tl = document.querySelector('.tl');
+  function onScroll(){
+    var d = document.documentElement;
+    var pc = d.scrollTop / (d.scrollHeight - d.clientHeight) * 100;
+    if (prog) prog.style.width = pc + '%';
+    if (tl) {
+      var r = tl.getBoundingClientRect(), vh = window.innerHeight;
+      var f = Math.min(100, Math.max(0, ((vh*0.75 - r.top) / r.height) * 100));
+      tl.style.setProperty('--fill', f + '%');
+    }
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+
+  // Contador numérico
+  document.querySelectorAll('.d .n').forEach(function(el){
+    var raw = el.textContent, num = parseFloat(raw.replace(/[^\d,.]/g,'').replace('.',''));
+    if (!num || !('IntersectionObserver' in window)) return;
+    var pre = raw.startsWith('~') ? '~' : '', done = false;
+    new IntersectionObserver(function(es,ob){
+      if (!es[0].isIntersecting || done) return;
+      done = true; ob.disconnect();
+      var t0 = null;
+      function tick(ts){
+        if (!t0) t0 = ts;
+        var p = Math.min(1, (ts - t0) / 900), v = Math.round(num * (1 - Math.pow(1-p,3)));
+        el.textContent = pre + v.toLocaleString('es-ES');
+        if (p < 1) requestAnimationFrame(tick); else el.textContent = raw;
+      }
+      requestAnimationFrame(tick);
+    }, {threshold:.5}).observe(el);
+  });
+
+  // Cookies & Analytics
+  function setCookieConsent(accepted) {
+      const expires = new Date();
+      expires.setFullYear(expires.getFullYear() + 1);
+      document.cookie = 'cookie_consent=' + (accepted ? 'accepted' : 'rejected') + ';expires=' + expires.toUTCString() + ';path=/;SameSite=Lax';
+      document.getElementById('cookieBanner').classList.remove('active');
+      if (accepted) loadAnalytics();
+  }
+  function getCookieConsent() {
+      const match = document.cookie.match(/cookie_consent=([^;]+)/);
+      return match ? match[1] : null;
+  }
+  function loadAnalytics() {
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-MWTDJLNC');
+  }
+
+  // ═══ Seguimiento de conversiones (dataLayer para GTM) ═══
+  window.dataLayer = window.dataLayer || [];
+
+  document.addEventListener('DOMContentLoaded', function() {
+      // Cierre del menú móvil
+      document.querySelectorAll('.mobile-menu-link').forEach(link => {
+          link.addEventListener('click', () => {
+              const menu = document.getElementById('mobileMenu');
+              const hamburger = document.querySelector('.hamburger');
+              if (menu) menu.classList.remove('active');
+              if (hamburger) hamburger.classList.remove('active');
+              document.body.style.overflow = '';
+          });
+      });
+      const mobileMenu = document.getElementById('mobileMenu');
+      if (mobileMenu) {
+          mobileMenu.addEventListener('click', function(e) {
+              if (e.target === this) toggleMenu();
+          });
+      }
+
+      // Cookies
+      const consent = getCookieConsent();
+      if (!consent) {
+          document.getElementById('cookieBanner').classList.add('active');
+      } else if (consent === 'accepted') {
+          loadAnalytics();
+      }
+
+      // Envío del formulario
+      var f = document.querySelector('form[name="presupuesto-instalaciones"]');
+      if (f) {
+          f.addEventListener('submit', function() {
+              var tipo = f.querySelector('[name="tipo-proyecto"]');
+              var plazo = f.querySelector('[name="plazo"]');
+              window.dataLayer.push({
+                  event: 'form_submit',
+                  form_name: 'presupuesto-instalaciones',
+                  pagina: 'instalaciones',
+                  tipo_proyecto: tipo ? tipo.value : '',
+                  plazo: plazo ? plazo.value : ''
+              });
+          });
+      }
+
+      // Clics en teléfono, WhatsApp y email
+      document.querySelectorAll('[data-canal]').forEach(function(a) {
+          a.addEventListener('click', function() {
+              window.dataLayer.push({
+                  event: 'contacto_click',
+                  canal: a.getAttribute('data-canal'),
+                  pagina: 'instalaciones'
+              });
+          });
+      });
+
+      // Profundidad de lectura
+      var hitos = [25, 50, 75, 100], vistos = [];
+      window.addEventListener('scroll', function() {
+          var d = document.documentElement;
+          var pc = Math.round(d.scrollTop / (d.scrollHeight - d.clientHeight) * 100);
+          hitos.forEach(function(x) {
+              if (pc >= x && vistos.indexOf(x) === -1) {
+                  vistos.push(x);
+                  window.dataLayer.push({ event: 'scroll_depth', porcentaje: x, pagina: 'instalaciones' });
+              }
+          });
+      }, { passive: true });
+  });
+</script>
+</body>
+</html>
