@@ -21,3 +21,6 @@
 
 /images/*
   Cache-Control: public, max-age=31536000, immutable
+
+/socios-cardinal-2026.html
+  X-Robots-Tag: noindex, nofollow, noarchive, nosnippet
